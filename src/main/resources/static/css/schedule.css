@@ -1,0 +1,365 @@
+
+#searchContainer {
+    width: 100%;
+    background: #28536a;
+    padding: 10px 0;
+    box-sizing: border-box;
+}
+
+.searchArea > form {
+    position: relative;
+}
+.searchArea > form > input {
+    width: 800px;
+    height: 10px;
+    border-radius: 5px;
+    border: none;
+    padding: 20px;
+    font-size: 1.5rem;
+}
+
+.searchArea > form > input:focus {
+    outline: none;
+}
+
+.searchArea > form > button {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translate(0, -50%);
+    border: none;
+    background: transparent;
+}
+
+.xi-search {
+    font-size: 2.5rem;
+}
+
+.searchArea {
+    width: 1180px;
+    margin: 0 auto;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+.subNavIcon {
+    width: 330px;
+    border-radius: 5px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+    align-items: center;
+    background: #fff;
+}
+
+.subNavIcon > li > a > span {
+    display: block;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: #000;
+}
+
+.subNavIcon > li > a > img {
+    width: 35px;
+}
+
+.naviHide {
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    left: 0;
+    background: #fff;
+    box-shadow: 0 0 15px 0 #1111113e;
+}
+
+main {
+    position: relative;
+    width: 1180px;
+    padding: 30px 0 30px 0;
+    margin: 0 auto;
+}
+
+.buttonArea {
+    width: 100%;
+    height: 80px;
+}
+
+#createSchedule {
+    padding: 15px 100px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 20px 0 20px 0;
+    float: right;
+    cursor: pointer;
+    border: none;
+    border: 1px solid #1785f2;
+    background: transparent;
+    color: #1785f2;
+}
+
+#createSchedule:hover {
+    background: #1785f2;
+    color: #fff;
+}
+
+#schedulePrint {
+    width: 100%;
+    margin: 10px 0 50px 0;
+}
+
+.scheduleContentsItem {
+    position: relative;
+    width: 100%;
+    height: 241px;
+    /* box-shadow: 0 0 15px 0 #1111113e; */
+    border-radius: 10px;
+    padding: 20px;
+    background: linear-gradient(45deg, rgba(190, 224, 206, 1) 0%, #fdebe0 90%);
+    margin: 0 0 25px 0;
+    box-sizing: border-box;
+}
+
+.scheduleContentsItem > div:first-child {
+    box-sizing: border-box;
+}
+
+.scheduleItemSlider > li {
+    width: 250px;
+    height: 110px;
+}
+
+.contentTextArea {
+    width: 400px;
+    height: 110px;
+    margin: 0 0 0 370px;
+}
+
+.contentsText > li > h1 {
+    font-size: 2rem;
+    color: #333;
+    font-weight: 500;
+    margin: 20px 0 10px 0;
+}
+
+.xi-ellipsis-v {
+    position: absolute;
+    top: 15px;
+    right: 10px;
+    font-size: 3.2rem;
+    color: #333;
+    cursor: pointer;
+}
+
+.menuList {
+    position: absolute;
+    display: none;
+    top: 50px;
+    right: 20px;
+    width: 60px;
+    background: #fff;
+    padding: 10px;
+    text-align: center;
+    border-radius: 7px;
+    border: 1px solid #eee;
+    z-index: 555;
+    box-shadow: 0 0 15px 0 #11111130;
+}
+
+.show {
+    display: block;
+}
+
+.menuList > ul > li {
+    border-bottom: 1px solid #aaa;
+    line-height: 20px;
+    height: 20px;
+    padding: 10px 0 10px 0;
+}
+
+.menuList > ul > li:last-child {
+    border: none;
+}
+
+.menuList > ul > li > a {
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: #111;
+}
+
+.menuList > ul > li > a:hover {
+    font-size: 1.4rem;
+    color: #1785f2;
+}
+
+.daysPrint {
+    width: 100%;
+    padding: 20px 0 0 0;
+    box-sizing: border-box;
+    border-top: 1px solid #fff;
+}
+.daysPrintList {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+}
+
+.daysPrintList > li {
+    margin: 0px 10px 0 0;
+}
+
+.daysPrintList > li > a {
+    text-align: center;
+    line-height: 50px;
+    display: inline-block;
+    width: 100px;
+    height: 50px;
+    font-size: 1.3rem;
+    background: #fff;
+    color: #111;
+    font-weight: 600;
+    border-radius: 5px;
+}
+
+/* 모달 */
+.modal {
+    display: none;
+}
+
+.modal-content {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    height: 600px;
+    background-color: #fff;
+    padding: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+
+.calendarMounthView {
+    margin: 20px auto;
+    width: 350px;
+    height: 335px;
+    overflow: hidden;
+}
+
+.ctr-box {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin: 30px 0 30px 0;
+}
+
+.ctr-box > h2 {
+    font-size: 2rem;
+    color: #111;
+    font-weight: 500;
+    margin: 0 50px;
+}
+
+.ctr-box > a > i {
+    font-size: 2rem;
+    color: #111;
+}
+
+.cal-selectedView {
+    font-size: 2.5rem;
+    color: #111;
+}
+
+#scheduleSubjectTitle {
+    display: block;
+    width: 400px;
+    height: 50px;
+    font-size: 1.5rem;
+    font-weight: 500;
+    padding: 3px 15px;
+    margin: 0 auto 50px;
+    border: none;
+    border-radius: 8px;
+    background: #efefef;
+}
+
+#scheduleSubjectTitle::placeholder {
+    color: #999;
+}
+
+input:focus {
+    outline: none;
+}
+
+th {
+    height: 35px;
+    font-size: 1.8rem;
+    font-weight: 400;
+}
+
+.cal-body > tr > td {
+    text-align: center;
+    width: 50px;
+    height: 50px;
+    font-size: 1.8rem;
+    font-weight: 400;
+    line-height: 50px;
+    cursor: pointer;
+}
+
+footer {
+    margin-top: 400px;
+    width: 100%;
+    height: 300px;
+    background: #28536a;
+}
+
+.modal-content > ul {
+    float: right;
+}
+
+.modal-content > ul > li {
+    float: left;
+}
+
+.nextBtn,
+#closeModal {
+    width: 90px;
+    height: 38px;
+    box-sizing: border-box;
+    margin: -30px 5px 0 3px;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1.4rem;
+}
+
+#closeModal {
+    border: 1px solid #111;
+    background: transparent;
+    color: #111;
+}
+
+.nextBtn {
+    background: #1785f2;
+}
+
+.day-disabled {
+    color: #bbb;
+}
+
+.day-range {
+    background: #78dba35c;
+    color: #111;
+}
+.day-active {
+    background: #78dba3;
+    border-radius: 0 50px 50px 0;
+    color: #fff;
+}
+.day-start {
+    background: #78dba3;
+    border-radius: 50px 0 0 50px;
+    color: #fff;
+}

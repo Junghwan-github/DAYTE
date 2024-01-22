@@ -1,0 +1,255 @@
+
+main {
+  width: 1180px;
+  margin: 70px auto;
+}
+
+.container {
+  width: 1180px;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+}
+
+.joinForm2 {
+  background-color: #ffffff;
+  padding: 50px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  /*box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;*/
+  margin: 0 auto;
+  width: 650px;
+  border: none;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+.joinForm2 > div > h1 {
+  font-size: 2.4rem;
+
+  padding-left: 10px;
+  color: #28536a;
+}
+
+.joinInfo {
+  width: 100%;
+  height: 60px;
+  margin: 0 auto;
+}
+
+.joinInfo ul {
+  float: right;
+}
+
+.joinInfo h1,
+.joinInfo ul,
+.joinInfo ul li {
+  display: inline-block;
+}
+
+.joinInfo ul img:nth-child(n) {
+  width: 25px;
+  height: 25px;
+  margin: 0 5px;
+}
+
+.formBorder {
+  border: 1px solid #dce6d7;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px 0 inset;
+}
+
+.formDivine {
+  border-bottom: 1px solid #dce6d7;
+}
+.formItem {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  /* position: relative; */
+  width: 100%;
+  height: 45px;
+  margin: 0;
+  background-color: transparent;
+}
+
+input::placeholder {
+  color: #999;
+  font-size: 1.4rem;
+}
+.emailId {
+  border: 1px solid #dce6d7;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px 0 inset;
+  width: 430px;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  height: 45px;
+  margin: 0;
+}
+
+.email {
+  box-sizing: border-box;
+  padding-left: 15px;
+  border: none;
+  border-radius: 10px;
+  background-color: transparent;
+
+}
+
+#id {
+  width: 150px;
+  /*450*/
+}
+
+#emailDomain {
+  width: 130px;
+  /*200*/
+  padding: 0 10px;
+}
+
+.formList div:first-child select {
+  box-sizing: border-box;
+  padding-left: 15px;
+  width: 80px;
+  height: 100%;
+}
+
+.joinInput {
+  width: 100%;
+  background-color: transparent;
+  display: inline-block;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 10px;
+  padding-left: 10px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.formItem img:nth-child(n)
+,.validateCk img{
+  width: 15px;
+  height: 15px;
+  margin: 10px 0 10px 10px;
+}
+
+.emailId img {
+  width: 15px;
+  height: 15px;
+  margin: 10px 0 10px 10px;
+}
+
+select[name="gender"] {
+  width: 400px;
+  height: 100%;
+  padding-left: 35px;
+}
+
+select {
+  outline: none;
+
+  font-weight: 500;
+  font-size: 1.4rem;
+  color: #999;
+
+  border-radius: 10px;
+  border: none;
+  background-color: transparent;
+}
+
+#domainSelect {
+  width: 120px;
+}
+input {
+  outline: none;
+}
+
+.validateCk {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+.verificationBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 45px;
+  margin: 0;
+  background-color: transparent;
+}
+
+.timer > span {
+  font-size: 1.4rem;
+  color : red;
+  margin-right: 10px;
+}
+
+
+/* 인증번호 발송 버튼 */
+
+.EmailBttn {
+  padding: 0 10px 0 10px;
+  border-radius: 5px;
+  border: none;
+  height: 30px;
+  margin-right: 10px;
+
+  background-color: #28536a;
+  color: #fff;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  font-weight: 600;
+  font-size: 1.4rem;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
+#numCheck {
+  margin-right: 12px;
+}
+
+
+/* 전송 버튼 */
+.submitBttn {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+.submitBttn button {
+  margin: 0 auto;
+  width: 250px;
+  height: 40px;
+
+  border-radius: 5px;
+  border: none;
+
+  background-color: #28536a;
+  color: #fff;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  font-weight: 600;
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+  word-spacing: 0.6rem;
+  cursor: pointer;
+}
+
+/* error Msg */
+.errorMsg {
+  height: 25px;
+  color: red;
+  line-height: 1.5;
+  font-size: 1rem;
+  padding-left: 20px;
+  margin: 5px 0;
+}
+.errorFocus {
+  border: 1px solid red;
+}
+
+.hide {
+  display: none;
+  /*visibility: hidden;*/
+}
