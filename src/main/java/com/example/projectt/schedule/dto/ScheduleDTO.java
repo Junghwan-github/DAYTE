@@ -1,6 +1,6 @@
 package com.example.projectt.schedule.dto;
 
-import com.example.projectt.members.User;
+import com.example.projectt.members.domain.User;
 import com.example.projectt.schedule.domain.Contents;
 import lombok.AllArgsConstructor;
 import lombok.Data;

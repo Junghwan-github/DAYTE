@@ -1,6 +1,6 @@
 package com.example.projectt.members.dto;
 
-import com.example.projectt.members.RoleType;
+import com.example.projectt.members.domain.RoleType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;

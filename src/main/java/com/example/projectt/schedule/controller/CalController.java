@@ -1,6 +1,6 @@
 package com.example.projectt.schedule.controller;
 
-import com.example.projectt.members.dto.UserSecurityDTO;
+import com.example.projectt.security.dto.UserSecurityDTO;
 import com.example.projectt.schedule.dto.ScheduleDateDTO;
 import com.example.projectt.schedule.service.ScheduleDateService;
 import com.example.projectt.schedule.service.ScheduleService;

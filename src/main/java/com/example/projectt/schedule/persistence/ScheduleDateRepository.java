@@ -1,7 +1,7 @@
 
 package com.example.projectt.schedule.persistence;
 
-import com.example.projectt.members.User;
+import com.example.projectt.members.domain.User;
 import com.example.projectt.schedule.domain.ScheduleDate;
 import org.springframework.data.jpa.repository.JpaRepository;
 
