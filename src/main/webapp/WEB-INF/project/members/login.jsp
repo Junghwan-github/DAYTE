@@ -11,7 +11,7 @@
 <script src="/js/header.js"></script>
   <section class="loginForm">
     <form action="/members/securitylogin" method="post">
-      <h1>Project T 로그인</h1>
+      <h1>DAYTE 로그인</h1>
       <ul>
         <li>
           <label for="userId"></label>
@@ -29,21 +29,22 @@
   </section>
   <section class="joinForm">
     <div class="apiWrap">
-      <h2>간편 회원가입</h2>
-      <p>10초 만에 간편하게 가입하세요!</p>
+      <h2>간편 로그인</h2>
+      <p>10초 만에 간편하게 로그인하세요!</p>
       <ul class="apiJoin">
         <li>
-          <img src="../images/go_logo.png" />
-          <span>Google 계정으로 회원가입</span>
+          <img src="../images/googlelogo.png" />
+          <span>Google 계정으로 로그인</span>
         </li>
         <li>
-          <img src="../images/ap_logo.png" />
-          <span>Apple 계정으로 회원가입</span>
+          <img class="kaka" src="../images/kakaologo.png" />
+          <span>KAKAO 계정으로 로그인</span>
         </li>
         <li>
-          <img class="kaka" src="../images/ka_logo.png" />
-          <span>KAKAO 계정으로 회원가입</span>
+          <img src="../images/naverlogo.png" />
+          <span>Naver 계정으로 로그인</span>
         </li>
+
       </ul>
       <ul class="subNavi">
         <li><a href="/members/join">회원가입</a></li>
