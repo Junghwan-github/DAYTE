@@ -201,6 +201,7 @@
               <option value="other">그 외</option>
             </select>
           </div>
+
           <div class="submitBttn">
             <button type="button" id="signBttn">회원 가입</button>
           </div>

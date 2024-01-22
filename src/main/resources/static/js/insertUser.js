@@ -27,8 +27,7 @@ let userObject = {
             data : JSON.stringify(user),
             contentType : "application/json; charset=utf-8",
         }).done(function (response) {
-            if(response == 200) {
-                console.log("ddddd")
+            if(response === 200) {
                 alert("회원가입이 완료되었습니다.");
                 location = "/";
             } else {

@@ -40,7 +40,7 @@ public class UserController {
             for(FieldError err : bindingResult.getFieldErrors()) {
                 errMap.put(err.getField(), err.getDefaultMessage());
             }
-            return HttpStatus.BAD_REQUEST.value();
+            return  HttpStatus.BAD_REQUEST.value();
         }
 
         userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
