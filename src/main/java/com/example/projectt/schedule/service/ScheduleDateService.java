@@ -1,8 +1,8 @@
 package com.example.projectt.schedule.service;
 
 
-import com.example.projectt.members.User;
-import com.example.projectt.members.dto.UserSecurityDTO;
+import com.example.projectt.members.domain.User;
+import com.example.projectt.security.dto.UserSecurityDTO;
 import com.example.projectt.schedule.domain.ScheduleDate;
 import com.example.projectt.schedule.dto.ScheduleDateDTO;
 import com.example.projectt.schedule.persistence.ScheduleDateRepository;

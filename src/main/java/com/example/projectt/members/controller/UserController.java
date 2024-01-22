@@ -1,7 +1,7 @@
 package com.example.projectt.members.controller;
 
-import com.example.projectt.members.RoleType;
-import com.example.projectt.members.User;
+import com.example.projectt.members.domain.RoleType;
+import com.example.projectt.members.domain.User;
 import com.example.projectt.members.dto.ResponseDTO;
 import com.example.projectt.members.dto.UserDTO;
 import com.example.projectt.members.service.UserService;

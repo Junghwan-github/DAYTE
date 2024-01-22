@@ -1,6 +1,6 @@
 package com.example.projectt.schedule.domain;
 
-import com.example.projectt.members.User;
+import com.example.projectt.members.domain.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

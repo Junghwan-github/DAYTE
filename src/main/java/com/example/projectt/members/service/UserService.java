@@ -1,6 +1,6 @@
 package com.example.projectt.members.service;
 
-import com.example.projectt.members.User;
+import com.example.projectt.members.domain.User;
 import com.example.projectt.members.persistence.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
