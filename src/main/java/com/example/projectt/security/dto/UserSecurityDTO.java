@@ -1,6 +1,6 @@
-package com.example.projectt.members.dto;
+package com.example.projectt.security.dto;
 
-import com.example.projectt.members.RoleType;
+import com.example.projectt.members.domain.RoleType;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

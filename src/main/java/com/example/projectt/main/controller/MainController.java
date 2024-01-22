@@ -1,5 +1,6 @@
 package com.example.projectt.main.controller;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -25,4 +26,11 @@ public class MainController {
     public String joinForm () {
         return "members/joinForm";
     }
+    @GetMapping("/contents/detail") // 임시로 불러오게만~~
+    public String content() { return "contents/contentsInfo";}
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/admin/home")
+    public String adminHome() {
+        return "adminPage/adminHome";}
+
 }
