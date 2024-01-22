@@ -26,7 +26,8 @@ public class MainController {
     public String joinForm () {
         return "members/joinForm";
     }
-
+    @GetMapping("/contents/detail") // 임시로 불러오게만~~
+    public String content() { return "contents/contentsInfo";}
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/admin/home")
     public String adminHome() {
