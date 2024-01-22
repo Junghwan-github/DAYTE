@@ -27,15 +27,16 @@ let userObject = {
             data : JSON.stringify(user),
             contentType : "application/json; charset=utf-8",
         }).done(function (response) {
-            let status = response["status"];
-            if(status == 200) {
-                let message = response["data"];
+            if(response == 200) {
+                console.log("ddddd")
                 alert("회원가입이 완료되었습니다.");
-                loccation = "/";
+                location = "/";
             } else {
                 let warn = "";
                 let errors = response["data"];
+                console.log(errors + 1);
                 if(typeof errors == "object") {
+                    console.log("SECOND IF");
                     if(errors.userEmail != null) warn = warn + errors.userEmail + "\n"
                     if(errors.userName != null) warn = warn + errors.userName + "\n"
                     if(errors.password != null) warn = warn + errors.password + "\n"
@@ -44,6 +45,7 @@ let userObject = {
                     if(errors.birthDate != null) warn = warn + errors.birthDate + "\n"
                     if(errors.gender != null) warn = warn + errors.gender;
                 } else {
+                    console.log("SECOND ELSE");
                     warn = response["data"];
                 }
                 alert(warn);
@@ -52,7 +54,6 @@ let userObject = {
             alert("에러 발생 : " + error);
         });
     },
-
 }
 
 userObject.init();

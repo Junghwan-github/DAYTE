@@ -202,9 +202,10 @@
             </select>
           </div>
           <div class="submitBttn">
-            <button type="submit" id="signBttn">회원 가입</button>
+            <button type="button" id="signBttn">회원 가입</button>
           </div>
         </form>
+
 
       </div>
     </main>
