@@ -1,15 +1,21 @@
 package com.example.projectt.schedule.controller;
 
-import com.example.projectt.security.dto.UserSecurityDTO;
+
+import com.example.projectt.members.dto.ResponseDTO;
+import com.example.projectt.schedule.domain.ScheduleDate;
 import com.example.projectt.schedule.dto.ScheduleDateDTO;
 import com.example.projectt.schedule.service.ScheduleDateService;
 import com.example.projectt.schedule.service.ScheduleService;
+import com.example.projectt.security.dto.UserSecurityDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,63 +23,34 @@ import java.util.Map;
 public class CalController {
 
     @Autowired
-    private ScheduleService contentsService;
-
-    @Autowired
     private ScheduleDateService scheduleDateService;
-
-    @GetMapping("/schedule/scheduleList/{uuid}")
-    public String getScheduleList(
-            @PathVariable String uuid,
-            Model model) {
-        model.addAttribute("ScheduleDate", scheduleDateService.selectScheduleDate(uuid));
-        return "scheduleList/memberSchedule";
-    }
 
     @GetMapping("/schedule/scheduleList")
     public String moveScheduleList(Model model,
-    @AuthenticationPrincipal UserSecurityDTO userSecurityDTO) {
+                                   @AuthenticationPrincipal UserSecurityDTO userSecurityDTO) {
 
-        model.addAttribute("selectScheduleDate", scheduleDateService.selectScheduleByUser(userSecurityDTO));
+        model.addAttribute("userScheduleList", scheduleDateService.selectScheduleByUser(userSecurityDTO))
+                .addAttribute("dDay", LocalDate.now().toEpochDay());
         return "scheduleList/scheduleList";
     }
 
     @PostMapping("/schedule/scheduleList")
-    public @ResponseBody Map<String, String> insertScheduleList(
+    public @ResponseBody ResponseDTO<?> insertScheduleList(
             @RequestBody ScheduleDateDTO scheduleDTO,
             @AuthenticationPrincipal UserSecurityDTO userSecurityDTO
     ) {
-        Map<String, String> response = new HashMap<>();
-        scheduleDateService.insertScheduleDate(userSecurityDTO, scheduleDTO);
-        response.put("status", "success");
-        response.put("message", "일정이 성공적으로 추가되었습니다.");
-        response.put("uuid", scheduleDateService.findScheduleByUserAndStartDate(userSecurityDTO, scheduleDTO).getUuid());
-        return response;
+        ScheduleDate findSchedule = scheduleDateService.getUserScheduleDate(scheduleDTO, userSecurityDTO);
+        if (findSchedule.getStartDate() == null) {
+            scheduleDateService.insertScheduleDate(userSecurityDTO, scheduleDTO);
+            return new ResponseDTO<>(HttpStatus.OK.value(), "일정이 등록 되었습니다.");
+        } else {
+            return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "일정이 이미 있습니다.");
+        }
     }
 
-    @GetMapping("/schedule/map/{uuid}")
-    public String insertSchedule(@RequestParam(name = "nextDays", defaultValue = "0") int nextDays,
-                                 @PathVariable String uuid,
-                                 Model model) {
-        model.addAttribute("nextDays", nextDays)
-                .addAttribute("contentsList", contentsService.getContentsList())
-                .addAttribute("uuid", uuid);
-        return "scheduleList/map";
-    }
-
-    @GetMapping("/schedule/scheduleLists/{uuid}")
-    public String saveSchedule(@RequestParam(name = "saveSchedule", required = false) String saveSchedule,
-                               @RequestParam(name = "nextDays", required = false) int nextDays,
-                               @PathVariable String uuid,
-                               @AuthenticationPrincipal UserSecurityDTO userSecurityDTO,
-                               Model model) {
-
-        contentsService.insertSchedule(saveSchedule, nextDays, userSecurityDTO, uuid);
-
-        model.addAttribute("nextDay", nextDays)
-                    .addAttribute("ScheduleDate", scheduleDateService.selectScheduleDate(uuid))
-                    .addAttribute("saveSchedule", contentsService.selectSchedule(uuid));
-
-    return "scheduleList/memberSchedule";
+    @DeleteMapping("/schedule/scheduleList/{del}")
+    public void deleteSchedule(@PathVariable LocalDate del,
+                               @AuthenticationPrincipal UserSecurityDTO userSecurityDTO) {
+        scheduleDateService.deleteSchedule(del, userSecurityDTO);
     }
 }

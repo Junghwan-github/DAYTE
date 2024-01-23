@@ -135,7 +135,7 @@ main {
     margin: 0 0 0 370px;
 }
 
-.contentsText > li > h1 {
+.contentsText > li > span {
     font-size: 2rem;
     color: #333;
     font-weight: 500;
@@ -208,7 +208,8 @@ main {
     margin: 0px 10px 0 0;
 }
 
-.daysPrintList > li > a {
+.daysPrintList > li > button {
+    border: none;
     text-align: center;
     line-height: 50px;
     display: inline-block;
@@ -219,6 +220,7 @@ main {
     color: #111;
     font-weight: 600;
     border-radius: 5px;
+    cursor: pointer;
 }
 
 /* 모달 */
@@ -361,5 +363,11 @@ footer {
 .day-start {
     background: #78dba3;
     border-radius: 50px 0 0 50px;
+    color: #fff;
+}
+
+.today {
+    background: #ffea00;
+    border-radius: 50%;
     color: #fff;
 }
