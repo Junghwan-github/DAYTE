@@ -57,6 +57,7 @@
         <li><a href="#">비밀번호를 잊으셨나요?</a></li>
       </ul>
     </div>
+
   </section>
 <%@include file="../layout/footer.jsp"%>
 </body>
