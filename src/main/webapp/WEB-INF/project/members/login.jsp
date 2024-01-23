@@ -30,11 +30,11 @@
   <section class="joinForm">
     <div class="apiWrap">
       <h2>간편 로그인</h2>
-      <p>10초 만에 간편하게 로그인하세요!</p>
+      <p>회원가입 없이 간편하게 로그인하세요.</p>
       <ul class="apiJoin">
         <li>
           <img src="../images/googlelogo.png" />
-          <span>Google 계정으로 로그인</span>
+          <span>GOOGLE 계정으로 로그인</span>
         </li>
         <li>
           <img class="kaka" src="../images/kakaologo.png" />
@@ -42,7 +42,7 @@
         </li>
         <li>
           <img src="../images/naverlogo.png" />
-          <span>Naver 계정으로 로그인</span>
+          <span>NAVER 계정으로 로그인</span>
         </li>
 
       </ul>
