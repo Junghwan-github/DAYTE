@@ -1,11 +1,11 @@
 package com.example.projectt.schedule.service;
 
-
 import com.example.projectt.members.domain.User;
-import com.example.projectt.security.dto.UserSecurityDTO;
 import com.example.projectt.schedule.domain.ScheduleDate;
+import com.example.projectt.schedule.dto.ScheduleDTO;
 import com.example.projectt.schedule.dto.ScheduleDateDTO;
 import com.example.projectt.schedule.persistence.ScheduleDateRepository;
+import com.example.projectt.security.dto.UserSecurityDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,15 +30,15 @@ public class ScheduleDateService {
     @Transactional
     public void insertScheduleDate(UserSecurityDTO userSecurityDTO, ScheduleDateDTO scheduleDTO) {
         try {
-            // UUID 생성 및 필요한 정보로 ScheduleDate 생성 후 저장
-            String uuid = generateUUID();
             User user = mapUserDTOToUser(userSecurityDTO);
-
             LocalDate startDay = parseDateString(scheduleDTO.getStartDate());
             LocalDate endDay = parseDateString(scheduleDTO.getEndDate());
+            String title = scheduleDTO.getTitle();
 
+            String uuid = generateUUID();
             ScheduleDate scheduledate = ScheduleDate.builder()
                     .uuid(uuid)
+                    .title(title)
                     .user(user)
                     .startDate(startDay)
                     .endDate(endDay)
@@ -68,7 +68,7 @@ public class ScheduleDateService {
     public List<ScheduleDate> selectScheduleByUser(UserSecurityDTO userSecurityDTO) {
         try {
             User user = modelMapper.map(userSecurityDTO, User.class);
-            List<ScheduleDate> result = scheduleDateRepository.findByUser(user);
+            List<ScheduleDate> result = scheduleDateRepository.findByUserOrderByStartDate(user);
             return result;
         } catch (Exception e) {
             handleException("사용자 일정 확인에 실패했습니다", e);
@@ -76,23 +76,27 @@ public class ScheduleDateService {
         }
     }
 
-    @Transactional
-    public ScheduleDate selectScheduleDate(String uuid) {
-        try {
-            // UUID를 기반으로 일정 조회
-            Optional<ScheduleDate> result = scheduleDateRepository.findById(uuid);
-            return result.orElseGet(null);
-        } catch (Exception e) {
-            handleException("UUID별 일정 확인에 실패했습니다", e);
-            return null;
-        }
+    @Transactional(readOnly = true)
+    public ScheduleDate getUserScheduleDate(ScheduleDateDTO scheduleDateDTO, UserSecurityDTO userSecurityDTO) {
+            User user = mapUserDTOToUser(userSecurityDTO);
+            LocalDate startDate = parseDateString(scheduleDateDTO.getStartDate());
+            ScheduleDate result = scheduleDateRepository.findByUserAndStartDate(user, startDate).orElseGet(() ->{
+                return new ScheduleDate();
+            });
+            return result;
+    }
+
+    public void deleteSchedule(LocalDate del, UserSecurityDTO userSecurityDTO) {
+        User user = mapUserDTOToUser(userSecurityDTO);
+        ScheduleDate scheduleDate = scheduleDateRepository.findByUserAndStartDate(user,del).get();
+        scheduleDateRepository.deleteById(scheduleDate.getUuid());
     }
 
     private String generateUUID() {
         return UUID.randomUUID().toString();
     }
 
-    public User mapUserDTOToUser(UserSecurityDTO userSecurityDTO) {
+    private User mapUserDTOToUser(UserSecurityDTO userSecurityDTO) {
         return modelMapper.map(userSecurityDTO, User.class);
     }
 
