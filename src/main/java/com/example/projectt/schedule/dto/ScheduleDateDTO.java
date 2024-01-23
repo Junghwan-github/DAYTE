@@ -11,5 +11,6 @@ public class ScheduleDateDTO {
     private String startDate;
     private String endDate;
     private String userEmail;
+    private String title;
     private String uuid;
 }

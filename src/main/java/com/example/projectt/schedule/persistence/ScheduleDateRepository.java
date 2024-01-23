@@ -3,6 +3,7 @@ package com.example.projectt.schedule.persistence;
 
 import com.example.projectt.members.domain.User;
 import com.example.projectt.schedule.domain.ScheduleDate;
+import jakarta.persistence.OrderBy;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDate;
@@ -13,5 +14,6 @@ public interface ScheduleDateRepository extends JpaRepository<ScheduleDate, Stri
 
     Optional<ScheduleDate> findByUserAndStartDate (User user, LocalDate startDate);
 
-    List<ScheduleDate> findByUser(User user);
+
+    List<ScheduleDate> findByUserOrderByStartDate(User user);
 }
