@@ -11,17 +11,19 @@ $(document).ready(function () {
     });
 });
 
-let selectedClass = document.querySelector("#schedulePrint");
-let contentsSubNavBtn = selectedClass.querySelectorAll(".xi-ellipsis-v");
-let menuList = selectedClass.querySelector(".scheduleContentsItem > .menuList");
+let scheduleItems = document.querySelectorAll(".scheduleContentsItem");
 
-contentsSubNavBtn.forEach(function (button) {
-    button.addEventListener("click", (e) => {
-        let scheduleItem = button.closest(".scheduleContentsItem");
+scheduleItems.forEach(function (scheduleItem) {
+    let contentsSubNavBtn = scheduleItem.querySelector(".xi-ellipsis-v");
 
-        // 해당 scheduleItem에서 .menuList를 찾아 클래스를 토글
+    contentsSubNavBtn.addEventListener("click", function (e) {
         let menuList = scheduleItem.querySelector(".menuList");
-        menuList.classList.toggle("show");
-        e.preventDefault;
+
+        if (menuList) {
+            menuList.classList.toggle("show");
+        }
+
+        e.preventDefault();
     });
 });
+

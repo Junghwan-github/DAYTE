@@ -1,51 +1,12 @@
 const init = {
-    monList: [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
-    ],
-    dayList: [
-        "Sunday",
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-    ],
     selectedDates: [],
-    today: new Date(),
-    monForChange: new Date().getMonth(),
-    activeDate: new Date(),
-    getFirstDay: (yy, mm) => new Date(yy, mm, 1),
-    getLastDay: (yy, mm) => new Date(yy, mm + 1, 0),
+    today        : new Date(),
+    monForChange : new Date().getMonth(),
+    activeDate   : new Date(),
+    getFirstDay  : (yy, mm) => new Date(yy, mm, 1),
+    getLastDay   : (yy, mm) => new Date(yy, mm + 1, 0),
 
-    nextMonth: function () {
-        const { activeDate } = this;
-        const nextDate = new Date(
-            activeDate.getFullYear(),
-            activeDate.getMonth() + 1,
-            1
-        );
-
-        if (
-            nextDate > this.today &&
-            nextDate <= new Date(this.today.getFullYear() + 1, this.today.getMonth())
-        )
-            this.activeDate = nextDate;
-        else alert("현재일로부터 1년까지만 설정 할 수 있습니다.");
-        return this.activeDate;
-    },
-    selectDate: function (date) {
+    selectDate         : function (date) {
         const index = this.selectedDates.indexOf(date);
         const $todayCell = document.querySelectorAll(".day");
         let isToday;
@@ -57,13 +18,12 @@ const init = {
 
         $todayCell.forEach((day) => {
             isToday = day.classList.contains("today");
-            if (isToday) {
+            if (isToday)
                 day.classList.remove("today");
-            }
-        });
-
+            });
         this.applySelectedStyles();
     },
+
     applySelectedStyles: function () {
         const $days = document.querySelectorAll(".day");
         $days.forEach(($day) => {
@@ -103,20 +63,11 @@ const init = {
         return this.activeDate;
     },
 
-    addZero: (num) => (num < 10 ? "0" + num : num),
+    addZero   : (num) => (num < 10 ? "0" + num : num),
     activeDTag: null,
-    getIndex: function (node) {
-        let index = 0;
-        while ((node = node.previousElementSibling)) {
-            index++;
-        }
-        return index;
-    },
 };
 
 const $calTable = document.querySelector(".cal-table");
-// const $btnNext = document.querySelector(".btn-cal.next");
-// const $btnPrev = document.querySelector(".btn-cal.prev");
 
 function check() {
     const $days = document.querySelectorAll(".day");
@@ -142,20 +93,6 @@ function check() {
         }
     });
 }
-
-// function ctrBoxAlink(v) {
-//   let ctd = new Date();
-//   let nextPrev = v;
-//   let maxv = 0;
-//   let minMaxMonth = mmv < 13 ? maxv++
-
-//   if (nextPrev == "next") {
-//     return (ctd.getMonth() + (1 + 1)).toString().padStart(2, "0");
-//   } else if (nextPrev == "prev") {
-//     return (ctd.getMonth() + (1 - 1)).toString().padStart(2, "0");
-//   }
-// }
-// console.log(ctrBoxAlink());
 
 $(".ctr-box").append(
     `<a id='prevLink' href="calMonth-1"><i class="xi-angle-left"></i></a><h2>${
@@ -271,9 +208,8 @@ function loadYYMM(fullDate) {
 loadYYMM(init.today);
 
 const $nextBtn = document.querySelector(".nextBtn");
-
-const $calBody = document.querySelector(".cal-body");
-const $calendarBox = document.querySelector(".ctr-box");
+const $uSchedule = document.querySelector(".uSchedule");
+const $nextDayBtn = document.querySelectorAll(".nextDayBtn");
 
 /**
  * @param {string} val
@@ -330,31 +266,26 @@ function choiceDate(t) {
     }
 }
 
-// $btnNext.addEventListener("click", () => {
-//   init.nextMonth();
-//   loadYYMM(init.activeDate);
-//   check();
-
-// });
-
-// $btnPrev.addEventListener("click", () => {
-//   init.prevMonth();
-//   loadYYMM(init.activeDate);
-//   check();
-// });
-
-// "다음" 버튼에 대한 이벤트 핸들러 추가
+// "확인" 버튼에 대한 이벤트 핸들러 추가
 $nextBtn.addEventListener("click", function (event) {
     // 선택된 날짜 배열 가져오기
     const selectedDates = init.selectedDates;
+    const title = document.querySelector("#scheduleSubjectTitle").value;
     let startDate = formatDate(selectedDates[0]);
     let endDate = formatDate(selectedDates[1]);
-    console.log(selectedDates);
     if (isNaN(endDate)) {
         endDate = startDate;
     }
 
+    // 요청을 보내기 전에 scheduleDTO를 유효성 검사
+    if (!validateScheduleDTO(title, startDate, endDate)) {
+        // 유효성 검사 실패, 오류를 처리하거나 메시지를 표시
+        console.error("유효하지 않은 scheduleDTO");
+        return;
+    }
+
     const scheduleDTO = {
+        title: title,
         startDate: startDate,
         endDate: endDate,
     };
@@ -371,27 +302,83 @@ $nextBtn.addEventListener("click", function (event) {
         })
         .then((data) => {
             // 서버로부터의 응답 처리
-            console.log("Success:", data);
-            if (data.status === "success") {
-                location.href = "/schedule/scheduleList" + "/" + data.uuid;
-                // +[data.uuid];
+            console.log(data);
+            if (data.status === 200) {
+                location.href = "/schedule/scheduleList";
             }
         })
         .catch((error) => {
-            console.error("Error:", error);
+            console.error("오류:", error);
         });
 });
 
+// scheduleDTO를 유효성 검사하는 함수
+function validateScheduleDTO(title, startDate, endDate) {
+    // 타이틀이 비어있지 않은지 확인
+    if (!title.trim()) {
+        alert("일정 제목을 입력 해 주세요");
+        return false;
+    }
+
+    // 시작일이나 종료일이 비어있지 않은지 확인
+    if (isNaN(startDate) || isNaN(endDate)) {
+        alert("날짜를 선택하세요");
+        return false;
+    }
+    return true;
+}
+
+// nextDayBtn 버튼 클릭시 이벤트
+$nextDayBtn.forEach(nextDay => {
+    nextDay.addEventListener("click", function (event) {
+
+        const userSchedule = {
+            nextDayValue: nextDay.value,
+            nextDayText : $uSchedule.innerText
+        }
+        fetch('/schedule/map', {
+            method : 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body   : JSON.stringify(userSchedule),
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                location = "/schedule/map";
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    });
+});
+
+function deleteLinks(del) {
+    if (confirm('일정을 삭제 하시겠습니까?')) {
+        fetch("/schedule/scheduleList/" + del, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json; charset=utf-8",
+            },
+        }).then(response => {
+            location = "/schedule/scheduleList";
+        }).catch(error => {
+            alert(`에러 발생 : ${error.message}`);
+        });
+    }
+}
+
 // 초기 스타일 저장
 const modalInitialStyles = {
-    display: "none",
-    position: "fixed",
-    top: "0",
-    left: "0",
-    width: "100%",
-    height: "100%",
+    display        : "none",
+    position       : "fixed",
+    top            : "0",
+    left           : "0",
+    width          : "100%",
+    height         : "100%",
     backgroundColor: "rgba(0, 0, 0, 0.5)",
-    zIndex: "9999",
+    zIndex         : "9999",
 };
 
 // 모달 열기

@@ -1,17 +1,18 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="java.time.LocalDate" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@include file="../layout/head.jsp"%>
-    <link rel="stylesheet" href="/css/schedule.css">
-    <link rel="stylesheet" href="/css/scheduleSlider.css">
-    <title>일정 관리</title>
+<%@include file="../layout/head.jsp" %>
+<link rel="stylesheet" href="/css/schedule.css">
+<link rel="stylesheet" href="/css/scheduleSlider.css">
+<title>일정 관리</title>
 </head>
 <body>
-<%@include file="../layout/header.jsp"%>
+<%@include file="../layout/header.jsp" %>
 <script src="/js/header.js"></script>
 <section id="searchContainer">
     <div class="searchArea">
         <form action="#" method="get">
-            <input type="text" name="searchArea" placeholder="검색어를 입력하세요" />
+            <input type="text" name="searchArea" placeholder="검색어를 입력하세요"/>
             <button type="submit"><i class="xi-search"></i></button>
         </form>
         <ul class="subNavIcon">
@@ -42,7 +43,7 @@
                     </div>
                     <ul>
                         <li>
-                            <button  type="button" class="nextBtn">확인</button>
+                            <button type="button" class="nextBtn">확인</button>
                         </li>
                         <li>
                             <button type="button" id="closeModal">닫기</button>
@@ -53,39 +54,60 @@
             </div>
         </form>
     </section>
-    <section id="schedulePrint">
-        <div class="scheduleContentsItem">
-            <i class="xi-ellipsis-v">
-            </i>
-            <div class="menuList">
-                <ul>
-                    <li><a href="#">편집</a></li>
-                    <li><a href="#">삭제</a></li>
-                </ul>
-            </div>
-            <div>
-                <ul class="scheduleItemSlider">
-                    <li><img src="/images/testimages1.jpg"></li>
-                    <li><img src="/images/testimages2.jpg"></li>
-                    <li><img src="/images/testimages3.jpg"></li>
-                </ul>
-            </div>
-            <div class="contentTextArea">
-                <ul class="contentsText">
-                    <li><h1>썸녀와 데이트코스,</h1></li>
-                    <li><h1>2024년 2월 1일 | D-15</h1></li>
-                </ul>
-            </div>
-            <div class="daysPrint">
-                <ul class="daysPrintList">
-                    <li><a href="#">1일 차</a></li>
-                    <li><a href="#">2일 차</a></li>
-                    <li><a href="#">3일 차</a></li>
-                </ul>
-            </div>
-        </div>
-    </section>
+    <c:if test="${!empty userScheduleList}">
+        <c:forEach var="scheduleList" items="${userScheduleList}">
+            <c:set var="startDate" value="${scheduleList.startDate.toEpochDay()}"/>
+            <c:set var="endDate" value="${scheduleList.endDate.toEpochDay()}"/>
+            <section class="schedulePrint">
+                <div class="scheduleContentsItem">
+                    <i class="xi-ellipsis-v">
+                    </i>
+                    <div class="menuList">
+                        <ul>
+                            <li><a href="#">편집</a></li>
+                            <li><a href="#" class="deleteSchedule" onclick="deleteLinks('${scheduleList.startDate}')">삭제</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <ul class="scheduleItemSlider">
+                            <li><img src="/images/testimages1.jpg"></li>
+                            <li><img src="/images/testimages2.jpg"></li>
+                            <li><img src="/images/testimages3.jpg"></li>
+                        </ul>
+                    </div>
+                    <div class="contentTextArea">
+                        <ul class="contentsText">
+                            <li><span>${scheduleList.title}</span></li>
+                            <c:choose>
+                                <c:when test="${startDate - dDay == 0}">
+                                    <li><span class = "uSchedule">${scheduleList.startDate}</span>
+                                        <span>| D - Day</span></li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li><span class="uSchedule">${scheduleList.startDate} </span>
+                                        <span>| D - ${startDate - dDay }</span></li>
+                                </c:otherwise>
+                            </c:choose>
+                        </ul>
+                    </div>
+                    <div class="daysPrint">
+                        <ul class="daysPrintList">
+                            <c:set var="day" value="0"/>
+                            <c:forEach var="i" begin="${startDate}" end="${endDate}">
+                                <c:set var="nextDays" value="${day + 1 }"/>
+                                <li>
+                                    <button class="nextDayBtn" value="${nextDays}">${nextDays}일 차
+                                    </button>
+                                </li>
+                                <c:set var="day" value="${nextDays}"/>
+                            </c:forEach>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </c:forEach>
+    </c:if>
 </main>
 <script src="/js/schedule.js"></script>
 <script defer src="/js/cal.js"></script>
-<%@include file="../layout/footer.jsp"%>
+<%@include file="../layout/footer.jsp" %>

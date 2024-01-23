@@ -20,16 +20,19 @@ public class ScheduleDate {
     @Column(name = "uuid", nullable = false, length = 100)
     private String uuid;
 
+    @Column(nullable = false)
+    private String title;
+
     @ManyToOne
-    @JoinColumn(name = "user_email", referencedColumnName = "userEmail")
+    @JoinColumn(name = "user_email", referencedColumnName = "userEmail", nullable = false)
     private User user;
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "start_date")
+    @Column(name = "start_date", nullable = false)
     private LocalDate startDate;
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "end_date")
+    @Column(name = "end_date", nullable = false)
     private LocalDate endDate;
 
 }
