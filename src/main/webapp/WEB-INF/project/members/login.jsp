@@ -10,7 +10,7 @@
 <%@include file="../layout/header.jsp"%>
 <script src="/js/header.js"></script>
   <section class="loginForm">
-    <form action="/members/securitylogin" method="post">
+    <form action="/members/securityLogin" method="post">
       <h1>DAYTE 로그인</h1>
       <ul>
         <li>
@@ -33,19 +33,25 @@
       <p>10초 만에 간편하게 로그인하세요!</p>
       <ul class="apiJoin">
         <li>
-          <img src="../images/googlelogo.png" />
-          <span>Google 계정으로 로그인</span>
+          <a href="/oauth2/authorization/google">
+            <img src="../images/googlelogo.png" />
+            <span>Google 계정으로 로그인</span>
+          </a>
         </li>
         <li>
-          <img class="kaka" src="../images/kakaologo.png" />
-          <span>KAKAO 계정으로 로그인</span>
+          <a href="/oauth2/authorization/kakao">
+            <img class="kaka" src="../images/kakaologo.png" />
+            <span>KAKAO 계정으로 로그인</span>
+          </a>
         </li>
         <li>
-          <img src="../images/naverlogo.png" />
-          <span>Naver 계정으로 로그인</span>
+          <a href="/oauth2/authorization/naver">
+            <img src="../images/naverlogo.png" />
+            <span>Naver 계정으로 로그인</span>
+          </a>
         </li>
-
       </ul>
+
       <ul class="subNavi">
         <li><a href="/members/join">회원가입</a></li>
         <li><a href="#">비밀번호를 잊으셨나요?</a></li>
