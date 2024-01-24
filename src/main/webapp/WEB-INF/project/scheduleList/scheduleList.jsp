@@ -74,6 +74,7 @@
                                 </c:when>
                                 <c:otherwise>
                                     <li><span class="contentsTextDate">${scheduleList.startDate} </span>
+
                                         <span>| D - ${startDate - dDay }</span></li>
                                 </c:otherwise>
                             </c:choose>

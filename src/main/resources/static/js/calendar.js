@@ -259,6 +259,7 @@ function closeModal(btn, data) {
         closeDaysModalArea.style.display = "none";
     }
 }
+
 // 모달 스타일을 적용하는 함수
 function applyModalStyles(element, styles) {
     if (element) {
