@@ -162,6 +162,7 @@ function loadYYMM(fullDate) {
     }
 }
 
+
 loadYYMM(init.today);
 
 /**
