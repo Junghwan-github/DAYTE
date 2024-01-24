@@ -213,5 +213,6 @@
     </div>
 </main>
 <script src="/js/schedule.js"></script>
-<script defer src="/js/cal.js"></script>
+<script src="/js/cal.js"></script>
+<script src="/js/calendar.js"></script>
 <%@include file="../layout/footer.jsp" %>
