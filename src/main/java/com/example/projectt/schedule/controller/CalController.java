@@ -5,19 +5,15 @@ import com.example.projectt.members.dto.ResponseDTO;
 import com.example.projectt.schedule.domain.ScheduleDate;
 import com.example.projectt.schedule.dto.ScheduleDateDTO;
 import com.example.projectt.schedule.service.ScheduleDateService;
-import com.example.projectt.schedule.service.ScheduleService;
 import com.example.projectt.security.dto.UserSecurityDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
 
 @Controller
 public class CalController {

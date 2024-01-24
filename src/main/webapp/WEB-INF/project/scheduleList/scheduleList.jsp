@@ -78,13 +78,12 @@
                     <div class="contentTextArea">
                         <ul class="contentsText">
                             <li><span>${scheduleList.title}</span></li>
+                                    <li><span class = "uSchedule">${scheduleList.startDate} ~ ${scheduleList.endDate}</span>
                             <c:choose>
                                 <c:when test="${startDate - dDay == 0}">
-                                    <li><span class = "uSchedule">${scheduleList.startDate}</span>
                                         <span>| D - Day</span></li>
                                 </c:when>
                                 <c:otherwise>
-                                    <li><span class="uSchedule">${scheduleList.startDate} </span>
                                         <span>| D - ${startDate - dDay }</span></li>
                                 </c:otherwise>
                             </c:choose>
@@ -109,5 +108,6 @@
     </c:if>
 </main>
 <script src="/js/schedule.js"></script>
-<script defer src="/js/cal.js"></script>
+<script src="/js/cal.js"></script>
+<script src="/js/calendar.js"></script>
 <%@include file="../layout/footer.jsp" %>
