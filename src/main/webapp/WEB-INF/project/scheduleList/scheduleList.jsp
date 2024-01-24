@@ -57,7 +57,7 @@
                             <li><a href="#" class="deleteSchedule" onclick="deleteLinks('${scheduleList.startDate}')">삭제</a></li>
                         </ul>
                     </div>
-                    <div>
+                    <div class="scheduleItemSliderArea">
                         <ul class="scheduleItemSlider">
                             <li><img src="/images/testimages1.jpg"></li>
                             <li><img src="/images/testimages2.jpg"></li>
@@ -66,7 +66,7 @@
                     </div>
                     <div class="contentTextArea">
                         <ul class="contentsText">
-                            <li><span class="contentsTextDate">${scheduleList.title}</span></li>
+                            <li><span class="contentsTextTitle">${scheduleList.title}</span></li>
                             <c:choose>
                                 <c:when test="${startDate - dDay == 0}">
                                     <li><span class="contentsTextDate">${scheduleList.startDate}</span>
