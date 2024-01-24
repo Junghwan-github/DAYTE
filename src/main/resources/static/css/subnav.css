@@ -1,0 +1,76 @@
+#searchContainer {
+    width: 100%;
+    /* background: #28536a; */
+    padding: 30px 0;
+    box-sizing: border-box;
+}
+
+.searchArea > form {
+    position: relative;
+}
+.searchArea > form > input {
+    width: 790px;
+    height: 15px;
+    border-radius: 10px;
+    border: none;
+    padding: 20px;
+    font-size: 1.5rem;
+    background: #f7f7f7;
+    border: 1px solid #eaeaea;
+}
+
+.searchArea > form > input:focus {
+    outline: none;
+}
+
+.searchArea > form > button {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translate(0, -50%);
+    border: none;
+    background: transparent;
+}
+
+.xi-search {
+    font-size: 2.5rem;
+}
+
+.searchArea {
+    width: 1180px;
+    margin: 0 auto;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+.subNavIcon {
+    width: 330px;
+    border-radius: 10px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+    align-items: center;
+    background: #f7f7f7;
+    border: 1px solid #eaeaea;
+}
+
+.subNavIcon > li > a > span {
+    display: block;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: #000;
+}
+
+.subNavIcon > li > a > img {
+    width: 30px;
+}
+
+.naviHide {
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    left: 0;
+    background: #fff;
+    box-shadow: 0 0 15px 0 #1111113e;
+}

@@ -232,24 +232,32 @@ const modalInitialStyles = {
 };
 
 // 모달 열기
-function openModal() {
-    const modal = document.querySelector("#myModal");
-    applyModalStyles(modal, modalInitialStyles);
-    modal.style.display = "block";
+function openModal(btn, data) {
+    if (data === "cal") {
+        const modal = document.querySelector("#myModal");
+        applyModalStyles(modal, modalInitialStyles);
+        modal.style.display = "block";
+        document.body.style.overflow = "hidden";
+    }
 }
 
-// 모달 닫기
-function closeModal(e) {
-    e.preventDefault();
-    const modal = document.querySelector("#myModal");
-    applyModalStyles(modal, modalInitialStyles);
-    modal.style.display = "none";
-    init.selectedDates = [];
 
-    const $days = document.querySelectorAll(".day");
-    $days.forEach(($day) => {
-        $day.classList.remove("day-range", "day-active", "day-start");
-    });
+function closeModal(btn, data) {
+    if (data === "cal") {
+        const modal = document.querySelector("#myModal");
+        applyModalStyles(modal, modalInitialStyles);
+        modal.style.display = "none";
+        init.selectedDates = [];
+        console.log(init.selectedDates);
+        const $days = document.querySelectorAll(".day");
+        $days.forEach(($day) => {
+            $day.classList.remove("day-range", "day-active", "day-start");
+        });
+    } else if (data === "close") {
+        let closeDaysModalArea = document.querySelector(".daysListAddModal");
+        applyModalStyles(closeDaysModalArea, modalInitialStyles);
+        closeDaysModalArea.style.display = "none";
+    }
 }
 
 // 모달 스타일을 적용하는 함수

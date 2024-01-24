@@ -1,83 +1,13 @@
 
-#searchContainer {
-    width: 100%;
-    background: #28536a;
-    padding: 10px 0;
-    box-sizing: border-box;
-}
-
-.searchArea > form {
-    position: relative;
-}
-.searchArea > form > input {
-    width: 800px;
-    height: 10px;
-    border-radius: 5px;
-    border: none;
-    padding: 20px;
-    font-size: 1.5rem;
-}
-
-.searchArea > form > input:focus {
-    outline: none;
-}
-
-.searchArea > form > button {
-    position: absolute;
-    top: 50%;
-    right: 15px;
-    transform: translate(0, -50%);
-    border: none;
-    background: transparent;
-}
-
-.xi-search {
-    font-size: 2.5rem;
-}
-
-.searchArea {
-    width: 1180px;
-    margin: 0 auto;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-}
-.subNavIcon {
-    width: 330px;
-    border-radius: 5px;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-around;
-    align-items: center;
-    background: #fff;
-}
-
-.subNavIcon > li > a > span {
-    display: block;
-    text-align: center;
-    font-size: 1.2rem;
-    font-weight: 400;
-    color: #000;
-}
-
-.subNavIcon > li > a > img {
-    width: 35px;
-}
-
-.naviHide {
-    position: fixed;
-    z-index: 999;
-    top: 0;
-    left: 0;
-    background: #fff;
-    box-shadow: 0 0 15px 0 #1111113e;
-}
-
 main {
     position: relative;
     width: 1180px;
-    padding: 30px 0 30px 0;
     margin: 0 auto;
+}
+
+#pageTitleName {
+    font-size: 2.4rem;
+    color: #111;
 }
 
 .buttonArea {
@@ -86,20 +16,21 @@ main {
 }
 
 #createSchedule {
-    padding: 15px 100px;
+    padding: 15px 40px;
     font-size: 1.5rem;
-    font-weight: bold;
     margin: 20px 0 20px 0;
     float: right;
     cursor: pointer;
     border: none;
-    border: 1px solid #1785f2;
-    background: transparent;
-    color: #1785f2;
+    background: #116edb;
+    color: #fff;
+    font-family: "Noto Sans KR", sans-serif;
+    font-weight: 700;
+    border-radius: 8px;
 }
 
 #createSchedule:hover {
-    background: #1785f2;
+    background: #0d65cb;
     color: #fff;
 }
 
@@ -115,7 +46,8 @@ main {
     /* box-shadow: 0 0 15px 0 #1111113e; */
     border-radius: 10px;
     padding: 20px;
-    background: linear-gradient(45deg, rgba(190, 224, 206, 1) 0%, #fdebe0 90%);
+    background: linear-gradient(45deg, rgba(190, 224, 206, 0.493) 0%, #fdebe07e 90%);
+    /* background: #e6fff5; */
     margin: 0 0 25px 0;
     box-sizing: border-box;
 }
@@ -127,6 +59,8 @@ main {
 .scheduleItemSlider > li {
     width: 250px;
     height: 110px;
+    border-radius: 5px;
+    overflow: hidden;
 }
 
 .contentTextArea {
@@ -136,12 +70,18 @@ main {
 }
 
 .contentsText > li > span {
+    display: inline-block;
     font-size: 2rem;
     color: #333;
     font-weight: 500;
-    margin: 20px 0 10px 0;
 }
 
+.contentsTextTitle {
+    margin-top: 20px;
+}
+.contentsTextDate {
+    margin-top: 20px;
+}
 .xi-ellipsis-v {
     position: absolute;
     top: 15px;
@@ -195,8 +135,9 @@ main {
 .daysPrint {
     width: 100%;
     padding: 20px 0 0 0;
+    margin-top: 20px;
     box-sizing: border-box;
-    border-top: 1px solid #fff;
+    border-top: 1px solid #ffffff;
 }
 .daysPrintList {
     display: flex;
@@ -209,18 +150,17 @@ main {
 }
 
 .daysPrintList > li > button {
-    border: none;
     text-align: center;
     line-height: 50px;
     display: inline-block;
     width: 100px;
     height: 50px;
     font-size: 1.3rem;
-    background: #fff;
+    background: #ffffff;
     color: #111;
     font-weight: 600;
     border-radius: 5px;
-    cursor: pointer;
+    border: none;
 }
 
 /* 모달 */
@@ -310,23 +250,8 @@ th {
     cursor: pointer;
 }
 
-footer {
-    margin-top: 400px;
-    width: 100%;
-    height: 300px;
-    background: #28536a;
-}
-
-.modal-content > ul {
-    float: right;
-}
-
-.modal-content > ul > li {
-    float: left;
-}
-
 .nextBtn,
-#closeModal {
+#closeModalBtn {
     width: 90px;
     height: 38px;
     box-sizing: border-box;
@@ -337,14 +262,21 @@ footer {
     font-size: 1.4rem;
 }
 
-#closeModal {
+#closeModalBtn {
     border: 1px solid #111;
     background: transparent;
     color: #111;
 }
 
+.today {
+    background: #fdebe0;
+    border-radius: 50px;
+    color: #111;
+
+}
+
 .nextBtn {
-    background: #1785f2;
+    background: #116edb;
 }
 
 .day-disabled {
@@ -356,18 +288,20 @@ footer {
     color: #111;
 }
 .day-active {
-    background: #78dba3;
+    background: #78e4aa;
     border-radius: 0 50px 50px 0;
     color: #fff;
 }
 .day-start {
-    background: #78dba3;
+    background: #78e4aa;
     border-radius: 50px 0 0 50px;
     color: #fff;
 }
 
-.today {
-    background: #ffea00;
-    border-radius: 50%;
-    color: #fff;
+.modal-content > ul {
+    float: right;
+}
+
+.modal-content > ul > li {
+    float: left;
 }
