@@ -35,7 +35,7 @@
         <li>
           <a href="/oauth2/authorization/google">
             <img src="../images/googlelogo.png" />
-            <span>Google 계정으로 로그인</span>
+            <span>GOOGLE 계정으로 로그인</span>
           </a>
         </li>
         <li>
@@ -47,7 +47,7 @@
         <li>
           <a href="/oauth2/authorization/naver">
             <img src="../images/naverlogo.png" />
-            <span>Naver 계정으로 로그인</span>
+            <span>NAVER 계정으로 로그인</span>
           </a>
         </li>
       </ul>

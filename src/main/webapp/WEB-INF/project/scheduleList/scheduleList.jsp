@@ -4,34 +4,23 @@
 <%@include file="../layout/head.jsp" %>
 <link rel="stylesheet" href="/css/schedule.css">
 <link rel="stylesheet" href="/css/scheduleSlider.css">
+<link rel="stylesheet" href="/css/subnav.css">
+<link rel="stylesheet" href="/css/scheduleModal.css">
 <title>일정 관리</title>
 </head>
 <body>
 <%@include file="../layout/header.jsp" %>
-<script src="/js/header.js"></script>
-<section id="searchContainer">
-    <div class="searchArea">
-        <form action="#" method="get">
-            <input type="text" name="searchArea" placeholder="검색어를 입력하세요"/>
-            <button type="submit"><i class="xi-search"></i></button>
-        </form>
-        <ul class="subNavIcon">
-            <li><a href="#"><img src="/images/hotel-i.png"></a></li>
-            <li><a href="#"><img src="/images/restaurant-i.png"></a></li>
-            <li><a href="#"><img src="/images/cafe-i.png"></a></li>
-            <li><a href="#"><img src="/images/events.png"></a></li>
-        </ul>
-    </div>
-</section>
+<%@include file="../layout/subnav.jsp" %>
 <main>
+    <h1 id="pageTitleName">일정 관리</h1>
     <section id="modalArea">
         <div class="buttonArea">
-            <button type="button" id="createSchedule" onclick="openModal()">일정 등록</button>
+            <button type="button" id="createSchedule" onclick="openModal(this,'cal')">일정 등록</button>
         </div>
         <form id="myForm">
             <div id="myModal" class="modal">
                 <div class="modal-content">
-                    <input type="text" id="scheduleSubjectTitle" placeholder="일정 제목을 입력해주세요" maxlength="19"/>
+                    <input type="text" id="scheduleSubjectTitle" placeholder="일정 제목을 입력해주세요" maxlength="19" />
                     <div class="modalCalContainer">
                         <div class="calendar-box">
                             <div class="ctr-box clearfix">
@@ -46,7 +35,7 @@
                             <button type="button" class="nextBtn">확인</button>
                         </li>
                         <li>
-                            <button type="button" id="closeModal">닫기</button>
+                            <button type="button" id="closeModalBtn" onclick="closeModal(this,'cal')">닫기</button>
                         </li>
                     </ul>
                 </div>
@@ -58,7 +47,7 @@
         <c:forEach var="scheduleList" items="${userScheduleList}">
             <c:set var="startDate" value="${scheduleList.startDate.toEpochDay()}"/>
             <c:set var="endDate" value="${scheduleList.endDate.toEpochDay()}"/>
-            <section class="schedulePrint">
+            <section id="schedulePrint">
                 <div class="scheduleContentsItem">
                     <i class="xi-ellipsis-v">
                     </i>
@@ -77,14 +66,14 @@
                     </div>
                     <div class="contentTextArea">
                         <ul class="contentsText">
-                            <li><span>${scheduleList.title}</span></li>
+                            <li><span class="contentsTextDate">${scheduleList.title}</span></li>
                             <c:choose>
                                 <c:when test="${startDate - dDay == 0}">
-                                    <li><span class = "uSchedule">${scheduleList.startDate}</span>
+                                    <li><span class="contentsTextDate">${scheduleList.startDate}</span>
                                         <span>| D - Day</span></li>
                                 </c:when>
                                 <c:otherwise>
-                                    <li><span class="uSchedule">${scheduleList.startDate} </span>
+                                    <li><span class="contentsTextDate">${scheduleList.startDate} </span>
                                         <span>| D - ${startDate - dDay }</span></li>
                                 </c:otherwise>
                             </c:choose>
@@ -107,6 +96,121 @@
             </section>
         </c:forEach>
     </c:if>
+    <div class="daysListAddModal">
+        <div class="daysListModalViewArea">
+            <div class="daysContentsModalCloseBtn">
+          <span class="material-symbols-outlined modalclosebutton" onclick="closeModal(this,'close')">
+            close
+          </span>
+            </div>
+            <div class="contentListModalArea">
+                <div class="contentListModalItem">
+                    <h2>일정 리스트</h2>
+                    <ul class="contentModalSlider">
+                        <li>
+                            <div><img src="/images/testimages1.jpg"></div>
+                            <span>[컨텐츠 타이틀]</span>
+                        </li>
+                        <li>
+                            <div><img src="/images/testimages2.jpg"></div>
+                            <span>[컨텐츠 타이틀]</span>
+                        </li>
+                        <li>
+                            <div><img src="/images/testimages3.jpg"></div>
+                            <span>[컨텐츠 타이틀]</span>
+                        </li>
+                        <li>
+                            <div><img src="/images/testimages4.jpg"></div>
+                            <span>[컨텐츠 타이틀]</span>
+                        </li>
+                        <li>
+                            <div><img src="/images/testimages5.jpg"></div>
+                            <span>[컨텐츠 타이틀]</span>
+                        </li>
+                        <li>
+                            <div><img src="/images/testimages1.jpg"></div>
+                            <span>[컨텐츠 타이틀]</span>
+                        </li>
+                        <li>
+                            <div><img src="/images/testimages1.jpg"></div>
+                            <span>[컨텐츠 타이틀]</span>
+                        </li>
+                        <li>
+                            <div><img src="/images/testimages1.jpg"></div>
+                            <span>[컨텐츠 타이틀]</span>
+                        </li>
+                        <li>
+                            <div><img src="/images/testimages1.jpg"></div>
+                            <span>[컨텐츠 타이틀]</span>
+                        </li>
+                        <li>
+                            <div><img src="/images/testimages1.jpg"></div>
+                            <span>[컨텐츠 타이틀]</span>
+                        </li>
+                        <li>
+                            <div><img src="/images/testimages1.jpg"></div>
+                            <span>[컨텐츠 타이틀]</span>
+                        </li>
+                        <li>
+                            <div><img src="/images/testimages1.jpg"></div>
+                            <span>[컨텐츠 타이틀]</span>
+                        </li>
+                        <li>
+                            <div><img src="/images/testimages1.jpg"></div>
+                            <span>[컨텐츠 타이틀]</span>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+            <button type="button" id="divUpDownButton">펼치기 / 접기</button>
+            <div class="bottomModalWraper">
+                <div class="leftModalLayout">
+                    <div><input type="text" id="leftModalSearchBar" placeholder="검색어를 입력하세요"><button type="button" id="leftModalSearchBarBtn">검색</button></div>
+                    <div>
+                        <h2>구/군</h2>
+                        <ul>
+                            <li>중구</li>
+                            <li>수성구</li>
+                            <li>북구</li>
+                            <li>동구</li>
+                            <li>남구</li>
+                            <li>서구</li>
+                            <li>달서구</li>
+                            <li>달성군</li>
+                            <li>군위군</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h2>키워드</h2>
+                        <ul>
+                            <li>#숙박</li>
+                            <li>#맛집</li>
+                            <li>#카페</li>
+                            <li>#공연</li>
+                            <li>#전시</li>
+                            <li>#행사</li>
+                            <li>#이벤트</li>
+                            <li>#관광</li>
+                            <li>#명소</li>
+                            <li>#가족</li>
+                            <li>#연인</li>
+                            <li>#봄</li>
+                            <li>#여름</li>
+                            <li>#가을</li>
+                            <li>#겨울</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="centerModalLayout">
+
+                </div>
+                <div class="rightModalLayout">
+
+                </div>
+            </div>
+        </div>
+    </div>
 </main>
 <script src="/js/schedule.js"></script>
 <script defer src="/js/cal.js"></script>
