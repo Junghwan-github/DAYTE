@@ -62,7 +62,8 @@ dependencies {
 
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '3.0.5'
 
-
+    // 랜덤 문자열을 출력해주는 라이브러리
+    implementation 'org.apache.commons:commons-lang3:3.12.0'
 
 }
 
