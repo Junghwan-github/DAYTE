@@ -103,9 +103,9 @@
         <span class="daysValue"></span>
         <div class="daysListModalViewArea">
             <div class="daysContentsModalCloseBtn">
-          <span class="material-symbols-outlined modalclosebutton" onclick="closeModal(this,'close')">
+                <span class="material-symbols-outlined modalclosebutton" onclick="closeModal(this,'close')">
             close
-          </span>
+                </span>
             </div>
             <div class="contentListModalArea">
                 <div class="contentListModalItem">

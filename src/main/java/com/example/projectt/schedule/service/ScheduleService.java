@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class ScheduleService {
@@ -37,29 +38,22 @@ public class ScheduleService {
     private ModelMapper modelMapper;
 
     public void insertSchedule(ScheduleDTO userScheduleDTO) {
-        System.out.println("userScheduleDTO: " + userScheduleDTO);
 
-        LocalDate createDate = scheduleDateRepository.findById(userScheduleDTO.getUuid())
-                .orElseThrow(() -> new IllegalArgumentException("ScheduleDate not found"))
-                .getStartDate();
-
+        ScheduleDate scheduleDate = scheduleDateRepository.findById(userScheduleDTO.getUuid())
+                .orElseThrow(() -> new NoSuchElementException("ScheduleDate not found"));
 
         int[] i = {0};
         userScheduleDTO.getContents().forEach(userSchedule -> {
-            LocalDate newDate = createDate.plus(Period.ofDays(userScheduleDTO.getNextDays())).minusDays(1);
+            LocalDate newDate = scheduleDate.getStartDate().plus(Period.ofDays(userScheduleDTO.getNextDays())).minusDays(1);
 
             Contents contents = contentsRepository.findById(userSchedule.toString())
-                    .orElseThrow(() -> new IllegalArgumentException("Contents not found"));
+                    .orElseThrow(() -> new NoSuchElementException("Contents not found"));
 
-            ScheduleDate scheduleDate = scheduleDateRepository.findById(userScheduleDTO.getUuid())
-                    .orElseThrow(() -> new IllegalArgumentException("ScheduleDate not found"));
-
-            i[0] +=1;
             Schedule schedule = Schedule.builder()
                     .contents(contents)
                     .scheduleDate(scheduleDate)
                     .nowDate(newDate)
-                    .sequence(i[0])
+                    .sequence(++i[0])
                     .build();
             scheduleRepository.save(schedule);
         });

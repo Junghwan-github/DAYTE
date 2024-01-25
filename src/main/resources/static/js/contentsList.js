@@ -55,32 +55,36 @@ contentBtn.forEach(function (content) {
     });
 });
 
-function asd() {
-    let saveSchedule = [];
-    $(".uSelect").each(function() {
-        // 현재 요소에서 자식인 button 엘리먼트를 선택
-        let button = $(this).find("button");
+async function asd() {
+    try {
+        let saveSchedule = [];
+        $(".uSelect").each(function () {
+            let button = $(this).find("button");
+            saveSchedule.push(button.val());
+        });
 
-        // button 엘리먼트의 값을 배열에 추가
-        saveSchedule.push(button.val());
-    });
+        const userSchedule = {
+            nextDays: $(".daysValue").text(),
+            uuid: $(".tableUuid").text(),
+            contents: saveSchedule
+        };
 
-   const userSchedule = {
-        nextDays : $(".daysValue").text(),
-        uuid : $(".tableUuid").text(),
-        contents : saveSchedule
-    }
-console.log(userSchedule);
-    fetch("/schedule/saveSchedule", {
+        console.log(userSchedule);
 
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json; charset=utf-8",
-        },
-        body   : JSON.stringify(userSchedule),
-    }).then(response => {
+        const response = await fetch("/schedule/saveSchedule", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json; charset=utf-8",
+            },
+            body: JSON.stringify(userSchedule),
+        });
+
+        if (!response.ok) {
+            throw new Error(`에러 발생: ${response.status}`);
+        }
+
         console.log(response);
-    }).catch(error => {
-        alert(`에러 발생 : ${error.message}`);
-    });
+    } catch (error) {
+        alert(`에러 발생: ${error.message}`);
+    }
 }
