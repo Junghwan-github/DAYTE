@@ -25,3 +25,6 @@
    <!-- 슬라이더 -->
     <script
             src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+    <script type="text/javascript"
+            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d6e1eeae5c7853c6bd1f34a4ef04e664">
+    </script>

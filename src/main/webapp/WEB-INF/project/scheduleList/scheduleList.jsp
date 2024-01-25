@@ -204,9 +204,44 @@
                     </div>
                 </div>
                 <div class="centerModalLayout">
-
+                    <ul class="contentListViewer">
+                        <li>
+                            <span class="contentListItemPoint-x">35.860528</span><span class="contentListItemPoint-y">128.557090</span>
+                            <div class="contentListItems">
+                                <div class="contentListItemsImages">
+                                    <img src="../images/testimages1.jpg">
+                                </div>
+                                <ul class="contentListItemText">
+                                    <li>
+                                        <h2>여기가 컨텐츠 타이틀</h2>
+                                    </li>
+                                    <li>
+                                        <span>대구광역시 북구 구암로15길 38</span>
+                                    </li>
+                                    <li>
+                                        <p>영업시간 : 09:00</p>
+                                        <p>기간 : 없음</p>
+                                        <p>문의 : 0507-2221-1321</p>
+                                    </li>
+                                    <li>
+                                        <span>★ 4.5</span>
+                                    </li>
+                                </ul>
+                                <div class="contentListItemButton">
+                                    <ul>
+                                        <li>
+                                            <button class="contentListItemdetailViewBtn">상세보기</button>
+                                        </li>
+                                        <li>
+                                            <button class="contentListItemAddBtn">추가하기</button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
-                <div class="rightModalLayout">
+                <div class="rightModalLayout" id="rightModalLayout">
 
                 </div>
             </div>

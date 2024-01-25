@@ -103,10 +103,10 @@ main {
     border-radius: 7px;
     border: 1px solid #eee;
     z-index: 555;
-    box-shadow: 0 0 15px 0 #11111130;
+    box-shadow: 0 0 2px 0 #1111111C;
 }
 
-.show {
+.menuList.show {
     display: block;
 }
 
@@ -304,4 +304,9 @@ th {
 
 .modal-content > ul > li {
     float: left;
+}
+
+.contentListItemPoint-x,
+.contentListItemPoint-y {
+  display: none;
 }
