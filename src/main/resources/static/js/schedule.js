@@ -44,16 +44,18 @@ listCartBtn.addEventListener("click", () => {
 
 // let map = new kakao.maps.Map(container, options);
 
-let selectedClass = document.querySelector("#schedulePrint");
-let contentsSubNavBtn = selectedClass.querySelectorAll(".xi-ellipsis-v");
-let menuList = selectedClass.querySelector(".scheduleContentsItem > .menuList");
+let scheduleItems = document.querySelectorAll(".scheduleContentsItem");
 
-contentsSubNavBtn.forEach(function (button) {
-    button.addEventListener("click", (e) => {
-        let scheduleItem = button.closest(".scheduleContentsItem");
+scheduleItems.forEach(function (scheduleItem) {
+    let contentsSubNavBtn = scheduleItem.querySelector(".xi-ellipsis-v");
 
+    contentsSubNavBtn.addEventListener("click", function (e) {
         let menuList = scheduleItem.querySelector(".menuList");
-        menuList.classList.toggle("show");
-        e.preventDefault;
+
+        if (menuList) {
+            menuList.classList.toggle("show");
+        }
+
+        e.preventDefault();
     });
 });
