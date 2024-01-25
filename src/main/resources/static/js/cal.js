@@ -19,7 +19,7 @@ $nextBtn.addEventListener("click", function (event) {
         console.error("유효하지 않은 scheduleDTO");
         return;
     }
-
+     
     const scheduleDTO = {
         title: title,
         startDate: startDate,
