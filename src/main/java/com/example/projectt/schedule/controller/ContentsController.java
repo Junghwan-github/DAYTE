@@ -14,15 +14,4 @@ import java.util.Map;
 @Controller
 public class ContentsController {
 
-    @PostMapping("/schedule/map")
-    public String selectSchedule(@RequestBody String userSchedule
-            , Model model) {
-        return  userSchedule;
-    }
-
-    @GetMapping("/schedule/map")
-    public String showSchedule(Model model, String userSchedule) {
-        model.addAttribute("userSchedule", userSchedule);
-        return "scheduleList/map";
-    }
 }

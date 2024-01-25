@@ -1,5 +1,5 @@
 const $nextBtn = document.querySelector(".nextBtn");
-const $uSchedule = document.querySelector(".uSchedule");
+const $contentsTextDate = document.querySelector(".contentsTextDate");
 const $nextDayBtn = document.querySelectorAll(".nextDayBtn");
 
 // "확인" 버튼에 대한 이벤트 핸들러 추가
@@ -19,7 +19,7 @@ $nextBtn.addEventListener("click", function (event) {
         console.error("유효하지 않은 scheduleDTO");
         return;
     }
-
+     
     const scheduleDTO = {
         title: title,
         startDate: startDate,
@@ -65,34 +65,34 @@ function validateScheduleDTO(title, startDate, endDate) {
 }
 
 // nextDayBtn 버튼 클릭시 이벤트
-$nextDayBtn.forEach(nextDay => {
-    nextDay.addEventListener("click", function (event) {
+// $nextDayBtn.forEach(nextDay => {
+//     nextDay.addEventListener("click", function (event) {
+//
+//         const userSchedule = {
+//             nextDayValue: nextDay.value,
+//             nextDayText : $contentsTextDate.innerText
+//         }
+//         fetch('/schedule/map', {
+//             method : 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//             },
+//             body   : JSON.stringify(userSchedule),
+//         })
+//             .then(response => response.json())
+//             .then(data => {
+//                 console.log(data);
+//                 location = "/schedule/map";
+//             })
+//             .catch(error => {
+//                 console.error('Error:', error);
+//             });
+//     });
+// });
 
-        const userSchedule = {
-            nextDayValue: nextDay.value,
-            nextDayText : $uSchedule.innerText
-        }
-        fetch('/schedule/map', {
-            method : 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body   : JSON.stringify(userSchedule),
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                location = "/schedule/map";
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    });
-});
-
-function deleteLinks(del) {
+function deleteLinks(startDate) {
     if (confirm('일정을 삭제 하시겠습니까?')) {
-        fetch("/schedule/scheduleList/" + del, {
+        fetch("/schedule/scheduleList/" + startDate, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json; charset=utf-8",

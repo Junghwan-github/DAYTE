@@ -44,9 +44,9 @@ public class CalController {
         }
     }
 
-    @DeleteMapping("/schedule/scheduleList/{del}")
-    public void deleteSchedule(@PathVariable LocalDate del,
+    @DeleteMapping("/schedule/scheduleList/{startDate}")
+    public void deleteSchedule(@PathVariable LocalDate startDate,
                                @AuthenticationPrincipal UserSecurityDTO userSecurityDTO) {
-        scheduleDateService.deleteSchedule(del, userSecurityDTO);
+        scheduleDateService.deleteSchedule(startDate, userSecurityDTO);
     }
 }
