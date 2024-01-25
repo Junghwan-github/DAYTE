@@ -2,14 +2,24 @@
 ===================================*/
 /** RESET AND LAYOUT
 ===================================*/
-.bx-wrapper {
+.scheduleItemSliderArea > .bx-wrapper {
     position: absolute;
-    margin-bottom: 60px;
     padding: 0;
     *zoom: 1;
     -ms-touch-action: pan-y;
     touch-action: pan-y;
+    background: transparent;
 }
+
+.contentContainerBox > .bx-wrapper {
+    position: relative;
+    padding: 0;
+    *zoom: 1;
+    -ms-touch-action: pan-y;
+    touch-action: pan-y;
+    background: transparent;
+}
+
 .bx-wrapper img {
     width: 100%;
     display: block;
@@ -29,9 +39,6 @@ ul.bxslider {
 }
 /** THEME
 ===================================*/
-.bx-wrapper {
-    background: transparent;
-}
 
 /* PAGER */
 .bx-wrapper .bx-pager {

@@ -1,0 +1,225 @@
+.daysListAddModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    display: none;
+    background: #00000085;
+}
+
+.daysListModalViewArea {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1800px;
+    height: 890px;
+    border-radius: 15px;
+    background: #fff;
+    overflow: hidden;
+}
+
+.daysContentsModalCloseBtn {
+    width: 100%;
+    height: 60px;
+    text-align: right;
+}
+
+.daysContentsModalCloseBtn > span {
+    display: inline-block;
+    font-size: 3.5rem;
+    cursor: pointer;
+    color: #111;
+    line-height: 40px;
+    margin: 10px;
+}
+.daysContentsModalCloseBtn > span:hover {
+    color: #db1811;
+}
+
+#contentsMap {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.contentListModalArea {
+    position: relative;
+    width: 100%;
+    display: block;
+    height: 35px;
+    overflow: hidden;
+    box-shadow: #11111127 0 1px 1px 0;
+    /* z-index: 2; */
+    transition: all 0.3s;
+    /* border: 1px solid #ccc; */
+    border-top: 0;
+    box-sizing: border-box;
+}
+
+.show {
+    height: 180px;
+    transition: all 0.3s;
+}
+
+#divUpDownButton {
+    position: absolute;
+    /* top: 60px; */
+    left: 50%;
+    display: inline-block;
+    font-family: "Noto Sans KR", sans-serif;
+    background: #fff;
+    color: #111;
+    transform: translate(-50%, 0);
+    padding: 10px 20px;
+    /* border: 1px solid #ccc; */
+    border: none;
+    /* border-top: 0; */
+    border-radius: 0 0 10px 10px;
+    z-index: 3;
+    box-shadow: #11111127 0 1px 1px 0;
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+.contentListModalItem {
+    width: 100%;
+    height: 180px;
+    margin: 0 auto;
+    padding: 0 30px;
+    box-sizing: border-box;
+}
+
+.contentModalSlider > li {
+    text-align: center;
+}
+
+.contentListModalItem > h2 {
+    font-size: 1.9rem;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.contentListModalItem > h2 > span {
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: #707070;
+}
+
+.contentModalSlider > li > div {
+    width: 250px;
+    height: 100px;
+    border-radius: 7px;
+    overflow: hidden;
+    margin-bottom: 7px;
+}
+
+.contentModalSlider > li > span {
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: #111;
+}
+
+.bottomModalWraper {
+    width: 100%;
+    /* border: 1px solid red; */
+}
+
+.leftModalLayout {
+    width: 250px;
+    height: 793px;
+    padding: 10px 30px;
+    overflow-y: auto;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    border-right: 1px solid #ddd;
+}
+
+.leftModalLayout::-webkit-scrollbar {
+    width: 10px;
+}
+.leftModalLayout::-webkit-scrollbar-thumb {
+    background: #eee;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 3px solid transparent;
+}
+
+.leftModalLayout > div {
+    width: 100%;
+    border-bottom : 1px solid #ddd;
+    padding: 30px 0 30px 0;
+
+}
+
+.leftModalLayout > div:nth-child(1) {
+    height: 30px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    border-bottom: none;
+}
+
+.leftModalLayout > div:nth-child(1) > input {
+    width: 195px;
+    height: 40px;
+    padding: 7px 12px;
+    border: none;
+    background: #f7f7f7;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 1.1rem;
+    border: 1px solid #eaeaea;
+}
+
+.leftModalLayout > div:nth-child(1) > input::placeholder {
+    font-size: 1.1rem;
+    color: #aaa;
+}
+
+.leftModalLayout > div:nth-child(1) > button {
+    width: 50px;
+    height: 40px;
+    font-size: 1.3rem;
+    border: none;
+    background: #116edb;
+    color: #fff;
+    font-family: 'NotoSans KR',sans-serif;
+    font-weight: 500;
+    border-radius: 5px;
+
+
+}
+
+
+.leftModalLayout > div:nth-child(2) > h2 {
+    font-size: 2rem;
+    color: #111;
+    margin-bottom: 20px;
+}
+
+.leftModalLayout > div:nth-child(2) > ul  {
+    width: 190px;
+    margin: 0 auto;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    text-align: center;
+
+}
+
+.leftModalLayout > div:nth-child(2) > ul > li {
+    display: inline-block;
+    width: 80px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 1.5rem;
+    color: #111;
+    font-weight: 400;
+    background: #f7f7f7;
+    margin: 5px;
+    border-radius: 5px;
+    border: 1px solid #eaeaea;
+}
