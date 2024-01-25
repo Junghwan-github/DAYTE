@@ -14,6 +14,10 @@ $(document).ready(function () {
 
 $(".nextDayBtn").on("click", function(e) {
     console.log($(e.target).val());
+    $(".tableUuid").text($(e.target).val());
+    $(".daysValue").text($(e.target).data("next-days"));
+    console.log($(".daysValue").text());
+    console.log($(".daysValue").text());
     $(".daysListAddModal").show();
     $(".contentModalSlider").bxSlider({
         mode: "horizontal",
@@ -22,8 +26,14 @@ $(".nextDayBtn").on("click", function(e) {
         minSlides: 1,
         maxSlides: 10,
         pager: false,
+        touchEnabled: false,
+        oneToOneTouch: false
     });
+
     $("body").css("overflow","hidden");
+
+
+
     let container = document.getElementById("rightModalLayout"); //지도를 담을 영역의 DOM 레퍼런스
     let options = {
         //지도를 생성할 때 필요한 기본 옵션
@@ -60,4 +70,13 @@ scheduleItems.forEach(function (scheduleItem) {
 
         e.preventDefault();
     });
+});
+
+const containerEl = document.querySelector('.contentModalSlider');
+new Sortable(containerEl, {
+    animation: 150,
+
+    ghostClass: 'active',
+
+    direction: "horizontal"
 });

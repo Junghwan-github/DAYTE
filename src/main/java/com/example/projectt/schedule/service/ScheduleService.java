@@ -1,6 +1,8 @@
 package com.example.projectt.schedule.service;
 
 import com.example.projectt.members.domain.User;
+import com.example.projectt.schedule.domain.ScheduleDate;
+import com.example.projectt.schedule.dto.ScheduleDTO;
 import com.example.projectt.security.dto.UserSecurityDTO;
 import com.example.projectt.schedule.domain.Contents;
 import com.example.projectt.schedule.domain.Schedule;
@@ -34,22 +36,33 @@ public class ScheduleService {
     @Autowired
     private ModelMapper modelMapper;
 
-    public void insertSchedule(String saveSchedule, int nextDays, UserSecurityDTO userSecurityDTO, String uuid) {
-        LocalDate createDate = scheduleDateRepository.findById(uuid).get().getStartDate();
-        User user = modelMapper.map(userSecurityDTO, User.class);
+    public void insertSchedule(ScheduleDTO userScheduleDTO) {
+        System.out.println("userScheduleDTO: " + userScheduleDTO);
 
-        String[] saveScheduleArray = saveSchedule.split(",");
-        for (int i = 0; i < saveScheduleArray.length; i++) {
-            LocalDate newDate = createDate.plus(Period.ofDays(nextDays)).minusDays(1);
+        LocalDate createDate = scheduleDateRepository.findById(userScheduleDTO.getUuid())
+                .orElseThrow(() -> new IllegalArgumentException("ScheduleDate not found"))
+                .getStartDate();
+
+
+        int[] i = {0};
+        userScheduleDTO.getContents().forEach(userSchedule -> {
+            LocalDate newDate = createDate.plus(Period.ofDays(userScheduleDTO.getNextDays())).minusDays(1);
+
+            Contents contents = contentsRepository.findById(userSchedule.toString())
+                    .orElseThrow(() -> new IllegalArgumentException("Contents not found"));
+
+            ScheduleDate scheduleDate = scheduleDateRepository.findById(userScheduleDTO.getUuid())
+                    .orElseThrow(() -> new IllegalArgumentException("ScheduleDate not found"));
+
+            i[0] +=1;
             Schedule schedule = Schedule.builder()
-                    .user(user)
-                    .contents(contentsRepository.findById(saveScheduleArray[i]).get())
-                    .scheduleDate(scheduleDateRepository.findById(uuid).get())
+                    .contents(contents)
+                    .scheduleDate(scheduleDate)
                     .nowDate(newDate)
-                    .sequence(i)
+                    .sequence(i[0])
                     .build();
             scheduleRepository.save(schedule);
-        }
+        });
     }
 
     @Transactional(readOnly = true)
