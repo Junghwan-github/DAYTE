@@ -31,8 +31,8 @@ public class ScheduleDateService {
     public void insertScheduleDate(UserSecurityDTO userSecurityDTO, ScheduleDateDTO scheduleDTO) {
         try {
             User user = mapUserDTOToUser(userSecurityDTO);
-            LocalDate startDay = parseDateString(scheduleDTO.getStartDate());
-            LocalDate endDay = parseDateString(scheduleDTO.getEndDate());
+            LocalDate startDate = parseDateString(scheduleDTO.getStartDate());
+            LocalDate endDate = parseDateString(scheduleDTO.getEndDate());
             String title = scheduleDTO.getTitle();
 
             String uuid = generateUUID();
@@ -40,8 +40,8 @@ public class ScheduleDateService {
                     .uuid(uuid)
                     .title(title)
                     .user(user)
-                    .startDate(startDay)
-                    .endDate(endDay)
+                    .startDate(startDate)
+                    .endDate(endDate)
                     .build();
             scheduleDateRepository.save(scheduledate);
         } catch (Exception e) {
@@ -86,9 +86,9 @@ public class ScheduleDateService {
             return result;
     }
 
-    public void deleteSchedule(LocalDate del, UserSecurityDTO userSecurityDTO) {
+    public void deleteSchedule(LocalDate startDate, UserSecurityDTO userSecurityDTO) {
         User user = mapUserDTOToUser(userSecurityDTO);
-        ScheduleDate scheduleDate = scheduleDateRepository.findByUserAndStartDate(user,del).get();
+        ScheduleDate scheduleDate = scheduleDateRepository.findByUserAndStartDate(user,startDate).get();
         scheduleDateRepository.deleteById(scheduleDate.getUuid());
     }
 

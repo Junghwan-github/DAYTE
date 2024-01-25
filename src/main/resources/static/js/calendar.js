@@ -270,7 +270,7 @@ function applyModalStyles(element, styles) {
 }
 
 // 모달 열기 버튼과 닫기 버튼 이벤트 처리
-let closeModalButton = document.querySelector("#closeModal");
+let closeModalButton = document.querySelector("#closeModalBtn");
 closeModalButton.addEventListener("click", closeModal);
 
 // 날짜 포맷 지정
