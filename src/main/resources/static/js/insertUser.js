@@ -19,7 +19,6 @@ let userObject = {
             phone: $("#phone").val(),
             birthDate: $("#birthDate").val(),
             gender: $("#gender").val()
-
         }
         $.ajax({
             type : "POST",

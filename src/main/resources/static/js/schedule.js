@@ -24,8 +24,17 @@ $(".nextDayBtn").on("click", function(e) {
         pager: false,
     });
     $("body").css("overflow","hidden");
+    let container = document.getElementById("rightModalLayout"); //지도를 담을 영역의 DOM 레퍼런스
+    let options = {
+        //지도를 생성할 때 필요한 기본 옵션
+        center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
+        level: 5, //지도의 레벨(확대, 축소 정도)
+    };
+
+    let map = new kakao.maps.Map(container, options);
 })
 
+console.log($(".contentListItemPoint-x").text());
 
 
 let listCartBtn = document.querySelector("#divUpDownButton");
@@ -35,14 +44,7 @@ listCartBtn.addEventListener("click", () => {
     contentListCart.classList.toggle("show");
 });
 
-// let container = document.getElementById("contentsMap"); //지도를 담을 영역의 DOM 레퍼런스
-// let options = {
-//   //지도를 생성할 때 필요한 기본 옵션
-//   center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
-//   level: 5, //지도의 레벨(확대, 축소 정도)
-// };
 
-// let map = new kakao.maps.Map(container, options);
 
 let scheduleItems = document.querySelectorAll(".scheduleContentsItem");
 
