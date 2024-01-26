@@ -22,9 +22,12 @@ $(".nextDayBtn").on("click", function (e) {
     sortableInstance = new Sortable(containerEl, {
         animation: 150,
         ghostClass: 'active',
-        direction: "horizontal"
+        direction: "horizontal",
+        filter: '.contentsListItemDelete'
     });
     sortableInstance.option("disabled", true);
+
+
     $("body").css("overflow", "hidden");
 
     mouseDrag();

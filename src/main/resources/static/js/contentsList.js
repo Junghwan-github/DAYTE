@@ -37,11 +37,15 @@ contentBtn.forEach(function (content) {
         let sliderItemImages = $(".contentListItemsImages > img").attr("src");
         $(".contentModalSlider").append(`<li class='contentsListItemSelected'><div><img src='${sliderItemImages}'/></div><span>${businessName}</span><button type='button' class='contentsListItemDelete' value='${id}'><i class="xi-close-min"></i></button></li>`);
 
+        $(".contentsListItemDelete").on("click", function (e) {
+            e.stopPropagation();
+            $(this).parent().remove();
+        })
     });
 });
-$(".contentsListItemDelete").on("click", function(e) {
-    console.log($(e.target));
-});
+
+
+
 async function scheduleTotalSaveBtn() {
     try {
         let saveSchedule = [];
@@ -75,3 +79,4 @@ async function scheduleTotalSaveBtn() {
         alert(`에러 발생: ${error.message}`);
     }
 }
+
