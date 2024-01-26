@@ -22,6 +22,8 @@ contentBtn.forEach(function (content) {
         let businessName;
         let latitude;
         let longitude;
+        const itemArr = [];
+
 
         contents.forEach(function (vo) {
             if (vo.id === e.target.value) {
@@ -32,26 +34,29 @@ contentBtn.forEach(function (content) {
             }
         });
 
-        const selectContents = document.querySelector(".contentModalSlider");
-        const uSelectButton = document.createElement("button");
-        const uSelectImg = document.createElement("img");
-        const uSelectImgDiv = document.createElement("div");
-        const uSelectSpan = document.createElement("span");
-        const uSelect = document.createElement("li");
+        if (itemArr.length === 0 || itemArr.indexOf(id) === -1) {
+            const selectContents = document.querySelector(".contentModalSlider");
+            const uSelectButton = document.createElement("button");
+            const uSelectImg = document.createElement("img");
+            const uSelectImgDiv = document.createElement("div");
+            const uSelectSpan = document.createElement("span");
+            const uSelect = document.createElement("li");
 
-        uSelect.className = "uSelect";
+            uSelect.className = "uSelect";
 
-        uSelectImg.setAttribute('src', '');
-        uSelectImg.setAttribute('alt', '이미지');
-        uSelectButton.setAttribute('type', 'button');
-        uSelectButton.setAttribute('value', id);
+            uSelectImg.setAttribute('src', '');
+            uSelectImg.setAttribute('alt', '이미지');
+            uSelectButton.setAttribute('type', 'button');
+            uSelectButton.setAttribute('value', id);
 
-        uSelectSpan.textContent = businessName;
-        uSelectImgDiv.append(uSelectImg);
-        uSelect.append(uSelectImgDiv);
-        uSelect.append(uSelectSpan);
-        uSelect.append(uSelectButton);
-        selectContents.append(uSelect);
+            uSelectSpan.textContent = businessName;
+            uSelectImgDiv.append(uSelectImg);
+            uSelect.append(uSelectImgDiv);
+            uSelect.append(uSelectSpan);
+            uSelect.append(uSelectButton);
+            selectContents.append(uSelect);
+            itemArr.push(id);
+        }
     });
 });
 
