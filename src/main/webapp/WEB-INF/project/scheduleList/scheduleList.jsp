@@ -20,7 +20,7 @@
         <form id="myForm">
             <div id="myModal" class="modal">
                 <div class="modal-content">
-                    <input type="text" id="scheduleSubjectTitle" placeholder="일정 제목을 입력해주세요" maxlength="19" />
+                    <input type="text" id="scheduleSubjectTitle" placeholder="일정 제목을 입력해주세요" maxlength="19"/>
                     <div class="modalCalContainer">
                         <div class="calendar-box">
                             <div class="ctr-box clearfix">
@@ -43,19 +43,20 @@
             </div>
         </form>
     </section>
-    <c:if test="${!empty userScheduleList}">
-        <c:forEach var="scheduleList" items="${userScheduleList}">
-            <c:set var="startDate" value="${scheduleList.startDate.toEpochDay()}"/>
-            <c:set var="endDate" value="${scheduleList.endDate.toEpochDay()}"/>
+    <section id="schedulePrint">
+        <c:if test="${!empty userScheduleList}">
+            <c:forEach var="scheduleList" items="${userScheduleList}">
+                <c:set var="startDate" value="${scheduleList.startDate.toEpochDay()}"/>
+                <c:set var="endDate" value="${scheduleList.endDate.toEpochDay()}"/>
 
-            <section id="schedulePrint">
                 <div class="scheduleContentsItem">
                     <i class="xi-ellipsis-v">
                     </i>
                     <div class="menuList">
                         <ul>
                             <li><a href="#">편집</a></li>
-                            <li><a href="#" class="deleteSchedule" onclick="deleteLinks('${scheduleList.startDate}')">삭제</a></li>
+                            <li><a href="#" class="deleteSchedule"
+                                   onclick="deleteLinks('${scheduleList.startDate}')">삭제</a></li>
                         </ul>
                     </div>
                     <div class="scheduleItemSliderArea">
@@ -87,7 +88,8 @@
                             <c:forEach var="i" begin="${startDate}" end="${endDate}">
                                 <c:set var="nextDays" value="${day + 1 }"/>
                                 <li>
-                                    <button class="nextDayBtn" value="${scheduleList.uuid}" data-next-days="${nextDays}">${nextDays}일 차
+                                    <button class="nextDayBtn" value="${scheduleList.uuid}"
+                                            data-next-days="${nextDays}">${nextDays}일 차
                                     </button>
                                 </li>
                                 <c:set var="day" value="${nextDays}"/>
@@ -95,9 +97,10 @@
                         </ul>
                     </div>
                 </div>
-            </section>
-        </c:forEach>
-    </c:if>
+            </c:forEach>
+        </c:if>
+    </section>
+
     <div class="daysListAddModal">
         <span class="tableUuid"></span>
         <span class="daysValue"></span>
@@ -110,14 +113,25 @@
             <div class="contentListModalArea">
                 <div class="contentListModalItem">
                     <h2>일정 리스트</h2>
+                    <ul class="contentListModalBtnWrap">
+                        <li>
+                            <button class="scheduleTotalListModifyBtn">수정</button>
+                        </li>
+                        <li>
+                            <button class="scheduleTotalListCancelBtn">확인</button>
+                        </li>
+                    </ul>
                     <ul class="contentModalSlider">
                     </ul>
+
                 </div>
             </div>
             <button type="button" id="divUpDownButton">펼치기 / 접기</button>
             <div class="bottomModalWraper">
                 <div class="leftModalLayout">
-                    <div><input type="text" id="leftModalSearchBar" placeholder="검색어를 입력하세요"><button type="button" id="leftModalSearchBarBtn">검색</button></div>
+                    <div><input type="text" id="leftModalSearchBar" placeholder="검색어를 입력하세요">
+                        <button type="button" id="leftModalSearchBarBtn">검색</button>
+                    </div>
                     <div>
                         <h2>구/군</h2>
                         <ul>
@@ -156,46 +170,48 @@
                 <div class="centerModalLayout">
                     <ul class="contentListViewer">
                         <c:forEach var="content" items="${contentsList}">
-                        <li>
-                            <span class="contentListItemPoint-x">${content.positionX}</span><span class="contentListItemPoint-y">${content.positionY}</span>
-                            <div class="contentListItems">
-                                <div class="contentListItemsImages">
-                                    <img src="../images/testimages1.jpg">
-                                </div>
-                                <ul class="contentListItemText">
-                                    <li>
-                                        <h2>${content.businessName}</h2>
-                                        <h2>${content.category}</h2>
-                                    </li>
-                                    <li>
-                                        <span>대구 ${content.gu} ${content.ro}</span>
-                                    </li>
-                                    <li>
-                                        <p>영업시간 : 09:00</p>
-                                        <p>기간 : 없음</p>
-                                        <p>문의 : 0507-2221-1321</p>
-                                    </li>
-                                    <li>
-                                        <span>★ 4.5</span>
-                                    </li>
-                                </ul>
-                                <div class="contentListItemButton">
-                                    <ul>
+                            <li>
+                                <span class="contentListItemPoint-x">${content.positionX}</span><span
+                                    class="contentListItemPoint-y">${content.positionY}</span>
+                                <div class="contentListItems">
+                                    <div class="contentListItemsImages">
+                                        <img src="../images/testimages1.jpg">
+                                    </div>
+                                    <ul class="contentListItemText">
                                         <li>
-                                            <button class="contentListItemdetailViewBtn">상세보기</button>
+                                            <h2>${content.businessName}</h2>
+                                            <h2>${content.category}</h2>
                                         </li>
                                         <li>
-                                            <button class="contentListItemAddBtn" value="${content.id}">추가하기</button>
+                                            <span>대구 ${content.gu} ${content.ro}</span>
+                                        </li>
+                                        <li>
+                                            <p>영업시간 : 09:00</p>
+                                            <p>기간 : 없음</p>
+                                            <p>문의 : 0507-2221-1321</p>
+                                        </li>
+                                        <li>
+                                            <span>★ 4.5</span>
                                         </li>
                                     </ul>
+                                    <div class="contentListItemButton">
+                                        <ul>
+                                            <li>
+                                                <button class="contentListItemdetailViewBtn">상세보기</button>
+                                            </li>
+                                            <li>
+                                                <button class="contentListItemAddBtn" value="${content.id}">추가하기
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
-                            </div>
-                        </li>
+                            </li>
                         </c:forEach>
                     </ul>
                 </div>
                 <div class="rightModalLayout" id="rightModalLayout">
-                <button class="saveBtn" onclick="asd()">저장</button>
+                    <button class="scheduleTotalSaveBtn" onclick="scheduleTotalSaveBtn()">저장</button>
                 </div>
             </div>
         </div>

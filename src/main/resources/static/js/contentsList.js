@@ -35,35 +35,19 @@ contentBtn.forEach(function (content) {
         });
 
         if (itemArr.length === 0 || itemArr.indexOf(id) === -1) {
-            const selectContents = document.querySelector(".contentModalSlider");
-            const uSelectButton = document.createElement("button");
-            const uSelectImg = document.createElement("img");
-            const uSelectImgDiv = document.createElement("div");
-            const uSelectSpan = document.createElement("span");
-            const uSelect = document.createElement("li");
-
-            uSelect.className = "uSelect";
-
-            uSelectImg.setAttribute('src', '');
-            uSelectImg.setAttribute('alt', '이미지');
-            uSelectButton.setAttribute('type', 'button');
-            uSelectButton.setAttribute('value', id);
-
-            uSelectSpan.textContent = businessName;
-            uSelectImgDiv.append(uSelectImg);
-            uSelect.append(uSelectImgDiv);
-            uSelect.append(uSelectSpan);
-            uSelect.append(uSelectButton);
-            selectContents.append(uSelect);
+            let sliderItemImages = $(".contentListItemsImages > img").attr("src");
+        $(".contentModalSlider").append(`<li class='contentsListItemSelected'><div><img src='${sliderItemImages}'/></div><span>${businessName}</span><button type='button' class='contentsListItemDelete' value='${id}'><i class="xi-close-min"></i></button></li>`);
             itemArr.push(id);
         }
     });
 });
-
-async function asd() {
+$(".contentsListItemDelete").on("click", function(e) {
+    console.log($(e.target));
+});
+async function scheduleTotalSaveBtn() {
     try {
         let saveSchedule = [];
-        $(".uSelect").each(function () {
+        $(".contentsListItemSelected").each(function () {
             let button = $(this).find("button");
             saveSchedule.push(button.val());
         });

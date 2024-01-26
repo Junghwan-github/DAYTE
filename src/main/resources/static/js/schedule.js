@@ -8,75 +8,121 @@ $(document).ready(function () {
         minSlides: 1,
         maxSlides: 1,
         pager: false,
+        infiniteLoop: false
     });
 });
 
-
-$(".nextDayBtn").on("click", function(e) {
-    console.log($(e.target).val());
+$(".nextDayBtn").on("click", function (e) {
     $(".tableUuid").text($(e.target).val());
     $(".daysValue").text($(e.target).data("next-days"));
-    console.log($(".daysValue").text());
-    console.log($(".daysValue").text());
     $(".daysListAddModal").show();
-    $(".contentModalSlider").bxSlider({
-        mode: "horizontal",
-        slideWidth: 250,
-        slideMargin: 20,
-        minSlides: 1,
-        maxSlides: 10,
-        pager: false,
-        touchEnabled: false,
-        oneToOneTouch: false
+
+
+    let containerEl = document.querySelector('.contentModalSlider');
+    sortableInstance = new Sortable(containerEl, {
+        animation: 150,
+        ghostClass: 'active',
+        direction: "horizontal"
     });
+    sortableInstance.option("disabled", true);
+    $("body").css("overflow", "hidden");
 
-    $("body").css("overflow","hidden");
+    mouseDrag();
 
-
-
-    let container = document.getElementById("rightModalLayout"); //지도를 담을 영역의 DOM 레퍼런스
+    let container = document.getElementById("rightModalLayout");
     let options = {
-        //지도를 생성할 때 필요한 기본 옵션
-        center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
-        level: 5, //지도의 레벨(확대, 축소 정도)
+        center: new kakao.maps.LatLng(33.450701, 126.570667),
+        level: 5
     };
-
     let map = new kakao.maps.Map(container, options);
-})
+});
 
-console.log($(".contentListItemPoint-x").text());
+let slider = document.querySelector('.contentModalSlider');
+let isDown = false;
+let startX;
+let scrollLeft;
+let x = "";
+let walk = "";
+
+$(".scheduleTotalListModifyBtn").on("click", function (e) {
+    $(".scheduleTotalListModifyBtn").hide();
+    $(".scheduleTotalListCancelBtn").show();
+    $(".contentModalSlider > li > button").show();
+    sortableInstance.option("disabled", false);
+    $(slider).off('mousedown');
+    $(slider).off('mouseleave');
+    $(slider).off('mouseup');
+    $(slider).off('mousemove');
+
+});
 
 
-let listCartBtn = document.querySelector("#divUpDownButton");
-let contentListCart = document.querySelector(".contentListModalArea");
-
-listCartBtn.addEventListener("click", () => {
-    contentListCart.classList.toggle("show");
+$(".scheduleTotalListCancelBtn").on("click", function () {
+    $(".scheduleTotalListCancelBtn").hide();
+    $(".scheduleTotalListModifyBtn").show();
+    $(".contentModalSlider > li > button").hide();
+    sortableInstance.option("disabled", true);
+    mouseDrag();
 });
 
 
 
-let scheduleItems = document.querySelectorAll(".scheduleContentsItem");
+function mouseDrag() {
 
-scheduleItems.forEach(function (scheduleItem) {
-    let contentsSubNavBtn = scheduleItem.querySelector(".xi-ellipsis-v");
+        $(slider).on('mousedown', handleMouseDown);
+        $(slider).on('mouseleave', handleMouseLeave);
+        $(slider).on('mouseup', handleMouseUp);
+        $(slider).on('mousemove', handleMouseMove);
 
-    contentsSubNavBtn.addEventListener("click", function (e) {
-        let menuList = scheduleItem.querySelector(".menuList");
+    function handleMouseDown(e) {
+        isDown = true;
+        startX = e.pageX - slider.offsetLeft;
+        scrollLeft = slider.scrollLeft;
+    }
 
-        if (menuList) {
-            menuList.classList.toggle("show");
-        }
+    function handleMouseLeave() {
+        isDown = false;
+    }
 
+    function handleMouseUp() {
+        isDown = false;
+    }
+
+    function handleMouseMove(e) {
+        if (!isDown) return;
         e.preventDefault();
+        e.stopPropagation();
+        x = e.pageX - slider.offsetLeft;
+        walk = x - startX;
+        slider.scrollLeft = scrollLeft - walk;
+    }
+}
+
+
+
+
+    let listCartBtn = document.querySelector("#divUpDownButton");
+    let contentListCart = document.querySelector(".contentListModalArea");
+
+    listCartBtn.addEventListener("click", () => {
+        contentListCart.classList.toggle("show");
     });
-});
 
-const containerEl = document.querySelector('.contentModalSlider');
-new Sortable(containerEl, {
-    animation: 150,
 
-    ghostClass: 'active',
+    let scheduleItems = document.querySelectorAll(".scheduleContentsItem");
 
-    direction: "horizontal"
-});
+    scheduleItems.forEach(function (scheduleItem) {
+        let contentsSubNavBtn = scheduleItem.querySelector(".xi-ellipsis-v");
+
+        contentsSubNavBtn.addEventListener("click", function (e) {
+            let menuList = scheduleItem.querySelector(".menuList");
+
+            if (menuList) {
+                menuList.classList.toggle("show");
+            }
+
+            e.preventDefault();
+        });
+    });
+
+
