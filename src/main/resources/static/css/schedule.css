@@ -310,3 +310,16 @@ th {
 .contentListItemPoint-y {
   display: none;
 }
+
+.tableUuid,
+.daysValue {
+    display: none;
+}
+
+.saveBtn {
+    position: absolute;
+    top: 60%;
+    right: 20%;
+    z-index: 3;
+}
+

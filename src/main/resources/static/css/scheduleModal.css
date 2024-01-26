@@ -91,6 +91,13 @@
     box-sizing: border-box;
 }
 
+.uSelect {
+    height: 180px;
+    width: 180px;
+    background-color: gray;
+    display: inline-block;
+}
+
 .contentModalSlider > li {
     text-align: center;
 }

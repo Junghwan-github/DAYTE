@@ -47,6 +47,7 @@
         <c:forEach var="scheduleList" items="${userScheduleList}">
             <c:set var="startDate" value="${scheduleList.startDate.toEpochDay()}"/>
             <c:set var="endDate" value="${scheduleList.endDate.toEpochDay()}"/>
+
             <section id="schedulePrint">
                 <div class="scheduleContentsItem">
                     <i class="xi-ellipsis-v">
@@ -86,7 +87,7 @@
                             <c:forEach var="i" begin="${startDate}" end="${endDate}">
                                 <c:set var="nextDays" value="${day + 1 }"/>
                                 <li>
-                                    <button class="nextDayBtn" value="${nextDays}">${nextDays}일 차
+                                    <button class="nextDayBtn" value="${scheduleList.uuid}" data-next-days="${nextDays}">${nextDays}일 차
                                     </button>
                                 </li>
                                 <c:set var="day" value="${nextDays}"/>
@@ -98,69 +99,18 @@
         </c:forEach>
     </c:if>
     <div class="daysListAddModal">
+        <span class="tableUuid"></span>
+        <span class="daysValue"></span>
         <div class="daysListModalViewArea">
             <div class="daysContentsModalCloseBtn">
-          <span class="material-symbols-outlined modalclosebutton" onclick="closeModal(this,'close')">
+                <span class="material-symbols-outlined modalclosebutton" onclick="closeModal(this,'close')">
             close
-          </span>
+                </span>
             </div>
             <div class="contentListModalArea">
                 <div class="contentListModalItem">
                     <h2>일정 리스트</h2>
                     <ul class="contentModalSlider">
-                        <li>
-                            <div><img src="/images/testimages1.jpg"></div>
-                            <span>[컨텐츠 타이틀]</span>
-                        </li>
-                        <li>
-                            <div><img src="/images/testimages2.jpg"></div>
-                            <span>[컨텐츠 타이틀]</span>
-                        </li>
-                        <li>
-                            <div><img src="/images/testimages3.jpg"></div>
-                            <span>[컨텐츠 타이틀]</span>
-                        </li>
-                        <li>
-                            <div><img src="/images/testimages4.jpg"></div>
-                            <span>[컨텐츠 타이틀]</span>
-                        </li>
-                        <li>
-                            <div><img src="/images/testimages5.jpg"></div>
-                            <span>[컨텐츠 타이틀]</span>
-                        </li>
-                        <li>
-                            <div><img src="/images/testimages1.jpg"></div>
-                            <span>[컨텐츠 타이틀]</span>
-                        </li>
-                        <li>
-                            <div><img src="/images/testimages1.jpg"></div>
-                            <span>[컨텐츠 타이틀]</span>
-                        </li>
-                        <li>
-                            <div><img src="/images/testimages1.jpg"></div>
-                            <span>[컨텐츠 타이틀]</span>
-                        </li>
-                        <li>
-                            <div><img src="/images/testimages1.jpg"></div>
-                            <span>[컨텐츠 타이틀]</span>
-                        </li>
-                        <li>
-                            <div><img src="/images/testimages1.jpg"></div>
-                            <span>[컨텐츠 타이틀]</span>
-                        </li>
-                        <li>
-                            <div><img src="/images/testimages1.jpg"></div>
-                            <span>[컨텐츠 타이틀]</span>
-                        </li>
-                        <li>
-                            <div><img src="/images/testimages1.jpg"></div>
-                            <span>[컨텐츠 타이틀]</span>
-                        </li>
-                        <li>
-                            <div><img src="/images/testimages1.jpg"></div>
-                            <span>[컨텐츠 타이틀]</span>
-                        </li>
-
                     </ul>
                 </div>
             </div>
@@ -205,18 +155,20 @@
                 </div>
                 <div class="centerModalLayout">
                     <ul class="contentListViewer">
+                        <c:forEach var="content" items="${contentsList}">
                         <li>
-                            <span class="contentListItemPoint-x">35.860528</span><span class="contentListItemPoint-y">128.557090</span>
+                            <span class="contentListItemPoint-x">${content.positionX}</span><span class="contentListItemPoint-y">${content.positionY}</span>
                             <div class="contentListItems">
                                 <div class="contentListItemsImages">
                                     <img src="../images/testimages1.jpg">
                                 </div>
                                 <ul class="contentListItemText">
                                     <li>
-                                        <h2>여기가 컨텐츠 타이틀</h2>
+                                        <h2>${content.businessName}</h2>
+                                        <h2>${content.category}</h2>
                                     </li>
                                     <li>
-                                        <span>대구광역시 북구 구암로15길 38</span>
+                                        <span>대구 ${content.gu} ${content.ro}</span>
                                     </li>
                                     <li>
                                         <p>영업시간 : 09:00</p>
@@ -233,22 +185,28 @@
                                             <button class="contentListItemdetailViewBtn">상세보기</button>
                                         </li>
                                         <li>
-                                            <button class="contentListItemAddBtn">추가하기</button>
+                                            <button class="contentListItemAddBtn" value="${content.id}">추가하기</button>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                         </li>
+                        </c:forEach>
                     </ul>
                 </div>
                 <div class="rightModalLayout" id="rightModalLayout">
-
+                <button class="saveBtn" onclick="asd()">저장</button>
                 </div>
             </div>
         </div>
     </div>
 </main>
+<script>
+    let contentsList = '<c:out value="${contentsList}"/>';
+</script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 <script src="/js/schedule.js"></script>
 <script src="/js/cal.js"></script>
 <script src="/js/calendar.js"></script>
+<script src="/js/contentsList.js"></script>
 <%@include file="../layout/footer.jsp" %>

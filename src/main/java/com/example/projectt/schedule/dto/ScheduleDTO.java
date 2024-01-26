@@ -3,23 +3,21 @@ package com.example.projectt.schedule.dto;
 
 import com.example.projectt.members.domain.User;
 import com.example.projectt.schedule.domain.Contents;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.example.projectt.schedule.domain.ScheduleDate;
+import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter
+@Setter
+@ToString
 public class ScheduleDTO {
 
-    private User user;
+    private List<?> contents;
 
-    private Contents contents;
+    private String uuid;
 
-    private LocalDate nowDate;
-
-    private int sequence;
+    private int nextDays;
 
 }

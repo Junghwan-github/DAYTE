@@ -3,8 +3,11 @@ package com.example.projectt.schedule.controller;
 
 import com.example.projectt.members.dto.ResponseDTO;
 import com.example.projectt.schedule.domain.ScheduleDate;
+import com.example.projectt.schedule.dto.ScheduleDTO;
 import com.example.projectt.schedule.dto.ScheduleDateDTO;
+import com.example.projectt.schedule.service.ContentsService;
 import com.example.projectt.schedule.service.ScheduleDateService;
+import com.example.projectt.schedule.service.ScheduleService;
 import com.example.projectt.security.dto.UserSecurityDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,16 +19,22 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 
 @Controller
-public class CalController {
+public class ScheduleController {
 
     @Autowired
     private ScheduleDateService scheduleDateService;
 
+    @Autowired
+    private ScheduleService scheduleService;
+
+    @Autowired
+    private ContentsService contentsService;
+
     @GetMapping("/schedule/scheduleList")
     public String moveScheduleList(Model model,
                                    @AuthenticationPrincipal UserSecurityDTO userSecurityDTO) {
-
         model.addAttribute("userScheduleList", scheduleDateService.selectScheduleByUser(userSecurityDTO))
+                .addAttribute("contentsList", contentsService.getContentsList())
                 .addAttribute("dDay", LocalDate.now().toEpochDay());
         return "scheduleList/scheduleList";
     }
@@ -44,7 +53,13 @@ public class CalController {
         }
     }
 
-    @DeleteMapping("/schedule/scheduleList/{startDate}")
+    @PostMapping("/schedule/saveSchedule")
+    public @ResponseBody ResponseDTO<?> saveScheduleList(@RequestBody ScheduleDTO userSchedule) {
+        scheduleService.insertSchedule(userSchedule);
+        return new ResponseDTO<>(HttpStatus.OK.value(), "일정이 등록 되었습니다.");
+    }
+
+    @DeleteMapping("schedule/scheduleList/{startDate}")
     public void deleteSchedule(@PathVariable LocalDate startDate,
                                @AuthenticationPrincipal UserSecurityDTO userSecurityDTO) {
         scheduleDateService.deleteSchedule(startDate, userSecurityDTO);
