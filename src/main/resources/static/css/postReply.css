@@ -1,0 +1,83 @@
+/* CSS style sheet */
+
+button[id="postReplyHamburger"] {
+    display: none;
+}
+
+button[id="postReplyHamburger"] + label {
+    margin: 0 auto;
+    display: block;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+button[id="postReplyHamburger"] + label > span {
+    display: block;
+    height: 3px;
+    width: 3px;
+    margin-bottom: 2px;
+    border-radius: 2px;
+    background: black;
+}
+
+.postReplyBtnList {
+    display: inline-block;
+}
+
+#postReplyView {
+    height: 1000px;
+}
+
+#postReplyView > li {
+    margin: 0 auto;
+    padding: 10px 50px;
+
+}
+
+#postReplyView > li > ul:first-child {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+#postReplyView > li > ul:first-child > li > span{
+    font-size: 15px;
+    margin: 10px;
+}
+
+.replyContent {
+    padding: 35px;
+    font-size: 15px;
+    text-align: start;
+    border: 1px solid black;
+}
+
+.postReplyBtnList {
+    position: relative;
+}
+
+.showPostReplyBtnList > ul {
+    display: none;
+   position: absolute;
+    top: 0;
+    left: 0;
+    border: 1px solid black;
+}
+
+.showPostReplyBtnList > ul > li {
+
+
+    /*background: inherit ;*/
+    /*border:none;*/
+    /*box-shadow:none;*/
+    /*border-radius:0;*/
+    /*padding:0;*/
+    /*overflow:visible;*/
+    /*cursor:pointer;*/
+}
+
+
+
+
+
