@@ -104,3 +104,5 @@ function deleteLinks(startDate) {
         });
     }
 }
+
+console.log($(".scheduleListTableUuid").text());
