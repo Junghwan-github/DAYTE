@@ -9,20 +9,26 @@ let indexMainSliderObject = {
     },
     insertIndexMainSlider: function () {
         console.log("1번");
-        let content = {
-            images : $("#images").val(),
-            category : $("#category").val(),
-           mainTitle : $("#mainTitle").val(),
-            subTitle : $("#subTitle").val(),
-            schedule : $("#schedule").val(),
-            address : $("#address").val(),
-            summary : $("#summary").val()
-        }
+
+        let formData = new FormData();
+
+        let imageFile = $("#images")[0].files[0];
+        console.log("Image File:", imageFile);
+        formData.append("images", imageFile);
+
+        formData.append("category", $("#category").val());
+        formData.append("mainTitle", $("#mainTitle").val());
+        formData.append("subTitle", $("#subTitle").val());
+        formData.append("schedule", $("#schedule").val());
+        formData.append("address", $("#address").val());
+        formData.append("summary", $("#summary").val());
+
         $.ajax({
             type : "POST",
-            url : "/admin/home/registration/indexmainslider",
-            data : JSON.stringify(content),
-            contentType : "application/json; charset=utf-8",
+            url : "/admin/home/registration/index",
+            data : formData,
+            processData: false,
+            contentType: false
         }).done(function (response) {
                 location.reload();
 

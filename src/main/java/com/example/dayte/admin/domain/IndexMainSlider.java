@@ -1,16 +1,14 @@
 package com.example.dayte.admin.domain;
 
-import com.example.dayte.members.domain.RoleType;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 
-import java.sql.Timestamp;
 
 @Entity
 @Table(name = "INDEXMAINSLIDER")
 @Builder
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
@@ -20,7 +18,7 @@ public class IndexMainSlider {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long article;
 
-    @Column(nullable = false, length = 200)
+    @Column(nullable = false, length = 500)
     private String images;
 
     @Column(nullable = false, length = 200)

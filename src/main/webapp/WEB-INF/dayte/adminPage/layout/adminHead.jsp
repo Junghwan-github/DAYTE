@@ -13,7 +13,6 @@
     <%-- 제이쿼리 --%>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
-    <link rel="stylesheet" href="/css/adminIndexMainSlider.css">
 
 </head>
 <body>

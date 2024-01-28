@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 @Data
 @NoArgsConstructor
@@ -13,7 +14,9 @@ public class IndexMainSliderDTO {
 
     @NotNull(message = "필수 등록사항입니다.")
     @NotBlank(message = "필수 등록사항입니다.")
-    private String images;
+    private MultipartFile images;
+
+    private String imageUrl;
 
     @NotNull(message = "필수 등록사항입니다.")
     @NotBlank(message = "필수 등록사항입니다.")
