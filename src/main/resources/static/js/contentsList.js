@@ -16,7 +16,7 @@ const contents = contentsListStrings.map(contentString => {
 });
 
 const contentBtn = document.querySelectorAll(".contentListItemAddBtn");
-
+const itemArr = [];
 contentBtn.forEach(function (content) {
     content.addEventListener("click", function (e) {
 
@@ -24,6 +24,8 @@ contentBtn.forEach(function (content) {
         let businessName;
         let latitude;
         let longitude;
+
+
 
         contents.forEach(function (vo) {
             if (vo.id === e.target.value) {
@@ -34,19 +36,17 @@ contentBtn.forEach(function (content) {
             }
         });
 
-        let sliderItemImages = $(".contentListItemsImages > img").attr("src");
-        $(".contentModalSlider").append(`<li class='contentsListItemSelected'><div><img src='${sliderItemImages}'/></div><span>${businessName}</span><button type='button' class='contentsListItemDelete' value='${id}'><i class="xi-close-min"></i></button></li>`);
-
+        if (itemArr.length === 0 || itemArr.indexOf(id) === -1) {
+            let sliderItemImages = $(".contentListItemsImages > img").attr("src");
+            $(".contentModalSlider").append(`<li class='contentsListItemSelected'><div><img src='${sliderItemImages}'/></div><span>${businessName}</span><button type='button' class='contentsListItemDelete' value='${id}'><i class="xi-close-min"></i></button></li>`);
+        }
         $(".contentsListItemDelete").on("click", function (e) {
             e.stopPropagation();
             $(this).parent().remove();
         })
     });
 });
-
-
-
-async function scheduleTotalSaveBtn() {
+function scheduleTotalSaveBtn() {
     try {
         let saveSchedule = [];
         $(".contentsListItemSelected").each(function () {
@@ -55,28 +55,23 @@ async function scheduleTotalSaveBtn() {
         });
 
         const userSchedule = {
-            nextDays: $(".daysValue").text(),
-            uuid: $(".tableUuid").text(),
-            contents: saveSchedule
+            nowDate    : $(".daysValue").text(),
+            uuid        : $(".tableUuid").text(),
+            contentsList: saveSchedule
         };
 
-        console.log(userSchedule);
-
-        const response = await fetch("/schedule/saveSchedule", {
-            method: "POST",
+        fetch("/schedule/saveSchedule", {
+            method : "POST",
             headers: {
                 "Content-Type": "application/json; charset=utf-8",
             },
-            body: JSON.stringify(userSchedule),
+            body   : JSON.stringify(userSchedule),
+        }).then(response => {
+            console.log(response);
+        }).catch(error => {
+            alert(`에러 발생: ${error.message}`);
         });
-
-        if (!response.ok) {
-            throw new Error(`에러 발생: ${response.status}`);
-        }
-
-        console.log(response);
     } catch (error) {
         alert(`에러 발생: ${error.message}`);
     }
 }
-
