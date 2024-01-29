@@ -19,7 +19,7 @@ $nextBtn.addEventListener("click", function (event) {
         console.error("유효하지 않은 scheduleDTO");
         return;
     }
-     
+
     const scheduleDTO = {
         title: title,
         startDate: startDate,
@@ -41,28 +41,53 @@ $nextBtn.addEventListener("click", function (event) {
             console.log(data);
             if (data.status === 200) {
                 location.href = "/schedule/scheduleList";
+            } else if (data.status === 409) {
+                let deleteSchedule = confirm("일정이 이미 있습니다 삭제 하고 다시 생성 하시겠습니까?");
+                if (deleteSchedule) {
+                    fetch("/schedule/deleteAndInsertSchedule", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(scheduleDTO),
+                    })
+                        .then((deleteResponse) => {
+                            return deleteResponse.json();
+                        })
+                        .then((deleteData) => {
+                            if (deleteData.status === 200) {
+                                console.log(deleteData);
+                                location.href = "/schedule/scheduleList";
+                            } else {
+                                console.error("일정 삭제 실패:", deleteData.message);
+                            }
+                        })
+                        .catch((deleteError) => {
+                            console.error("일정 삭제 오류:", deleteError);
+                        })
+                }
+            } else {
+                console.error("서버 오류:", data.message);
             }
         })
         .catch((error) => {
             console.error("오류:", error);
         });
-});
-
 // scheduleDTO를 유효성 검사하는 함수
-function validateScheduleDTO(title, startDate, endDate) {
-    // 타이틀이 비어있지 않은지 확인
-    if (!title.trim()) {
-        alert("일정 제목을 입력 해 주세요");
-        return false;
-    }
+    function validateScheduleDTO(title, startDate, endDate) {
+        // 타이틀이 비어있지 않은지 확인
+        if (!title.trim()) {
+            alert("일정 제목을 입력 해 주세요");
+            return false;
+        }
 
-    // 시작일이나 종료일이 비어있지 않은지 확인
-    if (isNaN(startDate) || isNaN(endDate)) {
-        alert("날짜를 선택하세요");
-        return false;
+        // 시작일이나 종료일이 비어있지 않은지 확인
+        if (isNaN(startDate) || isNaN(endDate)) {
+            alert("날짜를 선택하세요");
+            return false;
+        }
+        return true;
     }
-    return true;
-}
 
 // nextDayBtn 버튼 클릭시 이벤트
 // $nextDayBtn.forEach(nextDay => {
@@ -90,19 +115,18 @@ function validateScheduleDTO(title, startDate, endDate) {
 //     });
 // });
 
-function deleteLinks(startDate) {
-    if (confirm('일정을 삭제 하시겠습니까?')) {
-        fetch("/schedule/scheduleList/" + startDate, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json; charset=utf-8",
-            },
-        }).then(response => {
-            location = "/schedule/scheduleList";
-        }).catch(error => {
-            alert(`에러 발생 : ${error.message}`);
-        });
+    function deleteLinks(startDate) {
+        if (confirm('일정을 삭제 하시겠습니까?')) {
+            fetch("/schedule/scheduleList/" + startDate, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8",
+                },
+            }).then(response => {
+                location = "/schedule/scheduleList";
+            }).catch(error => {
+                alert(`에러 발생 : ${error.message}`);
+            });
+        }
     }
-}
-
-console.log($(".scheduleListTableUuid").text());
+});

@@ -18,4 +18,9 @@ public class ContentsService {
     public List<Contents> getContentsList() {
         return contentsRepository.findAll();
     }
+
+    public List<Contents> searchByContents(String searchContents) {
+        if(searchContents == null) searchContents = "";
+        return contentsRepository.findAllByBusinessNameContaining(searchContents);
+    }
 }
