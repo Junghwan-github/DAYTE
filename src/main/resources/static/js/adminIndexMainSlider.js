@@ -22,6 +22,7 @@ let indexMainSliderObject = {
         formData.append("schedule", $("#schedule").val());
         formData.append("address", $("#address").val());
         formData.append("summary", $("#summary").val());
+        formData.append("href", $("#href").val());
 
         $.ajax({
             type : "POST",
