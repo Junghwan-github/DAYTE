@@ -89,7 +89,7 @@
                                 <c:set var="nextDays" value="${day + 1 }"/>
                                 <li>
                                     <button class="nextDayBtn" value="${scheduleList.uuid}"
-                                            data-next-days="${nextDays}">${nextDays}일 차
+                                            data-next-days="${scheduleList.scheduleDates[day].scheduleDateId.nowDate}">${nextDays}일 차
                                     </button>
                                 </li>
                                 <c:set var="day" value="${nextDays}"/>
