@@ -89,11 +89,6 @@ label {
             </li>
 
             <li>
-                <label for="summary">링크</label>
-                <input type="text" id="href" name="href" required>
-            </li>
-
-            <li>
                 <button type="button" id="indexMainSliderSubmit">저장</button>
             </li>
         </ul>

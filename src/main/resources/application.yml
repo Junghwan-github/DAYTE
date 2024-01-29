@@ -18,10 +18,8 @@ spring:
 
   mvc:
     view:
-      prefix: /WEB-INF/dayte/
+      prefix: /WEB-INF/project/
       suffix: .jsp
-
-
 
   security:
     user:

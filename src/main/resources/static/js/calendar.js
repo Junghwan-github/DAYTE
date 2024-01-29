@@ -260,7 +260,6 @@ function closeModal(btn, data) {
            closeDaysModalArea.style.display = "none";
            $(".contentModalSlider").html("");
            $(".contentListModalArea").removeClass("show");
-           location.reload();
        }
     }
 }
