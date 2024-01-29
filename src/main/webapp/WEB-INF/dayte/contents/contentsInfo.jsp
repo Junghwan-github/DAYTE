@@ -1,74 +1,64 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@include file="../layout/head.jsp"%>
+<script defer src="/js/contentInfo.js"></script>
+<link rel="stylesheet" href="/css/contentInfo.css" >
+<link rel="stylesheet" href="/css/contentSlider.css">
 
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/css/reset.css" >
-    <link rel="stylesheet" href="/css/contentInfo.css" >
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-    <link rel="stylesheet" href="/css/contentSlider.css">
-    <!-- 아이콘 -->
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
-    <script defer src="/js/contentInfo.js"></script>
-
+<title>DAYTE | </title>
 
 </head>
 <body>
 <!-- 해야할 일 : 자바스크립트로 이미지 테이블의 이미지 갯수 끌고와서 div만들어 넣기
       (contentInfo.css)에 마지막 줄에 bxslider bgimage 넣는 형식으로 만들어야 함
     -->
-<header>
+<%@include file="../layout/header.jsp"%>
+<div class="contentsWrapper">
 
-</header>
-<div class="wrapper">
-    <!-- 검색창 -->
-    <section>
-    </section>
-    <!-- 구군 선택 -->
-    <div></div>
     <!-- 메인 -->
     <main>
+        <section id="mainContentsImages">
+            <div class="mainContentsImagesWrapper">
+                <div><img src="/images/contentstest1.jpg"></div>
+                <div><img src="/images/contentstest2.jpg"></div>
+                <div><img src="/images/contentstest3.jpg"></div>
+            </div>
+        </section>
         <!-- 이미지 슬라이드 -->
-        <div class="slider">
-            <div class="bxslider" name="bxslider">
-                <div></div>
-                <div></div>
+<%--        <div class="slider">--%>
+<%--            <div class="bxslider" name="bxslider">--%>
+<%--                <div></div>--%>
+<%--                <div></div>--%>
 
-            </div>
+<%--            </div>--%>
 
-            <div class="contentFigCaption">
-                <figcaption>
-                    <span id="nowImg">1</span>
-                    <span> / </span>
-                    <span id="allImg"></span>
-                </figcaption>
-            </div>
-        </div>
-        <div class="contentInfo">
+<%--            <div class="contentFigCaption">--%>
+<%--                <figcaption>--%>
+<%--                    <span id="nowImg">1</span>--%>
+<%--                    <span> / </span>--%>
+<%--                    <span id="allImg"></span>--%>
+<%--                </figcaption>--%>
+<%--            </div>--%>
+<%--        </div>--%>
+        <section id="contentInfo">
             <!-- 지도 -->
-            <div class="contentMap">
-                <img src="/images/exMapImg.png" alt="지도예시"/>
-            </div>
+<%--            <div class="contentMap">--%>
+<%--                <img src="/images/exMapImg.png" alt="지도예시"/>--%>
+<%--            </div>--%>
             <!-- 콘텐츠 정보 -->
+            <span>맛집</span> <span>달서구</span>
+            <h1>문어물갈비 대구본점</h1>
             <div class="summaryDesc">
-                <div class="businessName">
-                    <p>쭈니 닭갈비 & 우동 테스트</p>
-                    <div class="schedule">
-                        <button id="addSchedule"><a href="#">일정에 추가하기</a></button>
-                    </div>
-                    <div class="detail">
-                        <p>닭갈비가 맛있는 집, 식후 식혜도 줌 닭갈비 비빔밥도 맛있음 근데 가격이 9천원이었는데 만원으로 오름 슬픔</p>
-                    </div>
-                </div>
+<%--                <div class="businessName">--%>
+<%--                    <p>쭈니 닭갈비 & 우동 테스트</p>--%>
+<%--                    <div class="schedule">--%>
+<%--                        <button id="addSchedule"><a href="#">일정에 추가하기</a></button>--%>
+<%--                    </div>--%>
+<%--                    <div class="detail">--%>
+<%--                        <p>닭갈비가 맛있는 집, 식후 식혜도 줌 닭갈비 비빔밥도 맛있음 근데 가격이 9천원이었는데 만원으로 오름 슬픔</p>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
 
 
                 <div class="address">
