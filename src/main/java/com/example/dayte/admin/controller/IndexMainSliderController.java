@@ -19,9 +19,9 @@ public class IndexMainSliderController {
 
 
 
-    @GetMapping("/admin/home/registration/index")
+    @GetMapping("/admin/home/settings/index")
     public String IndexMainSliderView () {
-        return "adminPage/registration/indexMainSlider";
+        return "adminPage/settings/indexMainSlider";
     }
 
     @PostMapping("/admin/home/registration/index")

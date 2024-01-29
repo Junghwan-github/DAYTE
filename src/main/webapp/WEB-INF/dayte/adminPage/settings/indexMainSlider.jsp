@@ -6,15 +6,8 @@
 <style>
     .upload {
         position: relative;
-        width: 1800px;
-        top: 90px;
-        left: 50%;
-        transform: translate(-50%, 0);
-    }
-
-    body {
-        margin: 0;
-        padding: 0;
+        padding-top: 70px;
+        min-width:375px;
     }
 
     input, textarea {
@@ -26,70 +19,52 @@
 
     }
 
-label {
-    display: block;
-}
-
-    ul {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-    }
-
-    li {
-        padding: 0;
-        margin: 0 0 20px 0;
-    }
-
-    button {
-        border: none;
-        background: #1785f2;
-        color: #fff;
+    .saveBtn {
         font-size: 1.3rem;
-        display: block;
-        padding: 7px 50px;
         font-weight: bold;
         float: right;
     }
+
 </style>
-<div class="upload">
-    <form id="indexMainSliderUploadForm">
-        <ul>
-            <li>
+<div class="upload h-100 bg-body-tertiary px-3" >
+    <form id="indexMainSliderUploadForm" class="py-3 px-5">
+        <p class="h4 fw-bold" >메인 설정</p>
+        <ul class="m-0 p-0 list-unstyled">
+            <li class="mb-3 p-0">
                 <input type="hidden" name="article"/>
             </li>
-            <li>
-                <label for="images">이미지 등록</label>
+            <li class="mb-3 p-0">
+                <label for="images" class="d-block">이미지 등록</label>
                 <input type="file" id="images" name="images" accept="image/*"/>
             </li>
-            <li>
-                <label for="category">카테고리</label>
+            <li class="mb-3 p-0">
+                <label for="category" class="d-block">카테고리</label>
                 <input type="text" id="category" name="category" required/>
             </li>
-            <li>
+            <li class="mb-3 p-0">
                 <!-- Main Title -->
-                <label for="mainTitle">타이틀</label>
+                <label for="mainTitle" class="d-block">타이틀</label>
                 <input type="text" id="mainTitle" name="mainTitle" required/>
             </li>
-            <li>
-                <label for="subTitle">서브 타이틀</label>
+            <li class="mb-3 p-0">
+                <label for="subTitle" class="d-block">서브 타이틀</label>
                 <input type="text" id="subTitle" name="subTitle" required/>
             </li>
-            <li>
-                <label for="schedule">일정</label>
+            <li class="mb-3 p-0">
+                <label for="schedule" class="d-block">일정</label>
                 <input type="text" id="schedule" name="schedule"/>
             </li>
-            <li>
-            <label for="address">주소</label>
-            <input type="text" id="address" name="address">
+            <li class="mb-3 p-0">
+                <label for="address" class="d-block">주소</label>
+                <input type="text" id="address" name="address">
             </li>
-            <li>
-                <label for="summary">요약</label>
+            <li class="mb-3 p-0">
+                <label for="summary" class="d-block">요약</label>
                 <textarea id="summary" name="summary" required></textarea>
             </li>
 
-            <li>
-                <button type="button" id="indexMainSliderSubmit">저장</button>
+            <li class="mb-3 p-0">
+                <button type="button" class="btn btn-dark px-5 d-block saveBtn" id="indexMainSliderSubmit" >저장</button>
             </li>
         </ul>
     </form>
