@@ -12,9 +12,7 @@ import java.util.Optional;
 
 public interface ScheduleRepository extends JpaRepository<Schedule, String> {
 
-
     Optional<Schedule> findByUserAndStartDate (User user, LocalDate startDate);
-
 
     List<Schedule> findAllByUserOrderByStartDate(User user);
 

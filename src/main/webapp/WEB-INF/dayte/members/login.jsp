@@ -3,7 +3,7 @@
 <%--여기 각자 쓸 css--%>
 
 <link rel="stylesheet" href="/css/login.css">
-<title>Project T | 로그인</title>
+<title>DAYTE | 로그인</title>
 </head>
 
 <body>
