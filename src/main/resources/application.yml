@@ -20,6 +20,8 @@ spring:
     view:
       prefix: /WEB-INF/dayte/
       suffix: .jsp
+    converters:
+      preferred-json-mapper: gson
 
   security:
     user:

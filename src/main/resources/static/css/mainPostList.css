@@ -5,13 +5,12 @@ body {
 }
 
 h3 {
-    font-size: large;
+    font-size: 30px;
 }
 
 .titleDiv {
-    width: 100px;
-    margin: 0 auto;
-    margin-bottom: 30px;;
+    margin: 15px 15px;
+    text-align: center;
 }
 
 table {
@@ -52,10 +51,13 @@ a:hover {
     display: flex;
     justify-content: center;
     margin-top: 20px;
+}
 
-    .button {
-        margin: 0 auto;
-    }
+.postInsertButtonDiv {
+    margin: 0 auto;
+    width: 50%;
+    display: flex;
+    justify-content: right;
 }
 
 
