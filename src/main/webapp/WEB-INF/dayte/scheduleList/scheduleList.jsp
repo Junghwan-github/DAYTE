@@ -130,11 +130,11 @@
             <div class="bottomModalWraper">
                 <div class="leftModalLayout">
                     <div><input type="text" id="leftModalSearchBar" placeholder="검색어를 입력하세요">
-                        <button type="button" id="leftModalSearchBarBtn">검색</button>
+                        <button type="button" id="leftModalSearchBarBtn" onclick="searchContents()">검색</button>
                     </div>
                     <div>
                         <h2>구/군</h2>
-                        <ul>
+                        <ul id="guList">
                             <li>중구</li>
                             <li>수성구</li>
                             <li>북구</li>
@@ -148,7 +148,7 @@
                     </div>
                     <div>
                         <h2>키워드</h2>
-                        <ul>
+                        <ul id="keywordList">
                             <li>#숙박</li>
                             <li>#맛집</li>
                             <li>#카페</li>
