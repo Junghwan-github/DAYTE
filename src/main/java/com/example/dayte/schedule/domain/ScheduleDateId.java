@@ -1,6 +1,5 @@
-package com.example.projectt.schedule.domain;
+package com.example.dayte.schedule.domain;
 
-import com.example.dayte.schedule.domain.Schedule;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -22,6 +21,4 @@ public class ScheduleDateId implements Serializable {
     @Temporal(TemporalType.DATE)
     @Column(name = "now_date")
     private LocalDate nowDate;
-
-
 }

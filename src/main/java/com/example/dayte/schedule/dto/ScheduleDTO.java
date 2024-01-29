@@ -3,17 +3,20 @@ package com.example.dayte.schedule.dto;
 
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
-@Getter
-@Setter
-@ToString
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ScheduleDTO {
+    private String startDate;
 
-    private List<?> contents;
+    private String endDate;
+
+    private String userEmail;
+
+    private String title;
 
     private String uuid;
-
-    private int nextDays;
-
 }

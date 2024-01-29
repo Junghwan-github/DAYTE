@@ -1,7 +1,5 @@
-package com.example.projectt.schedule.domain;
+package com.example.dayte.schedule.domain;
 
-import com.example.dayte.schedule.domain.Contents;
-import com.example.dayte.schedule.domain.ScheduleDate;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -29,5 +27,5 @@ public class DetailedSchedule {
             @JoinColumn(
                     name = "nowDate", referencedColumnName = "now_date")
     })
-    private ScheduleDate scheduleDate;
+    private ScheduleDate scheduleDate; // schedule, nowDate
 }
