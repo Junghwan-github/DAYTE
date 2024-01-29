@@ -1,4 +1,4 @@
-package com.example.dayte.admin.dto;
+package com.example.dayte.admin.mianslider.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

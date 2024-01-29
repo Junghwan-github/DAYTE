@@ -1,4 +1,4 @@
-package com.example.dayte.admin.dto;
+package com.example.dayte.admin.mianslider.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

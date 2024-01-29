@@ -1,6 +1,6 @@
-package com.example.dayte.admin.persistence;
+package com.example.dayte.admin.mianslider.persistence;
 
-import com.example.dayte.admin.domain.IndexMainSlider;
+import com.example.dayte.admin.mianslider.domain.IndexMainSlider;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

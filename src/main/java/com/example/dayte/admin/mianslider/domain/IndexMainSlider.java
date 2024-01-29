@@ -1,4 +1,4 @@
-package com.example.dayte.admin.domain;
+package com.example.dayte.admin.mianslider.domain;
 
 import jakarta.persistence.*;
 import lombok.*;

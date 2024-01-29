@@ -1,9 +1,9 @@
-package com.example.dayte.admin.service;
+package com.example.dayte.admin.mianslider.service;
 
 
-import com.example.dayte.admin.domain.IndexMainSlider;
-import com.example.dayte.admin.dto.IndexMainSliderDTO;
-import com.example.dayte.admin.persistence.IndexMainSliderRepository;
+import com.example.dayte.admin.mianslider.domain.IndexMainSlider;
+import com.example.dayte.admin.mianslider.dto.IndexMainSliderDTO;
+import com.example.dayte.admin.mianslider.persistence.IndexMainSliderRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
