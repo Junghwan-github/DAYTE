@@ -75,11 +75,13 @@ public class PostController {
     @GetMapping("/post/{id}")
     public String getPost(Model model, @PathVariable int id) {
 
-        model.addAttribute("post", postService.getPost(id));
+        Post post = postService.getPost(id);
+
+        model.addAttribute("post", post);
 
         List<PostReplyDTO> postReplyList = new ArrayList<>();
 
-        postReplyService.postReplyList().forEach(postReply -> {
+        postReplyService.postReplyList(post).forEach(postReply -> {
             PostReplyDTO postReplyDTO = modelMapper.map(postReply, PostReplyDTO.class);
             postReplyDTO.setFormatDate(formatCreateDateService.getFormattedCreateDate(postReplyDTO.getCreateDate()));
             postReplyList.add(postReplyDTO);
