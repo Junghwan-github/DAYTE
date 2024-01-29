@@ -181,5 +181,5 @@
             </div>
         </div>
 
-<%-- div.wrapper의 닫힘 태그는 푸터 안에 있음 --%>
+<%-- div.wrapper의 닫힘 태그는 푸터 안에 있음ㅇ --%>
 <%@include file="layout/adminFooter.jsp"%>
