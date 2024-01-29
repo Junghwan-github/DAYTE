@@ -1,10 +1,15 @@
 package com.example.dayte.schedule.service;
 
 import com.example.dayte.members.domain.User;
-import com.example.dayte.schedule.domain.ScheduleDate;
+import com.example.dayte.schedule.domain.*;
+import com.example.dayte.schedule.dto.DetailedScheduleDTO;
 import com.example.dayte.schedule.dto.ScheduleDateDTO;
+import com.example.dayte.schedule.persistence.ContentsRepository;
+import com.example.dayte.schedule.persistence.DetailedScheduleRepository;
 import com.example.dayte.schedule.persistence.ScheduleDateRepository;
+import com.example.dayte.schedule.persistence.ScheduleRepository;
 import com.example.dayte.security.dto.UserSecurityDTO;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,101 +17,48 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
+@RequiredArgsConstructor
 public class ScheduleDateService {
 
-    @Autowired
-    private ScheduleDateRepository scheduleDateRepository;
+    private final ScheduleDateRepository scheduleDateRepository;
 
-    @Autowired
-    private ModelMapper modelMapper;
+    private final ScheduleRepository scheduleRepository;
 
-    // 일정 추가
-    @Transactional
-    public void insertScheduleDate(UserSecurityDTO userSecurityDTO, ScheduleDateDTO scheduleDTO) {
-        try {
-            User user = mapUserDTOToUser(userSecurityDTO);
-            LocalDate startDate = parseDateString(scheduleDTO.getStartDate());
-            LocalDate endDate = parseDateString(scheduleDTO.getEndDate());
-            String title = scheduleDTO.getTitle();
+    private final ContentsRepository contentsRepository;
 
-            String uuid = generateUUID();
-            ScheduleDate scheduledate = ScheduleDate.builder()
-                    .uuid(uuid)
-                    .title(title)
-                    .user(user)
-                    .startDate(startDate)
-                    .endDate(endDate)
-                    .build();
-            scheduleDateRepository.save(scheduledate);
-        } catch (Exception e) {
-            handleException("일정 추가에 실패했습니다", e);
-        }
-    }
+    private final ModelMapper modelMapper;
+
+    private final DetailedScheduleRepository detailedScheduleRepository;
 
     @Transactional
-    public ScheduleDate findScheduleByUserAndStartDate(UserSecurityDTO userSecurityDTO, ScheduleDateDTO scheduleDTO) {
-        try {
-            // 사용자와 시작 날짜를 기반으로 일정 조회
-            User user = mapUserDTOToUser(userSecurityDTO);
-            LocalDate startDay = parseDateString(scheduleDTO.getStartDate());
+    public void insertSchedule(ScheduleDateDTO scheduleDateDTO) {
+        Schedule schedule =
+                scheduleRepository.findById(scheduleDateDTO.getUuid())
+                        .orElseThrow(() -> new NoSuchElementException("Schedule not found"));
 
-            Optional<ScheduleDate> result = scheduleDateRepository.findByUserAndStartDate(user, startDay);
-            return result.orElse(null);
-        } catch (Exception e) {
-            handleException("사용자 및 시작 날짜별 일정 확인에 실패했습니다", e);
-            return null;
+        // Setter 로 세팅하는 이유 : 기본생성자와 setter 밖에 만들지 못함
+        // (필드값 다 받는 일반생성자와 Builder 어노테이션도 달아봤지만 에러 발생함)
+        ScheduleDateId scheduleDateId = new ScheduleDateId();
+        DetailedScheduleDTO detailedScheduleDTO = new DetailedScheduleDTO();
+
+        scheduleDateId.setSchedule(schedule); // schedule 객체 셋팅
+        scheduleDateId.setNowDate(scheduleDateDTO.getNowDate()); // nowDate 셋팅
+
+        detailedScheduleDTO.setScheduleDate(scheduleDateRepository.findById(scheduleDateId).get());
+
+        scheduleDateDTO.setScheduleDateId(scheduleDateId); // userScheduleDTO 에 scheduleDateId 셋팅
+
+//        scheduleDateRepository.save(modelMapper.map(scheduleDateDTO, ScheduleDate.class));
+
+        List<DetailedSchedule> detailedScheduleList = new ArrayList<>();
+        for (Contents contents : contentsRepository.findAllById(scheduleDateDTO.getContentsList())) {
+            detailedScheduleDTO.setContents(contents);
+            detailedScheduleList.add(modelMapper.map(detailedScheduleDTO, DetailedSchedule.class));
         }
-    }
+        detailedScheduleRepository.saveAll(detailedScheduleList);
 
-    @Transactional
-    public List<ScheduleDate> selectScheduleByUser(UserSecurityDTO userSecurityDTO) {
-        try {
-            User user = modelMapper.map(userSecurityDTO, User.class);
-            List<ScheduleDate> result = scheduleDateRepository.findByUserOrderByStartDate(user);
-            return result;
-        } catch (Exception e) {
-            handleException("사용자 일정 확인에 실패했습니다", e);
-            return null;
-        }
-    }
-
-    @Transactional(readOnly = true)
-    public ScheduleDate getUserScheduleDate(ScheduleDateDTO scheduleDateDTO, UserSecurityDTO userSecurityDTO) {
-            User user = mapUserDTOToUser(userSecurityDTO);
-            LocalDate startDate = parseDateString(scheduleDateDTO.getStartDate());
-            ScheduleDate result = scheduleDateRepository.findByUserAndStartDate(user, startDate).orElseGet(() ->{
-                return new ScheduleDate();
-            });
-            return result;
-    }
-
-    public void deleteSchedule(LocalDate startDate, UserSecurityDTO userSecurityDTO) {
-        User user = mapUserDTOToUser(userSecurityDTO);
-        ScheduleDate scheduleDate = scheduleDateRepository.findByUserAndStartDate(user,startDate).get();
-        scheduleDateRepository.deleteById(scheduleDate.getUuid());
-    }
-
-    private String generateUUID() {
-        return UUID.randomUUID().toString();
-    }
-
-    private User mapUserDTOToUser(UserSecurityDTO userSecurityDTO) {
-        return modelMapper.map(userSecurityDTO, User.class);
-    }
-
-    private LocalDate parseDateString(String dateString) {
-        String pattern = "yyyyMMdd";
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
-        return LocalDate.parse(dateString, formatter);
-    }
-
-    private void handleException(String message, Exception e) {
-        e.printStackTrace();
-        throw new RuntimeException(message);
     }
 }

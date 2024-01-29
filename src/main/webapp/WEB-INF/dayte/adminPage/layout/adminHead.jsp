@@ -59,13 +59,27 @@
                 <ul class="list-unstyled ps-0 " id="sideVarList">
                     <li class="border-top border-secondary-subtle my-3"></li>
                     <li class="mb-1">
+                        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed fw-bold" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
+                            <img src="/images/chevron-down.svg" style="width: 16px; height:16px; " class="me-1" alt="">
+                            환경 설정
+                        </button>
+                        <div class="collapse" id="orders-collapse">
+                            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small bg-light ps-4">
+                                <li><a href="/admin/home/settings/index" class="link-body-emphasis d-inline-flex text-decoration-none rounded">메인 설정</a></li>
+                                <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">설정</a></li>
+                                <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">설정</a></li>
+                                <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">설정</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="mb-1">
                         <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed fw-bold" data-bs-toggle="collapse" data-bs-target="#user-collapse" aria-expanded="true">
                             <img src="/images/chevron-down.svg" style="width: 16px; height:16px; " class="me-1" alt="회원 관리 메뉴 보기">
                             회원 관리
                         </button>
                         <div class="collapse " id="user-collapse">
                             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small bg-light ps-4">
-                                <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">회원 관리</a></li>
+                                <li><a href="/admin/home" class="link-body-emphasis d-inline-flex text-decoration-none rounded">회원 관리</a></li>
                                 <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">접속자 집계</a></li>
                                 <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">접속자 검색</a></li>
                             </ul>
@@ -88,20 +102,7 @@
                             </ul>
                         </div>
                     </li>
-                    <li class="mb-1">
-                        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed fw-bold" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
-                            <img src="/images/chevron-down.svg" style="width: 16px; height:16px; " class="me-1" alt="">
-                            Orders
-                        </button>
-                        <div class="collapse" id="orders-collapse">
-                            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small bg-light ps-4">
-                                <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">New</a></li>
-                                <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Processed</a></li>
-                                <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Shipped</a></li>
-                                <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Returned</a></li>
-                            </ul>
-                        </div>
-                    </li>
+
                 </ul>
             </div>
         </div>

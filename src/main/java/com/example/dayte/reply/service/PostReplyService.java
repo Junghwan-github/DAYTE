@@ -1,6 +1,7 @@
 package com.example.dayte.reply.service;
 
 
+import com.example.dayte.post.domin.Post;
 import com.example.dayte.reply.domain.PostReply;
 import com.example.dayte.reply.repository.PostReplyRepository;
 import jakarta.transaction.Transactional;
@@ -26,8 +27,8 @@ public class PostReplyService {
     }
 
     // 모든 댓글 목록 조회
-    public List<PostReply> postReplyList() {
-        return postReplyRepository.findAll();
+    public List<PostReply> postReplyList(Post post) {
+        return postReplyRepository.findAllByPost(post);
     }
 
     // 댓글 삭제

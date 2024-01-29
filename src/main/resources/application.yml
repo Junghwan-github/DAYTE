@@ -18,8 +18,12 @@ spring:
 
   mvc:
     view:
-      prefix: /WEB-INF/project/
+      prefix: /WEB-INF/dayte/
       suffix: .jsp
+    converters:
+      preferred-json-mapper: gson
+
+
 
   security:
     user:

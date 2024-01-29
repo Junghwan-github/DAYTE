@@ -5,7 +5,7 @@ import lombok.*;
 
 
 @Entity
-@Table(name = "INDEXMAINSLIDER")
+@Table(name = "ADMIN_INDEX")
 @Builder
 @Getter
 @Setter
@@ -38,5 +38,8 @@ public class IndexMainSlider {
 
     @Column(nullable = false, length = 200)
     private String summary;
+
+    @Column(nullable = false, length = 200)
+    private String href;
 
 }
