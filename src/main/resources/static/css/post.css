@@ -1,5 +1,5 @@
 b{
- font-size: 20px;
+    font-size: 20px;
 }
 h1{
     font-size: 40px;
@@ -31,7 +31,9 @@ strong{
 
 .informationBox {
     text-align: start;
+    font-size: medium;
 }
+
 .btn-history{
     text-align: center;
     background-color: #78dba3;
@@ -119,39 +121,9 @@ strong{
     align-items: center;
     width: 1180px;
 }
-.ContainerForm{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+
 .container > table > thead > tr > th > h3{
     margin-bottom: 20px;
     text-align: left;
-
-}
-.ContainerForm > textarea{
-    text-align: start;
-    margin: 0 auto;
-    padding: 0;
-    width: 900px;
-    height: 100px;
-    resize: none;
-}
-.ContainerForm2{
-    display: flex;
-    justify-content: right;
-    align-items: end;
-    text-align: center;
-}
-.ContainerForm2 > button{
-    margin-top: 20px;
-    height: 50px;
-    width: 120px;
-    border-radius: 10px;
-    background-color: #28536a;
-    font-size: 18px;
-    color: #ffffff;
-    font-weight: bold;
-    border: 1px solid #28536a;
 
 }

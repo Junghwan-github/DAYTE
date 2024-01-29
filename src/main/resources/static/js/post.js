@@ -2,14 +2,6 @@ let postObject = {
 
     init: function () {
         $("#save-post").on("click", () => {
-            //
-            // if($("#title").val() == null || $("#title").val() == "") {
-            //     alert('제목을 입력해주세요.');
-            //
-            // } else if ($("#content").val() == null || $("#content").val() == "") {
-            //     alert('내용을 작성해주세요.');
-            //
-            // } else
             this.insertPost();
         });
 
@@ -92,7 +84,7 @@ let postObject = {
             })
             .then(data => {
                 console.log(data);
-                location = "/post";
+                location = "/mainPostList";
             })
             .catch(err => {
                 alert(`에러 발생 : ${err.message}`);
@@ -122,6 +114,5 @@ let postObject = {
 
     },
 }
-
 
 postObject.init();
