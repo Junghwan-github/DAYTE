@@ -24,7 +24,7 @@ public class Schedule {
     private String title;
 
     @ManyToOne
-    @JoinColumn(name = "user_email", referencedColumnName = "userEmail", nullable = false)
+    @JoinColumn(name = "user_email", referencedColumnName = "userEmail")
     private User user;
 
     @Temporal(TemporalType.DATE)

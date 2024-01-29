@@ -68,6 +68,7 @@ function scheduleTotalSaveBtn() {
             body   : JSON.stringify(userSchedule),
         }).then(response => {
             console.log(response);
+            location.reload();
         }).catch(error => {
             alert(`에러 발생: ${error.message}`);
         });
