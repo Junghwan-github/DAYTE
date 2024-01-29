@@ -21,6 +21,8 @@
 
     .saveBtn {
         font-size: 1.3rem;
+        display: block;
+        padding: 7px 50px;
         font-weight: bold;
         float: right;
     }
@@ -62,10 +64,15 @@
                 <label for="summary" class="d-block">요약</label>
                 <textarea id="summary" name="summary" required></textarea>
             </li>
+            <li>
+                <label for="summary">링크</label>
+                <input type="text" id="href" name="href" required>
+            </li>
 
             <li class="mb-3 p-0">
                 <button type="button" class="btn btn-dark px-5 d-block saveBtn" id="indexMainSliderSubmit" >저장</button>
             </li>
+
         </ul>
     </form>
 

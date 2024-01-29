@@ -54,7 +54,7 @@
                     </i>
                     <div class="menuList">
                         <ul>
-                            <li><a href="#">편집</a></li>
+                            <li><a href="#">자세히 보기</a></li>
                             <li><a href="#" class="deleteSchedule"
                                    onclick="deleteLinks('${scheduleList.startDate}')">삭제</a></li>
                         </ul>

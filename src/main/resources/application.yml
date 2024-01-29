@@ -23,6 +23,8 @@ spring:
     converters:
       preferred-json-mapper: gson
 
+
+
   security:
     user:
       name: user

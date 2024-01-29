@@ -7,6 +7,7 @@ import com.example.dayte.admin.persistence.IndexMainSliderRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -15,6 +16,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -30,7 +32,7 @@ public class IndexMainSliderService {
 
 
 
-    private static final String imageUploadPath = "/data/images/index/";
+    private static final String imageUploadPath = "/temp/images/admin/indexslider/";
 
     public void InsertSlider(IndexMainSliderDTO indexMainSliderDTO) {
         IndexMainSlider indexMainSlider = modelMapper.map(indexMainSliderDTO, IndexMainSlider.class);
@@ -51,6 +53,8 @@ public class IndexMainSliderService {
             String uuid = UUID.randomUUID().toString();
             String encodedFileName = URLEncoder.encode(Objects.requireNonNull(image.getOriginalFilename()), StandardCharsets.UTF_8);
             String fileName = uuid + "_" +encodedFileName;
+
+
 
             Path targetPath = Path.of(imageUploadPath + fileName);
 
@@ -74,5 +78,10 @@ public class IndexMainSliderService {
            ;;
            return;
         }
+    }
+    @Transactional
+    public List<IndexMainSlider> sliderList() {
+        return indexMainSliderRepository.findAll();
+
     }
 }

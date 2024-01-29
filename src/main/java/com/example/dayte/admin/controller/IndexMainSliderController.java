@@ -4,8 +4,12 @@ import com.example.dayte.admin.dto.IndexMainSliderDTO;
 import com.example.dayte.admin.dto.ResponseDTO;
 import com.example.dayte.admin.service.IndexMainSliderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -31,7 +35,8 @@ public class IndexMainSliderController {
                                                                @RequestPart("subTitle") String subTitle,
                                                                @RequestPart("schedule") String schedule,
                                                                @RequestPart("address") String address,
-                                                               @RequestPart("summary") String summary) {
+                                                               @RequestPart("summary") String summary,
+                                                               @RequestPart("href") String href) {
 
 
         IndexMainSliderDTO indexMainSliderDTO = new IndexMainSliderDTO();
@@ -42,7 +47,10 @@ public class IndexMainSliderController {
         indexMainSliderDTO.setSchedule(schedule);
         indexMainSliderDTO.setAddress(address);
         indexMainSliderDTO.setSummary(summary);
+        indexMainSliderDTO.setHref(href);
         indexMainSliderService.InsertSlider(indexMainSliderDTO);
         return new ResponseDTO<>(HttpStatus.OK.value(), "정상처리 되었습니다.");
     }
+
+
 }
