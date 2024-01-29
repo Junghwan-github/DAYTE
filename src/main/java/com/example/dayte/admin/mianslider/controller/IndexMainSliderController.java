@@ -1,19 +1,13 @@
-package com.example.dayte.admin.controller;
+package com.example.dayte.admin.mianslider.controller;
 
-import com.example.dayte.admin.dto.IndexMainSliderDTO;
-import com.example.dayte.admin.dto.ResponseDTO;
-import com.example.dayte.admin.service.IndexMainSliderService;
+import com.example.dayte.admin.mianslider.dto.IndexMainSliderDTO;
+import com.example.dayte.admin.mianslider.dto.ResponseDTO;
+import com.example.dayte.admin.mianslider.service.IndexMainSliderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.util.Map;
 
 @Controller
 public class IndexMainSliderController {
