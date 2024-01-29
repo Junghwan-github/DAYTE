@@ -54,7 +54,7 @@
                     </i>
                     <div class="menuList">
                         <ul>
-                            <li><a href="#">편집</a></li>
+                            <li><a href="#">자세히 보기</a></li>
                             <li><a href="#" class="deleteSchedule"
                                    onclick="deleteLinks('${scheduleList.startDate}')">삭제</a></li>
                         </ul>
@@ -89,7 +89,7 @@
                                 <c:set var="nextDays" value="${day + 1 }"/>
                                 <li>
                                     <button class="nextDayBtn" value="${scheduleList.uuid}"
-                                            data-next-days="${nextDays}">${nextDays}일 차
+                                            data-next-days="${scheduleList.scheduleDates[day].scheduleDateId.nowDate}">${nextDays}일 차
                                     </button>
                                 </li>
                                 <c:set var="day" value="${nextDays}"/>

@@ -8,31 +8,23 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
-@Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "schedule", "nowDate" }) })
+@Entity
 public class ScheduleDate {
 
-    @Id
-    @Column(name = "uuid", nullable = false, length = 100)
-    private String uuid;
+    @EmbeddedId
+    private ScheduleDateId scheduleDateId;
 
-    @Column(nullable = false)
-    private String title;
-
-    @ManyToOne
-    @JoinColumn(name = "user_email", referencedColumnName = "userEmail", nullable = false)
-    private User user;
-
-    @Temporal(TemporalType.DATE)
-    @Column(name = "start_date", nullable = false)
-    private LocalDate startDate;
-
-    @Temporal(TemporalType.DATE)
-    @Column(name = "end_date", nullable = false)
-    private LocalDate endDate;
+    @OneToMany(mappedBy = "scheduleDate",
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.REMOVE)
+    @OrderBy("id asc")
+    private List<DetailedSchedule> detailedScheduleList;
 
 }

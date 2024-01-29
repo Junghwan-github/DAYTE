@@ -10,10 +10,10 @@
   -ms-touch-action: pan-y;
   touch-action: pan-y;
 }
-.bx-wrapper img {
-  max-width: 100%;
-  display: block;
-}
+/*.bx-wrapper img {*/
+/*  max-width: 100%;*/
+/*  display: block;*/
+/*}*/
 .bxslider {
   margin: 0;
   padding: 0;
