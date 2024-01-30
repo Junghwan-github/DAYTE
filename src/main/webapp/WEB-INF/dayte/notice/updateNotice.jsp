@@ -45,7 +45,7 @@
                             <p class="${file.saveName}">
                                     ${file.originalName}
                                 <button class='file-remove' value="${file.saveName}" onclick="removeFileOnView(this)">X</button>
-                                <input class="savedFile" name="savedFiled" type="hidden" value="${file.saveName}">
+                                <input class="savedFile" name="savedFile" type="hidden" value="${file.saveName}">
                             </p>
                         </c:forEach>
                     </div>

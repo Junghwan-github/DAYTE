@@ -28,3 +28,4 @@
     <script type="text/javascript"
             src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d6e1eeae5c7853c6bd1f34a4ef04e664">
     </script>
+    <script src="https://kit.fontawesome.com/8ccf456cfd.js" crossorigin="anonymous"></script>

@@ -2,7 +2,10 @@ function resetPriority(no, event)  {
     event.preventDefault();
 
 console.log(no);
-       // var confirmed = confirm("필수 공지를 일반 공지로 변경하시겠습니까?");
+       let confirmed = confirm(no + "번 공지를 일반 공지로 변경하시겠습니까?");
+
+       if(confirmed){
+
 
             let data = {
                 no : no
@@ -28,6 +31,7 @@ console.log(no);
                                 alert(`에러발생 : ${error.message}`);
                             })
 
+       }
     }
 
 

@@ -9,8 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class ContentsController {
@@ -18,14 +20,12 @@ public class ContentsController {
     @Autowired
     ContentsService contentsService;
 
+    
+    // 검색 기능
     @PostMapping("/search")
-    public ResponseEntity<List<Contents>> searchContents(@RequestBody String searchInput) {
-        int startIndex = searchInput.indexOf("\"searchInput\":\"") + 15;
-        int endIndex = searchInput.indexOf("\"", startIndex);
-        String businessName = searchInput.substring(startIndex, endIndex);
-
-        List<Contents> searchByContents = contentsService.searchByContents(businessName);
-        return new ResponseEntity<>(searchByContents, HttpStatus.OK);
+    public @ResponseBody List<Contents> searchContents(@RequestBody Map<String, String> search) {
+        List<Contents> searchByContents = contentsService.searchByContents(search.get("search"));
+        return searchByContents;
     }
 
 }

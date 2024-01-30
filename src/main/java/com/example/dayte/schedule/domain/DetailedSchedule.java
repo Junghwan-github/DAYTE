@@ -25,9 +25,9 @@ public class DetailedSchedule {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumns({
             @JoinColumn(
-                    name = "uuid", referencedColumnName = "uuid"),
+                    name = "uuid", referencedColumnName = "uuid", nullable = false),
             @JoinColumn(
-                    name = "nowDate", referencedColumnName = "now_date")
+                    name = "nowDate", referencedColumnName = "now_date", nullable = false)
     })
-    private ScheduleDate scheduleDate; // schedule, nowDate
+    private ScheduleDate scheduleDate; // schedule,nowDate
 }

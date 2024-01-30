@@ -10,6 +10,41 @@
 // });
 
 
+
+
+
+let pointerX = $(".pointer-x").text();
+let pointerY = $(".pointer-y").text();
+
+let container = document.getElementById("content-map");
+let options = {
+  center: new kakao.maps.LatLng(pointerX, pointerY),
+  level: 4
+};
+let map = new kakao.maps.Map(container, options);
+
+let imageSrc = '/images/marker.png',
+    imageSize = new kakao.maps.Size(25, 33),
+    imageOption = {offset: new kakao.maps.Point(13, 33)};
+
+
+let markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
+    markerPosition = new kakao.maps.LatLng(pointerX, pointerY);
+let marker = new kakao.maps.Marker({
+  position: markerPosition,
+  image: markerImage // 마커이미지 설정
+});
+
+marker.setMap(map);
+
+
+// setDraggable();
+// function setDraggable(draggable) {
+//   // 마우스 드래그로 지도 이동 가능여부를 설정합니다
+//   map.setDraggable(draggable);
+// }
+
+
 $(document).ready(function() {
   var divCount = $('div[name="bxslider"] > div').length;
   $('#allImg').text(divCount);

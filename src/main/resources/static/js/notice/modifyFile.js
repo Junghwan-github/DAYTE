@@ -1,21 +1,4 @@
-/*
-function preLoadFileData(){
-    let filesInfo = document.getElementsByClassName("hiddenFileValue");
-    let dataTransfer = new DataTransfer();
-
-    /!*console.log(d);
-console.log(d[0].value);
-console.log(d[1].value);*!/
-
-    Array.from(filesInfo).forEach(file => {
-       let oneFile = new File([file]);
-
-
-       console.log(oneFile);
-
-    })
-
-}*/
+//공지사항 수정 화면에서 파일을 동적으로 제어
 
 let selectedFile = [];
 function selectFile(element) {
