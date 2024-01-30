@@ -170,7 +170,7 @@ input[id="hamburger"]:checked + label + .sidebar {
     transition: all 0.1s;
     margin: 0;
     padding: 10px 20px;
-    box-shadow: 0 0 15px 0 #1111113e;
+    box-shadow: 0 0 2px 0 rgba(17, 17, 17, 0.31);
     opacity: 0;
 }
 .sidebar > ul > li {
