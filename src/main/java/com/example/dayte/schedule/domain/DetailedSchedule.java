@@ -3,6 +3,8 @@ package com.example.dayte.schedule.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -16,8 +18,8 @@ public class DetailedSchedule {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "contentId")
+    @ManyToOne
+    @JoinColumn(name = "contentId", unique = false)
     private Contents contents;
 
     @ManyToOne(fetch = FetchType.EAGER)
