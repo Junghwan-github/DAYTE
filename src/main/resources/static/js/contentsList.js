@@ -1,3 +1,5 @@
+
+
 const cleanedString = contentsList.replace(/\s/g, ''); // 공백과 줄바꿈 제거
 
 const contentsListStrings = cleanedString.split('Contents(').slice(1); // 'Coordinate('로 문자열을 나누고 첫 번째 항목은 무시
@@ -19,6 +21,7 @@ const itemArr = [];
 
 contentBtn.forEach(function (content) {
     content.addEventListener("click", function (e) {
+
         let id;
         let businessName;
         let latitude;
