@@ -16,6 +16,7 @@ const contents = $.map(contentsListStrings, function(contentString) {
         return null;
     }
 });
+console.log(contents);
 const itemArr = [];
 
 // contentBtn.on("click", function (e) {
