@@ -1,3 +1,5 @@
+//올린 파일을 제출하기 전 화면단에서 동적으로 제어
+
 let selectedFile = [];
 
 function selectFile(element) {

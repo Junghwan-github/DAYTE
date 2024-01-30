@@ -10,8 +10,10 @@ import com.example.dayte.notice.dto.NoticeDTO;
 import com.example.dayte.notice.dto.ResponseDTO;
 import com.example.dayte.notice.service.NoticeService;
 import com.example.dayte.security.service.CustomUserDetailsService;
+import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
+import org.apache.tomcat.util.file.ConfigurationSource;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,6 +21,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -196,6 +199,8 @@ public class NoticeController {
 
         return "notice/detailNotice";
     }
+
+
 
     //공지사항 수정페이지 이동
     @GetMapping("/update/{id}")

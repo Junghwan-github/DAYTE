@@ -2,12 +2,17 @@ package com.example.dayte.notice.controller.advice;
 
 
 import com.example.dayte.notice.domain.FilesInfo;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -87,4 +92,20 @@ public class FileUtils {
         return dir.getPath();
     }
 
+
+    public Resource readFileAsResource(FilesInfo file) {
+        String uploadedDate = file.getCreateDate().toLocalDateTime().format(DateTimeFormatter.ofPattern("yyMMdd"));
+        String filename = file.getSaveName();
+        Path filePath = Paths.get(uploadPath, uploadedDate, filename);
+
+        try {
+            Resource resource = new UrlResource(filePath.toUri());
+            if (!resource.exists() || !resource.isFile()) {
+                throw new RuntimeException("file not found: " + filePath.toString());
+            }
+            return resource;
+        } catch (MalformedURLException e) {
+            throw new RuntimeException("Malformed URL: " + filePath.toString());
+        }
+    }
 }
