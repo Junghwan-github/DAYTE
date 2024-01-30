@@ -8,13 +8,15 @@
 <%-- css, jquery --%>
 <script src="/webjars/summernote/0.8.10/summernote-bs4.min.js"></script>
 <link href="/webjars/summernote/0.8.10/summernote-bs4.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/layout/subnav.css">
 
 </head> <%-- /head --%>
 
 <body> <%-- body --%>
 
 <%@include file="../layout/header.jsp"%> <%-- header --%>
-
+<%@include file="../layout/subnav.jsp" %>
+<script src="/js/main/header.js"></script>
 <main> <%-- main --%>
 
     <div class="container mt-3">
@@ -31,7 +33,7 @@
         <button id="save-post" class="btn btn-secondary">등록</button>
     </div>
 
-    <script src="/js/post.js"></script>
+    <script src="/js/post/post.js"></script>
     <script>
         $(document).ready(function() {
             $('.summernote').summernote({
@@ -89,4 +91,4 @@
     </script>
 
 </body>
-</html>
+<%@include file="../layout/footer.jsp" %>

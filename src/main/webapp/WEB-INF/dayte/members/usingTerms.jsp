@@ -1,7 +1,7 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@include file="../layout/head.jsp"%>
 
-    <link rel="stylesheet" href="/css/usingTerms.css"/>
+    <link rel="stylesheet" href="/css/main/usingTerms.css"/>
 <title>회원가입 | 개인정보 동의</title>
 </head>
 <body>

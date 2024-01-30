@@ -2,13 +2,13 @@
 <%@include file="../layout/head.jsp"%>
 <%--여기 각자 쓸 css--%>
 
-<link rel="stylesheet" href="/css/login.css">
+<link rel="stylesheet" href="/css/main/login.css">
 <title>DAYTE | 로그인</title>
 </head>
 
 <body>
 <%@include file="../layout/header.jsp"%>
-<script src="/js/header.js"></script>
+<script src="/js/main/header.js"></script>
   <section class="loginForm">
     <form action="/members/securityLogin" method="post">
       <h1>DAYTE 로그인</h1>
@@ -60,6 +60,3 @@
 
   </section>
 <%@include file="../layout/footer.jsp"%>
-</body>
-
-</html>
