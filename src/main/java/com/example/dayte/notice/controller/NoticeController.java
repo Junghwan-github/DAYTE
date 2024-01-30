@@ -1,15 +1,15 @@
-package com.example.projectt.notice.controller;
+package com.example.dayte.notice.controller;
 
 
-import com.example.projectt.members.domain.RoleType;
-import com.example.projectt.members.domain.User;
-import com.example.projectt.members.dto.ResponseDTO;
-import com.example.projectt.notice.controller.advice.FileUtils;
-import com.example.projectt.notice.domain.FilesInfo;
-import com.example.projectt.notice.domain.Notice;
-import com.example.projectt.notice.dto.NoticeDTO;
-import com.example.projectt.notice.service.NoticeService;
-import com.example.projectt.security.service.CustomUserDetailsService;
+import com.example.dayte.members.domain.RoleType;
+import com.example.dayte.members.domain.User;
+import com.example.dayte.notice.controller.advice.FileUtils;
+import com.example.dayte.notice.domain.FilesInfo;
+import com.example.dayte.notice.domain.Notice;
+import com.example.dayte.notice.dto.NoticeDTO;
+import com.example.dayte.notice.dto.ResponseDTO;
+import com.example.dayte.notice.service.NoticeService;
+import com.example.dayte.security.service.CustomUserDetailsService;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;

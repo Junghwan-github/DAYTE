@@ -1,4 +1,4 @@
-package com.example.projectt.notice.dto;
+package com.example.dayte.notice.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

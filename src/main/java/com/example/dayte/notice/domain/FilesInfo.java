@@ -1,4 +1,5 @@
-package com.example.projectt.notice.domain;
+package com.example.dayte.notice.domain;
+
 
 import jakarta.persistence.*;
 import lombok.*;

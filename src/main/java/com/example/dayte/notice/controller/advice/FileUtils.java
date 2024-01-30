@@ -1,6 +1,7 @@
-package com.example.projectt.notice.controller.advice;
+package com.example.dayte.notice.controller.advice;
 
-import com.example.projectt.notice.domain.FilesInfo;
+
+import com.example.dayte.notice.domain.FilesInfo;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;

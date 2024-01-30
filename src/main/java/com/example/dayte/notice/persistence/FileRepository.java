@@ -1,6 +1,7 @@
-package com.example.projectt.notice.persistence;
+package com.example.dayte.notice.persistence;
 
-import com.example.projectt.notice.domain.FilesInfo;
+
+import com.example.dayte.notice.domain.FilesInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

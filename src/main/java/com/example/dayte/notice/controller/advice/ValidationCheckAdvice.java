@@ -1,8 +1,9 @@
-package com.example.projectt.notice.controller.advice;
+package com.example.dayte.notice.controller.advice;
 
 
 
-import com.example.projectt.notice.dto.ResponseDTO;
+
+import com.example.dayte.notice.dto.ResponseDTO;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -21,7 +22,7 @@ import java.util.Map;
 public class ValidationCheckAdvice {
     // Around : advice의 종류
     // AOP에서 advice는 어떤 특정한 시점에 실행되어야 하는 코드를 뜻함
-    @Around("execution(* com.example.projectt.notice.controller.*Controller.*(..))")
+    @Around("execution(* com.example.dayte.notice.controller.*Controller.*(..))")
           // 해당 이름을 가진 것들은 아래의 메서드를 가짐
     public Object validationCheck(ProceedingJoinPoint jp) throws  Throwable{
         //ProceedingJoinPoint jp => 현재 실행 중인 조인 포인트(ex:메서드)에 대한 정보를 제공

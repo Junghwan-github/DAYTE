@@ -1,4 +1,4 @@
-package com.example.projectt.notice.dto;
+package com.example.dayte.notice.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

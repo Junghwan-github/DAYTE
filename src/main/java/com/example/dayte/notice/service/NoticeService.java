@@ -1,10 +1,10 @@
-package com.example.projectt.notice.service;
+package com.example.dayte.notice.service;
 
 
-import com.example.projectt.notice.domain.FilesInfo;
-import com.example.projectt.notice.domain.Notice;
-import com.example.projectt.notice.persistence.FileRepository;
-import com.example.projectt.notice.persistence.NoticeRepository;
+import com.example.dayte.notice.domain.FilesInfo;
+import com.example.dayte.notice.domain.Notice;
+import com.example.dayte.notice.persistence.FileRepository;
+import com.example.dayte.notice.persistence.NoticeRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
