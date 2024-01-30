@@ -56,7 +56,7 @@
                         <ul>
                             <li><a href="#">자세히 보기</a></li>
                             <li><a href="#" class="deleteSchedule"
-                                   onclick="deleteLinks('${scheduleList.startDate}')">삭제</a></li>
+                                   onclick="deleteLinks(`${scheduleList.startDate}`)">삭제</a></li>
                         </ul>
                     </div>
                     <div class="scheduleItemSliderArea">
@@ -130,7 +130,7 @@
             <div class="bottomModalWraper">
                 <div class="leftModalLayout">
                     <div><input type="text" id="leftModalSearchBar" placeholder="검색어를 입력하세요">
-                        <button type="button" id="leftModalSearchBarBtn" onclick="searchContents()">검색</button>
+                        <button type="button" id="leftModalSearchBarBtn" onclick="searchContents(leftModalSearchBar.value)">검색</button>
                     </div>
                     <div>
                         <h2>구/군</h2>
@@ -171,9 +171,9 @@
                     <ul class="contentListViewer">
                         <c:forEach var="content" items="${contentsList}">
                             <li>
-                                <span class="contentListItemPoint-x">${content.positionX}</span><span
-                                    class="contentListItemPoint-y">${content.positionY}</span>
                                 <div class="contentListItems">
+                                <span class="contentListItemPoint-x">${content.positionX}</span>
+                                <span class="contentListItemPoint-y">${content.positionY}</span>
                                     <div class="contentListItemsImages">
                                         <img src="../images/testimages1.jpg">
                                     </div>
@@ -221,8 +221,8 @@
     let contentsList = '<c:out value="${contentsList}"/>';
 </script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
-<script src="/js/schedule.js"></script>
-<script src="/js/cal.js"></script>
-<script src="/js/calendar.js"></script>
-<script src="/js/contentsList.js"></script>
+<script src="/js/schedule/cal.js"></script>
+<script src="/js/schedule/schedule.js"></script>
+<script src="/js/schedule/calendar.js"></script>
+<script src="/js/schedule/contentsList.js"></script>
 <%@include file="../layout/footer.jsp" %>
