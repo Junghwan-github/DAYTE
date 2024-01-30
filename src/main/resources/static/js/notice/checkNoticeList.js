@@ -1,3 +1,5 @@
+// 수정 버튼 눌렀을 때 체크박스 만들고 버튼은 "취소"+"삭제" 버튼으로 바꿈
+
 const modMode = document.querySelector('#mod-notice');
 
 

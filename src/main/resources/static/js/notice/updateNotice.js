@@ -1,3 +1,5 @@
+//공지사항 수정
+
 let updateNoticeObject = {
     init: function () {
         $("#btn-update").on("click", () => {
@@ -67,7 +69,7 @@ let updateNoticeObject = {
         /*const hiddenFileVHTMLCollection = document.getElementsByClassName("hiddenFileValue");
         const hiddenFileValue = Array.from(hiddenFileVHTMLCollection);*/
 
-        const savedFileHTMLCollection = document.getElementsByClassName("savedFile");
+        const savedFileHTMLCollection = document.getElementsByName("savedFile");
         const savedFile = Array.from(savedFileHTMLCollection).map(fileInput => fileInput.value);
 
         /*console.log(title);
@@ -96,7 +98,7 @@ let updateNoticeObject = {
 
             }).then(data => {
             console.log(data);
-            // location = "/notice/modAll";
+            location = "/update/" + no;
         })
             .catch(error => {
                 alert(`에러발생 : ${error.message}`);

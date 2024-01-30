@@ -1,3 +1,5 @@
+// 새 공지사항 등록
+
 let noticeObject = {
     init: function () {
 
@@ -62,7 +64,7 @@ let noticeObject = {
         const formData = new FormData(form);
 
 
-        let confirmed = confirm("새 글을 등록 하시겠습니까?")
+        let confirmed = confirm("새 공지사항을 등록 하시겠습니까?")
 
         if (confirmed) {
 
@@ -84,9 +86,7 @@ let noticeObject = {
     }
     }
 
-    /* cancelCreateNotice: function (){
-        window.history.back();
-    }*/
+
 }
 
 noticeObject.init();
