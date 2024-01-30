@@ -28,7 +28,7 @@
 header {
     width: 100%;
     height: 80px;
-    box-shadow: #11111124 0 2px 3px 0;
+    border-bottom : 1px solid #eee;
 }
 
 .naviHide {
@@ -37,7 +37,7 @@ header {
     top: 0;
     left: 0;
     background: #fff;
-    box-shadow: 0 0 15px 0 #1111113e;
+    box-shadow: 0 2px 2px 0 rgba(47, 47, 47, 0.05);
 }
 
 header > nav {
@@ -45,9 +45,11 @@ header > nav {
     width: 1180px;
     height: 80px;
     margin: 0 auto;
+
 }
 
 header > nav > ul {
+    height: 80px;
     display: flex;
     flex-flow: row nowrap;
     justify-content: flex-end;
@@ -56,40 +58,36 @@ header > nav > ul {
 
 header > nav > ul > li {
     position: relative;
-    line-height: 80px;
-    display: inline-block;
-    margin-left: 30px;
+    margin: 0 0 0 15px;
 }
 
 header > nav > ul > li > a::before {
     content: "";
     position: absolute;
     visibility: hidden;
-    top: 50%;
-    right: -50px;
-    width: 90px;
-    height: 35px;
+    top: 0;
+    right: -20px;
+    width: 100%;
+    height: 100%;
     z-index: -1;
-    transform: translate(0, -50%);
     border-radius: 30px;
     transition: all 0.3s;
 }
 
 header > nav > ul > li > a:hover::before {
+    right: 0;
     visibility: visible;
     background: #28536a;
-    top: 50%;
-    right: 50%;
-    transform: translate(50%, -50%);
     transition: all 0.3s;
 }
 
 header > nav > ul > li > a {
+    position: relative;
     display: inline-block;
+    padding: 8px 15px;
     font-size: 1.5rem;
     font-weight: 600;
     color: #111;
-    /* width: 120px; */
     transition: all 0.3s;
 }
 
@@ -98,11 +96,6 @@ header > nav > ul > li > a:hover {
     transition: all 0.3s;
 }
 
-header > nav > ul .tab {
-    float: left;
-    width: 600px;
-    height: 290px;
-}
 
 .xi-heart {
     font-size: 1.5rem;

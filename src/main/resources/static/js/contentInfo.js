@@ -1,13 +1,13 @@
-$(function(){
-  $('.bxslider').bxSlider({
-    mode: 'fade',
-    captions: true,
-    slideWidth: 860,
-    pager : false,
-    controls: true,
-    infiniteLoop: false
-  });
-});
+// $(function(){
+//   $('.bxslider').bxSlider({
+//     mode: 'fade',
+//     captions: true,
+//     slideWidth: 1180,
+//     pager : false,
+//     controls: true,
+//     infiniteLoop: false
+//   });
+// });
 
 
 $(document).ready(function() {
