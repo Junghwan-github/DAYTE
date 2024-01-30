@@ -49,9 +49,7 @@ public class ScheduleDateService {
 
         detailedScheduleDTO.setScheduleDate(scheduleDateRepository.findById(scheduleDateId).get());
 
-        scheduleDateDTO.setScheduleDateId(scheduleDateId); // userScheduleDTO 에 scheduleDateId 셋팅
-
-//        scheduleDateRepository.save(modelMapper.map(scheduleDateDTO, ScheduleDate.class));
+        scheduleDateDTO.setScheduleDateId(scheduleDateId); // scheduleDateDTO 에 scheduleDateId 셋팅
 
         List<DetailedSchedule> detailedScheduleList = new ArrayList<>();
         for (Contents contents : contentsRepository.findAllById(scheduleDateDTO.getContentsList())) {
