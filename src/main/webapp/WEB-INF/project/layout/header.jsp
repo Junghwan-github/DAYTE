@@ -1,12 +1,12 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<body>
+
 <header>
     <!-- 네비게이션 -->
     <nav>
         <h1 id="logo"><a href="/">Project T</a></h1>
         <ul>
 
-            <li><a href="#">공지사항</a></li>
+            <li><a href="notice">공지사항</a></li>
 
             <c:choose>
                 <c:when test="${principal == null}">
