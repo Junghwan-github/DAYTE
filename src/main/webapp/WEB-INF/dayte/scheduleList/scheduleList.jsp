@@ -269,7 +269,7 @@
     </div>
 </main>
 <script>
-    let contentsList = '<c:out value="${contentsList}"/>';
+    <%--let contentsList =`<c:out value=" ${contentsList}"/>`;--%>
 </script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 <script src="/js/schedule/cal.js"></script>

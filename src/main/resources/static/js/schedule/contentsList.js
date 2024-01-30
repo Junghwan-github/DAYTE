@@ -1,22 +1,22 @@
-// contentsList 문자열에서 공백과 줄바꿈 제거
-const cleanedString = contentsList.replace(/\s/g, '');
-
-// 'Contents('로 문자열을 나누고 첫 번째 항목은 무시
-const contentsListStrings = cleanedString.split('Contents(').slice(1);
-
-// contents 배열 생성
-const contents = $.map(contentsListStrings, function(contentString) {
-    const match = contentString.match(/id=([^,]+),businessName=([^,]+),category=([^,]+),gu=([^)]+),ro=([^)]+),positionX=([^)]+),positionY=([^)]+)/);
-
-    if (match) {
-        // match에서 추출한 정보를 사용하여 객체 생성
-        const [, id, businessName, category, gu, ro, positionX, positionY] = match;
-        return {id, businessName, category, gu, ro, positionX: parseFloat(positionX), positionY: parseFloat(positionY)};
-    } else {
-        return null;
-    }
-});
-console.log(contents);
+// // contentsList 문자열에서 공백과 줄바꿈 제거
+// const cleanedString = contentsList.replace(/\s/g, '');
+//
+// // 'Contents('로 문자열을 나누고 첫 번째 항목은 무시
+// const contentsListStrings = cleanedString.split('Contents(').slice(1);
+//
+// // contents 배열 생성
+// const contents = $.map(contentsListStrings, function(contentString) {
+//     const match = contentString.match(/id=([^,]+),businessName=([^,]+),category=([^,]+),gu=([^)]+),ro=([^)]+),positionX=([^)]+),positionY=([^)]+)/);
+//
+//     if (match) {
+//         // match에서 추출한 정보를 사용하여 객체 생성
+//         const [, id, businessName, category, gu, ro, positionX, positionY] = match;
+//         return {id, businessName, category, gu, ro, positionX: parseFloat(positionX), positionY: parseFloat(positionY)};
+//     } else {
+//         return null;
+//     }
+// });
+// console.log(contents);
 const itemArr = [];
 
 // contentBtn.on("click", function (e) {
