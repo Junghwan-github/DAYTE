@@ -43,6 +43,7 @@ contentBtn.forEach(function (content) {
         $(".contentsListItemDelete").on("click", function (e) {
             e.stopPropagation();
             $(this).parent().remove();
+            itemArr.splice($(this).val(), 1);
         })
     });
 });
@@ -143,5 +144,8 @@ function displaySearchResults(data) {
                             </li>
                 `;
         contentListViewer.appendChild(listItem);
+
+
+
     })
 }

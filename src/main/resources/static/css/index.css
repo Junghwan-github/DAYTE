@@ -67,9 +67,9 @@ main {
 .mainSlider > li > h2 {
   position: absolute;
   top: 50px;
-  font-size: 3.3rem;
+  font-size: 3rem;
   color: #fff;
-  font-weight: 800;
+  font-weight: 500;
   z-index: 1;
 }
 
@@ -91,9 +91,9 @@ main {
 .mainSlider > li > h2 > span {
   display: block;
   margin-top: 5px;
-  font-size: 7rem;
+  font-size: 5rem;
   color: #fff;
-  font-weight: 800;
+  font-weight: 700;
   z-index: 1;
 }
 
@@ -106,7 +106,7 @@ main {
 .mainSlider > li > ul > li {
   margin-bottom: -5px;
   font-size: 2rem;
-  font-weight: 600;
+  font-weight: 500;
   color: #fff;
   padding: 7px;
   z-index: 1;

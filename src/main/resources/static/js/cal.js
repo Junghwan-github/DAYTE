@@ -115,18 +115,20 @@ $nextBtn.addEventListener("click", function (event) {
 //     });
 // });
 
-    function deleteLinks(startDate) {
-        if (confirm('일정을 삭제 하시겠습니까?')) {
-            fetch("/schedule/scheduleList/" + startDate, {
-                method: "DELETE",
-                headers: {
-                    "Content-Type": "application/json; charset=utf-8",
-                },
-            }).then(response => {
-                location = "/schedule/scheduleList";
-            }).catch(error => {
-                alert(`에러 발생 : ${error.message}`);
-            });
-        }
-    }
+
 });
+
+function deleteLinks(startDate) {
+    if (confirm('일정을 삭제 하시겠습니까?')) {
+        fetch("/schedule/scheduleList/" + startDate, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json; charset=utf-8",
+            },
+        }).then(response => {
+            location = "/schedule/scheduleList";
+        }).catch(error => {
+            alert(`에러 발생 : ${error.message}`);
+        });
+    }
+}
