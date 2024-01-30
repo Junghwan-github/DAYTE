@@ -50,12 +50,12 @@
         <table id="trueNoticeTable">
             <thead>
             <tr>
-                <th class="thNum">번호</th>
-                <th class="thTitle">제목</th>
-                <th class="thDate">게시일</th>
-                <th>필독 up</th>
-                <th>필독 down</th>
-                <th>일반 공지로 변경</th>
+                <th class="NoticeNum">번호</th>
+                <th class="NoticeTitle">제목</th>
+                <th class="NoticeDate">게시일</th>
+                <th class="upPriority">필독 up</th>
+                <th class="downPriority">필독 down</th>
+                <th class="changeToDefaultNotice">일반 공지로 변경</th>
             </tr>
             </thead>
             <tbody>
@@ -103,11 +103,11 @@
         <table id="defaultNoticeTable">
             <thead>
             <tr>
-                <th class="thNum">번호</th>
-                <th class="thTitle">제목</th>
-                <th class="thDate">게시일</th>
-                <th>뷰 단에서 보일건가</th>
-                <th>필독 공지사항으로 등록</th>
+                <th class="NoticeNum">번호</th>
+                <th class="NoticeTitle">제목</th>
+                <th class="NoticeDate">게시일</th>
+                <th class="viewCheck">뷰 단에서 보일건가</th>
+                <th class="grantPriority">필독 공지사항으로 등록</th>
 
             </tr>
             </thead>

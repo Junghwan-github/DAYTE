@@ -1,3 +1,4 @@
+// 체크박스 체크 상태로 뷰단에서 보일건지 말건지 체크
 window.addEventListener("beforeunload", function (e){
 //e.preventDefault()
     saveCheckboxStates();

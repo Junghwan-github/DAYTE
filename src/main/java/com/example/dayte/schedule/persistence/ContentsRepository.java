@@ -9,5 +9,6 @@ import java.util.Optional;
 
 public interface ContentsRepository extends JpaRepository<Contents,String> {
 
-    List<Contents> findAllByBusinessNameContaining(String businessName);
+    @Query("SELECT c FROM Contents c WHERE c.businessName LIKE %:search% OR c.category LIKE %:search% OR c.gu LIKE %:search% OR c.ro LIKE %:search%")
+    List<Contents> findAllBySearch(String search);
 }

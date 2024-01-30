@@ -1,39 +1,4 @@
-/*
-let delObject = {
-    init: function (){
-        $("#del-notice").on("click", () => {
-            this.deleteNotice();
-        });
-
-
-    },
-    deleteNotice: function() {
-        let data = {
-            email : $("#email").val(),
-            password : $("#password").val()
-        }
-        fetch("/auth/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json; charset=utf-8",
-            },
-            body: JSON.stringify(data),
-        })
-            .then(response => {
-                return response.json();
-
-            }).then(data =>{
-            console.log(data);
-            location = "/";
-        })
-            .catch(error => {
-                alert(`에러발생 : ${error.message}`);
-            })
-    }
-}
-
-delObject.init();
-*/
+//체크박스에 선택된 공지사항 삭제
 
 document.getElementById('del-notice').addEventListener('click', logSelectedCheckboxValues);
 

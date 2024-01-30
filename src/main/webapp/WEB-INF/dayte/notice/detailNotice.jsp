@@ -18,7 +18,7 @@
 <div>
     <form>
         <c:forEach var="file" items="${notice.files}">
-            <p>${file.originalName}</p>
+            <a href="/notice/${notice.no}/files/${file.id}"><p>${file.originalName}</p></a>
         </c:forEach>
         <div>
            <input type="text" id="title" value="${notice.title}" readonly>

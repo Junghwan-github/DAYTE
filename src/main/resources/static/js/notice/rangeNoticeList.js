@@ -1,3 +1,5 @@
+//필독 공지사항 우선순위 저장
+
 let fixPriorityObject = {
     init: function () {
 
@@ -10,7 +12,11 @@ let fixPriorityObject = {
 
     fixPriority: function () {
 
-        // var confirmed = confirm("필독 공지사항 우선순위를 저장하시겠습니까?");
+        var confirmed = confirm("필독 공지사항 우선순위를 저장하시겠습니까?")
+
+        if(confirmed){
+
+
 
         let trueIdPriEle = document.querySelectorAll(".selected");
         let trueNoList = [];
@@ -39,6 +45,7 @@ let fixPriorityObject = {
             .catch(error => {
                 alert(`에러발생 : ${error.message}`);
             })
+        }
     }
 }
 

@@ -140,7 +140,10 @@ main {
 .daysPrintList {
     display: flex;
     flex-flow: row nowrap;
+    overflow-y: hidden;
+    overflow-x: auto;
     justify-content: flex-start;
+    padding: 0 0 5px 0;
 }
 
 .daysPrintList > li {
@@ -159,6 +162,17 @@ main {
     font-weight: 600;
     border-radius: 5px;
     border: none;
+}
+
+.daysPrintList::-webkit-scrollbar {
+
+    height: 10px;
+}
+.daysPrintList::-webkit-scrollbar-thumb {
+    background: #fff;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
 }
 
 /* 모달 */
