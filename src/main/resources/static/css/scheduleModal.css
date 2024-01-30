@@ -499,3 +499,16 @@
     height: 60px;
     text-align: right;
 }
+
+.detailedScheduleDiv {
+    display: flex;
+    flex-direction: column;
+}
+
+.detailedScheduleListUl {
+    display: flex;
+}
+
+.detailedScheduleListUl li {
+    margin: 0 10px;
+}

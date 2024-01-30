@@ -242,7 +242,6 @@
                         </div>
                     </div>
                     <div class="daysPrint">
-                        <div class="daysPrintList">
                             <c:set var="day" value="0"/>
                             <c:forEach begin="${scheduleList.startDate.toEpochDay()}"
                                        end="${scheduleList.endDate.toEpochDay()}">
@@ -252,16 +251,14 @@
                                          data-next-days="${scheduleList.scheduleDates[day].scheduleDateId.nowDate}">
                                         <h2>${nextDays}일
                                             차</h2>
-                                        <ul>
+                                        <ul class="detailedScheduleListUl">
                                         <c:forEach var="detailedSchedule" items="${scheduleList.scheduleDates[day].detailedScheduleList}">
                                             <li>${detailedSchedule.contents.businessName}</li>
                                         </c:forEach>
                                             </ul>
                                     </div>
-
                                 <c:set var="day" value="${nextDays}"/>
                             </c:forEach>
-                        </div>
                     </div>
                 </div>
             </c:forEach>
