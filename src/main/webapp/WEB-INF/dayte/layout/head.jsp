@@ -16,9 +16,9 @@
     <link rel="stylesheet"
           href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
 <!--    디폴트 css-->
-    <link rel="stylesheet" href="/css/header.css">
-    <link rel="stylesheet" href="/css/reset.css" >
-    <link rel="stylesheet" href="/css/footer.css" >
+    <link rel="stylesheet" href="/css/layout/header.css">
+    <link rel="stylesheet" href="/css/layout/reset.css" >
+    <link rel="stylesheet" href="/css/layout/footer.css" >
 <!--    제이쿼리-->
     <script
             src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>

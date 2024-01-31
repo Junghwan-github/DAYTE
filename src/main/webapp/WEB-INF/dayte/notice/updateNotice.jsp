@@ -4,13 +4,14 @@
 
     <link href="/webjars/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
     <script src="/webjars/bootstrap/5.3.2/js/bootstrap.bundle.js"></script>
-    <script src="/webjars/jquery/3.7.1/jquery.min.js"></script>
 
 
 </head>
 
 <body>
 <%@include file="../layout/header.jsp"%>
+<script src="/js/main/header.js"></script>
+
 <c:if test="${!empty notice.files}">
     <c:forEach var="file" items="${notice.files}">
 
@@ -84,4 +85,4 @@
 
 </body>
 
-</html>
+<%@include file="../layout/footer.jsp" %>

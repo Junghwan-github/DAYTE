@@ -5,14 +5,17 @@
 <%@include file="../layout/head.jsp"%>
 
 <%-- css --%>
-<link rel="stylesheet" href="/css/post.css">
-<link rel="stylesheet" href="/css/postReply.css">
+<link rel="stylesheet" href="/css/post/post.css">
+<link rel="stylesheet" href="/css/post/postReply.css">
+<link rel="stylesheet" href="/css/layout/subnav.css">
 
 </head> <%-- /head --%>
 
 <body> <%-- body --%>
 
 <%@include file="../layout/header.jsp"%> <%-- header --%>
+<%@include file="../layout/subnav.jsp" %>
+<script src="/js/main/header.js"></script>
 
 <main class="contentArea"> <%-- main --%>
 
@@ -113,8 +116,8 @@
         </ul>
     </c:if>
 
-    <script src="/js/post.js"></script>
-    <script src="/js/postReply.js"></script>
+    <script src="/js/post/post.js"></script>
+    <script src="/js/post/postReply.js"></script>
 </main>
 
 <%@include file="../layout/footer.jsp" %>

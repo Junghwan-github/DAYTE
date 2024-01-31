@@ -5,14 +5,13 @@
 
     <link href="/webjars/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
     <script src="/webjars/bootstrap/5.3.2/js/bootstrap.bundle.js"></script>
-    <script src="/webjars/jquery/3.7.1/jquery.min.js"></script>
 
 
 </head>
 
 <body>
 <%@include file="../layout/header.jsp"%>
-
+<script src="/js/main/header.js"></script>
 <h1> 상세보기 </h1>
 
 <div>

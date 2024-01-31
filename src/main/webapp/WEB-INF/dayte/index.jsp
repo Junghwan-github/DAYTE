@@ -2,8 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="layout/head.jsp" %>
 <%--여기 각자 쓸 css--%>
-<link rel="stylesheet" href="/css/index.css">
-<link rel="stylesheet" href="/css/slider.css">
+<link rel="stylesheet" href="/css/main/index.css">
+<link rel="stylesheet" href="/css/main/slider.css">
 <title>DAYTE</title>
 </head>
 
@@ -165,5 +165,5 @@
         </div>
     </section>
 </main>
-<script src="/js/index.js"></script>
+<script src="/js/main/index.js"></script>
 <%@include file="layout/footer.jsp" %>

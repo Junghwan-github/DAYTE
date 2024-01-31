@@ -3,8 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="../layout/head.jsp" %>
 
-<link rel="stylesheet" href="/css/contentInfo.css">
-<link rel="stylesheet" href="/css/contentSlider.css">
+<link rel="stylesheet" href="/css/schedule/contentInfo.css">
+<link rel="stylesheet" href="/css/schedule/contentSlider.css">
 
 <title>DAYTE | </title>
 
@@ -14,7 +14,7 @@
       (contentInfo.css)에 마지막 줄에 bxslider bgimage 넣는 형식으로 만들어야 함
     -->
 <%@include file="../layout/header.jsp" %>
-
+<script src="/js/header.js"></script>
 <!-- 메인 -->
 <main>
     <section id="mainContentsImages">

@@ -6,14 +6,14 @@
     <title>공지사항</title>
 
     <script src="/webjars/bootstrap/5.3.2/js/bootstrap.bundle.js"></script>
-    <script src="/webjars/jquery/3.7.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="/css/reset.css">
-    <link rel="stylesheet" href="/css/modNotice.css">
+    <link rel="stylesheet" href="/css/main/modNotice.css">
 
 
 </head>
 
 <body>
+<%@include file="../layout/header.jsp"%>
+<script src="/js/main/header.js"></script>
 <c:set var="indexNumber" value="${noticeList.number + 2}"/>
 
 <h1 class="title"> 전체수정 </h1>

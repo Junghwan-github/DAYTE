@@ -3,11 +3,11 @@
     <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <%@include file="../layout/head.jsp"%>
       <title>회원가입 | 정보 입력</title>
-      <link rel="stylesheet" href="/css/joinForm.css" />
+      <link rel="stylesheet" href="/css/main/joinForm.css" />
     </head>
 <body>
 <%@include file="../layout/header.jsp"%>
-<script src="/js/header.js"></script>
+<script src="/js/main/header.js"></script>
     <!-- 메인 -->
     <main>
       <div class="container">
@@ -210,8 +210,8 @@
 
       </div>
     </main>
-    <script src="/js/verification.js"></script>
-    <script src="/js/joinForm.js"></script>
-    <script src="/js/insertUser.js"></script>
+    <script src="/js/main/verification.js"></script>
+    <script src="/js/main/joinForm.js"></script>
+    <script src="/js/main/insertUser.js"></script>
 
 <%@include file="../layout/footer.jsp"%>
