@@ -1,3 +1,4 @@
+
 $(document).ready(function () {
     $(".scheduleItemSlider").bxSlider({
         mode: "horizontal",
@@ -71,13 +72,12 @@ $(".scheduleTotalListCancelBtn").on("click", function () {
 });
 
 
-
 function mouseDrag(select) {
 
-        $(select).on('mousedown', handleMouseDown);
-        $(select).on('mouseleave', handleMouseLeave);
-        $(select).on('mouseup', handleMouseUp);
-        $(select).on('mousemove', handleMouseMove);
+    $(select).on('mousedown', handleMouseDown);
+    $(select).on('mouseleave', handleMouseLeave);
+    $(select).on('mouseup', handleMouseUp);
+    $(select).on('mousemove', handleMouseMove);
 
     function handleMouseDown(e) {
         isDown = true;
@@ -104,80 +104,108 @@ function mouseDrag(select) {
 }
 
 
+let listCartBtn = document.querySelector("#divUpDownButton");
+let contentListCart = document.querySelector(".contentListModalArea");
+
+listCartBtn.addEventListener("click", () => {
+    contentListCart.classList.toggle("show");
+});
 
 
-    let listCartBtn = document.querySelector("#divUpDownButton");
-    let contentListCart = document.querySelector(".contentListModalArea");
+let scheduleItems = document.querySelectorAll(".scheduleContentsItem");
 
-    listCartBtn.addEventListener("click", () => {
-        contentListCart.classList.toggle("show");
+scheduleItems.forEach(function (scheduleItem) {
+    let contentsSubNavBtn = scheduleItem.querySelector(".xi-ellipsis-v");
+
+    contentsSubNavBtn.addEventListener("click", function (e) {
+        let menuList = scheduleItem.querySelector(".menuList");
+
+        if (menuList) {
+            menuList.classList.toggle("show");
+        }
+
+        e.preventDefault();
     });
-
-
-    let scheduleItems = document.querySelectorAll(".scheduleContentsItem");
-
-    scheduleItems.forEach(function (scheduleItem) {
-        let contentsSubNavBtn = scheduleItem.querySelector(".xi-ellipsis-v");
-
-        contentsSubNavBtn.addEventListener("click", function (e) {
-            let menuList = scheduleItem.querySelector(".menuList");
-
-            if (menuList) {
-                menuList.classList.toggle("show");
-            }
-
-            e.preventDefault();
-        });
-    });
+});
 
 function detailedLinks(uuid) {
 
     $(".detailedScheduleAddModal").show();
     $(".schedule-tb-list").hide();
-    $("."+uuid).show();
-    $("body").css("overflow","hidden");
-    let detailList = $("."+uuid).height();
-    if(detailList > 800) {
+    $("." + uuid).show();
+    $("body").css("overflow", "hidden");
+    let detailList = $("." + uuid).height();
+    if (detailList > 800) {
         $(".schedule-tb-list").height(800);
     }
-        $(".detailedScheduleListUl").each(function () {
-            $(this).on('mousedown', handleMouseDown);
-            $(this).on('mouseleave', handleMouseLeave);
-            $(this).on('mouseup', handleMouseUp);
-            $(this).on('mousemove', handleMouseMove);
+    $(".detailedScheduleListUl").each(function () {
+        $(this).on('mousedown', handleMouseDown);
+        $(this).on('mouseleave', handleMouseLeave);
+        $(this).on('mouseup', handleMouseUp);
+        $(this).on('mousemove', handleMouseMove);
 
-            function handleMouseDown(e) {
-                isDown = true;
-                startX = e.pageX - this.offsetLeft;
-                scrollLeft = this.scrollLeft;
-            }
+        function handleMouseDown(e) {
+            isDown = true;
+            startX = e.pageX - this.offsetLeft;
+            scrollLeft = this.scrollLeft;
+        }
 
-            function handleMouseLeave() {
-                isDown = false;
-            }
+        function handleMouseLeave() {
+            isDown = false;
+        }
 
-            function handleMouseUp() {
-                isDown = false;
-            }
+        function handleMouseUp() {
+            isDown = false;
+        }
 
-            function handleMouseMove(e) {
-                if (!isDown) return;
-                e.preventDefault();
-                e.stopPropagation();
-                x = e.pageX - this.offsetLeft;
-                walk = x - startX;
-                this.scrollLeft = scrollLeft - walk;
-            }
-        })
-
+        function handleMouseMove(e) {
+            if (!isDown) return;
+            e.preventDefault();
+            e.stopPropagation();
+            x = e.pageX - this.offsetLeft;
+            walk = x - startX;
+            this.scrollLeft = scrollLeft - walk;
+        }
+    })
 }
-
+let nowDateValue;
 $(".detail-daysPrint-button").on("click", function () {
+    let detailedScheduleList = [];
+    nowDateValue = $(this).closest('.detailedScheduleDiv').data('now-days');
+
     $(".detailedScheduleAddModal").hide();
     $(".daysListAddModal").show();
     $(".contentListModalArea").addClass("show");
     $(".scheduleTotalSaveBtn").hide();
     $(".scheduleTotalModifyBtn").show();
+
+        // 담아놓은 컨텐츠를 비교하여 같은 날짜 인것만 넘기는 forEach
+    $(".detailedScheduleListUl li").each(function () {
+        if ($(this).closest('.detailedScheduleDiv').data('now-days') === nowDateValue) {
+            let contentId = $(this).find('.detailedScheduleListId').val(); // .detailedScheduleListId의 value를 가져옴
+            let businessName = $(this).find('span').text();
+            let matchingContentBtns = $(`.contentListItemAddBtn[value="${contentId}"]`);
+            detailedScheduleList.push(contentId);
+            itemArr.push(contentId);
+
+            matchingContentBtns.each(function () {
+                // Retrieve other details using the found button
+                let contentListItem = $(this).closest('.contentListItems');
+                let latitude = contentListItem.find('.contentListItemPoint-x').text();
+                let longitude = contentListItem.find('.contentListItemPoint-y').text();
+                let sliderItemImages = contentListItem.find('.contentListItemsImages img').attr('src');
+                // Append selected items to the contentModalSlider
+                $(".contentModalSlider").append(`<li class='contentsListItemSelected'><span class="contentListItemPoint-x">${latitude}</span><span class="contentListItemPoint-y">${longitude}</span><div><img src='${sliderItemImages}'/></div><span>${businessName}</span><button type='button' class='contentsListItemDelete' value='${detailedScheduleList[detailedScheduleList.length - 1]}'><i class="xi-close-min"></i></button></li>`);
+            });
+        }
+    });
+
+    // Add click event for contentsListItemDelete
+    $(".contentsListItemDelete").on("click", function (e) {
+        e.stopPropagation();
+        $(this).parent().remove();
+        itemArr.splice($(this).val(), 1);
+    });
 
     let container = document.getElementById("rightModalLayout");
     let options = {
@@ -186,4 +214,4 @@ $(".detail-daysPrint-button").on("click", function () {
     };
     let map = new kakao.maps.Map(container, options);
 
-})
+});
