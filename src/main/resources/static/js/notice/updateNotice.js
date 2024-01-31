@@ -56,6 +56,9 @@ let updateNoticeObject = {
 
 
 
+let confirmed = confirm("수정 하시겠습니까?")
+
+        if(confirmed){
 
 
 
@@ -98,12 +101,14 @@ let updateNoticeObject = {
 
             }).then(data => {
             console.log(data);
+            alert("수정이 완료되었습니다.")
             location = "/update/" + no;
         })
             .catch(error => {
                 alert(`에러발생 : ${error.message}`);
             })
 
+        }
     }
 
 

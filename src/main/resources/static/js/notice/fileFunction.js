@@ -5,11 +5,20 @@ let selectedFile = [];
 function selectFile(element) {
     const fileInput = document.getElementById(element.id);
     if (fileInput.files.length != 0) {
-        selectedFile = [];
+       // selectedFile = [];
 
         const filesArray = Array.from(fileInput.files);
         filesArray.forEach(t => {
             selectedFile.push(t);
+
+            let dataTransfer = new DataTransfer();
+
+            selectedFile.forEach(file => {
+                dataTransfer.items.add(file)
+            });
+
+            fileInput.files = dataTransfer.files;
+
         })
     } else if (fileInput.files.length == 0) {
         console.log(selectedFile);
@@ -22,8 +31,10 @@ function selectFile(element) {
 
         fileInput.files = dataTransfer.files;
 
-
     }
+
+
+
 
 
     const preview = document.getElementById("preview");
@@ -61,11 +72,24 @@ function removeFile(element) {
 
     fileInput.files = dataTransfer.files;
 
+    selectedFile = [];
+
+    const filesArray = Array.from(fileInput.files);
+    filesArray.forEach(t => {
+        selectedFile.push(t);
+    })
+
     removeTarget.remove();
 
 }
 
-function addFile() {
+/*
+<label for="file-add">파일 추가</label>
+<input type="file" name="files" id="file-add" multiple="multiple" style="display: none" onchange="addFile();" />
+*/
+// 위에 코드가 input type file 밑에 있을 때 파일 초기화 없이 파일 추가하기 위한 메서드
+
+/*function addFile() {
     const addFile = document.getElementById("file-add");
     let originalFile = document.getElementById("file-input");
     let dataTransfer = new DataTransfer();
@@ -90,7 +114,7 @@ function addFile() {
 
     updatePreview();
 
-}
+}*/
 
 function updatePreview() {
     const fileInput = document.getElementById("file-input");

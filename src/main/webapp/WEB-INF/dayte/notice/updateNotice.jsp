@@ -34,11 +34,12 @@
                 <div class="file-input-Div">
                     <input type="text" readonly />
 
-                    <input type="file" name="files" id="file-input"  multiple="multiple" onchange="selectFile(this);" />
+                    <input type="file" accept=".pdf, .hwp, .docx, .xlsx, .xls, .jpg, .png, .jpeg, .zip " name="files" id="file-input"  multiple="multiple" onchange="selectFile(this);" />
                 </div>
-                <label for="file-add">파일 추가</label>
+               <%-- <label for="file-add">파일 추가</label>
                 <input type="file" accept=".pdf, .hwp, .docx, .xlsx, .xls, .jpg, .png, .jpeg, .zip " name="files" id="file-add" multiple="multiple" style="display: none" onchange="addFile();" />
-
+--%>
+            </div>
                 <div>
                     <div id="preview">
                         <c:forEach var="file" items="${notice.files}">
@@ -55,7 +56,7 @@
                 </div>
 
 
-            </div>
+
         </div>
     </form>
 
