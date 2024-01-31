@@ -54,6 +54,9 @@ public class NoticeController {
         Page<Notice> noticeListPage = noticeService.getNoticeList(pageable);
         int totalPages = noticeListPage.getTotalPages();
 
+        // 현재 페이지
+        int currentPage = noticeListPage.getNumber();
+
         // 목록 하단 페이지 번호의 노출 개수
         int pageSize = 5;
 
@@ -63,7 +66,8 @@ public class NoticeController {
 
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
-
+        model.addAttribute("currentPage", currentPage);
+        System.out.println("========================" + currentPage);
         model.addAttribute("noticeList", noticeService.getNoticeList(pageable));
 
 

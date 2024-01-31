@@ -15,7 +15,7 @@
             </ul>
             <ul class="list-unstyled border rounded d-flex flex-row me-2">
                 <li class="border-end bg-secondary-subtle p-1 rounded-start fw-semibold">탈퇴</li>
-                <li  class=" px-2 py-1 bg-light rounded-end fw-semibold">00</li>
+                <li  class=" px-2 py-1 bg-light rounded-end fw-semibold">${dList.totalElements}</li>
             </ul>
             <ul class="list-unstyled border rounded d-flex flex-row me-2">
                 <li class="border-end bg-secondary-subtle p-1 rounded-start fw-semibold">정지</li>
@@ -59,6 +59,7 @@
                     <th scope="col" class="text-center bg-secondary-subtle">성별</th>
                     <th scope="col" class="text-center bg-secondary-subtle">가입일</th>
                     <th scope="col" class="text-center bg-secondary-subtle">권한</th>
+                    <th scope="col" class="text-center bg-secondary-subtle">탈퇴</th>
                     <th scope="col" class="text-center bg-secondary-subtle">관리</th>
                 </tr>
                 </thead>
@@ -76,9 +77,10 @@
                             <td class="text-center">${user.gender}</td>
                             <td class="text-center">${user.joinDate}</td>
                             <td class="text-center">${user.role}</td>
+                            <td class="text-center">${user.del}</td>
                             <td class="text-center">
                                 <div class="d-flex justify-content-center">
-                                    <button class="btn btn-dark ms-1 d-block">수정</button>
+                                    <a href="/admin/editUser/${user.userEmail}" class="btn btn-dark ms-1 d-block">수정</a>
                                 </div>
                             </td>
                         </tr>

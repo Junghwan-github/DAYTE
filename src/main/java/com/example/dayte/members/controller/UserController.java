@@ -2,6 +2,7 @@ package com.example.dayte.members.controller;
 
 import com.example.dayte.members.domain.RoleType;
 import com.example.dayte.members.domain.User;
+import com.example.dayte.members.dto.ResponseDTO;
 import com.example.dayte.members.dto.UserDTO;
 import com.example.dayte.members.service.UserService;
 import jakarta.validation.Valid;
@@ -69,10 +70,13 @@ public class UserController {
     public String adminHome(Model model,
                             @PageableDefault(size = 10, sort = "joinDate" , direction = Sort.Direction.DESC) Pageable pageable,
                             @RequestParam(required = false, defaultValue = "")String field,
-                            @RequestParam(required = false, defaultValue = "")String word) {
-        Page<User> allList = userService.userList(pageable);
-        Page<User> ulist = userService.userList(pageable);
+                            @RequestParam(required = false, defaultValue = "")String word
+                            ) {
+        Page<User> allList = userService.userList(pageable); // 총 회원수
+        Page<User> dList = userService.delList(pageable); // 탈퇴 회원수
+
         // 사용자 상세 검색
+        Page<User> ulist = userService.userList(pageable);
         if(field.equals("userName")) {
             ulist = userService.userListByUserName(word, pageable);
         }else if(field.equals("userEmail")) {
@@ -84,8 +88,6 @@ public class UserController {
         }else if(field.equals("phone")) {
             ulist = userService.userListByPhone(word, pageable);
         }
-
-
 
         int pageNumber = ulist.getPageable().getPageNumber(); // 현재 페이지
         int totalPages = ulist.getTotalPages();
@@ -99,7 +101,32 @@ public class UserController {
         model.addAttribute("endBlockPage",endBlockPage);
         model.addAttribute("ulist", ulist);
         model.addAttribute("allList",allList);
+        model.addAttribute("dList",dList);
 
         return "adminPage/adminHome";
     }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/admin/editUser/{userEmail}")
+    public String userDetail(@PathVariable String userEmail, Model model) {
+        model.addAttribute("user",userService.getUser(userEmail));
+        return "adminPage/editUser/editUser";
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping("/admin/editUser")
+    public @ResponseBody ResponseDTO<?> updateUser(@RequestBody UserDTO userDTO) {
+        userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        //userDTO.setRole(userDTO.getRole());
+        userDTO.setUserName(userDTO.getUserName());
+        userDTO.setNickName(userDTO.getNickName());
+        userDTO.setPhone(userDTO.getPhone());
+        System.out.println("================================회원정보 수정 : "+ userDTO);
+
+
+        userService.updateUser(userDTO);
+        return new ResponseDTO<>(HttpStatus.OK.value(), "회원 정보가 수정되었습니다." );
+
+    }
+
 }
