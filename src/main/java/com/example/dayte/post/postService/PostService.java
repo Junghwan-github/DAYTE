@@ -22,7 +22,6 @@ public class PostService {
      */
     @Transactional // 해당 어노테이션이 붙은 메서드 (혹은 클래스)는 트랜잭션의 일부로 실행된다.
     public void insertPost(Post post) {
-//        post.setCnt(0);
         System.out.println("service의 post : " + post);
         postRepository.save(post);
     }

@@ -15,6 +15,7 @@
 <%@include file="../layout/header.jsp"%> <%-- header --%>
 <%@include file="../layout/subnav.jsp" %>
 <script src="/js/main/header.js"></script>
+
 <main> <%-- main --%>
 
     <div class="titleDiv">
@@ -55,6 +56,7 @@
             <a class="page-link" href="?page=${postList.number +1}">다음</a>
         </li>
     </ul>
+
 </main>
 
 <jsp:include page="../layout/footer.jsp"/>
