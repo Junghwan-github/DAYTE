@@ -14,8 +14,6 @@
 <body>
 <%@include file="../layout/header.jsp" %>
 <%@include file="../layout/subnav.jsp" %>
-<script src="/js/main/header.js"></script>
-
 <main>
     <h1 id="pageTitleName">일정 관리</h1>
     <section id="modalArea">
@@ -59,8 +57,7 @@
                     </i>
                     <div class="menuList">
                         <ul>
-                            <li><a href="#" class="detailedSchedule" onclick="detailedLinks(`${scheduleList.uuid}`)">자세히
-                                보기</a></li>
+                            <li><a href="#" class="detailedSchedule" onclick="detailedLinks(`${scheduleList.uuid}`)">상세보기</a></li>
                             <li><a href="#" class="deleteSchedule"
                                    onclick="deleteLinks(`${scheduleList.startDate}`)">삭제</a></li>
                         </ul>
@@ -221,6 +218,7 @@
                 </div>
                 <div class="rightModalLayout" id="rightModalLayout">
                     <button class="scheduleTotalSaveBtn" onclick="scheduleTotalSaveBtn()">저장</button>
+                    <button class="scheduleTotalModifyBtn" onclick="scheduleTotalModifyBtn()">저장</button>
                 </div>
             </div>
         </div>
@@ -229,18 +227,19 @@
     <div class="detailedScheduleAddModal">
         <div class="detailedScheduleViewArea">
             <div class="detailedScheduleCloseBtn">
-                <span class="material-symbols-outlined modalclosebutton" onclick="closeModal(this,'close')">
+                <span class="material-symbols-outlined detail-schedule-modal" onclick="closeModal(this,'closes')">
             close
                 </span>
             </div>
             <c:forEach var="scheduleList" items="${userScheduleList}">
-                <div>
-                    <div class="contentListModalArea">
-                        <div class="contentListModalItem">
-                            <h2>일정 리스트</h2>
+                <div class="schedule-tb-list ${scheduleList.uuid}">
+                    <div class="detail-contentListModalArea">
+                        <div class="detail-contentListModalItem">
+                            <h2>${scheduleList.title} 전체 일정</h2>
                         </div>
                     </div>
-                    <div class="daysPrint">
+                    <div class="detail-daysPrint">
+
                             <c:set var="day" value="0"/>
                             <c:forEach begin="${scheduleList.startDate.toEpochDay()}"
                                        end="${scheduleList.endDate.toEpochDay()}">
@@ -248,11 +247,19 @@
 
                                     <div class="detailedScheduleDiv"
                                          data-next-days="${scheduleList.scheduleDates[day].scheduleDateId.nowDate}">
+                                        <div>
+                                            <button class="detail-daysPrint-button">수정</button>
+                                        </div>
                                         <h2>${nextDays}일
                                             차</h2>
                                         <ul class="detailedScheduleListUl">
                                         <c:forEach var="detailedSchedule" items="${scheduleList.scheduleDates[day].detailedScheduleList}">
-                                            <li>${detailedSchedule.contents.businessName}</li>
+                                            <li>
+                                                <div class="detail-schedule-li-images">
+
+                                                </div>
+                                                    <span>${detailedSchedule.contents.businessName}<span>
+                                            </li>
                                         </c:forEach>
                                             </ul>
                                     </div>
