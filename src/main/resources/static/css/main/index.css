@@ -335,13 +335,13 @@ main {
 }
 
 .c-jg > .isl-1 > .isl-img-area {
-  background-image: url("../images/isl-1.jpg");
+  background-image: url("../../images/isl-1.jpg");
 }
 .c-jg > .isl-2 > .isl-img-area {
-  background-image: url("../images/isl-2.jpg");
+  background-image: url("../../images/isl-2.jpg");
 }
 .c-jg > .isl-3 > .isl-img-area {
-  background-image: url("../images/isl-3.PNG");
+  background-image: url("../../images/isl-3.PNG");
 }
 
 .xi-search {

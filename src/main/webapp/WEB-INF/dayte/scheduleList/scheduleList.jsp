@@ -5,17 +5,16 @@
 <%@ page import="com.fasterxml.jackson.databind.ObjectMapper" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="../layout/head.jsp" %>
-<link rel="stylesheet" href="/css/schedule.css">
-<link rel="stylesheet" href="/css/scheduleSlider.css">
-<link rel="stylesheet" href="/css/subnav.css">
-<link rel="stylesheet" href="/css/scheduleModal.css">
+<link rel="stylesheet" href="/css/schedule/schedule.css">
+<link rel="stylesheet" href="/css/schedule/scheduleSlider.css">
+<link rel="stylesheet" href="/css/layout/subnav.css">
+<link rel="stylesheet" href="/css/schedule/scheduleModal.css">
 <title>일정 관리</title>
 </head>
 <body>
 <%@include file="../layout/header.jsp" %>
 <%@include file="../layout/subnav.jsp" %>
-
-    <% %>
+<script src="/js/main/header.js"></script>
 
 <main>
     <h1 id="pageTitleName">일정 관리</h1>
