@@ -57,6 +57,5 @@ public class ScheduleDateService {
             detailedScheduleList.add(modelMapper.map(detailedScheduleDTO, DetailedSchedule.class));
         }
         detailedScheduleRepository.saveAll(detailedScheduleList);
-
     }
 }

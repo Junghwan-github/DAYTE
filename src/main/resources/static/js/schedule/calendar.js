@@ -241,14 +241,12 @@ function openModal(btn, data) {
     }
 }
 
-
 function closeModal(btn, data) {
     if (data === "cal") {
         const modal = document.querySelector("#myModal");
         applyModalStyles(modal, modalInitialStyles);
         modal.style.display = "none";
         init.selectedDates = [];
-        console.log(init.selectedDates);
         const $days = document.querySelectorAll(".day");
         $days.forEach(($day) => {
             $day.classList.remove("day-range", "day-active", "day-start");

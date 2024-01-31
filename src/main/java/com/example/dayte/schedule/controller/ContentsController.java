@@ -20,7 +20,6 @@ public class ContentsController {
     @Autowired
     ContentsService contentsService;
 
-    
     // 검색 기능
     @PostMapping("/search")
     public @ResponseBody List<Contents> searchContents(@RequestBody Map<String, String> search) {
