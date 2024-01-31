@@ -1,87 +1,3 @@
-// // contentsList 문자열에서 공백과 줄바꿈 제거
-// const cleanedString = contentsList.replace(/\s/g, '');
-//
-// // 'Contents('로 문자열을 나누고 첫 번째 항목은 무시
-// const contentsListStrings = cleanedString.split('Contents(').slice(1);
-//
-// // contents 배열 생성
-// const contents = $.map(contentsListStrings, function(contentString) {
-//     const match = contentString.match(/id=([^,]+),businessName=([^,]+),category=([^,]+),gu=([^)]+),ro=([^)]+),positionX=([^)]+),positionY=([^)]+)/);
-//
-//     if (match) {
-//         // match에서 추출한 정보를 사용하여 객체 생성
-//         const [, id, businessName, category, gu, ro, positionX, positionY] = match;
-//         return {id, businessName, category, gu, ro, positionX: parseFloat(positionX), positionY: parseFloat(positionY)};
-//     } else {
-//         return null;
-//     }
-// });
-// console.log(contents);
-const itemArr = [];
-
-// contentBtn.on("click", function (e) {
-//     let id;
-//     let businessName;
-//     let latitude;
-//     let longitude;
-//
-//     contents.forEach(function (vo) {
-//         if (vo.id === e.target.value) {
-//             businessName = vo.businessName;
-//             latitude = vo.latitude;
-//             longitude = vo.longitude;
-//             id = vo.id;
-//         }
-//     });
-//
-//     // 추가를 누르면 컨테이너에 담음
-//     if (itemArr.length === 0 || itemArr.indexOf(id) === -1) {
-//         let sliderItemImages = $(".contentListItemsImages > img").attr("src");
-//         $(".contentModalSlider").append(`<li class='contentsListItemSelected'><div><img src='${sliderItemImages}'/></div><span>${businessName}</span><button type='button' class='contentsListItemDelete' value='${id}'><i class="xi-close-min"></i></button></li>`);
-//         itemArr.push(id);
-//     }
-//
-//     // ".contentsListItemDelete" 클래스를 가진 버튼에 대한 이벤트 핸들러 등록
-//     $(".contentsListItemDelete").on("click", function (e) {
-//         e.stopPropagation();
-//         $(this).parent().remove();
-//         itemArr.splice($(this).val(), 1);
-//     })
-// });
-
-// 일정을 저장하는 함수
-function scheduleTotalSaveBtn() {
-    try {
-        let saveSchedule = [];
-        $(".contentsListItemSelected").each(function () {
-            let button = $(this).find("button");
-            saveSchedule.push(button.val());
-        });
-
-        const userSchedule = {
-            nowDate     : $(".daysValue").text(),
-            uuid        : $(".tableUuid").text(),
-            contentsList: saveSchedule
-        };
-
-        $.ajax({
-            url: "/schedule/saveSchedule",
-            method : "POST",
-            contentType: "application/json; charset=utf-8",
-            data   : JSON.stringify(userSchedule),
-            success: function(response) {
-                console.log(response);
-                location.reload();
-            },
-            error: function(error) {
-                alert(`에러 발생: ${error.message}`);
-            }
-        });
-    } catch (error) {
-        alert(`에러 발생: ${error.message}`);
-    }
-}
-
 // 콘텐츠 검색 함수
 function searchContents(search) {
     $.ajax({
@@ -161,7 +77,9 @@ $("#guList").on("click", "li", function () {
 });
 
 // ".contentListItemAddBtn" 클래스를 가진 모든 버튼에 대한 이벤트 핸들러 등록
+const itemArr = [];
 $('.contentListViewer').on('click', '.contentListItemAddBtn', function (e) {
+
     let id = $(e.target).val();
     let businessName = $(e.target).closest('.contentListItems').find('.contentListItemText h2:first').text();
     let latitude = $(e.target).closest('.contentListItems').find('.contentListItemPoint-x').text();
@@ -179,4 +97,3 @@ $('.contentListViewer').on('click', '.contentListItemAddBtn', function (e) {
         itemArr.splice($(this).val(), 1);
     });
 });
-
