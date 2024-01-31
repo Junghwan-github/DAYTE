@@ -14,7 +14,7 @@ $(document).ready(function () {
 
 $(".nextDayBtn").on("click", function (e) {
     $(".tableUuid").text($(e.target).val());
-    $(".daysValue").text($(e.target).data("next-days"));
+    $(".daysValue").text($(e.target).data("now-days"));
     $(".daysListAddModal").show();
 
 
@@ -127,5 +127,11 @@ function mouseDrag() {
             e.preventDefault();
         });
     });
+
+function detailedLinks(uuid) {
+    $(".detailedUuid").text(uuid);
+
+    $(".detailedScheduleAddModal").show();
+}
 
 

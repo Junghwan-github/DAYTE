@@ -58,178 +58,188 @@ main {
   object-fit: scale-down;
 
 }
-.slider { /* ============================= 슬라이더 */
-  position: relative;
-  height: 500px;
-  overflow-y: hidden;
-  
-}
-.contentFigCaption { /* ========================= 이미지 인덱스 */
-  position: absolute;
-  background-color: rgba(2, 2, 2, 0.7) ;
 
-  border-radius: 10px;
-  padding: 5px 10px;
-
-  bottom: 15px;
-  right: 12px;
-}
-.contentFigCaption > figcaption >span{
-  font-size: 1.6rem;
-  color: #fff;
+#contentInfo > span {
+  display: inline-block;
+  font-size: 1.4rem;
+  padding: 7px 10px;
+  background: #eee;
+  border-radius: 5px;
+  font-weight: 400;
+  color: #111;
+  margin-right: 5px;
 
 }
-main .contentInfo {
-  margin-top: 10px;
+
+#contentInfo > h1 {
   display: flex;
-  flex-direction : row;
-  flex-wrap: nowrap;
+  flex-flow: row nowrap;
+  align-items: center;
+  font-size: 3.5rem;
+  font-weight: 600;
+  margin-top: 8px;
+  color: #111;
+  padding: 0 0 30px 0;
+  border-bottom: 1px solid #ddd;
+}
 
-  justify-content: space-evenly;
+#contentInfo > h1 > span{
+  display: block;
+  margin: 3px 0 0 10px;
+  font-size: 1.6rem;
+  font-weight: 800;
+  line-height: 20px;
+  color: #111;
+  padding: 6px 7px;
+  background: #ffb700;
+  border-radius: 5px;
 }
-/* 지도 */
-main .contentInfo > div:first-child  {
-  border: #ccc 1px solid;
-  box-sizing: border-box;
-  width: 50%;
-  
-  
-}
-main .contentInfo > div:first-child >img {
+
+.content-wrapper {
   width: 100%;
-  height: 500px;
-  box-sizing: border-box;
+  display: flex;
+  flex-flow: row nowrap;
 }
+
+.left-content {
+  width: 800px;
+  padding: 30px 0;
+}
+
+
+.left-content > h2 {
+  font-size: 2.5rem;
+  font-weight: 500;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.left-content > p {
+  white-space: pre-line;
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: #555;
+  line-height: 25px;
+}
+
+.summaryDesc {
+  margin-left: 20px;
+  padding: 30px 0;
+}
+
+#content-map {
+  position: relative;
+  width: 360px;
+  height: 230px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+}
+
+.content-info-wrapper {
+  display: flex;
+  flex-flow: column nowrap;
+  position: absolute;
+  justify-content: center;
+  top:100%;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background: #fff;
+  z-index: 2;
+  transform: translate(0, -100%);
+}
+.content-info-wrapper > li {
+  margin: 0 0 7px 15px;
+}
+
+.content-info-wrapper > li:nth-child(3) {
+  margin-bottom: 0;
+}
+
+
+
+.content-info-wrapper span {
+  font-size: 1.4rem;
+  font-weight: 400;
+  display: inline-block;
+  margin-left: 5px;
+  color: #555;
+}
+
+.content-info-wrapper i {
+  font-size: 1.4rem;
+  color: #555;
+}
+
+.pointer-x,
+.pointer-y {
+  display: none;
+}
+
+
+
+
+
+/*.slider { !* ============================= 슬라이더 *!*/
+/*  position: relative;*/
+/*  height: 500px;*/
+/*  overflow-y: hidden;*/
+/*  */
+/*}*/
+/*.contentFigCaption { !* ========================= 이미지 인덱스 *!*/
+/*  position: absolute;*/
+/*  background-color: rgba(2, 2, 2, 0.7) ;*/
+
+/*  border-radius: 10px;*/
+/*  padding: 5px 10px;*/
+
+/*  bottom: 15px;*/
+/*  right: 12px;*/
+/*}*/
+/*.contentFigCaption > figcaption >span{*/
+/*  font-size: 1.6rem;*/
+/*  color: #fff;*/
+
+/*}*/
+/*main .contentInfo {*/
+/*  margin-top: 10px;*/
+/*  display: flex;*/
+/*  flex-direction : row;*/
+/*  flex-wrap: nowrap;*/
+
+/*  justify-content: space-evenly;*/
+/*}*/
+/*!* 지도 *!*/
+/*main .contentInfo > div:first-child  {*/
+/*  border: #ccc 1px solid;*/
+/*  box-sizing: border-box;*/
+/*  width: 50%;*/
+/*  */
+/*  */
+/*}*/
+/*main .contentInfo > div:first-child >img {*/
+/*  width: 100%;*/
+/*  height: 500px;*/
+/*  box-sizing: border-box;*/
+/*}*/
 
 
 /* 콘텐츠 정보 */
-.summaryDesc {
-  width: 50%;
-  height: 500px;
-  padding: 10px 20px;
-  box-sizing: border-box;
+/*.summaryDesc {*/
+/*  width: 50%;*/
+/*  height: 500px;*/
+/*  padding: 10px 20px;*/
+/*  box-sizing: border-box;*/
 
-  display: flex;
-  flex-direction: column; 
-  flex-wrap: nowrap;
-  justify-content: space-between;
+/*  display: flex;*/
+/*  flex-direction: column; */
+/*  flex-wrap: nowrap;*/
+/*  justify-content: space-between;*/
 
-  position: relative;
+/*  position: relative;*/
 
-}
+/*}*/
 
-
-.businessName > p { /* ======================== 상호명 */
-  width: 100%;
-  /* height: 100%; */
-
-
-  font-size: 2.6rem;
-  font-weight: 600;
-
-  padding-bottom: 15px;
-  
-  border-bottom: 2px solid black;
-}
-
-.schedule { /* ============================= 일정 추가  */
-
-  display: flex;
-  justify-content: end;
-  flex-direction: row;
-  flex-wrap: nowrap;
-
-  margin: 3px 0 5px 0;
-}
-.schedule > button {
-  background-color: transparent;
-  border : transparent; 
-  padding: 0;
-  margin: 5px 0;
-  /* padding: 5px; */
-  /* border-radius: 10px; */
-
-}
-.schedule > button > a {
-  color: #fff;
-  font-size: 1.4rem;
-  letter-spacing: 1px;
-  word-spacing: 0.6rem;
-  
-  background-color: #333;
-  border : transparent ; 
-  border-radius: 10px;
-  padding: 5px 10px;
-  
-
-  cursor: pointer;
-}
-
-
-
-.schedule > button > a:visited{
-  color: #fff;
-}
-
-.bookingLink { /* ======================= 예약페이지로 이동 */
-  height: 60px;
-  
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  box-sizing: border-box;
-  border: transparent;
-}
-
-.bookingLink > a {
-  color: #fff;
-  font-size: 2rem;
-  margin: 0 auto;
-  padding: 20px 118px;
-  background-color: #333;
-border: transparent;
-border-radius: 10px;
-}
-.bookingLink > a:visited {
-  color: #fff;
-}
-
-.detail, 
-.address, 
-.contact, 
-.businessHours { /* ================ 콘텐츠 정보 */
-  /* border: 1px dotted red ; */
-  
-  /* height: 90px; */
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-items: center;
-  justify-content: flex-start;
-  
-}
-
-.detail > p , 
-.address > p, 
-.contact > p, 
-.businessHours > p {
-  font-size: 2rem;
-  font-weight: 500;
-}
-.detail > p {
-  margin-left: 20px;
-  line-height: 120%;
-  font-style: italic;
-  font-weight: 300;
-}
-
-.summaryDesc > div > img {
-  width: 20px;
-  height: 20px;
-  margin: 0 20px 0 10px;
-}
 
 /* =================================== 탭 메뉴 =============================*/
 .tabMenu {
@@ -238,19 +248,17 @@ border-radius: 10px;
   padding-top: 10px;
   border-top: #dadada 1px solid;
   
-  position: relative;
 }
 
 .tabMenu ul {
-  position: relative;
 }
 
 .tabMenu > ul > li {
   display: inline-block;
-  width: 33.33%;
+  width: 590px;
   float: left;
   text-align: center;
-  background-color: #f9f9f9;
+  background-color: #f0f0f0;
   line-height: 40px;
   
 }
@@ -277,7 +285,7 @@ border-radius: 10px;
 }
 
 .tabMenu input:checked ~ label {
-  background-color: #ccc;
+  background-color: #eeeeee;
   font-weight: 600;
 }
 

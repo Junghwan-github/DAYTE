@@ -1,5 +1,8 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.time.LocalDate" %>
+<%@ page import="com.example.dayte.schedule.domain.Schedule" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.fasterxml.jackson.databind.ObjectMapper" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="../layout/head.jsp" %>
 <link rel="stylesheet" href="/css/schedule.css">
@@ -11,6 +14,9 @@
 <body>
 <%@include file="../layout/header.jsp" %>
 <%@include file="../layout/subnav.jsp" %>
+
+    <% %>
+
 <main>
     <h1 id="pageTitleName">일정 관리</h1>
     <section id="modalArea">
@@ -54,9 +60,10 @@
                     </i>
                     <div class="menuList">
                         <ul>
-                            <li><a href="#">자세히 보기</a></li>
+                            <li><a href="#" class="detailedSchedule" onclick="detailedLinks(`${scheduleList.uuid}`)">자세히
+                                보기</a></li>
                             <li><a href="#" class="deleteSchedule"
-                                   onclick="deleteLinks('${scheduleList.startDate}')">삭제</a></li>
+                                   onclick="deleteLinks(`${scheduleList.startDate}`)">삭제</a></li>
                         </ul>
                     </div>
                     <div class="scheduleItemSliderArea">
@@ -85,11 +92,12 @@
                     <div class="daysPrint">
                         <ul class="daysPrintList">
                             <c:set var="day" value="0"/>
-                            <c:forEach var="i" begin="${startDate}" end="${endDate}">
+                            <c:forEach begin="${startDate}" end="${endDate}">
                                 <c:set var="nextDays" value="${day + 1 }"/>
                                 <li>
                                     <button class="nextDayBtn" value="${scheduleList.uuid}"
-                                            data-next-days="${scheduleList.scheduleDates[day].scheduleDateId.nowDate}">${nextDays}일 차
+                                            data-now-days="${scheduleList.scheduleDates[day].scheduleDateId.nowDate}">${nextDays}일
+                                        차
                                     </button>
                                 </li>
                                 <c:set var="day" value="${nextDays}"/>
@@ -130,7 +138,9 @@
             <div class="bottomModalWraper">
                 <div class="leftModalLayout">
                     <div><input type="text" id="leftModalSearchBar" placeholder="검색어를 입력하세요">
-                        <button type="button" id="leftModalSearchBarBtn" onclick="searchContents()">검색</button>
+                        <button type="button" id="leftModalSearchBarBtn"
+                                onclick="searchContents(leftModalSearchBar.value)">검색
+                        </button>
                     </div>
                     <div>
                         <h2>구/군</h2>
@@ -171,9 +181,9 @@
                     <ul class="contentListViewer">
                         <c:forEach var="content" items="${contentsList}">
                             <li>
-                                <span class="contentListItemPoint-x">${content.positionX}</span><span
-                                    class="contentListItemPoint-y">${content.positionY}</span>
                                 <div class="contentListItems">
+                                    <span class="contentListItemPoint-x">${content.positionX}</span>
+                                    <span class="contentListItemPoint-y">${content.positionY}</span>
                                     <div class="contentListItemsImages">
                                         <img src="../images/testimages1.jpg">
                                     </div>
@@ -216,13 +226,51 @@
             </div>
         </div>
     </div>
+
+    <div class="detailedScheduleAddModal">
+        <div class="detailedScheduleViewArea">
+            <div class="detailedScheduleCloseBtn">
+                <span class="material-symbols-outlined modalclosebutton" onclick="closeModal(this,'close')">
+            close
+                </span>
+            </div>
+            <c:forEach var="scheduleList" items="${userScheduleList}">
+                <div>
+                    <div class="contentListModalArea">
+                        <div class="contentListModalItem">
+                            <h2>일정 리스트</h2>
+                        </div>
+                    </div>
+                    <div class="daysPrint">
+                            <c:set var="day" value="0"/>
+                            <c:forEach begin="${scheduleList.startDate.toEpochDay()}"
+                                       end="${scheduleList.endDate.toEpochDay()}">
+                                <c:set var="nextDays" value="${day + 1 }"/>
+
+                                    <div class="detailedScheduleDiv"
+                                         data-next-days="${scheduleList.scheduleDates[day].scheduleDateId.nowDate}">
+                                        <h2>${nextDays}일
+                                            차</h2>
+                                        <ul class="detailedScheduleListUl">
+                                        <c:forEach var="detailedSchedule" items="${scheduleList.scheduleDates[day].detailedScheduleList}">
+                                            <li>${detailedSchedule.contents.businessName}</li>
+                                        </c:forEach>
+                                            </ul>
+                                    </div>
+                                <c:set var="day" value="${nextDays}"/>
+                            </c:forEach>
+                    </div>
+                </div>
+            </c:forEach>
+        </div>
+    </div>
 </main>
 <script>
-    let contentsList = '<c:out value="${contentsList}"/>';
+    <%--let contentsList =`<c:out value=" ${contentsList}"/>`;--%>
 </script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
-<script src="/js/schedule.js"></script>
-<script src="/js/cal.js"></script>
-<script src="/js/calendar.js"></script>
-<script src="/js/contentsList.js"></script>
+<script src="/js/schedule/cal.js"></script>
+<script src="/js/schedule/schedule.js"></script>
+<script src="/js/schedule/calendar.js"></script>
+<script src="/js/schedule/contentsList.js"></script>
 <%@include file="../layout/footer.jsp" %>

@@ -104,7 +104,12 @@ public class ScheduleService {
 
     // 랜덤한 UUID 생성하는 메서드
     private String generateUUID() {
-        return UUID.randomUUID().toString();
+        String uuid;
+        do {
+            uuid = UUID.randomUUID().toString();
+        } while (scheduleRepository.findById(uuid).isPresent());
+
+        return uuid;
     }
 
     // String 타입으로 들어온 매개변수를 LocalDate 타입으로 변환하여 반환하는 메서드
