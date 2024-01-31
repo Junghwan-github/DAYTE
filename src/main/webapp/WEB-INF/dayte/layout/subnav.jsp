@@ -1,5 +1,5 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<script src="/js/header.js"></script>
+<script src="/js/main/header.js"></script>
 <section id="searchContainer">
     <div class="searchArea">
         <form action="#" method="get">

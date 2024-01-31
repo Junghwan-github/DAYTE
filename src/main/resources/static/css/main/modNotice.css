@@ -1,11 +1,78 @@
-#divform{
-    width: 70%;
-    margin : 0 auto;
+.wrapper{
+    width: 1180px;
+    margin: 0 auto;
+    background: white;
 }
+.title{
+    font-size: 2.8rem;
+    color: #333;
+    padding-top: 20px;
+
+}
+.wrapper > form {
+    padding: 0;
+}
+
+/* ============================================ 검색창 */
+.noticeSearchForm {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+
+    width: 254px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+}
+.noticeSearchForm > div {
+    padding: 0;
+
+}
+.noticeSearchForm > div > select {
+    height: 100%;
+
+    border: transparent;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+
+    cursor: pointer;
+}
+
+.noticeSearchForm > input {
+    border: transparent;
+}
+.noticeSearchForm > button {
+    padding-top: 3px;
+
+    background-color: transparent;
+    border: transparent;
+
+    cursor: pointer;
+}
+
+.noticeSearchForm > button> img {
+    width: 20px;
+    height: 20px;
+}
+.noticeSearchForm > button:hover {
+    background-color:#eee;
+
+    transition: 0.4s;
+
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.noticeSearchForm > div > select:focus,
+.noticeSearchForm > input:focus {
+    border: transparent;
+    outline: transparent;
+}
+/* ========================================*/
 
 
 #noticeTable {
-    width: 70%;
+    width: 100%;
     border-collapse: collapse;
     margin : 0 auto;
 }

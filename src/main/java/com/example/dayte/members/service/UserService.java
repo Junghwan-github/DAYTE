@@ -2,7 +2,9 @@ package com.example.dayte.members.service;
 
 import com.example.dayte.members.domain.RoleType;
 import com.example.dayte.members.domain.User;
+import com.example.dayte.members.dto.UserDTO;
 import com.example.dayte.members.persistence.UserRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,6 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserService {
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Transactional
     public void insertUser(User user){
@@ -27,6 +32,12 @@ public class UserService {
     @Transactional
     public Page<User> userList(Pageable pageable) {
         return userRepository.findAll(pageable);
+    }
+
+    @Transactional
+    public Page<User> delList(Pageable pageable) {
+        boolean delCheck = true;
+        return userRepository.findByDel(delCheck, pageable);
     }
 
     @Transactional
@@ -46,7 +57,7 @@ public class UserService {
 
     @Transactional
     public Page<User> userListByRole(String role, Pageable pageable) {
-        RoleType roleType = convert(role);
+        RoleType roleType = convertRole(role);
         return userRepository.findByRole(roleType, pageable);
     }
 
@@ -55,7 +66,24 @@ public class UserService {
         return userRepository.findByPhone(phone, pageable);
     }
 
-    public static RoleType convert(String role) {
+//    회원 수정
+    @Transactional
+    public void updateUser(UserDTO userDTO) {
+        User findUser = userRepository.findByUserEmail(userDTO.getUserEmail()).get();
+
+        userDTO.setUserEmail(findUser.getUserEmail());
+        userDTO.setRole(findUser.getRole());
+        userDTO.setBirthDate(findUser.getBirthDate());
+        userDTO.setBirthDate(findUser.getBirthDate());
+        userDTO.setJoinDate(findUser.getJoinDate());
+        User user = modelMapper.map(userDTO, User.class);
+        System.out.println("================================ USER : "+ user);
+        userRepository.save(user);
+
+    }
+
+
+    public static RoleType convertRole(String role) {
         try {
             String roleName = "";
             if (role.equals("유저") || role.toUpperCase().equals("USER")) {
@@ -64,9 +92,7 @@ public class UserService {
                 roleName = "ADMIN";
             } else if (role.equals("휴면") || role.toUpperCase().equals("DORMANCY")) {
                 roleName = "DORMANCY";
-            } else if (role.equals("탈퇴") || role.toUpperCase().equals("DEL")) {
-                roleName = "DEL";
-            } else if (role.equals("정지") || role.toUpperCase().equals("BLOCK")) {
+            }  else if (role.equals("정지") || role.toUpperCase().equals("BLOCK")) {
                 roleName = "BLOCK";
             }
             return RoleType.valueOf(roleName.toUpperCase());

@@ -15,7 +15,7 @@
 
 <%@include file="../layout/header.jsp"%> <%-- header --%>
 <%@include file="../layout/subnav.jsp" %>
-<script src="/js/main/header.js"></script>
+
 
 <main class="contentArea"> <%-- main --%>
 

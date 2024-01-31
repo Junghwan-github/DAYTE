@@ -453,10 +453,10 @@
     position: relative;
     margin-top: 1px;
     width: 880px;
-    height: 800px;
 }
 
-.scheduleTotalSaveBtn {
+.scheduleTotalSaveBtn,
+.scheduleTotalModifyBtn{
     position: absolute;
     top: 20px;
     right: 20px;
@@ -487,11 +487,28 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 1800px;
-    height: 890px;
+    width: 910px;
     border-radius: 15px;
     background: #fff;
-    overflow: hidden;
+overflow: hidden;
+}
+
+.schedule-tb-list {
+    width: 850px;
+    padding: 30px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+
+.schedule-tb-list::-webkit-scrollbar {
+    width: 10px;
+}
+.schedule-tb-list::-webkit-scrollbar-thumb {
+    background: #eee;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
 }
 
 .detailedScheduleCloseBtn {
@@ -500,15 +517,100 @@
     text-align: right;
 }
 
+.detailedScheduleCloseBtn > span {
+    display: inline-block;
+    font-size: 3.5rem;
+    cursor: pointer;
+    color: #111;
+    line-height: 40px;
+    margin: 10px;
+}
+
+.detailedScheduleCloseBtn > span:hover {
+    color: #db1811;
+}
+
+
+.detail-contentListModalItem > h2 {
+    font-size: 2.5rem;
+    font-weight: 500;
+    padding: 0 0 20px 0;
+    color: #111;
+    border-bottom: 1px solid #ddd;
+}
+
+
 .detailedScheduleDiv {
-    display: flex;
-    flex-direction: column;
+    position: relative;
+    margin: 20px 0 0 0;
+    padding: 20px 20px;
+    border-radius: 10px;
+    background: linear-gradient(45deg, rgba(190, 224, 206, 0.493) 0%, #fdebe07e 90%);
+
+}
+
+
+
+
+.detail-daysPrint-button {
+    position: absolute;
+    top: 13px;
+    right: 20px;
+    border: 1px solid #ddd;
+    background: #fff;
+    border-radius: 5px;
+    padding: 7px 10px;
+    font-family: 'Noto Sans KR',sans-serif;
+    font-size: 1.4rem;
+
+}
+
+.detailedScheduleDiv > h2 {
+    font-size: 2rem;
+    padding: 0 0 20px 0;
+    color: #555;
+    border-bottom: 1px solid #fff;
 }
 
 .detailedScheduleListUl {
     display: flex;
+    flex-flow: row nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0 0 15px 0;
+    box-sizing: border-box;
+
+
 }
 
-.detailedScheduleListUl li {
-    margin: 0 10px;
+.detailedScheduleListUl::-webkit-scrollbar {
+    height: 10px;
+}
+.detailedScheduleListUl::-webkit-scrollbar-thumb {
+    background: #fff;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+}
+.detailedScheduleListUl > li {
+    display: inline-block;
+    width: 250px;
+    text-align: center;
+    margin: 20px 20px 0 0;
+    position: relative;
+}
+
+.detailedScheduleListUl > li > div {
+    width: 250px;
+    height: 100px;
+    border-radius: 7px;
+    overflow: hidden;
+    margin-bottom: 7px;
+    background: #b9b9b9;
+}
+
+.detailedScheduleListUl > li > span {
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: #111;
 }
