@@ -117,7 +117,8 @@ function mouseDrag() {
     scheduleItems.forEach(function (scheduleItem) {
         let contentsSubNavBtn = scheduleItem.querySelector(".xi-ellipsis-v");
 
-        contentsSubNavBtn.addEventListener("click", function (e) {
+        contentsSubNavBtn.addEventListener("click",
+            function (e) {
             let menuList = scheduleItem.querySelector(".menuList");
 
             if (menuList) {
@@ -133,5 +134,3 @@ function detailedLinks(uuid) {
 
     $(".detailedScheduleAddModal").show();
 }
-
-
