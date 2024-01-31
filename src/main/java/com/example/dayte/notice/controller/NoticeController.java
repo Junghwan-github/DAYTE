@@ -164,12 +164,7 @@ public class NoticeController {
         model.addAttribute("notice", noticeService.getNotice(id));
 
 
-        /*Page<Notice> page1 = noticeService.getNoticeList(pageable);
 
-        int nowPage = page1.getNumber();
-        log.info(nowPage);
-
-        model.addAttribute("nowPage", nowPage);*/
 
         model.addAttribute("nowId", id);
 
