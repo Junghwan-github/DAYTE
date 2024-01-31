@@ -255,15 +255,16 @@ function closeModal(btn, data) {
         });
     } else if (data === "close") {
         if (confirm("추가된 일정이 저장되지 않습니다. 그래도 창을 닫으시겠습니까?")) {
-            let closeDaysModalArea = document.querySelector(".daysListAddModal");
-            applyModalStyles(closeDaysModalArea, modalInitialStyles);
-            closeDaysModalArea.style.display = "none";
-            $(".contentModalSlider").html("");
-            $(".contentListModalArea").removeClass("show");
-            location.reload();
+            $(".daysListAddModal").slideUp({
+                duration: 150,
+                complete: function () {
+                    $(".contentModalSlider").html("");
+                    $(".contentListModalArea").removeClass("show");
+                    location.reload();
+                }
+            });
         }
     }else if (data === "closes") {
-        console.log("ddd");
         $(".detailedScheduleAddModal").hide();
     }
 }

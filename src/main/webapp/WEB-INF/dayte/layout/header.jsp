@@ -33,8 +33,7 @@
                                 <ul>
                                     <li><a href="/schedule/scheduleList">일정관리</a></li>
                                     <li><a href="/mainPostList">일정후기</a></li>
-                                    <li><a href="#">메뉴3</a></li>
-                                    <li><a href="#">메뉴4</a></li>
+                                    <li><a href="#">고객센터</a></li>
                                     <li><a href="/members/logout">로그아웃</a></li>
                                 </ul>
                             </div>

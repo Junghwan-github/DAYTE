@@ -16,7 +16,7 @@ let slider = document.querySelector('.contentModalSlider');
 $(".nextDayBtn").on("click", function (e) {
     $(".tableUuid").text($(e.target).val());
     $(".daysValue").text($(e.target).data("now-days"));
-    $(".daysListAddModal").show();
+    $(".daysListAddModal").slideDown(150);
     $(".scheduleTotalModifyBtn").hide();
 
 
@@ -134,7 +134,7 @@ function detailedLinks(uuid) {
 
     $(".detailedScheduleAddModal").show();
     $(".schedule-tb-list").hide();
-    $("."+uuid).show();
+    $("."+uuid).show();p
     $("body").css("overflow","hidden");
     let detailList = $("."+uuid).height();
     if(detailList > 800) {
