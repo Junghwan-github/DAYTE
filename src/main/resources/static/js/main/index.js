@@ -103,29 +103,9 @@ function getUpdatedDate(t) {
 function getUpdatedDatePlus(t) {
   const currentDate = new Date();
 
-  const nextUpdateDate = new Date(currentDate);
-  nextUpdateDate.setHours(3, 0, 0, 0);
-
-  if (currentDate < nextUpdateDate) {
-    const year = currentDate.getFullYear();
-    const month = (currentDate.getMonth() + 1).toString().padStart(2, "0");
-    const day = currentDate.getDate().toString().padStart(2, "0");
-    const formattedDate = year + month + day;
-    return formattedDate;
-  }
-
-  const year = currentDate.getFullYear();
-  const month = (currentDate.getMonth() + 1).toString().padStart(2, "0");
-  const day = (currentDate.getDate() + t).toString().padStart(2, "0");
-  const formattedDate = year + month + day;
-
-  nextUpdateDate.setDate(currentDate.getDate() + 1);
-  const timeDiff = nextUpdateDate - currentDate;
-  setTimeout(function () {
-    getUpdatedDatePlus(t);
-  }, timeDiff);
-
-  return formattedDate;
+  currentDate.setDate(currentDate.getDate() +t);
+  const formattedDate1 = currentDate.toISOString().slice(0, 10).replace(/-/g, "");
+  return formattedDate1;
 }
 
 function thisDate(t) {
@@ -139,19 +119,14 @@ function thisDate(t) {
       t == "0400" ||
       t == "0500"
   ) {
-    const year = currentDate.getFullYear();
-    const month = (currentDate.getMonth() + 1).toString().padStart(2, "0");
-    const day = (currentDate.getDate() + 1).toString().padStart(2, "0");
-    const formattedDate = year + month + day;
-    return formattedDate;
+    currentDate.setDate(currentDate.getDate() +1);
+    const formattedDate1 = currentDate.toISOString().slice(0, 10).replace(/-/g, "");
+    return formattedDate1;
   }
 
-  const year = currentDate.getFullYear();
-  const month = (currentDate.getMonth() + 1).toString().padStart(2, "0");
-  const day = currentDate.getDate().toString().padStart(2, "0");
-  const formattedDate = year + month + day;
+  const formattedDate1 = currentDate.toISOString().slice(0, 10).replace(/-/g, "");
 
-  return formattedDate;
+  return formattedDate1;
 }
 
 function halfTime(d) {
@@ -168,8 +143,13 @@ let apiShort =
     getUpdatedDate(3) +
     "&base_time=0200&nx=89&ny=90";
 
-let apiLong =
+let apiLong1 =
     "https://apis.data.go.kr/1360000/MidFcstInfoService/getMidTa?serviceKey=coQyCyc75MfuQqHbbxJydRKCCUcqGUPYrhfREOFKrPf6DaV%2FvpQrWaDPAP%2B7fOxTTae5KgaO4Et0Jy1pQb7Opg%3D%3D&pageNo=1&numOfRows=10&dataType=JSON&regId=11H10701&tmFc=" +
+    getUpdatedDate(7) +
+    "0600";
+
+let apiLong2 =
+    "https://apis.data.go.kr/1360000/MidFcstInfoService/getMidLandFcst?serviceKey=coQyCyc75MfuQqHbbxJydRKCCUcqGUPYrhfREOFKrPf6DaV%2FvpQrWaDPAP%2B7fOxTTae5KgaO4Et0Jy1pQb7Opg%3D%3D&pageNo=1&numOfRows=10&dataType=JSON&regId=11H10000&tmFc=" +
     getUpdatedDate(7) +
     "0600";
 
@@ -228,14 +208,14 @@ fetch(apiShort)
 
       // 현재 날씨 최저 최고기온
       for (let i = 0; i < 3; i++) {
-        if (apiData.tmn[i].date == thisDate()) {
-          tmn = apiData.tmn[i].value;
-          console.log(apiData.tmn[i].date);
+        if (apiData.tmn[0].date == thisDate()) {
+          tmn = apiData.tmn[0].value;
         }
 
-        if (apiData.tmx[i].date == thisDate()) {
-          tmx = apiData.tmx[i].value;
+        if (apiData.tmx[0].date == thisDate()) {
+          tmx = apiData.tmx[0].value;
         }
+
       }
       document.querySelector(
           ".minMaxtemp"
@@ -311,7 +291,6 @@ fetch(apiShort)
         document.querySelector(
             ".rainPercent"
         ).innerHTML = `<span class="material-symbols-outlined">rainy</span> ${pop} %`;
-        console.log(parseInt(apiData.pty[i].Time));
       }
 
       // 시간예보  현재 시간 부터 6시간 뒤 까지
@@ -399,12 +378,11 @@ fetch(apiShort)
           }
         }
       }
-      fetch(apiLong)
+      fetch(apiLong1)
           .then((response) => response.json())
           .then((json) => {
             let data2 = json.response.body.items.item;
-            console.log(data2);
-            console.log(apiData);
+            console.log(json);
 
             for (let k = 1; k < 7; k++) {
               const daysListId = `daysList${k}`;
@@ -419,83 +397,12 @@ fetch(apiShort)
               $(`.${daysListId} > .am`).append(`<h4>오전</h4>`);
               $(`.${daysListId} > .pm`).append(`<h4>오후</h4>`);
               $(`.${daysListId} > div`).append(`<div class="daysListIcon"></div>`);
-
-              //   for (let m = 0; m < apiData.pty.length; m++) {
-              //     if (
-              //       apiData.pty[m].date == getUpdatedDate() &&
-              //       apiData.pty[m].Time == nowHours(k) + "00"
-              //     ) {
-              //       switch (ptyv) {
-              //         case 1:
-              //           $(`.${hoursListId} .hoursListIcon`).css(
-              //             "background-image",
-              //             "url(../images/rain.png)"
-              //           );
-              //           break;
-              //         case 2:
-              //           $(`.${hoursListId} .hoursListIcon`).css(
-              //             "background-image",
-              //             "url(../images/rainsnow.png)"
-              //           );
-              //           break;
-              //         case 3:
-              //           $(`.${hoursListId} .hoursListIcon`).css(
-              //             "background-image",
-              //             "url(../images/snow.png)"
-              //           );
-              //           break;
-              //         case 4:
-              //           $(`.${hoursListId} .hoursListIcon`).css(
-              //             "background-image",
-              //             "url(../images/rainy.png)"
-              //           );
-              //           break;
-              //       }
-              //     }
-              //     if (ptyv == 0) {
-              //       if (
-              //         apiData.sky[m].date == getUpdatedDate(apiData.sky[m].Time) &&
-              //         apiData.sky[m].Time == nowHours(k) + "00"
-              //       ) {
-              //         if (apiData.sky[m].value == 1) {
-              //           $(`.${hoursListId} .hoursListIcon`).css(
-              //             "background-image",
-              //             "url(../images/sunny.png)"
-              //           );
-              //         } else if (apiData.sky[m].value == 3) {
-              //           $(`.${hoursListId} .hoursListIcon`).css(
-              //             "background-image",
-              //             "url(../images/cloud.png)"
-              //           );
-              //         } else if (apiData.sky[m].value == 4) {
-              //           $(`.${hoursListId} .hoursListIcon`).css(
-              //             "background-image",
-              //             "url(../images/clouds.png)"
-              //           );
-              //         }
-              //       }
-              //     }
-
-              //     if (
-              //       apiData.tmp[m].date == getUpdatedDate(apiData.tmp[m].Time) &&
-              //       apiData.tmp[m].Time == nowHours(k) + "00"
-              //     ) {
-              //       $(`.${hoursListId}`).append(
-              //         `<ul><li class="hoursListTmp">${apiData.tmp[m].value} <span>º</span></li></ul>`
-              //       );
-              //     }
-
-              //     if (
-              //       apiData.pop[m].date == getUpdatedDate(apiData.pop[m].Time) &&
-              //       apiData.pop[m].Time == nowHours(k) + "00"
-              //     ) {
-              //       $(`.${hoursListId} > ul`).append(
-              //         `<li class="hoursListPop"><span class="material-symbols-outlined">rainy</span> ${apiData.pop[m].value} %</li>`
-              //       );
-              //     }
-              //   }
-              // }
             }
+      fetch(apiLong2)
+          .then((response) => response.json())
+          .then((json) => {
+            console.log(json);
+          })
           })
           .catch((error2) => console.log(error2));
     })

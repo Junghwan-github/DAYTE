@@ -55,6 +55,7 @@
             <a class="page-link" href="?page=${postList.number +1}">다음</a>
         </li>
     </ul>
+
 </main>
 
 <jsp:include page="../layout/footer.jsp"/>
