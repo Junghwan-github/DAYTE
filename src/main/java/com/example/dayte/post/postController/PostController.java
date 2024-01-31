@@ -12,6 +12,7 @@ import com.example.dayte.reply.service.PostReplyService;
 import com.example.dayte.security.dto.UserSecurityDTO;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.io.FileUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -21,9 +22,12 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -39,14 +43,8 @@ public class PostController {
 
     private final PostReplyService postReplyService;
 
-    @GetMapping({"/mainPostList"})
-    public String getPostList(Model model,
-                              @PageableDefault(size = 20, sort = "id", direction = Sort.Direction.DESC)Pageable pageable) {
-        model.addAttribute("postList", postService.getPostList(pageable));
-        return "post/mainPostList";
-    }
 
-    //     포스트 등록 폼
+    // 포스트 등록 폼
     @GetMapping("/mainPostList/in")
     public String insertPost() {
         return "post/insertPost";
@@ -62,15 +60,11 @@ public class PostController {
 
         User user = userService.getUser(principal.getUsername()); // 해당 user의 Email을 담음
         post.setUser(user);
-        System.out.println("^^^^^^^^^^^^");
-        System.out.println("post : " + post);
         postService.insertPost(post);
 
         return new ResponseDTO<>(HttpStatus.OK.value(), "새로운 포스트를 등록했습니다.");
     }
 
-    // @PreAuthorize("hasRole('ADMIN')")
-    //@PreAuthorize("isAuthenticated()") // 인증된(로그인된) 사용자만 접근 가능
     // 포스트 상세 조회 처리 및 화면 응답
     @GetMapping("/post/{id}")
     public String getPost(Model model, @PathVariable int id) {
@@ -91,6 +85,13 @@ public class PostController {
         model.addAttribute("postReplyList", postReplyList);
 
         return "post/getPost";
+    }
+
+    // 포스트 리스트 페이지네이션
+    @GetMapping({"/mainPostList"})
+    public String getPostList(Model model, @PageableDefault(size = 20, sort = "id", direction = Sort.Direction.DESC)Pageable pageable) {
+        model.addAttribute("postList", postService.getPostList(pageable));
+        return "post/mainPostList";
     }
 
     // 포스트 수정 화면 응답
@@ -114,6 +115,42 @@ public class PostController {
         postService.deletePost(id);
 
         return new ResponseDTO<>(HttpStatus.OK.value(), id + "번 포스트가 삭제되었습니다.");
+    }
+
+    // 포스트 이미지 등록 로직 수행
+    @PostMapping(value="/uploadSummernoteImageFile", produces = "application/json")
+    @ResponseBody
+    public Map<String, String> uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile) {
+
+        System.out.println("123412341234" + multipartFile);
+        Map<String, String> resultMap = new HashMap<>();
+
+        /*JsonObject jsonObject = new JsonObject();*/
+
+        String fileRoot = "D:/summernote_image/";	//저장될 파일 경로
+        String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
+        String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
+        String savedFileName = UUID.randomUUID() + extension;
+
+
+        File targetFile = new File(fileRoot + savedFileName);
+
+        try {
+            InputStream fileStream = multipartFile.getInputStream();
+            FileUtils.copyInputStreamToFile(fileStream, targetFile);	//파일 저장
+
+            resultMap.put("url", "/summernoteImage/" + savedFileName);
+            resultMap.put("responseCode", "success");
+
+        } catch (IOException e) {
+            FileUtils.deleteQuietly(targetFile);	// 실패시 저장된 파일 삭제
+            /*jsonObject.addProperty("responseCode", "error");*/
+
+            resultMap.put("responseCode", "error");
+            e.printStackTrace();
+        }
+
+        return resultMap;
     }
 
 }
