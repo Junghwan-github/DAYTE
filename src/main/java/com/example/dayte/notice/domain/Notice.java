@@ -13,7 +13,6 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
-@Getter
 public class Notice {
 
     @Id
