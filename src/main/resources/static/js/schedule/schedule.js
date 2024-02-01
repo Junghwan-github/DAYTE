@@ -225,3 +225,8 @@ $(".detail-daysPrint-button").on("click", function () {
     mouseDrag(slider);
 
 });
+
+$(".contentListItemdetailViewBtn").click(function () {
+    let getUrl = $(this).val();
+    window.open("/contents/detail/"+getUrl , "_blank");
+})

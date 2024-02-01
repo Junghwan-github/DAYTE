@@ -13,6 +13,9 @@
                     <li><a href="/members/login">로그인</a></li>
                 </c:when>
                 <c:otherwise>
+                    <sec:authorize access="hasRole('ADMIN')">
+                        <li><a href="/admin/home">관리자 페이지</a></li>
+                    </sec:authorize>
                     <li class="userProfile">
                         <a href="#">
                             <div class="user-profile-images">
@@ -23,14 +26,12 @@
                         </a>
                     </li>
                     <ul class="sub-nav-slide-bar">
-                        <li><a href="#">내 정보</a></li>
+                        <li><a href="/members/editForm">내 정보</a></li>
                         <li><a href="/schedule/scheduleList">내 일정관리</a></li>
                         <li><a href="/schedule/scheduleList">내 리얼리뷰</a></li>
                         <li><a href="/members/logout">로그아웃</a></li>
                     </ul>
-                    <sec:authorize access="hasRole('ADMIN')">
-                        <li><a href="/admin/home">관리자 페이지</a></li>
-                    </sec:authorize>
+
                 </c:otherwise>
             </c:choose>
         </ul>

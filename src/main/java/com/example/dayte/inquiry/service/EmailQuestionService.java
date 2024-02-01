@@ -1,15 +1,12 @@
-package com.example.dayte.emailQuestion.service;
+package com.example.dayte.inquiry.service;
 
-import com.example.dayte.emailQuestion.domain.EmailQuestion;
-import com.example.dayte.emailQuestion.persistence.EmailQuestionRepository;
+import com.example.dayte.inquiry.domain.EmailQuestion;
 import com.example.dayte.security.dto.UserSecurityDTO;
-import jakarta.mail.Message;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 

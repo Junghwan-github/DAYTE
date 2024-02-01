@@ -1,4 +1,4 @@
-package com.example.dayte.emailQuestion.domain;
+package com.example.dayte.inquiry.domain;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

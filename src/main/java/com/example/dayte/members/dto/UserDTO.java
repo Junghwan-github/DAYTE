@@ -46,4 +46,8 @@ public class UserDTO {
     private RoleType role;
 
     private Timestamp joinDate; //
+
+    private String ProfileImageName; // 프로필 이미지 이름 
+    
+    private String ProfileImagePath; // 프로필 이미지 경로
 }

@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="/css/schedule/contentInfo.css">
 <link rel="stylesheet" href="/css/schedule/contentSlider.css">
 
-<title>DAYTE | </title>
+<title>DAYTE | ${showContentsDetail.businessName} </title>
 
 </head>
 <body>
@@ -15,12 +15,14 @@
     -->
 <%@include file="../layout/header.jsp" %>
 <!-- 메인 -->
+
+
 <main>
     <section id="mainContentsImages">
         <div class="mainContentsImagesWrapper">
-            <div><img src="/images/contentstest1.jpg"></div>
-            <div><img src="/images/contentstest2.jpg"></div>
-            <div><img src="/images/contentstest3.jpg"></div>
+            <div><img src="${showContentsDetail.adminContentsImageList[0].imageURL}"></div>
+            <div><img src="${showContentsDetail.adminContentsImageList[1].imageURL}"></div>
+            <div><img src="${showContentsDetail.adminContentsImageList[2].imageURL}"></div>
         </div>
     </section>
     <!-- 이미지 슬라이드 -->
@@ -42,20 +44,13 @@
     <section id="contentInfo">
 
         <!-- 콘텐츠 정보 -->
-        <span>달서구</span> <span>맛집</span> <span>#한식</span>
-        <h1>문어물갈비 대구본점<span>★ 4.8</span></h1>
+        <span>${showContentsDetail.gu}</span> <span>${showContentsDetail.category}</span> <span>${showContentsDetail.keyword}</span>
+        <h1>${showContentsDetail.businessName}<span>★ 4.8</span></h1>
         <div class="content-wrapper">
             <div class="left-content">
-                <h2>문어물갈비 대구본점 소개</h2>
+                <h2>${showContentsDetail.businessName} 소개</h2>
                 <p>
-                    대구 달서구에만 있는 특별한 맛집 문어물갈비
-                    한번도 안 먹어본 사람은 있어도 한번만 먹은 사람은 없다!!
-                    직접 공수해온 쫄깃한 돌문어와 갈비의 만남
-                    각종야채로 우러나온 맑고 시원한국물
-                    특별한 보양식이 먹고싶을때 꼭 한번 먹어야 할 맛집
-                    문어는 남해 거제에서 직접 공수합니다.
-                    10맛집 선정
-                    생생정보통에서도 소개된 맛집!!
+                    ${showContentsDetail.detailedDescription}
                 </p>
 
             </div>
@@ -65,12 +60,12 @@
             <%--            </div>--%>
 
             <div class="summaryDesc">
-                <span class="pointer-x">35.822948</span> <span class="pointer-y">128.520754</span>
+                <span class="pointer-x">${showContentsDetail.positionX}</span> <span class="pointer-y">${showContentsDetail.positionY}</span>
                 <div id="content-map">
                     <ul class="content-info-wrapper">
                         <li class="address">
                             <i class="fa-solid fa-location-dot"></i>
-                            <span> 대구광역시 달서구 월성1동 조암로 90</span>
+                            <span>${showContentsDetail.detailedAddress}</span>
                         </li>
                         <li class="contact">
                             <i class="fa-solid fa-phone-volume"></i>

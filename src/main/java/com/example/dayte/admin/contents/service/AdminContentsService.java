@@ -6,6 +6,7 @@ import com.example.dayte.admin.contents.dto.AdminContentsDTO;
 import com.example.dayte.admin.contents.dto.AdminContentsImageDTO;
 import com.example.dayte.admin.contents.persistence.AdminContentsImageRepository;
 import com.example.dayte.admin.contents.persistence.AdminContentsRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,9 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -94,5 +97,17 @@ public class AdminContentsService {
         adminContentsRepository.delete(adminContentsRepository.findById(uuid).get());
     }
 
+    @Transactional
+    public AdminContents getShowContentsDetail (String id) {
+        Optional<AdminContents> adminContentsOptional = adminContentsRepository.findById(id);
+
+        if (adminContentsOptional.isPresent()) {
+            return adminContentsOptional.get();
+        } else {
+            // Handle the case when the entity with the specified UUID is not found
+            throw new EntityNotFoundException("id: " + id);
+        }
+
+    }
 
 }
