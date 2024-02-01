@@ -6,7 +6,6 @@ import com.example.dayte.members.dto.ResponseDTO;
 import com.example.dayte.members.dto.UserDTO;
 import com.example.dayte.members.service.UserService;
 import com.example.dayte.security.dto.UserSecurityDTO;
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +22,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,12 +43,12 @@ public class UserController {
 
     @PostMapping("/members/joinForm")
     public @ResponseBody int insertUser(@Valid @RequestBody UserDTO userDTO, BindingResult bindingResult) {
-        if(bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             Map<String, String> errMap = new HashMap<>();
-            for(FieldError err : bindingResult.getFieldErrors()) {
+            for (FieldError err : bindingResult.getFieldErrors()) {
                 errMap.put(err.getField(), err.getDefaultMessage());
             }
-            return  HttpStatus.BAD_REQUEST.value();
+            return HttpStatus.BAD_REQUEST.value();
         }
 
         userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
@@ -60,7 +60,7 @@ public class UserController {
 
         User findUser = userService.getUser(user.getUserEmail());
         System.out.println("user.getUserEmail() : " + user.getUserEmail());
-        if(findUser.getUserEmail() == null && findUser.getNickName() == null) {
+        if (findUser.getUserEmail() == null && findUser.getNickName() == null) {
             System.out.println("user : " + user);
             userService.insertUser(user);
             return HttpStatus.OK.value();
@@ -69,43 +69,44 @@ public class UserController {
             return HttpStatus.BAD_REQUEST.value();
         }
     }
+
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/admin/home")
     public String adminHome(Model model,
-                            @PageableDefault(size = 10, sort = "joinDate" , direction = Sort.Direction.DESC) Pageable pageable,
-                            @RequestParam(required = false, defaultValue = "")String field,
-                            @RequestParam(required = false, defaultValue = "")String word
-                            ) {
+                            @PageableDefault(size = 10, sort = "joinDate", direction = Sort.Direction.DESC) Pageable pageable,
+                            @RequestParam(required = false, defaultValue = "") String field,
+                            @RequestParam(required = false, defaultValue = "") String word
+    ) {
         Page<User> allList = userService.userList(pageable); // 총 회원수
         Page<User> dList = userService.delList(pageable); // 탈퇴 회원수
 
         // 사용자 상세 검색
         Page<User> ulist = userService.userList(pageable);
-        if(field.equals("userName")) {
+        if (field.equals("userName")) {
             ulist = userService.userListByUserName(word, pageable);
-        }else if(field.equals("userEmail")) {
+        } else if (field.equals("userEmail")) {
             ulist = userService.userListByUserEmail(word, pageable);
-        }else if(field.equals("nickName")) {
+        } else if (field.equals("nickName")) {
             ulist = userService.userListByNickName(word, pageable);
-        }else if(field.equals("role")) {
+        } else if (field.equals("role")) {
             ulist = userService.userListByRole(word, pageable);
-        }else if(field.equals("phone")) {
+        } else if (field.equals("phone")) {
             ulist = userService.userListByPhone(word, pageable);
         }
 
         int pageNumber = ulist.getPageable().getPageNumber(); // 현재 페이지
         int totalPages = ulist.getTotalPages();
         int pageBlock = 5; // 페이지 블럭 수
-        int startBlockPage = ((pageNumber)/pageBlock)*pageBlock+1;
+        int startBlockPage = ((pageNumber) / pageBlock) * pageBlock + 1;
 
-        int endBlockPage = startBlockPage+pageBlock-1;
+        int endBlockPage = startBlockPage + pageBlock - 1;
         endBlockPage = totalPages < endBlockPage ? totalPages : endBlockPage;
 
         model.addAttribute("startBlockPage", startBlockPage);
-        model.addAttribute("endBlockPage",endBlockPage);
+        model.addAttribute("endBlockPage", endBlockPage);
         model.addAttribute("ulist", ulist);
-        model.addAttribute("allList",allList);
-        model.addAttribute("dList",dList);
+        model.addAttribute("allList", allList);
+        model.addAttribute("dList", dList);
 
         return "adminPage/adminHome";
     }
@@ -113,7 +114,7 @@ public class UserController {
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/admin/editUser/{userEmail}")
     public String userDetail(@PathVariable String userEmail, Model model) {
-        model.addAttribute("user",userService.getUser(userEmail));
+        model.addAttribute("user", userService.getUser(userEmail));
         return "adminPage/editUser/editUser";
     }
 
@@ -125,23 +126,39 @@ public class UserController {
         userDTO.setUserName(userDTO.getUserName());
         userDTO.setNickName(userDTO.getNickName());
         userDTO.setPhone(userDTO.getPhone());
-        System.out.println("================================회원정보 수정 : "+ userDTO);
+        System.out.println("================================회원정보 수정 : " + userDTO);
 
 
         userService.updateUser(userDTO);
-        return new ResponseDTO<>(HttpStatus.OK.value(), "회원 정보가 수정되었습니다." );
+        return new ResponseDTO<>(HttpStatus.OK.value(), "회원 정보가 수정되었습니다.");
 
     }
 
-    @PreAuthorize("isAuthenticated()")
-    @PostMapping("/members/editForm")
-    public @ResponseBody int editForm(){
-        return HttpStatus.OK.value();
-    }
     @GetMapping("/members/editForm")
-    public String getEditForm(Model model,
-                              @AuthenticationPrincipal UserSecurityDTO userSecurityDTO){
+    public String modifyUserForm(Model model,
+                                 @AuthenticationPrincipal UserSecurityDTO userSecurityDTO) {
         model.addAttribute("userInfo", userService.getUser(userSecurityDTO.getUserEmail()));
         return "members/editForm";
+    }
+
+    @PutMapping("/members/editForm")
+    public @ResponseBody ResponseDTO<?> modifyUser(
+            @RequestPart("userEmail") String userEmail, // 변경된 부분
+            @RequestPart("password") String password, // 변경된 부분
+            @RequestPart("nickName") String nickName, // 변경된 부분,
+            @RequestPart("image") MultipartFile imageFile) throws IOException {
+
+        UserDTO userDTO = new UserDTO();
+        userDTO.setUserEmail(userEmail);
+        userDTO.setPassword(password);
+        userDTO.setNickName(nickName);
+        if (imageFile != null && !imageFile.isEmpty()) {
+            userService.profileImage(imageFile, userDTO);
+        }
+
+        userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        userDTO.setNickName(userDTO.getNickName());
+        userService.updateUser(userDTO);
+        return new ResponseDTO<>(HttpStatus.OK.value(), "회원 정보가 수정되었습니다.");
     }
 }

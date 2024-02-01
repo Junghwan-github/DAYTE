@@ -44,5 +44,8 @@ public class User {
     @CreationTimestamp
     private Timestamp joinDate;
 
+    private String ProfileImageName;
+
+    private String ProfileImagePath;
 }
 

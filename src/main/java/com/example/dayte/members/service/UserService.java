@@ -6,10 +6,18 @@ import com.example.dayte.members.dto.UserDTO;
 import com.example.dayte.members.persistence.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @Service
 public class UserService {
@@ -74,12 +82,14 @@ public class UserService {
         userDTO.setUserEmail(findUser.getUserEmail());
         userDTO.setRole(findUser.getRole());
         userDTO.setBirthDate(findUser.getBirthDate());
-        userDTO.setBirthDate(findUser.getBirthDate());
         userDTO.setJoinDate(findUser.getJoinDate());
-        User user = modelMapper.map(userDTO, User.class);
-        System.out.println("================================ USER : "+ user);
-        userRepository.save(user);
+        userDTO.setPhone(findUser.getPhone());
+        userDTO.setGender(findUser.getGender());
+        userDTO.setUserName(findUser.getPhone());
 
+        User user = modelMapper.map(userDTO, User.class);
+
+        userRepository.save(user);
     }
 
 
@@ -101,5 +111,24 @@ public class UserService {
             throw new IllegalArgumentException("Invalid RoleType value");
         }
     }
+    private static final String contentsImageUploadPath = "/temp/images/user/profileImages/";
 
+    public void profileImage(MultipartFile imageFile, UserDTO userDTO) throws IOException {
+        // 이미지 파일을 저장할 디렉토리 경로 설정
+        Path path = Path.of(System.getProperty("user.dir") + contentsImageUploadPath);
+        // 디렉토리가 존재하지 않으면 생성
+        if (!Files.exists(path)) {
+            Files.createDirectories(path);
+        }
+
+        // 이미지 파일을 서버에 저장
+        String fileName = userDTO.getUserEmail() + "_" + System.currentTimeMillis() + ".jpg"; // 파일명을 고유하게 설정
+        Path filePath = path.resolve(fileName);
+        File dest = filePath.toFile();
+        imageFile.transferTo(dest);
+        // UserDTO에 파일명과 경로 설정
+        userDTO.setProfileImageName(fileName);
+        userDTO.setProfileImagePath(filePath.toString());
+
+    }
 }
