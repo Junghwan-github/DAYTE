@@ -1,22 +1,22 @@
 .wrapper{
     width: 1180px;
-    /*height: 100vh;*/
     margin: 0 auto;
     background: white;
 }
 .title{
     font-size: 2.8rem;
     color: #333;
-    padding: 20px 0;
-
+    padding-top: 20px;
+    padding-bottom: 10px;
 
 }
 .wrapper > form {
     padding: 0;
 }
+
 /* ============================================ 검색창 */
 .noticeSearchForm {
-    margin-top: 10px;
+    margin: 10px 0;
     display: flex;
     flex-wrap: nowrap;
     flex-direction: row;
@@ -69,7 +69,8 @@
     border: transparent;
     outline: transparent;
 }
-/* =================================== 검색창 정렬 */
+/* ========================================= 폼과 버튼 정렬 */
+
 .formBtnArray {
     display: flex;
     align-items: center;
@@ -80,7 +81,7 @@
     align-items: center;
 
 }
-.formBtnArray > div a {
+.formBtnArray > div button {
     margin-left: 5px;
     padding: 5px 10px;
 
@@ -94,72 +95,108 @@
     font-size: 1.4rem;
     cursor: pointer;
 }
-.formBtnArray > div a:hover {
+.formBtnArray > div button:hover {
     background-color: #111;
     transition: 0.4s;
 }
 
-.formBtnArray > div a button,
-.formBtnArray > div a input{
+/* ==================================================== 테이블 */
+table {
+    width:100%;
+    margin-bottom: 30px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+}
+
+th {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #fff;
+    padding: 10px 0;
+    background-color: #3d828e;
+
+}
+td {
+    font-size: 1.6rem;
+    border-bottom: #ddd 1px solid;
+}
+
+td > button {
+
+    width: 32px;
+    height: 30px;
+    padding: 0px;
+    margin: 5px;
+    border: 1px solid #777;
+    border-radius: 10px;
     background-color: transparent;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+}
+td > button:hover {
+    background-color: #eee;
+    box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset;
+    transition: 0.4s;
+
+}
+
+th.NoticeNum, td.truetdNum {
+    width : 10%;
+}
+th.NoticeTitle, td.truetdTitle {
+    width: 20%;
+}
+td.truetdTitle > a {
+    display: block;
+    color: #333;
+    font-size: 1.6rem;
+}
+td.truetdNum > input {
+    width: 80%;
+    border: transparent 2px solid;
+    text-align: center;
+
+    font-size: 1.6rem;
+}
+td.truetdNum > input:focus {
+    border-bottom: #eee 2px solid;
+    outline: none;
+}
+
+table, td, th {
+    border-collapse : collapse;
+    text-align: center;
+    vertical-align: middle;
+}
+/* ================================================ 이미지 */
+img {
+    width: 10px;
+    height: 10px;
+}
+/* ================================================ 버튼*/
+.btnArray {
+    display: flex;
+    justify-content: end;
+}
+
+.modBtns {
     border: transparent;
+    border-radius: 5px;
+
+    background-color: #333;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+
     color: #fff;
     font-size: 1.4rem;
-    margin:0;
-    padding:0;
+
+    padding: 5px 10px;
+    margin: 0 0 10px 5px;
+
     cursor: pointer;
 }
-
-
-/*==================================== 테이블 */
-.tableContainer{
-    width: 100%;
-    margin: 0 auto;
+input.modBtns:hover {
+    background-color: #111;
+    transition: 0.4s;
 }
-#noticeTable {
-    width: 100%;
-    border-collapse: collapse;
-    margin : 0 auto;
-    box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
-}
-.noticeTrStyle {
-    border-bottom: 1px solid #ddd;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 50px;
-}
-#noticeTable > tbody > tr:first-child {
-    border-top: #333 solid 2px;
-}
-.thStyle, .tdStyle {
-    padding-left: 30px;
-    padding-right: 30px;
-
-    font-size: 1.8rem;
-    color: #333;
-}
-.thTitle {
-    padding-left: 10px;
-}
-.thDate {
-    padding-right: 40px;
-}
-.tdTitle {
-    text-decoration: none; /* 기본 링크 텍스트에 있는 밑줄 제거 */
-    display : block;
-    width: 700px;
-    padding: 5px 0;
-
-    font-size: 1.8rem;
-    color: #333;
-}
-
-.listHover:hover {
-    background-color: #e6e8ea;
-    transition: 0.2s;
-}
-/* ====================================== 페이지네이션*/
+/* ================================================ 페이지네이션 */
 .pagination{
     margin: 30px 0 0 0;
     padding: 0;
@@ -227,9 +264,3 @@
 a.active {
     background-color: #f6f7f8;
 }
-
-.priorityNotZero{
-    background-color: #f6f7f8;
-}
-
-

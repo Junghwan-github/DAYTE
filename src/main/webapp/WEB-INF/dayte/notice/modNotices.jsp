@@ -7,163 +7,7 @@
     <title>공지사항</title>
 
     <script src="/webjars/bootstrap/5.3.2/js/bootstrap.bundle.js"></script>
-<%--    <link rel="stylesheet" href="/css/main/modNotice.css">--%>
-
-<style>
-    .wrapper{
-        width: 1180px;
-        margin: 0 auto;
-        background: white;
-    }
-    .title{
-        font-size: 2.8rem;
-        color: #333;
-        padding-top: 20px;
-        padding-bottom: 10px;
-
-    }
-    .wrapper > form {
-        padding: 0;
-    }
-
-    /* ============================================ 검색창 */
-    .noticeSearchForm {
-        margin: 10px 0;
-        display: flex;
-        flex-wrap: nowrap;
-        flex-direction: row;
-
-        width: 254px;
-        border: 2px solid #ddd;
-        border-radius: 5px;
-    }
-    .noticeSearchForm > div {
-        padding: 0;
-
-    }
-    .noticeSearchForm > div > select {
-        height: 100%;
-
-        border: transparent;
-        border-top-left-radius: 5px;
-        border-bottom-left-radius: 5px;
-
-        cursor: pointer;
-    }
-
-    .noticeSearchForm > input {
-        border: transparent;
-    }
-    .noticeSearchForm > button {
-        padding-top: 3px;
-
-        background-color: transparent;
-        border: transparent;
-
-        cursor: pointer;
-    }
-
-    .noticeSearchForm > button> img {
-        width: 20px;
-        height: 20px;
-    }
-    .noticeSearchForm > button:hover {
-        background-color:#eee;
-
-        transition: 0.4s;
-
-        border-top-right-radius: 5px;
-        border-bottom-right-radius: 5px;
-    }
-
-    .noticeSearchForm > div > select:focus,
-    .noticeSearchForm > input:focus {
-        border: transparent;
-        outline: transparent;
-    }
-    /* ======================================== 테이블 */
-    img {
-        width: 28px;
-        height: 28px;
-    }
-
-    table {
-        width:100%;
-        margin-bottom: 30px;
-    }
-
-    th {
-        font-size: 1.8rem;
-        font-weight: 600;
-        color: #fff;
-        padding: 10px 0;
-        background-color: #3d828e;
-
-    }
-    td {
-        font-size: 1.6rem;
-        border-bottom: #ddd 1px solid;
-    }
-
-    td > button {
-
-        width: 30px;
-        height: 30px;
-        padding: 0 2px 0 0;
-        margin: 5px;
-        border: 2px solid #333;
-
-        background-color: transparent;
-    }
-    td > button:hover {
-        background-color: #eee;
-
-        transition: 0.4s;
-    }
-
-    th.NoticeNum, td.truetdNum {
-        width : 10%;
-    }
-    th.NoticeTitle, td.truetdTitle {
-        width: 20%;
-    }
-    td.truetdTitle > a {
-        color: #333;
-        font-size: 1.6rem;
-    }
-    td.truetdNum > input {
-        /*background-color: pink;*/
-        border: transparent;
-        text-align: center;
-
-        font-size: 1.6rem;
-    }
-
-    table, td, th {
-        border-collapse : collapse;
-        text-align: center;
-        vertical-align: middle;
-    }
-
-    /* ============== 버튼*/
-
-    .modBtns {
-        border: transparent;
-        border-radius: 5px;
-        background-color: #333;
-        color: #fff;
-        padding: 5px 10px;
-        cursor: pointer;
-        margin-bottom: 10px;
-        font-size: 1.6rem;
-    }
-    input.modBtns:hover {
-        background-color: #111;
-        transition: 0.4s;
-    }
-
-</style>
-
+    <link rel="stylesheet" href="/css/notice/modNotice.css">
 
 </head>
 
@@ -175,13 +19,7 @@
 
 <div class="wrapper">
 <h1 class="title"> 전체수정 </h1>
-<div>
-    <a href="/notice/createNotice">
-        <button id="new-notice">글쓰기</button>
-    </a>
-    <br>
-    <button id="fixPriority">필독 공지사항 우선순위 저장</button>
-</div>
+<div class="formBtnArray">
 <form action="/notice/searchNoticesAdmin" method="get">
     <div class="noticeSearchForm">
         <div>
@@ -196,6 +34,13 @@
         <button id="searchFunction"><img src="/images/searchIconB.png"> </button>
     </div>
 </form>
+    <div>
+    <a href="/notice/createNotice">
+        <button>글쓰기</button>
+    </a>
+    <button id="fixPriority">필독 공지사항 우선순위 저장</button>
+    </div>
+</div>
 
 
 <%-- 테이블 --%>
@@ -224,13 +69,13 @@
                         <fmt:formatDate value="${notice.createDate}" pattern="yy-MM-dd"/>
                     </td>
                     <td>
-                            <button class="upbtn" onclick="moveUp(this,event)"><img src="/images/upIcon2.png"></button>
+                            <button class="upbtn" onclick="moveUp(this,event)"><img src="/images/topIcon.png"></button>
                     </td>
                     <td>
-                            <button class="downbtn" onclick="moveDown(this,event)"><img src="/images/downIcon2.png"></button>
+                            <button class="downbtn" onclick="moveDown(this,event)"><img src="/images/downIcon.png"></button>
                     </td>
                     <td>
-                        <button class="goToDefault" value="${notice.no}" onclick="resetPriority(this.value, event)"><img src="/images/x-button.jpg"> </button>
+                        <button class="goToDefault" value="${notice.no}" onclick="resetPriority(this.value, event)"><img src="/images/XIcon.png"> </button>
                     </td>
                 </tr>
             </c:forEach>
@@ -245,9 +90,10 @@
 </div>
 
 
-<div id="modDel-button">
-    <input type="button" class="modBtns"id="mod-notice" value="수정">
+<div id="modDel-button" class="btnArray">
     <input type="hidden" class="modBtns" id="del-notice" value="삭제">
+    <input type="button" class="modBtns"id="mod-notice" value="수정">
+
 </div>
 
 <div id="defaultNotice">
@@ -274,7 +120,7 @@
                         <input type="checkbox" <c:if test="${notice.viewCheck == true}"> checked</c:if> class="viewCheckbox" id="${notice.no}">
                     </td>
                     <td>
-                        <button class="upToSelected"  value="${notice.no}" onclick="upToSelected(this.value, event)"><img src="/images/upIcon2.png"></button>
+                        <button class="upToSelected"  value="${notice.no}" onclick="upToSelected(this.value, event)"><img src="/images/topIcon.png"></button>
                     </td>
                 </tr>
             </c:forEach>
@@ -304,8 +150,9 @@
 
 
                 <c:forEach var="i" begin="${startPage}" end="${endPage}">
-                    <li>
-                        <a class="page-link <c:if test="${defaultNotices.number == i}"> nowPage</c:if>" href="?page=${i}">${i + 1}</a>
+                    <li class="paginationNum">
+                        <a class="<c:if test="${defaultNotices.number == i}">active</c:if>"
+                           href="?page=${i}">${i + 1}</a>
                     </li>
                 </c:forEach>
                 <c:if test="${!defaultNotices.last}">
@@ -342,7 +189,4 @@
 <script src="/js/notice/searchNotices.js"></script>
 --%>
 
-
-</body>
-
-</html>
+<%@include file="../layout/footer.jsp" %>

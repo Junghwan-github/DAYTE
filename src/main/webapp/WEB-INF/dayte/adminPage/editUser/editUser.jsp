@@ -74,6 +74,6 @@
 
 
 
-<script src="/js/editUser.js"></script>
+<script src="/js/admin/editUser.js"></script>
 <%-- div.wrapper의 닫힘 태그는 푸터 안에 있음ㅇ --%>
 <%@include file="../layout/adminFooter.jsp"%>

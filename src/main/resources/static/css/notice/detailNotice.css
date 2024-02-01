@@ -3,28 +3,28 @@
     margin: 0 auto;
     background: white;
 }
-/*==================================== 제목 */
-.wrapper > h1 {
-    font-size: 2.8rem;
-    color: #333;
-    padding: 20px 0;
-}
 
 /* ================================ 폼 제목, 콘텐츠 ,첨부파일 */
+.wrapper > form {
+    margin-top: 15px;
+}
+
 .wrapper > form > div {
     display: flex;
     flex-direction: column;
     width: 100%;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
 }
 
 .noticeTitle {
     width: 100%;
     height: 50px;
+
     display: flex;
     align-items: center;
 
-    border: transparent;
-    border-bottom: #777 solid 2px;
+    border-top: #333 solid 2px;
+    border-bottom : 1px solid #ddd;
 }
 
 .noticeTitle > input {
@@ -33,7 +33,7 @@
     border: transparent;
     background-color: transparent;
 
-    font-size: 2.2rem;
+    font-size: 2rem;
     font-weight: 600;
 }
 
@@ -50,11 +50,11 @@
 
 .noticeContent > textarea{
     box-sizing: border-box;
-    /*width: 100%;*/
+    width: 100%;
     height: 600px;
 
     /*margin: 0 auto;*/
-    padding : 20px 10px;
+    padding : 10px 10px;
 
     border: none;
     resize: none;
@@ -63,9 +63,9 @@
 }
 
 .wrapper > form > fieldset {
-    border : 0.5px solid #aaa;
+    border : 0.5px solid #eee;
     padding: 0 5px 5px 10px;
-    margin: 0;
+    margin: 10px 0 0 0 ;
 }
 .wrapper > form > fieldset > a> img{
     margin-right : 5px;
@@ -87,21 +87,23 @@ a {
     color: #333;
 }
 
-/* ======================================= 수정 뒤로가기 버튼 */
+/* ======================================= 수정 뒤로가기 목록 버튼 */
 .btns {
     margin: 10px 0 5px 0;
-    padding: 5px 0;
+    display: flex;
+    justify-content: end;
 }
 
 .btns > a {
-    padding: 5px 10px;
+    padding: 8px 11px;
+    margin: 0 0 0 5px;
     border :transparent;
     border-radius: 5px;
 
     background-color: #333;
 
     color: #fff;
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     text-decoration: none;
 
     cursor: pointer;
@@ -109,6 +111,10 @@ a {
 .btns > a:hover {
     background-color: #111;
     transition: 0.4s;
+}
+
+.listBtn {
+    margin-top: 60px;
 }
 /* ===================================== 페이지 이동 버튼*/
 .moveContents {
