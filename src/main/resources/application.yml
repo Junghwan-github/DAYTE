@@ -101,6 +101,7 @@ spring:
             required: true
 
 
+
 logging:
   level:
     org.hibernate.type.descriptor.sql: trace

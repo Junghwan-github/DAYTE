@@ -1,4 +1,3 @@
-
 $(document).ready(function () {
     $(".scheduleItemSlider").bxSlider({
         mode: "horizontal",
@@ -17,7 +16,7 @@ let slider = document.querySelector('.contentModalSlider');
 $(".nextDayBtn").on("click", function (e) {
     $(".tableUuid").text($(e.target).val());
     $(".daysValue").text($(e.target).data("now-days"));
-    $(".daysListAddModal").show();
+    $(".daysListAddModal").slideDown(150);
     $(".scheduleTotalModifyBtn").hide();
 
 
@@ -32,7 +31,6 @@ $(".nextDayBtn").on("click", function (e) {
 
 
     $("body").css("overflow", "hidden");
-    let slider = document.querySelector('.contentModalSlider');
 
     mouseDrag(slider);
 
@@ -59,7 +57,6 @@ $(".scheduleTotalListModifyBtn").on("click", function (e) {
     $(slider).off('mouseleave');
     $(slider).off('mouseup');
     $(slider).off('mousemove');
-
 });
 
 
@@ -174,7 +171,9 @@ $(".detail-daysPrint-button").on("click", function () {
     nowDateValue = $(this).closest('.detailedScheduleDiv').data('now-days');
 
     $(".detailedScheduleAddModal").hide();
-    $(".daysListAddModal").show();
+    $(".daysListAddModal").show({
+
+    });
     $(".contentListModalArea").addClass("show");
     $(".scheduleTotalSaveBtn").hide();
     $(".scheduleTotalModifyBtn").show();
@@ -213,5 +212,16 @@ $(".detail-daysPrint-button").on("click", function () {
         level: 5
     };
     let map = new kakao.maps.Map(container, options);
+
+    let containerEl = document.querySelector('.contentModalSlider');
+    sortableInstance = new Sortable(containerEl, {
+        animation: 150,
+        ghostClass: 'active',
+        direction: "horizontal",
+        filter: '.contentsListItemDelete'
+    });
+    sortableInstance.option("disabled", true);
+
+    mouseDrag(slider);
 
 });

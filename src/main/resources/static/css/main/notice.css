@@ -7,7 +7,7 @@
 .title{
     font-size: 2.8rem;
     color: #333;
-    padding-top: 20px;
+    padding: 20px 0;
 
 
 }
@@ -69,6 +69,47 @@
     border: transparent;
     outline: transparent;
 }
+/* =================================== 검색창 정렬 */
+.formBtnArray {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.formBtnArray > div {
+    display: flex;
+    align-items: center;
+
+}
+.formBtnArray > div a {
+    margin-left: 5px;
+    padding: 5px 10px;
+
+    border: transparent;
+    border-radius: 5px;
+
+    background-color: #333;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+
+    color: #fff;
+    font-size: 1.4rem;
+    cursor: pointer;
+}
+.formBtnArray > div a:hover {
+    background-color: #111;
+    transition: 0.4s;
+}
+
+.formBtnArray > div a button,
+.formBtnArray > div a input{
+    background-color: transparent;
+    border: transparent;
+    color: #fff;
+    font-size: 1.4rem;
+    margin:0;
+    padding:0;
+    cursor: pointer;
+}
+
 
 /*==================================== 테이블 */
 .tableContainer{
@@ -79,6 +120,7 @@
     width: 100%;
     border-collapse: collapse;
     margin : 0 auto;
+    box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
 }
 .noticeTrStyle {
     border-bottom: 1px solid #ddd;
@@ -88,9 +130,9 @@
     height: 50px;
 }
 #noticeTable > tbody > tr:first-child {
-    border-top : 1px solid #ddd;
+    border-top: #333 solid 2px;
 }
-.thStyle, .tdStyle, .tdTitle {
+.thStyle, .tdStyle {
     padding-left: 30px;
     padding-right: 30px;
 
@@ -105,11 +147,20 @@
 }
 .tdTitle {
     text-decoration: none; /* 기본 링크 텍스트에 있는 밑줄 제거 */
+    display : block;
+    width: 700px;
+    padding: 5px 0;
+
+    font-size: 1.8rem;
+    color: #333;
 }
 
+.listHover:hover {
+    background-color: #e6e8ea;
+    transition: 0.2s;
+}
 /* ====================================== 페이지네이션*/
 .pagination{
-
     margin: 30px 0 0 0;
     padding: 0;
 }

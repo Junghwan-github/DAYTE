@@ -24,6 +24,8 @@ $(document).ready(function () {
   });
 });
 
+
+
 // 상세 검색 히든
 let toggleSelected = document.querySelector(".searchContents");
 let bottonSearch = document.querySelector("input[name='indexSearch']");
@@ -143,11 +145,13 @@ let apiShort =
     getUpdatedDate(3) +
     "&base_time=0200&nx=89&ny=90";
 
+//기온
 let apiLong1 =
     "https://apis.data.go.kr/1360000/MidFcstInfoService/getMidTa?serviceKey=coQyCyc75MfuQqHbbxJydRKCCUcqGUPYrhfREOFKrPf6DaV%2FvpQrWaDPAP%2B7fOxTTae5KgaO4Et0Jy1pQb7Opg%3D%3D&pageNo=1&numOfRows=10&dataType=JSON&regId=11H10701&tmFc=" +
     getUpdatedDate(7) +
     "0600";
 
+//날씨
 let apiLong2 =
     "https://apis.data.go.kr/1360000/MidFcstInfoService/getMidLandFcst?serviceKey=coQyCyc75MfuQqHbbxJydRKCCUcqGUPYrhfREOFKrPf6DaV%2FvpQrWaDPAP%2B7fOxTTae5KgaO4Et0Jy1pQb7Opg%3D%3D&pageNo=1&numOfRows=10&dataType=JSON&regId=11H10000&tmFc=" +
     getUpdatedDate(7) +
@@ -164,6 +168,8 @@ fetch(apiShort)
       apiData.tmn = [];
       apiData.tmx = [];
       let data = json.response.body.items.item;
+
+
 
       for (let i = 0; i < data.length; i++) {
         const fcstDate = data[i].fcstDate;
@@ -183,6 +189,10 @@ fetch(apiShort)
           }
         }
       }
+
+
+
+
       let temperature = document.querySelector(".temperature");
       let ptyValue = "";
       let ptyv = "";
@@ -208,12 +218,12 @@ fetch(apiShort)
 
       // 현재 날씨 최저 최고기온
       for (let i = 0; i < 3; i++) {
-        if (apiData.tmn[0].date == thisDate()) {
-          tmn = apiData.tmn[0].value;
+        if (apiData.tmn[i].date == thisDate()) {
+          tmn = apiData.tmn[i].value;
         }
 
-        if (apiData.tmx[0].date == thisDate()) {
-          tmx = apiData.tmx[0].value;
+        if (apiData.tmx[i].date == thisDate()) {
+          tmx = apiData.tmx[i].value;
         }
 
       }
@@ -378,6 +388,82 @@ fetch(apiShort)
           }
         }
       }
+
+      for(let i=0; i<apiData.tmn.length; i++){
+        console.log(apiData.tmn[i]);
+      }
+
+
+
+      let formattedDate = apiData.tmn[0].date.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3");
+
+      /*let tomorrowDate = new Date(formattedDate);
+      tomorrowDate.setDate(tomorrowDate.getDate()+1);
+
+      let theDayAfterTomorrowDate = new Date(formattedDate);
+      theDayAfterTomorrowDate.setDate(theDayAfterTomorrowDate.getDate()+2);
+
+      let tomorrow = tomorrowDate.toISOString().slice(0, 10).replace(/-/g, "");
+      let theDayAfterTomorrow = theDayAfterTomorrowDate.toISOString().slice(0, 10).replace(/-/g, "");
+      console.log(tomorrow);
+      console.log(typeof tomorrow);
+      console.log(theDayAfterTomorrow);
+      console.log(typeof theDayAfterTomorrow);*/
+
+      for(let i=1; i<3; i++){
+
+        let stringToDate = new Date(formattedDate);
+        stringToDate.setDate(stringToDate.getDate()+i);
+        let DateToString = stringToDate.toISOString().slice(0, 10).replace(/-/g, "");
+
+        let temperatures = [];
+       
+
+        apiData.tmp.forEach(k => {
+          if(k.date == DateToString){
+              temperatures.push(parseInt(k.value));
+          }
+        })
+        console.log(temperatures);
+
+
+
+        let maxTemperatureOfDay = temperatures[0];
+        let minTemperatureOfDay = temperatures[0];
+
+        for(let i=0; i<temperatures.length; i++){
+          if(temperatures[i]>maxTemperatureOfDay){
+            maxTemperatureOfDay = temperatures[i];
+
+          }
+        }
+        for(let i=0; i<temperatures.length; i++){
+          if(temperatures[i]<minTemperatureOfDay){
+            minTemperatureOfDay = temperatures[i];
+          }
+        }
+
+        console.log(maxTemperatureOfDay);
+        console.log(minTemperatureOfDay);
+
+
+
+
+
+
+
+      }
+
+
+
+
+
+
+
+
+
+
+//기온
       fetch(apiLong1)
           .then((response) => response.json())
           .then((json) => {
@@ -398,6 +484,7 @@ fetch(apiShort)
               $(`.${daysListId} > .pm`).append(`<h4>오후</h4>`);
               $(`.${daysListId} > div`).append(`<div class="daysListIcon"></div>`);
             }
+            //날씨
       fetch(apiLong2)
           .then((response) => response.json())
           .then((json) => {

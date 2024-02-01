@@ -77,7 +77,7 @@ let noticeObject = {
 
             }).then(data => {
             console.log(data);
-            // location = "/notice/modAll";
+            location = "/notice/modAll";
         })
             .catch(error => {
                 alert(`에러발생 : ${error.message}`);

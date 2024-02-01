@@ -1,63 +1,218 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@include file="../layout/head.jsp"%>
+<%@include file="../layout/head.jsp" %>
 
-    <title>공지사항 메인페이지</title>
+<title>공지사항 메인페이지</title>
 
-    <link href="/webjars/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
-    <script src="/webjars/bootstrap/5.3.2/js/bootstrap.bundle.js"></script>
-    <link href="/webjars/summernote/0.8.10/summernote-bs4.css" rel="stylesheet">
-    <script src="/webjars/summernote/0.8.10/summernote-bs4.min.js"></script>
+<%-- 서머노트--%>
+<link href="/webjars/summernote/0.8.10/summernote-bs4.css" rel="stylesheet">
+<script src="/webjars/summernote/0.8.10/summernote-bs4.min.js"></script>
+<%-- 부트스트랩 --%>
+<link href="/webjars/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+<script src="/webjars/bootstrap/5.3.2/js/bootstrap.min.js"></script>
+
+<style>
+    .wrapper {
+        width: 1180px;
+        margin: 0 auto;
+        background: white;
+    }
+
+    /*==================================== 제목 */
+    .wrapper > h1 {
+        font-size: 2.8rem;
+        color: #333;
+        padding: 20px 0;
+    }
+
+    .wrapper > form > div:first-child {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+    }
+
+    .noticeTitle {
+        width: 100%;
+        height: 50px;
+
+        display: flex;
+        align-items: center;
+
+        border-top: #333 solid 2px;
+        border-bottom : 1px solid #ddd;
+
+    }
+
+    .noticeTitle > input {
+        box-sizing: border-box;
+        width: 100%;
+        height: 100%;
+        padding-left: 15px;
+        border: transparent;
+        background-color: transparent;
+
+        font-size: 2rem;
+        font-weight: 600;
+    }
+    .noticeTitle > input:focus {
+        outline: none;
+    }
+
+    /* ================================ 파일 */
+    .fileList {
+        margin-top: 10px;
+        border: 1px solid #eee;
+        /*background-color: pink;*/
+
+    }
+
+    .fileInput {
+        font-size: 1.4rem;
+    }
+
+    #newPreview > p {
+        font-size: 1.4rem;
+        padding-left: 10px;
+    }
+
+    #newPreview > p:hover {
+        background-color: #eeeeee;
+        transition: 0.2s;
+    }
+
+    #newPreview > p > button {
+        width: 25px;
+        height: 25px;
+        padding: 0px;
+        margin: 5px;
+        border: 1px solid #777;
+        border-radius: 5px;
+        background-color: transparent;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+    }
+
+    /* ======================================= 수정 취소 버튼 */
+    .noticebtns {
+        margin: 10px 0 5px 0;
+        display: flex;
+        justify-content: end;
+    }
+
+    .noticebtns > button {
+        padding: 8px 11px;
+        margin: 0 0 0 5px;
+        border: transparent;
+        border-radius: 5px;
+
+        background-color: #333;
+        color: #fff;
+        font-size: 1.6rem;
+        text-decoration: none;
+
+        cursor: pointer;
+    }
+
+    .noticebtns > button:hover {
+        background-color: #111;
+        color: #fff;
+        transition: 0.2s;
+    }
 
 
+</style>
 </head>
 
 <body>
-<%@include file="../layout/header.jsp"%>
+<%@include file="../layout/header.jsp" %>
 <script src="/js/main/header.js"></script>
-<h1> 새 글 쓰기 </h1>
+<div class="wrapper">
+    <h1> 공지사항 글쓰기 </h1>
 
-<div class="container mt-3">
 
     <form id="saveForm" method="post" autocomplete="off" enctype="multipart/form-data">
-
-    <div class="mb-3">
-        <label for="title">Title:</label>
-        <input type="text" class="form-control" id="title" name="title">
-    </div>
-    <div class="mb-3">
-        <label for="content">Content:</label>
-        <textarea rows="5" id="content" class="form-control" name="content"></textarea>
-    </div>
-        <div class="file-list">
-            <div id="file-input-Div-parentNode">
-                <div class="file-input-Div">
-                    <input type="text" readonly />
-
-                        <input type="file" accept=".pdf, .hwp, .docx, .xlsx, .xls, .jpg, .png, .jpeg, .zip " name="files" id="file-input"  multiple="multiple" onchange="selectFile(this);" />
-                </div>
-                <label for="file-add">파일 추가</label>
-                <input type="file" name="files" id="file-add" multiple="multiple" style="display: none" onchange="addFile();" />
-
+        <div>
+            <div class="noticeTitle">
+                <input type="text" id="title" name="title" placeholder="제목">
+            </div>
+            <div>
+                <textarea rows="5" id="content" class="summernote" name="content"></textarea>
             </div>
         </div>
+
+        <div class="fileList">
+            <div id="file-input-Div-parentNode">
+                <input type="file" accept=".pdf, .hwp, .docx, .xlsx, .xls, .jpg, .png, .jpeg, .zip "
+                       class="fileInput"
+                       name="files" id="file-input" multiple="multiple" onchange="selectFile(this);"/>
+            </div>
+            <div>
+                <div id="preview"></div>
+            </div>
+        </div>
+
     </form>
 
-    <div>
-        <div id="preview"></div>
+    <div class="noticebtns">
+        <button id="btn-create" class="btn"> 등록</button>
+        <button id="cancelBtn" class="btn"> 취소</button>
     </div>
-
-    <button id="btn-create"> 등록</button>
-    <button id="btn-cancel"> 취소</button>
-
 </div>
-
-
 
 
 <script src="/js/notice/cancel.js"></script>
 <script src="/js/notice/createNotice.js"></script>
 <script src="/js/notice/fileFunction.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.summernote').summernote({
+            height: 500,
+            focus: true,
+            lang: "ko-KR",
+            placeholder: '내용',
+            disableResizeEditor: true,
+            toolbar: [
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video']],
+                ['view', ['codeview']]
+            ],
+            fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', '맑은 고딕', '궁서', '굴림체', '굴림', '돋움체', '바탕체'],
+            fontSizes: ['8', '9', '10', '11', '12', '14', '16', '18', '20', '22', '24', '28', '30', '36', '50', '72'],
+            callbacks: {
+                onImageUpload: function (files) {
+                    const [imageFile] = files;
+                    sendFile(imageFile);
+                }
+            },
+        })
+    })
+
+    // 이미지를 임시저장합니다.
+    function sendFile(file) {
+        const formData = new FormData();
+        formData.append('file', file);
+
+        $.ajax({
+            type: 'POST',
+            url: '/uploadSummernoteImageFile',
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                const imageUrl = response.url;
+                $('.summernote').summernote('insertImage', imageUrl);
+            },
+            error: function (error) {
+                console.error('이미지 업로드 실패:', error);
+            }
+        });
+    }
+</script>
 
 
-
-<%@include file="../layout/footer.jsp"%>
+<%@include file="../layout/footer.jsp" %>

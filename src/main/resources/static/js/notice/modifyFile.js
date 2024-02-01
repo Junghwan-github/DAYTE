@@ -9,6 +9,17 @@ function selectFile(element) {
         const filesArray = Array.from(fileInput.files);
         filesArray.forEach(t => {
             selectedFile.push(t);
+
+            let dataTransfer = new DataTransfer();
+
+            selectedFile.forEach(file => {
+                dataTransfer.items.add(file)
+            });
+
+            fileInput.files = dataTransfer.files;
+
+
+
         })
     } else if(fileInput.files.length == 0){
         console.log(selectedFile);
@@ -61,11 +72,18 @@ function removeFile(element) {
 
     fileInput.files = dataTransfer.files;
 
+    selectedFile = [];
+
+    const filesArray = Array.from(fileInput.files);
+    filesArray.forEach(t => {
+        selectedFile.push(t);
+    })
+
     removeTarget.remove();
 
 }
 
-function addFile() {
+/*function addFile() {
     const addFile = document.getElementById("file-add");
     let originalFile = document.getElementById("file-input");
     let dataTransfer = new DataTransfer();
@@ -90,7 +108,7 @@ function addFile() {
 
     updatePreview();
 
-}
+}*/
 
 function updatePreview(){
     const fileInput = document.getElementById("file-input");

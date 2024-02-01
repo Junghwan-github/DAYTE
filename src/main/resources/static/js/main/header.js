@@ -12,3 +12,8 @@ $(function () {
         naviScroll = $(document).scrollTop();
     });
 });
+
+$(".userProfile").click(function (e) {
+    e.preventDefault();
+    $(".sub-nav-slide-bar").slideToggle(100);
+})
