@@ -7,7 +7,6 @@
 
 <%-- css, jquery --%>
 
-
 <link rel="stylesheet" href="/css/layout/subnav.css">
 
 </head> <%-- /head --%>

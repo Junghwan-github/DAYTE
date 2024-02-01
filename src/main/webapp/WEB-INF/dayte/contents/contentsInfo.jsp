@@ -82,7 +82,24 @@
                         </li>
                     </ul>
                 </div>
+                <div class="content-event-banner">
+                    <h2>진행중인 이벤트</h2>
+                    <div>
+                        <ul class="content-banner-slider">
+                            <li>
+                                <div class="item-images"><img src="/images/content-banner1.png"></div>
+                            </li>
+                            <li>
+                                <div class="item-images"><img src="/images/content-banner2.png"></div>
+                            </li>
+                            <li>
+                                <div class="item-images"><img src="/images/content-banner3.png"></div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
+
             <%--            <div class="bookingLink">--%>
             <%--                <a href="#">예약페이지로 이동</a>--%>
             <%--            </div>--%>
@@ -112,5 +129,5 @@
         </ul>
     </div>
 </main>
-<script defer src="/js/contentInfo.js"></script>
+<script defer src="/js/schedule/contentInfo.js"></script>
 <%@include file="../layout/footer.jsp" %>

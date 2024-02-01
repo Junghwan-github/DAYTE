@@ -15,3 +15,10 @@ $(function () {
         naviScroll = $(document).scrollTop();
     });
 });
+
+
+$(".userProfile > a").click(function (e) {
+    e.preventDefault();
+    $(".userProfile > a").toggleClass("sub-nav-active");
+    $(".sub-nav-slide-bar").slideToggle(100);
+})
