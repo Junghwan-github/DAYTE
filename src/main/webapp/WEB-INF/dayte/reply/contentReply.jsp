@@ -1,6 +1,4 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@include file="../layout/header.jsp" %>
-
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <sec:authorize access="isAuthenticated()">
     <sec:authentication property="principal" var="principal" />
@@ -112,7 +110,7 @@
     </style>
 </head>
 <body>
-
+<%@include file="../layout/header.jsp" %>
 <h1>ContentReply</h1>
 
 <%-- 댓글 작성 부분 --%>

@@ -7,8 +7,7 @@
 
 <%-- css, jquery --%>
 
-<script src="/webjars/summernote/0.8.10/summernote-bs4.min.js"></script>
-<link href="/webjars/summernote/0.8.10/summernote-bs4.css" rel="stylesheet">
+
 <link rel="stylesheet" href="/css/layout/subnav.css">
 
 </head> <%-- /head --%>

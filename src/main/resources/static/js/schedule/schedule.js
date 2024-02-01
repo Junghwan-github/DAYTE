@@ -58,7 +58,6 @@ $(".scheduleTotalListModifyBtn").on("click", function (e) {
     $(slider).off('mouseleave');
     $(slider).off('mouseup');
     $(slider).off('mousemove');
-
 });
 
 
@@ -212,5 +211,16 @@ $(".detail-daysPrint-button").on("click", function () {
         level: 5
     };
     let map = new kakao.maps.Map(container, options);
+
+    let containerEl = document.querySelector('.contentModalSlider');
+    sortableInstance = new Sortable(containerEl, {
+        animation: 150,
+        ghostClass: 'active',
+        direction: "horizontal",
+        filter: '.contentsListItemDelete'
+    });
+    sortableInstance.option("disabled", true);
+
+    mouseDrag(slider);
 
 });

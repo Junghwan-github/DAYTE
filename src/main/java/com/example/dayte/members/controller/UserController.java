@@ -5,6 +5,8 @@ import com.example.dayte.members.domain.User;
 import com.example.dayte.members.dto.ResponseDTO;
 import com.example.dayte.members.dto.UserDTO;
 import com.example.dayte.members.service.UserService;
+import com.example.dayte.security.dto.UserSecurityDTO;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +16,14 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -129,4 +133,15 @@ public class UserController {
 
     }
 
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/members/editForm")
+    public @ResponseBody int editForm(){
+        return HttpStatus.OK.value();
+    }
+    @GetMapping("/members/editForm")
+    public String getEditForm(Model model,
+                              @AuthenticationPrincipal UserSecurityDTO userSecurityDTO){
+        model.addAttribute("userInfo", userService.getUser(userSecurityDTO.getUserEmail()));
+        return "members/editForm";
+    }
 }

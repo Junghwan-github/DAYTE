@@ -3,7 +3,6 @@ package com.example.dayte.schedule.controller;
 
 import com.example.dayte.members.dto.ResponseDTO;
 import com.example.dayte.schedule.domain.Schedule;
-import com.example.dayte.schedule.domain.ScheduleDate;
 import com.example.dayte.schedule.dto.ScheduleDTO;
 import com.example.dayte.schedule.dto.ScheduleDateDTO;
 import com.example.dayte.schedule.service.ContentsService;
@@ -11,10 +10,10 @@ import com.example.dayte.schedule.service.ScheduleDateService;
 import com.example.dayte.schedule.service.ScheduleService;
 import com.example.dayte.security.dto.UserSecurityDTO;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -90,11 +89,12 @@ public class ScheduleController {
             return new ResponseDTO<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "일정 삭제 및 등록 중 오류가 발생했습니다.");
         }
     }
+    @Transactional
     @PutMapping("/schedule/detailedScheduleModify")
     public @ResponseBody ResponseDTO<?> detailedScheduleModify(
             @RequestBody ScheduleDateDTO scheduleDateDTO
     ){
-        scheduleDateService.insertSchedule(scheduleDateDTO);
+        scheduleDateService.updateSchedule(scheduleDateDTO);
         return new ResponseDTO<>(HttpStatus.OK.value(), "일정이 수정 되었습니다.");
     }
 }

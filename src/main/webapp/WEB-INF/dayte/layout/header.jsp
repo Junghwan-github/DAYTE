@@ -14,7 +14,7 @@
                 </c:when>
                 <c:otherwise>
                     <li class="userProfile"><a href="#">${principal.getNickName()}님 <i class="xi-heart"></i></a></li>
-
+                    <li><a href="#" onclick="editForm('${principal.getUserEmail()}')">정보 수정</a></li>
                     <sec:authorize access="hasRole('ADMIN')" >
 
                         <li><a href="/admin/home">관리자 페이지</a></li>

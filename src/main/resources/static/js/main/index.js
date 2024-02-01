@@ -432,6 +432,7 @@ fetch(apiShort)
         for(let i=0; i<temperatures.length; i++){
           if(temperatures[i]>maxTemperatureOfDay){
             maxTemperatureOfDay = temperatures[i];
+
           }
         }
         for(let i=0; i<temperatures.length; i++){

@@ -58,4 +58,47 @@ public class ScheduleDateService {
         }
         detailedScheduleRepository.saveAll(detailedScheduleList);
     }
+
+    public void updateSchedule(ScheduleDateDTO scheduleDateDTO) {
+        Schedule schedule = scheduleRepository.findById(scheduleDateDTO.getUuid()).get();
+
+        // DB 에 있는 Contents
+        List<DetailedSchedule> dbScheduleList = new ArrayList<>();
+
+        // 일정 수정으로 변경한 Contents
+        List<DetailedSchedule> addSchedulesList = new ArrayList<>();
+        List<Contents> addContentsList = contentsRepository.findAllById(scheduleDateDTO.getContentsList());
+        for (ScheduleDate scheduleDate : schedule.getScheduleDates()) {
+            if (scheduleDate.getScheduleDateId().getNowDate().equals(scheduleDateDTO.getNowDate())) {
+                dbScheduleList = scheduleDate.getDetailedScheduleList();
+            }
+        }
+
+        for (Contents contents : addContentsList) {
+            DetailedScheduleDTO scheduleDTO = new DetailedScheduleDTO();
+            scheduleDTO.setContents(contents);
+            scheduleDTO.setScheduleDate(dbScheduleList.get(0).getScheduleDate());
+            addSchedulesList.add(modelMapper.map(scheduleDTO, DetailedSchedule.class));
+        }
+
+        List<DetailedSchedule> toAddContents = new ArrayList<>(addSchedulesList);
+        toAddContents.removeAll(dbScheduleList);
+        toAddContents.forEach(content -> {
+            System.out.println("content.getId()1: " + content.getContents());
+        });
+
+
+        List<DetailedSchedule> toRemoveContents = new ArrayList<>(dbScheduleList);
+        toRemoveContents.removeAll(addSchedulesList);
+        toRemoveContents.forEach(content -> {
+            System.out.println("content.getId()2: " + content.getContents());
+        });
+
+        // List 타입 바꾸기
+        detailedScheduleRepository.saveAll(toAddContents);
+        toRemoveContents.forEach(detailedSchedule -> {
+            System.out.println("content.getId()3: " + detailedSchedule.getContents());
+            detailedScheduleRepository.deleteById(detailedSchedule.getId());
+        });
+    }
 }

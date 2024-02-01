@@ -12,6 +12,7 @@ import java.util.List;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
 public class ScheduleDateDTO {
 
     // mapper.map 으로 매핑 후 저장할 값
