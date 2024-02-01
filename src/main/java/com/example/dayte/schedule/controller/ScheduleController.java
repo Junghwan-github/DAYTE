@@ -90,5 +90,12 @@ public class ScheduleController {
             return new ResponseDTO<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "일정 삭제 및 등록 중 오류가 발생했습니다.");
         }
     }
+    @PutMapping("/schedule/detailedScheduleModify")
+    public @ResponseBody ResponseDTO<?> detailedScheduleModify(
+            @RequestBody ScheduleDateDTO scheduleDateDTO
+    ){
+        scheduleDateService.insertSchedule(scheduleDateDTO);
+        return new ResponseDTO<>(HttpStatus.OK.value(), "일정이 수정 되었습니다.");
+    }
 }
 

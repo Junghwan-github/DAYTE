@@ -10,7 +10,7 @@
 <body>
 <div id="headerBack"></div>
 <%@include file="layout/header.jsp" %>
-<script src="/js/main/header.js"></script>
+<script src="/js/main/indexheader.js"></script>
 <%--여기부터 본문 시작--%>
 <!-- 메인 -->
 <main>

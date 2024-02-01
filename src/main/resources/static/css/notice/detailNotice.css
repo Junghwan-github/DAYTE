@@ -1,0 +1,142 @@
+.wrapper{
+    width: 1180px;
+    margin: 0 auto;
+    background: white;
+}
+/*==================================== 제목 */
+.wrapper > h1 {
+    font-size: 2.8rem;
+    color: #333;
+    padding: 20px 0;
+}
+
+/* ================================ 폼 제목, 콘텐츠 ,첨부파일 */
+.wrapper > form > div {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.noticeTitle {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+
+    border: transparent;
+    border-bottom: #777 solid 2px;
+}
+
+.noticeTitle > input {
+    box-sizing: border-box;
+    margin-left: 15px;
+    border: transparent;
+    background-color: transparent;
+
+    font-size: 2.2rem;
+    font-weight: 600;
+}
+
+.noticeTitle > input:focus,
+.noticeContent > textarea:focus {
+    outline: none;
+}
+
+.noticeContent {
+    width: 100%;
+    vertical-align: middle;
+
+}
+
+.noticeContent > textarea{
+    box-sizing: border-box;
+    /*width: 100%;*/
+    height: 600px;
+
+    /*margin: 0 auto;*/
+    padding : 20px 10px;
+
+    border: none;
+    resize: none;
+
+    font-size: 1.8rem;
+}
+
+.wrapper > form > fieldset {
+    border : 0.5px solid #aaa;
+    padding: 0 5px 5px 10px;
+    margin: 0;
+}
+.wrapper > form > fieldset > a> img{
+    margin-right : 5px;
+    width: 15px;
+    height: 15px;
+}
+
+.wrapper > form > fieldset > legend {
+    font-size: 1.2rem;
+    color: #333;
+}
+.wrapper > form > fieldset > a {
+    display: inline-block;
+    font-size: 1.6rem;
+    margin: 5px;
+}
+a {
+    font-size: 1.6rem;
+    color: #333;
+}
+
+/* ======================================= 수정 뒤로가기 버튼 */
+.btns {
+    margin: 10px 0 5px 0;
+    padding: 5px 0;
+}
+
+.btns > a {
+    padding: 5px 10px;
+    border :transparent;
+    border-radius: 5px;
+
+    background-color: #333;
+
+    color: #fff;
+    font-size: 1.6rem;
+    text-decoration: none;
+
+    cursor: pointer;
+}
+.btns > a:hover {
+    background-color: #111;
+    transition: 0.4s;
+}
+/* ===================================== 페이지 이동 버튼*/
+.moveContents {
+    width: 100%;
+    height: 60px;
+
+    margin-top: 10px;
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+}
+.moveContents > div > a {
+    display: block;
+    text-decoration: none;
+    width: 100%;
+    font-weight: 600;
+    font-size: 1.6rem;
+}
+
+.moveContents > div > a > span {
+    font-weight: 500;
+    font-size: 1.6rem;
+}
+
+.divine {
+    background-color: #333;
+    width: 100%;
+    height: 1px;
+}

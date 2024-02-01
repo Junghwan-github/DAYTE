@@ -6,10 +6,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, String> {
     Optional<User> findByUserEmail(String userEmail);
+
     // 회원 목록 + 검색 (페이징)
     Page<User> findAll(Pageable pageable);
     Page<User> findByUserName(String userName, Pageable pageable);
@@ -21,6 +23,9 @@ public interface UserRepository extends JpaRepository<User, String> {
     Page<User> findByRole(RoleType role, Pageable pageable);
 
     Page<User> findByPhone(String phone, Pageable pageable);
+
+    Page<User> findByDel(boolean del, Pageable pageable);
+
 
 
 

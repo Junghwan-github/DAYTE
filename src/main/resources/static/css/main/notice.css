@@ -1,56 +1,119 @@
-#divform{
-    width: 70%;
-    margin : 0 auto;
+.wrapper{
+    width: 1180px;
+    /*height: 100vh;*/
+    margin: 0 auto;
+    background: white;
+}
+.title{
+    font-size: 2.8rem;
+    color: #333;
+    padding-top: 20px;
+
+
+}
+.wrapper > form {
+    padding: 0;
+}
+/* ============================================ 검색창 */
+.noticeSearchForm {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+
+    width: 254px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+}
+.noticeSearchForm > div {
+    padding: 0;
+
+}
+.noticeSearchForm > div > select {
+    height: 100%;
+
+    border: transparent;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+
+    cursor: pointer;
 }
 
+.noticeSearchForm > input {
+    border: transparent;
+}
+.noticeSearchForm > button {
+    padding-top: 3px;
 
+    background-color: transparent;
+    border: transparent;
+
+    cursor: pointer;
+}
+
+.noticeSearchForm > button> img {
+    width: 20px;
+    height: 20px;
+}
+.noticeSearchForm > button:hover {
+    background-color:#eee;
+
+    transition: 0.4s;
+
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.noticeSearchForm > div > select:focus,
+.noticeSearchForm > input:focus {
+    border: transparent;
+    outline: transparent;
+}
+
+/*==================================== 테이블 */
+.tableContainer{
+    width: 100%;
+    margin: 0 auto;
+}
 #noticeTable {
-    width: 70%;
+    width: 100%;
     border-collapse: collapse;
     margin : 0 auto;
 }
-
-
-.thNum,
-.thTitle,
-.thWriter,
-.thDate{
-    font-size: 30px;
-    text-align: center;
-    height: 80px;
-    vertical-align: middle;
-
+.noticeTrStyle {
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
 }
-
-.tdNum,
-.tdTitle,
-.tdWriter,
-.tdDate{
-    font-size: 20px;
-    height: 80px;
-    text-align: center;
-    vertical-align: middle;
+#noticeTable > tbody > tr:first-child {
+    border-top : 1px solid #ddd;
 }
+.thStyle, .tdStyle, .tdTitle {
+    padding-left: 30px;
+    padding-right: 30px;
 
-.tdTitle a {
-    font-size: 20px;
+    font-size: 1.8rem;
+    color: #333;
+}
+.thTitle {
+    padding-left: 10px;
+}
+.thDate {
+    padding-right: 40px;
+}
+.tdTitle {
     text-decoration: none; /* 기본 링크 텍스트에 있는 밑줄 제거 */
-    color: inherit; /* 기본 링크 색상 상속 */
 }
 
-
-
-
-
+/* ====================================== 페이지네이션*/
 .pagination{
 
     margin: 30px 0 0 0;
     padding: 0;
 }
 
-.title{
-    font-size: 100px;
-}
 
 .pagination > ul {
     display: flex;
@@ -62,17 +125,27 @@
     padding: 0;
 }
 
-.pagination > ul > li {
-    padding: 0;
-    margin: 0 2px 0 2px;
+.pagination > ul > li:hover {
+    background-color: #eee;
+    transition: 0.4s;
 }
-
-
-a {
-    color: inherit;
-    text-decoration: none;
+.paginationNum {
+    width: 30px;
+    height: 30px;
+    border-collapse: collapse;
     margin: 0;
-    padding: 0;
+
+    border: 1px solid #e6e6e6;
+}
+.paginationNum > a {
+    display: inline-block;
+    color: #333;
+    text-decoration: none;
+    padding: 5px 10px 8px 11px;
+    vertical-align: center;
+    text-align: center;
+
+    font-size: 1.7rem;
 }
 
 .pageMoveBtn > img{
@@ -95,28 +168,17 @@ a {
 {
     display: inline-block;
     font-size: 0;
-    /*background: url("../images/next.png") no-repeat 0 0;*/
     width: 30px;
     height: 30px;
     border: 1px solid #e6e6e6;
 }
-.page-link{
-    font-size: 14px;
+
+a.active {
+    background-color: #f6f7f8;
 }
 
 .priorityNotZero{
-    background-color: #3d828e;
+    background-color: #f6f7f8;
 }
-
-img{
-    width: 20px;
-    height: 20px;
-
-}
-
-.nowPage{
-    font-size: 20px;
-}
-
 
 

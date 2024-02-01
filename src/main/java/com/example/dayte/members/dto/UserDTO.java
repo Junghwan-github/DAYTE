@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
+
 
 @Data
 @NoArgsConstructor
@@ -16,7 +18,7 @@ public class UserDTO {
 
     @NotNull(message = "EmailId를 작성하세요.")
     @NotBlank(message = "EmailId는 필수 입력 항목입니다.")
-    private String userEmail;
+    private String userEmail; //
 
     @NotNull(message = "비밀번호를 작성하세요.")
     @NotBlank(message = "비밀번호는 필수 입력 항목입니다.")
@@ -37,9 +39,11 @@ public class UserDTO {
 
     @NotNull(message = "생년월일을 작성하세요.")
     @NotBlank(message = "생년월일은 필수 입력 항목입니다.")
-    private String birthDate;
+    private String birthDate; //
 
-    private String gender;
+    private String gender; //
 
     private RoleType role;
+
+    private Timestamp joinDate; //
 }

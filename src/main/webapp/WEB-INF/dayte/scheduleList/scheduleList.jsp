@@ -14,8 +14,6 @@
 <body>
 <%@include file="../layout/header.jsp" %>
 <%@include file="../layout/subnav.jsp" %>
-<script src="/js/main/header.js"></script>
-
 <main>
     <h1 id="pageTitleName">일정 관리</h1>
     <section id="modalArea">
@@ -53,57 +51,58 @@
             <c:forEach var="scheduleList" items="${userScheduleList}">
                 <c:set var="startDate" value="${scheduleList.startDate.toEpochDay()}"/>
                 <c:set var="endDate" value="${scheduleList.endDate.toEpochDay()}"/>
+                <c:if test="${startDate - dDay > 0}">
+                    <div class="scheduleContentsItem">
+                        <i class="xi-ellipsis-v">
+                        </i>
+                        <div class="menuList">
+                            <ul>
+                                <li><a href="#" class="detailedSchedule"
+                                       onclick="detailedLinks(`${scheduleList.uuid}`)">상세보기</a></li>
+                                <li><a href="#" class="deleteSchedule"
+                                       onclick="deleteLinks(`${scheduleList.startDate}`)">삭제</a></li>
+                            </ul>
+                        </div>
+                        <div class="scheduleItemSliderArea">
+                            <ul class="scheduleItemSlider">
+                                <li><img src="/images/testimages1.jpg"></li>
+                                <li><img src="/images/testimages2.jpg"></li>
+                                <li><img src="/images/testimages3.jpg"></li>
+                            </ul>
+                        </div>
+                        <div class="contentTextArea">
+                            <ul class="contentsText">
+                                <li><span class="contentsTextTitle">${scheduleList.title}</span></li>
+                                <c:choose>
+                                    <c:when test="${startDate - dDay == 0}">
+                                        <li><span class="contentsTextDate">${scheduleList.startDate}</span>
+                                            <span>| D - Day</span></li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li><span class="contentsTextDate">${scheduleList.startDate} </span>
 
-                <div class="scheduleContentsItem">
-                    <i class="xi-ellipsis-v">
-                    </i>
-                    <div class="menuList">
-                        <ul>
-                            <li><a href="#" class="detailedSchedule" onclick="detailedLinks(`${scheduleList.uuid}`)">자세히
-                                보기</a></li>
-                            <li><a href="#" class="deleteSchedule"
-                                   onclick="deleteLinks(`${scheduleList.startDate}`)">삭제</a></li>
-                        </ul>
+                                            <span>| D - ${startDate - dDay }</span></li>
+                                    </c:otherwise>
+                                </c:choose>
+                            </ul>
+                        </div>
+                        <div class="daysPrint">
+                            <ul class="daysPrintList">
+                                <c:set var="day" value="0"/>
+                                <c:forEach begin="${startDate}" end="${endDate}">
+                                    <c:set var="nextDays" value="${day + 1 }"/>
+                                    <li>
+                                        <button class="nextDayBtn" value="${scheduleList.uuid}"
+                                                data-now-days="${scheduleList.scheduleDates[day].scheduleDateId.nowDate}">${nextDays}일
+                                            차
+                                        </button>
+                                    </li>
+                                    <c:set var="day" value="${nextDays}"/>
+                                </c:forEach>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="scheduleItemSliderArea">
-                        <ul class="scheduleItemSlider">
-                            <li><img src="/images/testimages1.jpg"></li>
-                            <li><img src="/images/testimages2.jpg"></li>
-                            <li><img src="/images/testimages3.jpg"></li>
-                        </ul>
-                    </div>
-                    <div class="contentTextArea">
-                        <ul class="contentsText">
-                            <li><span class="contentsTextTitle">${scheduleList.title}</span></li>
-                            <c:choose>
-                                <c:when test="${startDate - dDay == 0}">
-                                    <li><span class="contentsTextDate">${scheduleList.startDate}</span>
-                                        <span>| D - Day</span></li>
-                                </c:when>
-                                <c:otherwise>
-                                    <li><span class="contentsTextDate">${scheduleList.startDate} </span>
-
-                                        <span>| D - ${startDate - dDay }</span></li>
-                                </c:otherwise>
-                            </c:choose>
-                        </ul>
-                    </div>
-                    <div class="daysPrint">
-                        <ul class="daysPrintList">
-                            <c:set var="day" value="0"/>
-                            <c:forEach begin="${startDate}" end="${endDate}">
-                                <c:set var="nextDays" value="${day + 1 }"/>
-                                <li>
-                                    <button class="nextDayBtn" value="${scheduleList.uuid}"
-                                            data-now-days="${scheduleList.scheduleDates[day].scheduleDateId.nowDate}">${nextDays}일
-                                        차
-                                    </button>
-                                </li>
-                                <c:set var="day" value="${nextDays}"/>
-                            </c:forEach>
-                        </ul>
-                    </div>
-                </div>
+                </c:if>
             </c:forEach>
         </c:if>
     </section>
@@ -221,6 +220,7 @@
                 </div>
                 <div class="rightModalLayout" id="rightModalLayout">
                     <button class="scheduleTotalSaveBtn" onclick="scheduleTotalSaveBtn()">저장</button>
+                    <button class="scheduleTotalModifyBtn" onclick="scheduleTotalModifyBtn()">저장</button>
                 </div>
             </div>
         </div>
@@ -229,35 +229,45 @@
     <div class="detailedScheduleAddModal">
         <div class="detailedScheduleViewArea">
             <div class="detailedScheduleCloseBtn">
-                <span class="material-symbols-outlined modalclosebutton" onclick="closeModal(this,'close')">
+                <span class="material-symbols-outlined detail-schedule-modal" onclick="closeModal(this,'closes')">
             close
                 </span>
             </div>
             <c:forEach var="scheduleList" items="${userScheduleList}">
-                <div>
-                    <div class="contentListModalArea">
-                        <div class="contentListModalItem">
-                            <h2>일정 리스트</h2>
+                <div class="schedule-tb-list ${scheduleList.uuid}">
+                    <div class="detail-contentListModalArea">
+                        <div class="detail-contentListModalItem">
+                            <h2>${scheduleList.title}</h2>
                         </div>
                     </div>
-                    <div class="daysPrint">
-                            <c:set var="day" value="0"/>
-                            <c:forEach begin="${scheduleList.startDate.toEpochDay()}"
-                                       end="${scheduleList.endDate.toEpochDay()}">
-                                <c:set var="nextDays" value="${day + 1 }"/>
+                    <div class="detail-daysPrint">
 
-                                    <div class="detailedScheduleDiv"
-                                         data-next-days="${scheduleList.scheduleDates[day].scheduleDateId.nowDate}">
-                                        <h2>${nextDays}일
-                                            차</h2>
-                                        <ul class="detailedScheduleListUl">
-                                        <c:forEach var="detailedSchedule" items="${scheduleList.scheduleDates[day].detailedScheduleList}">
-                                            <li>${detailedSchedule.contents.businessName}</li>
-                                        </c:forEach>
-                                            </ul>
-                                    </div>
-                                <c:set var="day" value="${nextDays}"/>
-                            </c:forEach>
+                        <c:set var="day" value="0"/>
+                        <c:forEach begin="${scheduleList.startDate.toEpochDay()}"
+                                   end="${scheduleList.endDate.toEpochDay()}">
+                            <c:set var="nextDays" value="${day + 1 }"/>
+
+                            <div class="detailedScheduleDiv"
+                                 data-now-days="${scheduleList.scheduleDates[day].scheduleDateId.nowDate}">
+                                <div>
+                                    <button class="detail-daysPrint-button">수정</button>
+                                </div>
+                                <h2>${nextDays}일
+                                    차</h2>
+                                <ul class="detailedScheduleListUl">
+                                    <c:forEach var="detailedSchedule"
+                                               items="${scheduleList.scheduleDates[day].detailedScheduleList}">
+                                        <li>
+                                            <div class="detail-schedule-li-images">
+                                            </div>
+                                            <span>${detailedSchedule.contents.businessName}</span>
+                                            <input class="detailedScheduleListId" hidden value="${detailedSchedule.contents.id}">
+                                        </li>
+                                    </c:forEach>
+                                </ul>
+                            </div>
+                            <c:set var="day" value="${nextDays}"/>
+                        </c:forEach>
                     </div>
                 </div>
             </c:forEach>
