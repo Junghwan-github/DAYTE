@@ -29,3 +29,5 @@
             src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d6e1eeae5c7853c6bd1f34a4ef04e664">
     </script>
     <script src="https://kit.fontawesome.com/8ccf456cfd.js" crossorigin="anonymous"></script>
+    <script src="/webjars/summernote/0.8.10/summernote-bs4.min.js"></script>
+    <link href="/webjars/summernote/0.8.10/summernote-bs4.css" rel="stylesheet">

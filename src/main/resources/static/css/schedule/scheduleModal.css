@@ -487,14 +487,14 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 910px;
+    width: 1180px;
     border-radius: 15px;
     background: #fff;
 overflow: hidden;
 }
 
 .schedule-tb-list {
-    width: 850px;
+    width: 1120px;
     padding: 30px;
     overflow-y: auto;
     overflow-x: hidden;
@@ -545,8 +545,8 @@ overflow: hidden;
     margin: 20px 0 0 0;
     padding: 20px 20px;
     border-radius: 10px;
-    background: linear-gradient(45deg, rgba(190, 224, 206, 0.493) 0%, #fdebe07e 90%);
-
+    /*background: linear-gradient(45deg, rgba(190, 224, 206, 0.493) 0%, #fdebe07e 90%);*/
+    background: #f5f7fa;
 }
 
 
@@ -606,11 +606,11 @@ overflow: hidden;
     border-radius: 7px;
     overflow: hidden;
     margin-bottom: 7px;
-    background: #b9b9b9;
+    background: #ffffff;
 }
 
 .detailedScheduleListUl > li > span {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     font-weight: 400;
     color: #111;
 }

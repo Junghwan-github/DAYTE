@@ -31,7 +31,6 @@ $(".nextDayBtn").on("click", function (e) {
 
 
     $("body").css("overflow", "hidden");
-    let slider = document.querySelector('.contentModalSlider');
 
     mouseDrag(slider);
 
@@ -173,7 +172,9 @@ $(".detail-daysPrint-button").on("click", function () {
     nowDateValue = $(this).closest('.detailedScheduleDiv').data('now-days');
 
     $(".detailedScheduleAddModal").hide();
-    $(".daysListAddModal").show();
+    $(".daysListAddModal").show({
+
+    });
     $(".contentListModalArea").addClass("show");
     $(".scheduleTotalSaveBtn").hide();
     $(".scheduleTotalModifyBtn").show();
