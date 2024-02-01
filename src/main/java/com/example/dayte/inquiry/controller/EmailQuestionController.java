@@ -1,8 +1,7 @@
-package com.example.dayte.emailQuestion.controller;
+package com.example.dayte.inquiry.controller;
 
-import com.example.dayte.emailQuestion.domain.EmailQuestion;
-import com.example.dayte.emailQuestion.service.EmailQuestionService;
-import com.example.dayte.members.dto.ResponseDTO;
+import com.example.dayte.inquiry.domain.EmailQuestion;
+import com.example.dayte.inquiry.service.EmailQuestionService;
 import com.example.dayte.security.dto.UserSecurityDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @org.springframework.stereotype.Controller
-public class emailQuestionController {
+public class EmailQuestionController {
 
     @Autowired
     private EmailQuestionService emailQuestionService;

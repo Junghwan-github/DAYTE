@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="/css/schedule/scheduleSlider.css">
 <link rel="stylesheet" href="/css/layout/subnav.css">
 <link rel="stylesheet" href="/css/schedule/scheduleModal.css">
-<title>일정 관리</title>
+<title>DAYTE | 일정 관리</title>
 </head>
 <body>
 <%@include file="../layout/header.jsp" %>
@@ -205,7 +205,7 @@
                                     <div class="contentListItemButton">
                                         <ul>
                                             <li>
-                                                <button class="contentListItemdetailViewBtn">상세보기</button>
+                                                <button class="contentListItemdetailViewBtn" value="${content.id}">상세보기</button>
                                             </li>
                                             <li>
                                                 <button class="contentListItemAddBtn" value="${content.id}">추가하기

@@ -98,5 +98,5 @@
         </ul>
     </form>
 
-    <script src="/js/adminScheduleContentsList.js"></script>
+    <script src="/js/admin/adminScheduleContentsList.js"></script>
 <%@include file="../layout/adminFooter.jsp" %>
