@@ -8,7 +8,20 @@
 //     infiniteLoop: false
 //   });
 // });
-
+$(document).ready(function () {
+  $(".content-banner-slider").bxSlider({
+    mode: "horizontal",
+    slideWidth: 320,
+    speed: 500,
+    auto: true,
+    slideMargin: 0,
+    minSlides: 1,
+    maxSlides: 1,
+    touchEnabled: navigator.maxTouchPoints > 0,
+    pager: false,
+    controls: false
+  });
+});
 
 
 
@@ -38,11 +51,11 @@ let marker = new kakao.maps.Marker({
 marker.setMap(map);
 
 
-// setDraggable();
-// function setDraggable(draggable) {
-//   // 마우스 드래그로 지도 이동 가능여부를 설정합니다
-//   map.setDraggable(draggable);
-// }
+setDraggable();
+function setDraggable(draggable) {
+  // 마우스 드래그로 지도 이동 가능여부를 설정합니다
+  map.setDraggable(draggable);
+}
 
 
 $(document).ready(function() {
@@ -54,31 +67,31 @@ $(document).ready(function() {
 
 
 // 이미지 슬라이더 인덱스 
-  $(document).ready(function() {
-    var currentImageIndex = 1;
-
-    // 이미지 슬라이더 초기화
-    var slider = $('.bxslider').bxSlider();
-
-    // 다음 이미지로 이동
-    $('.bx-next').on('click', function() {
-      if(currentImageIndex < $('div[name="bxslider"] > div').length) {
-        currentImageIndex++;
-      } else {
-        currentImageIndex = $('div[name="bxslider"] > div').length;
-      }
-  
-      $('#nowImg').text(currentImageIndex);
-    });
-
-    // 이전 이미지로 이동
-    $('.bx-prev').on('click', function() {
-      if(currentImageIndex > 1) {
-        currentImageIndex--;
-      } else {
-        currentImageIndex;
-      }
-
-      $('#nowImg').text(currentImageIndex);
-    });
-  });
+//   $(document).ready(function() {
+//     var currentImageIndex = 1;
+//
+//     // 이미지 슬라이더 초기화
+//     var slider = $('.bxslider').bxSlider();
+//
+//     // 다음 이미지로 이동
+//     $('.bx-next').on('click', function() {
+//       if(currentImageIndex < $('div[name="bxslider"] > div').length) {
+//         currentImageIndex++;
+//       } else {
+//         currentImageIndex = $('div[name="bxslider"] > div').length;
+//       }
+//
+//       $('#nowImg').text(currentImageIndex);
+//     });
+//
+//     // 이전 이미지로 이동
+//     $('.bx-prev').on('click', function() {
+//       if(currentImageIndex > 1) {
+//         currentImageIndex--;
+//       } else {
+//         currentImageIndex;
+//       }
+//
+//       $('#nowImg').text(currentImageIndex);
+//     });
+//   });

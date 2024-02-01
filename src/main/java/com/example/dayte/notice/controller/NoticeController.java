@@ -49,7 +49,8 @@ public class NoticeController {
     private CustomUserDetailsService userDetailsService;
 
     @GetMapping("/notice")
-    public String getNoticeList(Model model, @PageableDefault(size = 10, sort = "no", direction = Sort.Direction.DESC) Pageable pageable) {
+    public String getNoticeList(Model model, @PageableDefault(size = 10, sort = "no", direction = Sort.Direction.DESC) Pageable pageable,
+                                @RequestParam(value="page", required=false) Integer page) {
 
         Page<Notice> noticeListPage = noticeService.getNoticeList(pageable);
         int totalPages = noticeListPage.getTotalPages();
@@ -67,7 +68,6 @@ public class NoticeController {
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
         model.addAttribute("currentPage", currentPage);
-        System.out.println("========================" + currentPage);
         model.addAttribute("noticeList", noticeService.getNoticeList(pageable));
 
 
@@ -164,10 +164,13 @@ public class NoticeController {
     //공지사항 상세보기
     @Transactional(readOnly = true)
     @GetMapping("/notice/{id}")
-    public String getNotice(@PathVariable int id, Model model, Pageable pageable, HttpSession session) {
+    public String getNotice(@PathVariable int id, Model model, Pageable pageable,
+                            @RequestParam(value="page", required=false) String currentPage,
+                            HttpSession session) {
         model.addAttribute("notice", noticeService.getNotice(id));
 
 
+        model.addAttribute("page",currentPage);
 
 
         model.addAttribute("nowId", id);
@@ -342,7 +345,9 @@ for(MultipartFile file: files) {
 
     //사용자 페이지 검색
     @GetMapping("/notice/searchNotices")
-    public String searchNotices(String searchWord, String searchOption, Model model, @PageableDefault(size = 5, sort = "no", direction = Sort.Direction.DESC) Pageable pageable) {
+    public String searchNotices(String searchWord, String searchOption, Model model,
+                                @PageableDefault(size = 5, sort = "no", direction = Sort.Direction.DESC) Pageable pageable
+                                ) {
 
         log.info("폼에서 넘어오는 문자열 : " + searchWord);
         log.info("폼에서 넘어오는 드롭다운 : " + searchOption);

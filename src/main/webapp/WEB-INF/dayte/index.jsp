@@ -166,4 +166,5 @@
     </section>
 </main>
 <script src="/js/main/index.js"></script>
+<script src="/js/main/editForm.js"></script>
 <%@include file="layout/footer.jsp" %>

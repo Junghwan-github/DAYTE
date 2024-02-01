@@ -158,18 +158,18 @@ function scheduleTotalModifyBtn() {
         contentsList: saveSchedule
     }
     console.log(detailedSchedule);
-    // $.ajax({
-    //     url: "/schedule/detailedScheduleModify",
-    //     type: "PUT",
-    //     contentType: "application/json; charset=utf-8",
-    //     data: JSON.stringify(detailedSchedule),
-    //     success: function(response) {
-    //         location.reload();
-    //     },
-    //     error: function(error) {
-    //         alert(`에러 발생 : ${error.message}`);
-    //     }
-    // });
+    $.ajax({
+        url: "/schedule/detailedScheduleModify",
+        type: "PUT",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(detailedSchedule),
+        success: function(response) {
+            location.reload();
+        },
+        error: function(error) {
+            alert(`에러 발생 : ${error.message}`);
+        }
+    });
 
 }
 

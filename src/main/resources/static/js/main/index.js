@@ -24,6 +24,8 @@ $(document).ready(function () {
   });
 });
 
+
+
 // 상세 검색 히든
 let toggleSelected = document.querySelector(".searchContents");
 let bottonSearch = document.querySelector("input[name='indexSearch']");
@@ -432,6 +434,7 @@ fetch(apiShort)
         for(let i=0; i<temperatures.length; i++){
           if(temperatures[i]>maxTemperatureOfDay){
             maxTemperatureOfDay = temperatures[i];
+
           }
         }
         for(let i=0; i<temperatures.length; i++){

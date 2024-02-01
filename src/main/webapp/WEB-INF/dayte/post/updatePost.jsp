@@ -5,11 +5,6 @@
 <%@include file="../layout/head.jsp"%>
 
 <%-- css, jquery --%>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<script src="/webjars/bootstrap/5.3.2/js/bootstrap.min.js"></script>
-<script src="/webjars/summernote/0.8.10/summernote-bs4.min.js"></script>
-<link href="/webjars/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
-<link href="/webjars/summernote/0.8.10/summernote-bs4.css" rel="stylesheet">
 <link rel="stylesheet" href="/css/layout/subnav.css">
 
 </head> <%-- /head --%>
