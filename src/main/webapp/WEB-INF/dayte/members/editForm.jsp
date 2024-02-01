@@ -8,10 +8,11 @@
 <body>
 <%@include file="../layout/header.jsp" %>
 <script src="/js/main/header.js"></script>
+<script defer src="/js/main/editForm.js"></script>
 <!-- 메인 -->
 <main>
     <div class="container">
-        <form class="joinForm2">
+        <form class="joinForm2" enctype="multipart/form-data">
             <div class="joinInfo">
                 <h1>내 정보</h1>
             </div>
@@ -19,7 +20,7 @@
                 <!-- 이메일 아이디 -->
                 <div class="formItem formDivine" id="emailId">
                     <img src="/images/user.png" alt="이름이미지"/>
-                    <span class="email">${userInfo.userEmail}</span>
+                    <span id="email">${userInfo.userEmail}</span>
                 </div>
             </div>
 
@@ -60,14 +61,7 @@
             <div class="formBorder">
                 <div class="formItem formDivine">
                     <img src="/images/user.png" alt="이름이미지"/>
-                    <input
-                            type="text"
-                            id="userName"
-                            name="userName"
-                            placeholder="이름"
-                            class="joinInput"
-                            value
-                    />
+                    <span id="userName">${userInfo.userName}</span>
                 </div>
                 <div class="formItem">
                     <img src="/images/nickName.png" alt="닉네임이미지"/>
@@ -75,9 +69,9 @@
                             type="text"
                             id="nickName"
                             name="nickName"
-                            placeholder="닉네임"
+                            placeholder="${userInfo.nickName}"
                             class="joinInput"
-                            value
+                            value=""
                     />
                     <button type="button" class="EmailBttn">중복확인</button>
                 </div>
@@ -97,24 +91,11 @@
             <div class="formBorder">
                 <div class="formItem formDivine">
                     <img src="/images/thickPhone.png" alt="휴대전화이미지"/>
-                    <input
-                            type="tel"
-                            id="phone"
-                            name="phone"
-                            class="joinInput"
-                            placeholder='휴대전화번호 ( "-"d 없이 입력 )'
-                    />
+                    <span id="phone">${userInfo.phone}</span>
                 </div>
                 <div class="formItem">
                     <img src="/images/birthDate.png" alt="달력이미지"/>
-                    <input
-                            type="text"
-                            id="birthDate"
-                            name="birthDate"
-                            placeholder="생년월일 8자리"
-                            class="joinInput"
-                            value
-                    />
+                    <span id="birthDate">${userInfo.birthDate}</span>
                 </div>
             </div>
             <div class="errorMsg">
@@ -127,19 +108,25 @@
                 </div>
             </div>
             <!-- 성별 -->
+            <c:if test="${!empty userInfo.gender}">
             <div class="formBorder formItem">
-                <select id="gender" name="gender">
-                    <%-- value가 gender로 뜨면 선택하게 끔--%>
-                    <option value="gender">성별</option>
-                    <option value="male">남성</option>
-                    <option value="female">여성</option>
-                    <option value="other">그 외</option>
-                </select>
+                <span id="gender">${userInfo.gender}</span>
+            </div>
+            </c:if>
+
+            <div class="profileImage">
+                <p>
+                    <img src= "/images/92969_25283_5321.jpg" class= "profile-photo" width= "150" height= "150">
+                    <br>
+                    <br>
+                    <input type= "file" id="upload" accept= "image/gif, image/png, image/jpeg" style= "margin-left : 57px;">
+                </p>
             </div>
 
             <div class="submitBttn">
-                <button type="button" id="signBttn">회원 가입</button>
+                <button type="button" id="editBttn">정보 수정</button>
             </div>
+
         </form>
 
 

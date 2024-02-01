@@ -26,7 +26,7 @@
                         </a>
                     </li>
                     <ul class="sub-nav-slide-bar">
-                        <li><a href="#">내 정보</a></li>
+                        <li><a href="/members/editForm">내 정보</a></li>
                         <li><a href="/schedule/scheduleList">내 일정관리</a></li>
                         <li><a href="/schedule/scheduleList">내 리얼리뷰</a></li>
                         <li><a href="/members/logout">로그아웃</a></li>
