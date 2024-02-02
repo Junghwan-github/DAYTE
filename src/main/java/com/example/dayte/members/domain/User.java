@@ -24,6 +24,7 @@ public class User {
     @Column(nullable = false, length = 50)
     private String userName;
 
+    @Setter
     @Column(nullable = false, length = 50, unique = true)
     private String nickName;
 
@@ -44,8 +45,10 @@ public class User {
     @CreationTimestamp
     private Timestamp joinDate;
 
-    private String ProfileImageName;
+    @Setter
+    private String profileImageName;
 
-    private String ProfileImagePath;
+    @Setter
+    private String profileImagePath;
 }
 

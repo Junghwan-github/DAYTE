@@ -23,6 +23,7 @@ public class UserSecurityDTO extends User implements OAuth2User {
     private String phone;
     private String birthDate;
     private String gender;
+    private String profileImagePath;
     private boolean del;
 
     // 소셜 로그인 시 넘어오는 정보들이 담겨있는 맵 객체
@@ -30,7 +31,7 @@ public class UserSecurityDTO extends User implements OAuth2User {
 
     public UserSecurityDTO(String userEmail, String password, String userName,
                            String nickName, String phone, String birthDate,
-                           String gender, boolean del,
+                           String gender, boolean del,String profileImagePath,
                            Collection<? extends GrantedAuthority> authorities) {
 
         super(userEmail,password,authorities);
@@ -43,6 +44,7 @@ public class UserSecurityDTO extends User implements OAuth2User {
         this.birthDate = birthDate;
         this.gender = gender;
         this.del = del;
+        this.profileImagePath = profileImagePath;
 
 
     }

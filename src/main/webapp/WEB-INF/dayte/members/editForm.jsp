@@ -24,31 +24,6 @@
                 </div>
             </div>
 
-            <!-- 비밀번호,비밀번호 입력 -->
-            <div class="formBorder">
-                <div class="formItem formDivine">
-                    <img src="/images/lock.png" alt="비밀번호이미지"/>
-                    <input
-                            type="password"
-                            id="password1"
-                            name="password1"
-                            placeholder="비밀번호"
-                            class="joinInput"
-                            value
-                    />
-                </div>
-                <div class="formItem">
-                    <img src="/images/lockCheck.png" alt="비밀번호이미지"/>
-                    <input
-                            type="password"
-                            id="password2"
-                            name="password2"
-                            placeholder="비밀번호 확인"
-                            class="joinInput"
-                            value
-                    />
-                </div>
-            </div>
             <div class="errorMsg">
                 <div class="pwdFailMsg hide">
                     비밀번호는 8~20글자, 영문, 숫자, 특수문자(@, $, !, %, *, #, ?,

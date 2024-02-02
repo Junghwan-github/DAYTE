@@ -19,7 +19,7 @@
                     <li class="userProfile">
                         <a href="#">
                             <div class="user-profile-images">
-                                프사
+                                <img src="${principal.getProfileImagePath()}"/>
                             </div>
                                 ${principal.getNickName()} 님
                              <i class="xi-heart"></i>

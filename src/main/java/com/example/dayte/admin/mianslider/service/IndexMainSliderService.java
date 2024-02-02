@@ -57,7 +57,6 @@ public class IndexMainSliderService {
 
 
             Path targetPath = Path.of(imageUploadPath + fileName);
-
             Files.copy(image.getInputStream(), targetPath, StandardCopyOption.REPLACE_EXISTING);
 
             return imageUploadPath + fileName;
@@ -70,7 +69,6 @@ public class IndexMainSliderService {
     private void createDirectory() {
         try {
             Path path = Path.of(IndexMainSliderService.imageUploadPath);
-
             if (!Files.exists(path)) {
                 Files.createDirectories(path);
             }
