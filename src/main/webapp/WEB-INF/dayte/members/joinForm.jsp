@@ -7,11 +7,10 @@
     </head>
 <body>
 <%@include file="../layout/header.jsp"%>
-<script src="/js/main/header.js"></script>
     <!-- 메인 -->
     <main>
       <div class="container">
-        <form class="joinForm2">
+        <form class="joinForm2" autocomplete="off">
           <div class="joinInfo">
             <h1>회원 가입</h1>
             <ul>
@@ -31,6 +30,7 @@
                       placeholder="이메일"
                       class="email"
                       autocapitalize="off"
+                      autocomplete="off"
               />@
               <input
                       type="text"
@@ -40,6 +40,7 @@
                       title="이메일 도메인"
                       placeholder="이메일 도메인"
                       maxlength="18"
+                      autocomplete="off"
               />
               <select
                       class="select"
@@ -70,6 +71,7 @@
                         name="emailNum"
                         placeholder="인증번호"
                         class="email"
+                        autocomplete="off"
                 />
               </div>
               <div class="timer">
@@ -99,7 +101,7 @@
                       name="password1"
                       placeholder="비밀번호"
                       class="joinInput"
-                      value
+                      autocomplete="new-password"
               />
             </div>
             <div class="formItem">
@@ -110,7 +112,7 @@
                       name="password2"
                       placeholder="비밀번호 확인"
                       class="joinInput"
-                      value
+                      autocomplete="new-password"
               />
             </div>
           </div>
@@ -132,7 +134,7 @@
                       name="userName"
                       placeholder="이름"
                       class="joinInput"
-                      value
+                      autocomplete="off"
               />
             </div>
             <div class="formItem">
@@ -143,7 +145,7 @@
                       name="nickName"
                       placeholder="닉네임"
                       class="joinInput"
-                      value
+                      autocomplete="off"
               />
             </div>
           </div>
@@ -168,6 +170,7 @@
                       name="phone"
                       class="joinInput"
                       placeholder='휴대전화번호 ( "-"d 없이 입력 )'
+                      autocomplete="off"
               />
             </div>
             <div class="formItem">
@@ -178,7 +181,7 @@
                       name="birthDate"
                       placeholder="생년월일 8자리"
                       class="joinInput"
-                      value
+                      autocomplete="off"
               />
             </div>
           </div>

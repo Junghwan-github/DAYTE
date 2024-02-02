@@ -7,8 +7,7 @@
 <%-- css --%>
 <link rel="stylesheet" href="/css/post/post.css">
 <link rel="stylesheet" href="/css/post/postReply.css">
-<link rel="stylesheet" href="/css/layout/subnav.css">
-
+<title>일정후기 | ${post.title} </title>
 </head> <%-- /head --%>
 
 <body> <%-- body --%>

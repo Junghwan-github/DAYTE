@@ -50,7 +50,7 @@ public class VerificationService {
     }
 
     public int verifyNumberCheck(int emailNumber, int verifyValueNumber) {
-        if(emailNumber == verifyValueNumber) {
+        if(emailNumber > 0 && emailNumber == verifyValueNumber) {
             return HttpStatus.OK.value();
         }
         return HttpStatus.BAD_REQUEST.value();

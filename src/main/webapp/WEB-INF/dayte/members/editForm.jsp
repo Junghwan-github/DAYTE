@@ -2,12 +2,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <%@include file="../layout/head.jsp" %>
-<title>DAYTE | 정보 수정</title>
+<title>내 정보</title>
 <link rel="stylesheet" href="/css/main/joinForm.css"/>
 </head>
 <body>
 <%@include file="../layout/header.jsp" %>
-<script src="/js/main/header.js"></script>
 <script defer src="/js/main/editForm.js"></script>
 <!-- 메인 -->
 <main>
