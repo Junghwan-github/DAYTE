@@ -3,9 +3,8 @@
 <%@include file="../layout/head.jsp"%>
 
 
-    <title>공지사항</title>
+    <title>공지사항 | 관리자</title>
 
-    <script src="/webjars/bootstrap/5.3.2/js/bootstrap.bundle.js"></script>
     <link rel="stylesheet" href="/css/main/modNotice.css">
 
 
@@ -13,7 +12,6 @@
 
 <body>
 <%@include file="../layout/header.jsp"%>
-<script src="/js/main/header.js"></script>
 <c:set var="indexNumber" value="${noticeList.number + 2}"/>
 
 <h1 class="title"> 전체수정 </h1>

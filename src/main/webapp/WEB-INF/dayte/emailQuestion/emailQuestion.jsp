@@ -3,7 +3,7 @@
 
 
 
-<title>1:1 문의하기</title>
+<title>DAYTE | 고객센터</title>
 
 </head>
 

@@ -117,27 +117,28 @@ let postObject = {
 postObject.init();
 
 
-$(document).ready(function() {
+$(document).ready(function () {
     $('#summernote').summernote({
         height: 450,
         focus: true,
         lang: "ko-KR",
-        placeholder: '내용',
+        placeholder: '여기 내용을 입력하세요',
         disableResizeEditor: true,
         toolbar: [
+            ['style', ['style']],
+            ['font', ['bold', 'italic', 'underline', 'clear']],
             ['fontsize', ['fontsize']],
             ['color', ['color']],
-            ['style', ['style']],
-            ['font', ['bold', 'underline', 'clear']],
             ['para', ['ul', 'ol', 'paragraph']],
+            ['height', ['height']],
             ['table', ['table']],
             ['insert', ['link', 'picture', 'video']],
-            ['view', ['codeview']]
+            ['view', ['fullscreen', 'codeview']],
         ],
-        fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
-        fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
+        fontSizes: ['15', '16', '18', '20', '24', '36', '58', '72'],
+        fontSize: '15',
         callbacks: {
-            onImageUpload: function(files){
+            onImageUpload: function (files) {
                 const [imageFile] = files;
                 sendFile(imageFile);
             }
@@ -157,11 +158,11 @@ function sendFile(file) {
         cache: false,
         contentType: false,
         processData: false,
-        success: function(response) {
+        success: function (response) {
             const imageUrl = response.url;
             $('.summernote').summernote('insertImage', imageUrl);
         },
-        error: function(error) {
+        error: function (error) {
             console.error('이미지 업로드 실패:', error);
         }
     });

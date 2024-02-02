@@ -6,8 +6,7 @@
 
 <%-- css --%>
 <link rel="stylesheet" href="/css/post/mainPostList.css" >
-<link rel="stylesheet" href="/css/layout/subnav.css">
-
+<title>DAYTE | 일정후기</title>
 </head><%-- /head --%>
 
 <body> <%-- body --%>

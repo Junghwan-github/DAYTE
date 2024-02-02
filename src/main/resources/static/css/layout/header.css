@@ -9,6 +9,12 @@
     /* transition: all 0.3s; */
 }
 
+#header-nav-hide {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
 #headerBack {
     position: absolute;
     top: 0;
