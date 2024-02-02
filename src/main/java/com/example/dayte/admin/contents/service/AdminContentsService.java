@@ -12,6 +12,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.util.UriUtils;
 
 import java.io.IOException;
 import java.net.URLEncoder;
@@ -65,10 +66,10 @@ public class AdminContentsService {
     public String saveImage(MultipartFile image) {
 
         try {
-            String encodedFileName = URLEncoder.encode(Objects.requireNonNull(image.getOriginalFilename()), StandardCharsets.UTF_8);
+            String encodedFileName = UriUtils.encode(Objects.requireNonNull(image.getOriginalFilename()), StandardCharsets.UTF_8);
             String fileName = this.uuid + "_" + encodedFileName;
 
-            Path targetPath = Path.of(this.contentsImageUploadPath + fileName);
+            Path targetPath = Path.of("\\\\192.168.10.75"+this.contentsImageUploadPath + fileName);
 
             Files.copy(image.getInputStream(), targetPath, StandardCopyOption.REPLACE_EXISTING);
 

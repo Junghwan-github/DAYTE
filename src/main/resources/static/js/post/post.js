@@ -25,8 +25,7 @@ let postObject = {
 
         let post = {
             title: $("#title").val(),
-            content: $("#content").val()
-
+            content: $("#summernote").summernote('code')
         }
         console.log(post);
 
@@ -116,3 +115,54 @@ let postObject = {
 }
 
 postObject.init();
+
+
+$(document).ready(function() {
+    $('#summernote').summernote({
+        height: 450,
+        focus: true,
+        lang: "ko-KR",
+        placeholder: '내용',
+        disableResizeEditor: true,
+        toolbar: [
+            ['fontsize', ['fontsize']],
+            ['color', ['color']],
+            ['style', ['style']],
+            ['font', ['bold', 'underline', 'clear']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['table', ['table']],
+            ['insert', ['link', 'picture', 'video']],
+            ['view', ['codeview']]
+        ],
+        fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
+        fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
+        callbacks: {
+            onImageUpload: function(files){
+                const [imageFile] = files;
+                sendFile(imageFile);
+            }
+        },
+    })
+})
+
+// 이미지를 임시저장합니다.
+function sendFile(file) {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    $.ajax({
+        type: 'POST',
+        url: '/uploadSummernoteImageFile',
+        data: formData,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+            const imageUrl = response.url;
+            $('.summernote').summernote('insertImage', imageUrl);
+        },
+        error: function(error) {
+            console.error('이미지 업로드 실패:', error);
+        }
+    });
+}
