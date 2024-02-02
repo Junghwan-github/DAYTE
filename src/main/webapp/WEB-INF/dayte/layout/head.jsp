@@ -32,9 +32,9 @@
     <script src="https://kit.fontawesome.com/8ccf456cfd.js" crossorigin="anonymous"></script>
 
     <!-- 써머노트 -->
-<%-- <script src="/webjars/summernote/0.8.10/summernote-bs4.min.js"></script> --%>
-<%-- <link href="/webjars/summernote/0.8.10/summernote-bs4.css" rel="stylesheet"> --%>
 
+    <script src="/webjars/summernote/0.8.10/summernote-bs4.min.js"></script>
+    <link href="/webjars/summernote/0.8.10/summernote-bs4.css" rel="stylesheet">
     <!-- 부트스트랩 -->
-<%-- <link href="/webjars/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet"> --%>
-<%-- <script src="/webjars/bootstrap/5.3.2/js/bootstrap.min.js"></script> --%>
+ <link href="/webjars/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+ <script src="/webjars/bootstrap/5.3.2/js/bootstrap.min.js"></script>
