@@ -27,7 +27,8 @@
             </div>
             <div>
                 <c:if test="${post.user.userEmail eq principal.userEmail}">
-                    <a href="/post/updatePost/${post.id}" class="btn btn-warning">수정하기</a>
+                    <button class="btn btn-secondary" onclick="history.back()">돌아가기</button>
+                    <a href="/post/updatePost/${post.id}" class="btn btn-warning"><button class="btn btn-warning">수정하기</button></a>
                     <button id="btn-delete" class="btn btn-danger">삭제하기</button>
                 </c:if>
             </div>
@@ -40,9 +41,10 @@
             </h1>
         </div>
         <div class="content">
-        <span><%--글 내용--%>
-             ${post.content}
-        </span>
+            <span>
+                <%--글 내용--%>
+               ${post.content}
+            </span>
         </div>
     </div>
     <%-- 포스트 내용 끝 --%>
@@ -96,7 +98,7 @@
                         <li>
                             <button id="btn-update-reply" class="replyBtnShow"
                                 <%--onclick="replyObject.updateReply(this.value)" value="${reply.num}">수정--%>
-                                    onclick="updateBtnClick()">수정
+                                    onclick="updateBtnClick(this)">수정
                             </button>
                         </li>
                         <li>
@@ -106,6 +108,8 @@
                         </li>
                     </ul>
                     <p class="changeTextarea">${reply.content}</p>
+                    <button type="button" style="display: none" class="checkButton" onclick="checkButtonClick(this)" >확인</button>
+                    <button type="button" style="display: none" class="cancelButton" onclick="cancelButtonClick(this)" >취소</button>
                 </li>
 
 

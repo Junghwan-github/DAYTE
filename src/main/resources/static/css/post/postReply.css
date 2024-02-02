@@ -33,41 +33,35 @@
 
 }
 
-button[id="postReplyHamburger"] {
-    display: none;
+.postReplyHamburger {
+    border: none;
+    background: transparent;
+
 }
 
-button[id="postReplyHamburger"] + label {
-    margin: 0 auto;
-    display: block;
-    width: 24px;
-    height: 24px;
-    cursor: pointer;
+
+
+.xi-ellipsis-v {
+
+    font-size: 2rem;
+    color: #111;
 }
 
-button[id="postReplyHamburger"] + label > span {
-    display: block;
-    height: 3px;
-    width: 3px;
-    margin-bottom: 2px;
-    border-radius: 2px;
-    background: black;
-}
-
-.postReplyBtnList {
-    display: inline-block;
-}
 
 #postReplyView {
     margin: 30px auto;
     height: 500px;
 }
 
+
+
 #postReplyView > li {
     margin: 0 auto;
-    padding: 10px 50px;
-    width: 800px;
-    background-color: #c7c7c7;
+    padding: 50px 0;
+    width: 1180px;
+    /*background: #eee;*/
+    box-sizing: border-box;
+    /*border-radius: 10px;*/
 
 }
 
@@ -83,39 +77,52 @@ button[id="postReplyHamburger"] + label > span {
 
 }
 
-.replyContent {
-    padding: 35px;
+.changeTextarea {
+    padding: 15px;
     font-size: 15px;
     text-align: start;
-    border: 1px solid black;
-    background-color: #eaeaea;
+    border-bottom: 1px solid #999999;
+    /*background-color: #ffffff;*/
 }
 
 .postReplyBtnList {
+    position: absolute;
+    top: 40px;
+    right: 50px;
+    display: none;
+    background: #fff;
+    padding: 8px 10px;
+    border: 1px solid #28536a;
+}
+.postReplyBtnList  button {
+    border: none;
+    background: transparent;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
+.post-reply-li {
     position: relative;
 }
+.reply-sub-nav {
+    text-align: right;
+    width: 100%;
+}
 
-.showPostReplyBtnList > ul {
+.reply-sub-nav > button {
+    display: inline-block;
+}
+
+.showPostReplyBtnList {
     display: block;
-   position: absolute;
-    top: 0;
-    left: 0;
-    border: 1px solid black;
-}
-
-.showPostReplyBtnList > ul > li {
-
-
-    /*background: inherit ;*/
-    /*border:none;*/
-    /*box-shadow:none;*/
-    /*border-radius:0;*/
-    /*padding:0;*/
-    /*overflow:visible;*/
-    /*cursor:pointer;*/
 }
 
 
+.replyUpdateTextarea {
+    width: 100%;
+    height: 6.25em;
+}
 
 
 

@@ -7,7 +7,6 @@
 <%@include file="../layout/head.jsp" %>
 <link rel="stylesheet" href="/css/schedule/schedule.css">
 <link rel="stylesheet" href="/css/schedule/scheduleSlider.css">
-<link rel="stylesheet" href="/css/layout/subnav.css">
 <link rel="stylesheet" href="/css/schedule/scheduleModal.css">
 <title>DAYTE | 일정 관리</title>
 </head>
