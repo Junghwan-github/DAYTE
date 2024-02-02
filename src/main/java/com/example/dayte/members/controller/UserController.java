@@ -134,12 +134,14 @@ public class UserController {
 
     }
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/members/editForm")
     public String modifyUserForm(Model model,
                                  @AuthenticationPrincipal UserSecurityDTO userSecurityDTO) {
         model.addAttribute("userInfo", userService.getUser(userSecurityDTO.getUserEmail()));
         return "members/editForm";
     }
+
 
     @PutMapping("/members/editForm")
     public @ResponseBody ResponseDTO<?> modifyUser(
