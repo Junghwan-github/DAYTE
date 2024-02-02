@@ -23,16 +23,22 @@
 
     <table border="1">
         <tr>
-            <th>ID</th>
+            <th></th>
+            <th>번호</th>
             <th>제목</th>
+            <th>내용</th>
             <th>작성일</th>
             <th>작성자</th>
         </tr>
         <c:forEach var="post" items="${postList.content}">
             <tr>
+                <td>
+                    <img src="/images/1.PNG">
+                </td>
                 <td>${post.id}</td>
                 <td><a href="/post/${post.id}"> ${post.title}</a></td>
-                <td><fmt:formatDate value="${post.createDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+                <td>${post.content}</td>
+                <td><fmt:formatDate value="${post.createDate}" pattern="yyyy-MM-dd"/></td>
                 <td>${post.user.userEmail}</td>
             </tr>
         </c:forEach>
