@@ -6,8 +6,17 @@
 <%@include file="../layout/head.jsp"%>
 
 <%-- css, jquery --%>
-
 <link rel="stylesheet" href="/css/layout/subnav.css">
+<script src="/webjars/jquery/3.7.1/jquery.min.js"></script>
+
+<!-- 써머노트 -->
+<link href="/webjars/summernote/0.8.10/summernote-bs4.css" rel="stylesheet">
+<script src="/webjars/summernote/0.8.10/summernote-bs4.min.js"></script>
+
+<%-- 부트스트랩 --%>
+<link href="/webjars/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+<script src="/webjars/bootstrap/5.3.2/js/bootstrap.min.js"></script>
+
 
 </head> <%-- /head --%>
 
@@ -15,7 +24,7 @@
 
 <%@include file="../layout/header.jsp"%> <%-- header --%>
 <%@include file="../layout/subnav.jsp" %>
-
+<script src="/js/main/header.js"></script>
 <main> <%-- main --%>
 
     <div class="container mt-3">
