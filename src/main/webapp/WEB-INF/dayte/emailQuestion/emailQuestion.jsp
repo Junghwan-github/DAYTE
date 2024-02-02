@@ -31,7 +31,7 @@
 
 <button type="button" id="sendEmail">문의하기</button>
 
-<script src="/js/emailQuestion.js"></script>
+<script src="/js/main/emailQuestion.js"></script>
 
 
 <%@include file="../layout/footer.jsp"%>

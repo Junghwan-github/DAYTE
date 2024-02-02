@@ -1,12 +1,15 @@
 package com.example.dayte.reply.service;
 
 
+import com.example.dayte.members.domain.User;
 import com.example.dayte.reply.domain.ContentReply;
 import com.example.dayte.reply.repository.ContentReplyRepository;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.*;
+
 
 import java.util.List;
 
@@ -19,14 +22,24 @@ public class ContentReplyService {
     @Autowired
     private ModelMapper modelMapper;
 
+
     // 새로운 댓글 추가
     @Transactional
     public void contentReplyinsert(ContentReply contentReply) {
-        contentReplyRepository.save(contentReply);
+        List<String> contReply = contentReplyRepository.findByContentsId(contentReply.getUser().getUserEmail());
+
+        boolean istrue = contReply.contains(contentReply.getUser().getUserEmail());
+
+        if(istrue) {
+            System.out.println("끼얏호");
+        } else {
+            contentReplyRepository.save(contentReply);
+        }
     }
 
     // 모든 댓글 목록 조회
     public List<ContentReply> contentReplyList() {
+
         return contentReplyRepository.findAll();
     }
 
