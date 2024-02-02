@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 @Service
 public class UserService {
@@ -82,10 +83,8 @@ public class UserService {
         userDTO.setUserEmail(findUser.getUserEmail());
         userDTO.setRole(findUser.getRole());
         userDTO.setBirthDate(findUser.getBirthDate());
+        userDTO.setBirthDate(findUser.getBirthDate());
         userDTO.setJoinDate(findUser.getJoinDate());
-        userDTO.setPhone(findUser.getPhone());
-        userDTO.setGender(findUser.getGender());
-        userDTO.setUserName(findUser.getPhone());
 
         User user = modelMapper.map(userDTO, User.class);
 
@@ -113,9 +112,10 @@ public class UserService {
     }
     private static final String contentsImageUploadPath = "/temp/images/user/profileImages/";
 
-    public void profileImage(MultipartFile imageFile, UserDTO userDTO) throws IOException {
+    public void profileImage(MultipartFile image, UserDTO userDTO) throws IOException {
         // 이미지 파일을 저장할 디렉토리 경로 설정
-        Path path = Path.of(System.getProperty("user.dir") + contentsImageUploadPath);
+        Path path = Path.of("\\\\192.168.10.75"+this.contentsImageUploadPath);
+        System.out.println("===============" + path);
         // 디렉토리가 존재하지 않으면 생성
         if (!Files.exists(path)) {
             Files.createDirectories(path);
@@ -124,11 +124,17 @@ public class UserService {
         // 이미지 파일을 서버에 저장
         String fileName = userDTO.getUserEmail() + "_" + System.currentTimeMillis() + ".jpg"; // 파일명을 고유하게 설정
         Path filePath = path.resolve(fileName);
-        File dest = filePath.toFile();
-        imageFile.transferTo(dest);
+        Files.copy(image.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
         // UserDTO에 파일명과 경로 설정
         userDTO.setProfileImageName(fileName);
-        userDTO.setProfileImagePath(filePath.toString());
+        userDTO.setProfileImagePath(contentsImageUploadPath + fileName);
+    }
 
+    @Transactional
+    public void modifyUser(UserDTO userDTO){
+        User findUser = userRepository.findByUserEmail(userDTO.getUserEmail()).get();
+        findUser.setNickName(userDTO.getNickName());
+        findUser.setProfileImagePath(userDTO.getProfileImagePath());
+        findUser.setProfileImageName(userDTO.getProfileImageName());
     }
 }

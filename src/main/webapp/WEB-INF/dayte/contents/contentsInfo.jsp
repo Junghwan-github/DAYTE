@@ -69,11 +69,11 @@
                         </li>
                         <li class="contact">
                             <i class="fa-solid fa-phone-volume"></i>
-                            <span>053.634.5253</span>
+                            <span>${showContentsDetail.contactInfo}</span>
                         </li>
                         <li class="businessHours">
                             <i class="fa-regular fa-clock"></i>
-                            <span>11:30 ~ 22:00</span>
+                            <span>${showContentsDetail.opening} ~ ${showContentsDetail.closed}</span>
                         </li>
                     </ul>
                 </div>
@@ -109,7 +109,7 @@
                 <input type="radio" name="tabMenu" id="tabMenu1"/>
                 <label for="tabMenu1">간단 리뷰</label>
                 <div class="tabContent">
-                    <!-- 간단 리뷰 -->
+
                 </div>
             </li>
 
@@ -117,7 +117,7 @@
                 <input type="radio" name="tabMenu" id="tabMenu2"/>
                 <label for="tabMenu2">관련 후기</label>
                 <div class="tabContent">
-                    <!-- 상세 후기 -->
+
                 </div>
 
             </li>

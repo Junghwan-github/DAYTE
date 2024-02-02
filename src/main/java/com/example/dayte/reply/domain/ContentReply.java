@@ -1,6 +1,7 @@
 package com.example.dayte.reply.domain;
 
 import com.example.dayte.members.domain.User;
+import com.example.dayte.schedule.domain.Contents;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,6 +27,10 @@ public class ContentReply {
     @ManyToOne(fetch = FetchType.EAGER)
     private User user; // 사용자 이름
 
+
+    @JoinColumn (name = "contents")
+    @ManyToOne
+    private Contents contents;
     
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content; // 댓글 내용
@@ -39,5 +44,7 @@ public class ContentReply {
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Timestamp createDate; // 댓글 등록일
+
+
 
 }

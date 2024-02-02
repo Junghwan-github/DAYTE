@@ -27,7 +27,8 @@
             </div>
             <div>
                 <c:if test="${post.user.userEmail eq principal.userEmail}">
-                    <a href="/post/updatePost/${post.id}" class="btn btn-warning">수정하기</a>
+                    <button class="btn btn-secondary" onclick="history.back()">돌아가기</button>
+                    <a href="/post/updatePost/${post.id}" class="btn btn-warning"><button class="btn btn-warning">수정하기</button></a>
                     <button id="btn-delete" class="btn btn-danger">삭제하기</button>
                 </c:if>
             </div>
@@ -40,9 +41,10 @@
             </h1>
         </div>
         <div class="content">
-        <span><%--글 내용--%>
-             ${post.content}
-        </span>
+            <span>
+                <%--글 내용--%>
+               ${post.content}
+            </span>
         </div>
     </div>
     <%-- 포스트 내용 끝 --%>
@@ -73,45 +75,44 @@
 
     <%-- 댓글 목록 불러오기 구현 --%>
     <c:if test="${!empty postReplyList}">
+        <div class="reply-wrapper">
+
+
+        </div>
         <ul id="postReplyView">
             <c:forEach var="reply" items="${postReplyList}">
-                <li>
+                <li class="post-reply-li">
                     <ul>
                         <li>
                             <span>○ 프로필사진</span>
                             <span>${reply.user.nickName}</span>
                             <span>${reply.formatDate}</span>
                         </li>
-                        <li> <%-- 햄버거바 --%>
-                            <div id="mobile_rnb" >
-                                <button type="button" onclick="postReplyBtnListOpen(this)" id="postReplyHamburger" class=""></button>
-                                <label for="postReplyHamburger">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </label>
-                            </div>
-
-                            <div class="postReplyBtnList">
-                                <ul>
-                                    <li>
-                                        <button id="btn-update-reply" class="replyBtnShow"
-                                                onclick="replyObject.updateReply(this.value)" value="${reply.num}">수정
-                                        </button>
-                                    </li>
-                                    <li>
-                                        <button id="btn-delete-reply" onclick="replyObject.deleteReply(this.value)"
-                                                value="${reply.num}">삭제
-                                        </button>
-                                    </li>
-                                </ul>
-                            </div>
+                    </ul>
+                    <div class="reply-sub-nav">
+                            <%-- 햄버거바 --%>
+                        <button type="button" class="postReplyHamburger"><i
+                                class="xi-ellipsis-v"></i></button>
+                    </div>
+                    <ul class="postReplyBtnList">
+                        <li>
+                            <button id="btn-update-reply" class="replyBtnShow"
+                                <%--onclick="replyObject.updateReply(this.value)" value="${reply.num}">수정--%>
+                                    onclick="updateBtnClick(this)">수정
+                            </button>
+                        </li>
+                        <li>
+                            <button id="btn-delete-reply" onclick="replyObject.deleteReply(this.value)"
+                                    value="${reply.num}">삭제
+                            </button>
                         </li>
                     </ul>
-                    <ul>
-                        <li><p class="replyContent">${reply.content}</p></li>
-                    </ul>
+                    <p class="changeTextarea">${reply.content}</p>
+                    <button type="button" style="display: none" class="checkButton" onclick="checkButtonClick(this)" >확인</button>
+                    <button type="button" style="display: none" class="cancelButton" onclick="cancelButtonClick(this)" >취소</button>
                 </li>
+
+
             </c:forEach>
         </ul>
     </c:if>

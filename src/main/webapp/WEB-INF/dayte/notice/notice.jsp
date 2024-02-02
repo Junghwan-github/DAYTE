@@ -65,6 +65,7 @@
                 <br>
                 </tbody>
             </table>
+
             <div class="pagination">
                 <ul>
                     <c:if test="${!noticeList.first}">
@@ -82,13 +83,14 @@
                         </li>
                     </c:if>
 
-
+            <c:if test="${endPage >= 0}">
                     <c:forEach var="i" begin="${startPage}" end="${endPage}">
                         <li class="paginationNum">
                             <a class="<c:if  test='${currentPage == i}'>active</c:if>"
                                href="?page=${i}">${i + 1}</a>
                         </li>
                     </c:forEach>
+            </c:if>
 
                     <c:if test="${!noticeList.last}">
                         <li>

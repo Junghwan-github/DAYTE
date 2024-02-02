@@ -1,117 +1,12 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%--<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <sec:authorize access="isAuthenticated()">
     <sec:authentication property="principal" var="principal" />
-</sec:authorize>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>ContentReply</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="/webjars/jquery/3.7.1/jquery.min.js"></script>
-    <style>
-        .number {
-            display: none;
-        }
-        td {
-            text-align: center;
-        }
-        .comment{
-            text-align: start;
-        }
-        h4{
-            text-align: start;
-        }
-        .form-container {
-            display: flex;
-            align-items: center;
-        }
-        .form-control{
-            width: 380px;
-            height: 30px;
-            margin-right: 10px;
-            resize: none; /* 크기 변경 비활성화 */
-        }
-        .btn-secondary{
-            height: 35px;
-            width: 100px;
-        }
-        .commentBody{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .star-rating {
-            display: flex;
-            flex-direction: row-reverse;
-            justify-content: left;
-            text-align: center;
-            width: 10px;
-        }
-
-        .star-rating input {
-            display: none;
-        }
-
-        .star-rating label {
-            -webkit-text-fill-color: transparent;
-            -webkit-text-stroke-width: 1px;
-            -webkit-text-stroke-color: #000000;
-            cursor: pointer;
-        }
-
-        .star-rating :checked ~ label {
-            -webkit-text-fill-color: gold;
-        }
-
-        .star-rating label:hover,
-        .star-rating label:hover ~ label {
-            -webkit-text-fill-color: #FFFF00;
-        }
-
-        .star{
-            font-size: 20px;
-        }
-        .star-rating{
-            width: 110px;
-        }
-        .modifyBtn{
-            text-align: center;
-            width: 200px;
-        }
-        .modifyBtn > *{
-            font-size: 14px;
-            border: 0;
-            background-color: transparent;
-            color: #999;
-        }
-        .Times{
-            font-size: 15px;
-            color: #666;
-        }
-        .ReplyStar{
-            -webkit-text-fill-color: gold;
-            font-weight: bold;
-        }
-
-        .star-rating label:hover,
-        .star-rating label:hover ~ label {
-            -webkit-text-fill-color: #FFFF00;
-        }
-
-        .ContStar{
-
-            font-size: 15px;
-            font-weight: bold;
-            color: gold;
-        }
-
-    </style>
+</sec:authorize>--%>
+<%@include file="../layout/head.jsp"%>
+<link rel="stylesheet" href="/css/schedule/contentsReply.css">
 </head>
 <body>
-<%@include file="../layout/header.jsp" %>
-<h1>ContentReply</h1>
 
 <%-- 댓글 작성 부분 --%>
 <div class="container mt-3">
@@ -166,7 +61,7 @@
                         </c:forEach>
                     </td>
 
-                    <td class="Times"><span>${reply.formatDate()}</span></td>
+                    <%--<td class="Times"><span>${reply.createDate()}</span></td>--%>
                 </tr>
 
                 <tr>
@@ -190,6 +85,6 @@
 </c:if>
 
 
-<script src="/js/ContentReply.js"></script>
+<script src="/js/contentReply/contentReply.js"></script>
 
 <%@include file="../layout/footer.jsp" %>

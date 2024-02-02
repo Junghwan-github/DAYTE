@@ -72,6 +72,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                     .birthDate("99999999") // 임의의 값 넣기
                     .del(false)
                     .role(RoleType.USER)
+                    .profileImagePath(null)
                     .build();
 
             userRepository.save(user);
@@ -85,6 +86,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                     "99999999", // birthDate
                     "", // gender
                     false, // del
+                    null, // profileImagePath
                     Arrays.asList(new SimpleGrantedAuthority("ROLE_USER")) // RoleType
             );
 
@@ -104,6 +106,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                 user.getBirthDate(),
                 user.getGender(),
                 user.isDel(),
+                user.getProfileImagePath(),
                 Arrays.asList(
                         new SimpleGrantedAuthority("ROLE_" + user.getRole().name())
                 ));

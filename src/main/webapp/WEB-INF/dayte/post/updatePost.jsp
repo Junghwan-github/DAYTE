@@ -7,6 +7,14 @@
 <%-- css, jquery --%>
 <link rel="stylesheet" href="/css/layout/subnav.css">
 
+<!-- 써머노트 -->
+<link href="/webjars/summernote/0.8.10/summernote-bs4.css" rel="stylesheet">
+<script src="/webjars/summernote/0.8.10/summernote-bs4.min.js"></script>
+
+<%-- 부트스트랩 --%>
+<link href="/webjars/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+<script src="/webjars/bootstrap/5.3.2/js/bootstrap.min.js"></script>
+
 </head> <%-- /head --%>
 
 <body> <%-- body --%>
