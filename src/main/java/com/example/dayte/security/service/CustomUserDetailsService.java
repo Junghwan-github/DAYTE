@@ -48,6 +48,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                 user.getBirthDate(),
                 user.getGender(),
                 user.isDel(),
+                user.getProfileImagePath(),
                 Arrays.asList(new SimpleGrantedAuthority("ROLE_" + user.getRole().name()))
 
                 // List 컬렉션을 하나 생성해서 1. ROLE_USER, 2. ROLE_ADMIN
