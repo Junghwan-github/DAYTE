@@ -1,8 +1,7 @@
 $("#editBttn").on("click", function (){
     let user = {
         email: $("#email").text(),
-        password: $("#password1").val(),
-        nickName: $("#nickName").val()
+        nickName: $("#nickName").val(),
     }
 
     let formData = new FormData();
@@ -15,7 +14,6 @@ $("#editBttn").on("click", function (){
     if (my_photo.files.length > 0){
         formData.append("image", my_photo.files[0]);
     }
-    console.log(formData);
     $.ajax({
         type : "PUT",
         url : "/members/editForm",

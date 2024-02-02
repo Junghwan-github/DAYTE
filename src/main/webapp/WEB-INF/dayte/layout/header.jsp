@@ -5,7 +5,7 @@
     <nav>
         <h1 id="logo"><a href="/">Project T</a></h1>
         <ul>
-            <li><a href="notice">공지사항</a></li>
+            <li><a href="/notice">공지사항</a></li>
             <li><a href="/mainPostList">일정후기</a></li>
             <li><a href="#">고객센터</a></li>
             <c:choose>
@@ -19,7 +19,7 @@
                     <li class="userProfile">
                         <a href="#">
                             <div class="user-profile-images">
-                                프사
+                                <img src="${principal.getProfileImagePath()}"/>
                             </div>
                                 ${principal.getNickName()} 님
                              <i class="xi-heart"></i>

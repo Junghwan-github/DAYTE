@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.sql.Timestamp;
 
@@ -47,7 +48,9 @@ public class UserDTO {
 
     private Timestamp joinDate; //
 
-    private String ProfileImageName; // 프로필 이미지 이름 
+    private MultipartFile image;
+
+    private String profileImageName; // 프로필 이미지 이름
     
-    private String ProfileImagePath; // 프로필 이미지 경로
+    private String profileImagePath; // 프로필 이미지 경로
 }

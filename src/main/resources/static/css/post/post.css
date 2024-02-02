@@ -1,3 +1,4 @@
+
 b{
     font-size: 20px;
 }
@@ -15,10 +16,10 @@ p{
     line-height: 25px;
 }
 .s1 > a {
+    border: solid 1px #db1811;
     text-decoration: none;
     font-weight: bold;
     font-size: 18px;
-    color: #551A8B;
 }
 strong{
     font-size: 20px;
@@ -26,7 +27,6 @@ strong{
 }
 .title{
     margin: 50px 30px 30px;
-
 }
 
 .informationBox {
@@ -87,32 +87,8 @@ strong{
     text-align: center;
 
 }
-.PostItems {
-    margin: 20px auto;
-    margin-bottom: 0px;
-    width: 1180px;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-    align-items: center;
-    text-align: center;
-}
 
-.PostItems > div > a{
-    font-size: 15px;
-    color: #888;
-    font-weight: bold;
-}
-.PostItems > div > button{
 
-    margin-left: 20px;
-    border: 0;
-    background-color: transparent;
-    color: #888;
-    font-size: 15px;
-    font-weight: bold;
-    padding: 0px;
-}
 .container{
     display: flex;
     margin: 0 auto;

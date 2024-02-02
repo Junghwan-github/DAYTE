@@ -70,7 +70,6 @@ public class IndexMainSliderService {
     private void createDirectory() {
         try {
             Path path = Path.of(IndexMainSliderService.imageUploadPath);
-
             if (!Files.exists(path)) {
                 Files.createDirectories(path);
             }
