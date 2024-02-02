@@ -73,45 +73,42 @@
 
     <%-- 댓글 목록 불러오기 구현 --%>
     <c:if test="${!empty postReplyList}">
+        <div class="reply-wrapper">
+
+
+        </div>
         <ul id="postReplyView">
             <c:forEach var="reply" items="${postReplyList}">
-                <li>
+                <li class="post-reply-li">
                     <ul>
                         <li>
                             <span>○ 프로필사진</span>
                             <span>${reply.user.nickName}</span>
                             <span>${reply.formatDate}</span>
                         </li>
-                        <li> <%-- 햄버거바 --%>
-                            <div id="mobile_rnb" >
-                                <button type="button" onclick="postReplyBtnListOpen(this)" id="postReplyHamburger" class=""></button>
-                                <label for="postReplyHamburger">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </label>
-                            </div>
-
-                            <div class="postReplyBtnList">
-                                <ul>
-                                    <li>
-                                        <button id="btn-update-reply" class="replyBtnShow"
-                                                onclick="replyObject.updateReply(this.value)" value="${reply.num}">수정
-                                        </button>
-                                    </li>
-                                    <li>
-                                        <button id="btn-delete-reply" onclick="replyObject.deleteReply(this.value)"
-                                                value="${reply.num}">삭제
-                                        </button>
-                                    </li>
-                                </ul>
-                            </div>
+                    </ul>
+                    <div class="reply-sub-nav">
+                            <%-- 햄버거바 --%>
+                        <button type="button" class="postReplyHamburger"><i
+                                class="xi-ellipsis-v"></i></button>
+                    </div>
+                    <ul class="postReplyBtnList">
+                        <li>
+                            <button id="btn-update-reply" class="replyBtnShow"
+                                <%--onclick="replyObject.updateReply(this.value)" value="${reply.num}">수정--%>
+                                    onclick="updateBtnClick()">수정
+                            </button>
+                        </li>
+                        <li>
+                            <button id="btn-delete-reply" onclick="replyObject.deleteReply(this.value)"
+                                    value="${reply.num}">삭제
+                            </button>
                         </li>
                     </ul>
-                    <ul>
-                        <li><p class="replyContent">${reply.content}</p></li>
-                    </ul>
+                    <p class="changeTextarea">${reply.content}</p>
                 </li>
+
+
             </c:forEach>
         </ul>
     </c:if>
