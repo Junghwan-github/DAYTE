@@ -36,7 +36,7 @@ let replyObject = {
 
                 } else
 
-                this.completeUpdateReply();
+                    this.completeUpdateReply();
                 this.toggleButtons();
 
             });
@@ -137,7 +137,7 @@ let replyObject = {
             .then(res => res.json())
             .then(data => {
                 console.log(data);
-               location.reload(); // 페이지 새로고침
+                location.reload(); // 페이지 새로고침
             })
             .catch(err => alert(`에러 발생 : ${err.message}`));
     },

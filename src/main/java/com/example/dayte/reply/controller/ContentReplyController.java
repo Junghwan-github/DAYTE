@@ -29,6 +29,7 @@ public class ContentReplyController {
         contentReplyDTO.setUser(modelMapper.map(principal, User.class));
         ContentReply contentReply = modelMapper.map(contentReplyDTO, ContentReply.class);
         contentReplyService.contentReplyinsert(contentReply);
+
         return new ResponseDTO<>(HttpStatus.OK.value(), "댓글이 등록됐습니다.");
     }
 
