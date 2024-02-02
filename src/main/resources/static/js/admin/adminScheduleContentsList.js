@@ -26,11 +26,11 @@ let scheduleContentsListObject = {
                     $('.longitudeText').text("소수점 앞자리를 3자리로 입력해주세요.");
                     return;
                 }
-                else if (latitude_backLength != 7) {
-                    $('.latitudeText').text("위도의 값은 소수점 앞 2자리와 소수점 뒤 7자리로 입력해주세요.");
+                else if (latitude_backLength != 6) {
+                    $('.latitudeText').text("위도의 값은 소수점 앞 2자리와 소수점 뒤 6자리로 입력해주세요.");
                     return;
-                } else if (longitude_backLength != 7) {
-                    $('.longitudeText').text("경도의 값은 소수점 앞 3자리와 소수점 뒤 7자리로 입력해주세요.");
+                } else if (longitude_backLength != 6) {
+                    $('.longitudeText').text("경도의 값은 소수점 앞 3자리와 소수점 뒤 6자리로 입력해주세요.");
                     return;
                 }
             }
@@ -41,28 +41,22 @@ let scheduleContentsListObject = {
 
         let formData = new FormData();
 
-        // const imgArr = [];
-
         for (let i = 0; i < $("#image")[0].files.length; i++) {
             // imgArr.push($("#image")[0].files[i]);
             formData.append("imageFiles", $("#image")[0].files[i]);
         }
-        // let imageFile = $("#images")[0].files[0];
-        // console.log("Image File:", imageFile);
-        // formData.append("images", imageFile);
-        // formData.append("ImageFiles", imgArr);
 
         formData.append("businessName", $("#businessName").val());
         formData.append("category", $("#category").val());
         formData.append("gu", $("#gu").val());
-        formData.append("positionX", $("#positionX").val());
-        formData.append("positionY", $("#positionY").val());
+        formData.append("positionX", $("#positionX").val() + '0');
+        formData.append("positionY", $("#positionY").val() + '0');
         formData.append("detailedAddress", $("#address").val());
         formData.append("keyword", $("#keyword").val());
         formData.append("detailedDescription", $("#detailedDescription").val());
-
-        console.log(formData);
-
+        formData.append("contactInfo", $("#contactInfo").val());
+        formData.append("opening", $("#opening").val());
+        formData.append("closed", $("#closed").val());
 
         $.ajax({
             type : "POST",
