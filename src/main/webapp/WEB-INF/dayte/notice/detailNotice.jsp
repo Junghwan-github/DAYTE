@@ -23,9 +23,9 @@
                 <input type="text" id="title" value="${notice.title}" readonly>
             </div>
             <div class="noticeContent">
-                  <textarea id="content" readonly>
+                  <div id="content">
                       ${notice.content}
-                  </textarea>
+                  </div>
             </div>
         </div>
 

@@ -5,7 +5,7 @@
     <nav>
         <h1 id="logo"><a href="/">Project T</a></h1>
         <ul>
-            <li><a href="notice">공지사항</a></li>
+            <li><a href="/notice">공지사항</a></li>
             <li><a href="/mainPostList">일정후기</a></li>
             <li><a href="#">고객센터</a></li>
             <c:choose>

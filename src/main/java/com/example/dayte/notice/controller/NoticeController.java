@@ -28,6 +28,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -71,6 +72,8 @@ public class NoticeController {
         model.addAttribute("noticeList", noticeService.getNoticeList(pageable));
 
 
+
+
         return "notice/notice";
     }
 
@@ -90,10 +93,10 @@ public class NoticeController {
         int pageSize = 5;
 
         int startPage = Math.max(0, (pageable.getPageNumber() / pageSize) * pageSize);
-        int endPage = Math.min(startPage + pageSize - 1, totalPages - 1);
-
-
         model.addAttribute("startPage", startPage);
+
+
+        int endPage = Math.min(startPage + pageSize - 1, totalPages - 1);
         model.addAttribute("endPage", endPage);
 
 

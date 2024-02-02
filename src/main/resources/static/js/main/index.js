@@ -24,8 +24,6 @@ $(document).ready(function () {
   });
 });
 
-
-
 // 상세 검색 히든
 let toggleSelected = document.querySelector(".searchContents");
 let bottonSearch = document.querySelector("input[name='indexSearch']");
@@ -389,13 +387,19 @@ fetch(apiShort)
         }
       }
 
-      for(let i=0; i<apiData.tmn.length; i++){
-        console.log(apiData.tmn[i]);
+      //내일부터 6일 뒤의 기온, 날씨, 강수량 화면단에 불러오기
+
+
+      /*for(let i=0; i<apiData.sky.length; i++){
+        console.log(apiData.pty[i]);
       }
+*/
 
 
-
+      let weatherInfo = [];
       let formattedDate = apiData.tmn[0].date.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3");
+
+
 
       /*let tomorrowDate = new Date(formattedDate);
       tomorrowDate.setDate(tomorrowDate.getDate()+1);
@@ -416,16 +420,15 @@ fetch(apiShort)
         stringToDate.setDate(stringToDate.getDate()+i);
         let DateToString = stringToDate.toISOString().slice(0, 10).replace(/-/g, "");
 
+        /* 1일, 2일 최고 기온, 최저 기온 추출  */
         let temperatures = [];
-       
 
         apiData.tmp.forEach(k => {
           if(k.date == DateToString){
-              temperatures.push(parseInt(k.value));
+            temperatures.push(parseInt(k.value));
           }
         })
-        console.log(temperatures);
-
+        // console.log(temperatures);
 
 
         let maxTemperatureOfDay = temperatures[0];
@@ -434,7 +437,6 @@ fetch(apiShort)
         for(let i=0; i<temperatures.length; i++){
           if(temperatures[i]>maxTemperatureOfDay){
             maxTemperatureOfDay = temperatures[i];
-
           }
         }
         for(let i=0; i<temperatures.length; i++){
@@ -443,16 +445,146 @@ fetch(apiShort)
           }
         }
 
-        console.log(maxTemperatureOfDay);
-        console.log(minTemperatureOfDay);
+        /*console.log(maxTemperatureOfDay);
+        console.log(minTemperatureOfDay);*/
+        /* ============= 1일, 2일 최고 기온, 최저 기온 추출 여기까지 int형 ================ */
+
+        let morningPtyList = [];
+        let afternoonPtyList = [];
+
+
+        apiData.pty.forEach(k => {
+
+          if(k.date == DateToString){
+            if(parseInt(k.Time)<1200){
+              morningPtyList.push(parseInt(k.value));
+            } else{
+              afternoonPtyList.push(parseInt(k.value));
+            }
+          }
+        })
+
+        let morningSkyList = [];
+        let afternoonSkyList = [];
+
+        apiData.sky.forEach(k => {
+          if(k.date == DateToString){
+            if(parseInt(k.Time)<1200){
+              morningSkyList.push(parseInt(k.value));
+            } else{
+              afternoonSkyList.push(parseInt(k.value));
+            }
+          }
+        })
+
+
+        // console.log(morningSkyList);
+        // console.log(afternoonSkyList);
+
+        //exampleArray1,2 는 나중에 morningPtyList, afternoonPtyListfh 바꾸기
+
+        //let exampleArray1 = [2, 1, 1, 1, 0, 3, 2, 3, 1, 3, 3, 4];
+        // let exampleArray2 = [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3];
+// let ampmPty = [exampleArray1, exampleArray2];
+        let morning = [morningPtyList, morningSkyList];
+        let afternoon = [afternoonPtyList, afternoonSkyList];
+        let ampmPty = [morning, afternoon];
+        let ampmPtyValue = [];
+
+
+
+        ampmPty.forEach(array => {
+
+
+
+          let valuesToCheck = [1, 2, 3, 4];
+          let includesAny = valuesToCheck.some(value => array[0].includes(value));
+
+          if (includesAny) {
+            // console.log("배열 안에 1, 2, 3, 4 중 어떤 값이라도 포함되어 있음");
+            let frequency = valuesToCheck.reduce((result, valueToCheck) => {
+              result[valueToCheck] = array[1].filter(value => value === valueToCheck).length;
+              return result;
+            }, {});
+
+            let maxFrequencyValues = Math.max(...Object.values(frequency));
+            let maxFrequency = Object.keys(frequency).filter(key => frequency[key] === maxFrequencyValues).map(value => parseInt(value));
+
+            // pty의 값의 최대빈도수가 1과 3이라면 2로 변경
+            if (maxFrequency.length >= 2 && (maxFrequency.includes(1) && maxFrequency.includes(3))) {
+              maxFrequency.length = 1;
+              maxFrequency[0] = 2;
+            }
+
+            ampmPtyValue.push(maxFrequency[0]);
+            console.log(maxFrequency[0]);
+
+            // 필요한 값은 최대 빈도수를 가지는 번호: maxFrequency
+          } else {
+            // console.log("배열 안에 1, 2, 3, 4 값이 포함되어 있지 않음");
+
+            console.log("else문 이거 한번만 떠야함");
+
+            let skyList = array[1];
+
+            let valuesToCheck = [3, 4];
+            let includesAny = valuesToCheck.some(value => skyList.includes(value));
+
+            if (includesAny) {
+              // console.log("배열 안에 3, 4 중 어떤 값이라도 포함되어 있음");
+              let frequency = valuesToCheck.reduce((result, valueToCheck) => {
+                result[valueToCheck] = skyList.filter(value => value === valueToCheck).length;
+                return result;
+              }, {});
+
+              let maxFrequencyValues = Math.max(...Object.values(frequency));
+              let maxFrequency = Object.keys(frequency).filter(key => frequency[key] === maxFrequencyValues).map(value => parseInt(value));
+
+              console.log("맑음 : " + maxFrequency);
+
+              // pty의 값의 최대빈도수가 1과 3이라면 2로 변경
+              /* if (maxFrequency.length >= 2 && (maxFrequency.includes(1) && maxFrequency.includes(3))) {
+                maxFrequency.length = 1;
+                maxFrequency[0] = 2;
+              } */
+            }
+          }
+
+
+
+        });
 
 
 
 
+        /*  weatherInfo[i] = {
+            maxTem : maxTemperatureOfDay,
+            minTem : minTemperatureOfDay,
+            maxPty : [ampmPtyValue[0], ampmPtyValue[1]]
+
+          }
+          console.log(weatherInfo[i]);
+  */
 
 
 
       }
+
+
+
+
+
+
+      /*let choi = {myname : "seunogh", gender : "male"};
+      let seungho = {myname : "choiw", gender : "rrmale"};
+
+      let hii = [choi, seungho];
+      hii.forEach(k => {
+        console.log(k.myname);
+        console.log(k.gender);
+      })*/
+
+
 
 
 
@@ -485,11 +617,11 @@ fetch(apiShort)
               $(`.${daysListId} > div`).append(`<div class="daysListIcon"></div>`);
             }
             //날씨
-      fetch(apiLong2)
-          .then((response) => response.json())
-          .then((json) => {
-            console.log(json);
-          })
+            fetch(apiLong2)
+                .then((response) => response.json())
+                .then((json) => {
+                  console.log(json);
+                })
           })
           .catch((error2) => console.log(error2));
     })
