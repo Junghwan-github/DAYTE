@@ -6,7 +6,6 @@
 </head>
 <body>
 <%@include file="../layout/header.jsp"%>
-<script src="/js/header.js"></script>
 <main>
 
     <div class="container">

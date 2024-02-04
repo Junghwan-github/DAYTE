@@ -134,6 +134,7 @@ public class UserController {
 
     }
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/members/editForm")
     public String modifyUserForm(Model model,
                                  @AuthenticationPrincipal UserSecurityDTO userSecurityDTO) {
@@ -141,24 +142,20 @@ public class UserController {
         return "members/editForm";
     }
 
+
     @PutMapping("/members/editForm")
     public @ResponseBody ResponseDTO<?> modifyUser(
-            @RequestPart("userEmail") String userEmail, // 변경된 부분
-            @RequestPart("password") String password, // 변경된 부분
-            @RequestPart("nickName") String nickName, // 변경된 부분,
-            @RequestPart("image") MultipartFile imageFile) throws IOException {
+            @ModelAttribute UserDTO userDTO, // 변경된 부분
+            @AuthenticationPrincipal UserSecurityDTO principal
+            ) throws IOException {
 
-        UserDTO userDTO = new UserDTO();
-        userDTO.setUserEmail(userEmail);
-        userDTO.setPassword(password);
-        userDTO.setNickName(nickName);
-        if (imageFile != null && !imageFile.isEmpty()) {
-            userService.profileImage(imageFile, userDTO);
+        if (userDTO.getImage() != null && !userDTO.getImage().isEmpty()) {
+            userService.profileImage(userDTO.getImage(), userDTO);
         }
 
-        userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-        userDTO.setNickName(userDTO.getNickName());
-        userService.updateUser(userDTO);
+        //  userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        userService.modifyUser(userDTO);
+        principal.setProfileImagePath(userDTO.getProfileImagePath());
         return new ResponseDTO<>(HttpStatus.OK.value(), "회원 정보가 수정되었습니다.");
     }
 }

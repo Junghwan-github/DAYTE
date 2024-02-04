@@ -5,8 +5,7 @@
 <%@include file="../layout/head.jsp"%>
 
 <%-- css, jquery --%>
-<link rel="stylesheet" href="/css/layout/subnav.css">
-
+<title>일정후기 | 수정</title>
 </head> <%-- /head --%>
 
 <body> <%-- body --%>

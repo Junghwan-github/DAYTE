@@ -27,32 +27,7 @@ public class AdminContentsController {
     @PostMapping("/admin/home/registration/contents")
     public @ResponseBody ResponseDTO<?> insertIndexMainSlider (
                     @ModelAttribute AdminContentsDTO adminContentsDTO
-//                    @RequestPart("imageFiles") MultipartFile[] images,
-//                    @RequestPart("businessName") String businessName,
-//                    @RequestPart("category") String category,
-//                    @RequestPart("gu") String gu,
-//                    @RequestPart("positionX") String positionX,
-//                    @RequestPart("positionY") String positionY,
-//                    @RequestPart("address") String address,
-//                    @RequestPart("keyword") String keyword,
-//                    @RequestPart("detailedDescription") String detailedDescription
                     ) {
-
-        System.out.println("post로들어옴");
-
-        for (int i = 0; i < adminContentsDTO.getImageFiles().size(); i++) {
-            System.out.println("image : " + adminContentsDTO.getImageFiles().get(i).getOriginalFilename());
-            System.out.println("image : " + adminContentsDTO.getImageFiles().get(i));
-        }
-
-        System.out.println("businessName : " + adminContentsDTO.getBusinessName());
-        System.out.println("category : " + adminContentsDTO.getCategory());
-        System.out.println("gu : " + adminContentsDTO.getGu());
-        System.out.println("positionX : " + adminContentsDTO.getPositionX());
-        System.out.println("positionY : " + adminContentsDTO.getPositionY());
-        System.out.println("address : " + adminContentsDTO.getDetailedAddress());
-        System.out.println("keyword : " + adminContentsDTO.getKeyword());
-        System.out.println("detailedDescription : " + adminContentsDTO.getDetailedDescription());
 
         adminContentsService.insertAdminContents(adminContentsDTO);
         adminContentsService.insertAdminContentsImage(new AdminContentsImageDTO(adminContentsDTO.getImageFiles()));

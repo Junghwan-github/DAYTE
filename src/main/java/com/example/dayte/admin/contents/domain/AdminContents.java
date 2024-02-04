@@ -28,13 +28,19 @@ public class AdminContents {
 
     private String gu;
 
-    @Column(nullable = false, precision = 9, scale = 7)
+    @Column(nullable = false, precision = 8, scale = 6)
     private BigDecimal positionX;
 
-    @Column(nullable = false, precision = 10, scale = 7)
+    @Column(nullable = false, precision = 9, scale = 6)
     private BigDecimal positionY;
 
     private String detailedAddress;
+
+    private String contactInfo; // 연락처 정보
+
+    private String opening; // 가게 여는 시간
+
+    private String closed; // 가게 닫는 시간
 
     private String keyword;
 

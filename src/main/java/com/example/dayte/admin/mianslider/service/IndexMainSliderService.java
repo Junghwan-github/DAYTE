@@ -56,7 +56,7 @@ public class IndexMainSliderService {
 
 
 
-            Path targetPath = Path.of(imageUploadPath + fileName);
+            Path targetPath = Path.of("\\\\192.168.10.75" + imageUploadPath + fileName);
 
             Files.copy(image.getInputStream(), targetPath, StandardCopyOption.REPLACE_EXISTING);
 
@@ -70,7 +70,6 @@ public class IndexMainSliderService {
     private void createDirectory() {
         try {
             Path path = Path.of(IndexMainSliderService.imageUploadPath);
-
             if (!Files.exists(path)) {
                 Files.createDirectories(path);
             }

@@ -1,6 +1,6 @@
 #searchContainer {
+    position: relative;
     width: 100%;
-    /* background: #28536a; */
     padding: 30px 0;
     box-sizing: border-box;
 }

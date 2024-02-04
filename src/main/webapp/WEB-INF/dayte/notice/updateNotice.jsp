@@ -1,13 +1,7 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@include file="../layout/head.jsp" %>
-<title>공지사항</title>
+<title>공지사항 | 업데이트</title>
 
-<%-- 서머노트--%>
-<link href="/webjars/summernote/0.8.10/summernote-bs4.css" rel="stylesheet">
-<script src="/webjars/summernote/0.8.10/summernote-bs4.min.js"></script>
-<%-- 부트스트랩 --%>
-<link href="/webjars/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
-<script src="/webjars/bootstrap/5.3.2/js/bootstrap.min.js"></script>
 
 <link rel="stylesheet" href="/css/notice/updateNotice.css">
 
@@ -15,7 +9,6 @@
 
 <body>
 <%@include file="../layout/header.jsp" %>
-<script src="/js/main/header.js"></script>
 
 <c:if test="${!empty notice.files}">
     <c:forEach var="file" items="${notice.files}">

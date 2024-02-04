@@ -14,12 +14,12 @@
                 </c:when>
                 <c:otherwise>
                     <sec:authorize access="hasRole('ADMIN')">
-                        <li><a href="/admin/home">관리자 페이지</a></li>
+                        <li><a href="/admin/home">관리자</a></li>
                     </sec:authorize>
                     <li class="userProfile">
                         <a href="#">
                             <div class="user-profile-images">
-                                프사
+                                <img src="${principal.getProfileImagePath()}"/>
                             </div>
                                 ${principal.getNickName()} 님
                              <i class="xi-heart"></i>

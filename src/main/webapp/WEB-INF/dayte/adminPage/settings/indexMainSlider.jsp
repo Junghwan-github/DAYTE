@@ -76,5 +76,5 @@
         </ul>
     </form>
 
-    <script src="/js/adminIndexMainSlider.js"></script>
+    <script src="/js/admin/adminIndexMainSlider.js"></script>
 <%@include file="../layout/adminFooter.jsp" %>

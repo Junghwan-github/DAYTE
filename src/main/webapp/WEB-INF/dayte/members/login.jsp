@@ -8,7 +8,6 @@
 
 <body>
 <%@include file="../layout/header.jsp"%>
-<script src="/js/main/header.js"></script>
   <section class="loginForm">
     <form action="/members/securityLogin" method="post">
       <h1>DAYTE 로그인</h1>

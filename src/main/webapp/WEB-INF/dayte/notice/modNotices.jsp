@@ -4,16 +4,14 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <sec:authentication var="principal" property="principal"/>
 <%@include file="../layout/head.jsp" %>
-<title>공지사항</title>
+<title>공지사항 | 수정</title>
 
-<script src="/webjars/bootstrap/5.3.2/js/bootstrap.bundle.js"></script>
 <link rel="stylesheet" href="/css/notice/modNotice.css">
 
 </head>
 
 <body>
 <%@include file="../layout/header.jsp" %>
-<script src="/js/main/header.js"></script>
 
 <c:set var="indexNumber" value="${noticeList.number + 2}"/>
 

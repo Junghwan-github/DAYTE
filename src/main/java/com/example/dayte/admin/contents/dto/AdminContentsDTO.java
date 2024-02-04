@@ -44,6 +44,18 @@ public class AdminContentsDTO implements Serializable {
 
     @NotNull(message = "필수 등록사항입니다.")
     @NotBlank(message = "필수 등록사항입니다.")
+    private String contactInfo;
+
+    @NotNull(message = "필수 등록사항입니다.")
+    @NotBlank(message = "필수 등록사항입니다.")
+    private String opening; // 가게 여는 시간
+
+    @NotNull(message = "필수 등록사항입니다.")
+    @NotBlank(message = "필수 등록사항입니다.")
+    private String closed; // 가게 닫는 시간
+
+    @NotNull(message = "필수 등록사항입니다.")
+    @NotBlank(message = "필수 등록사항입니다.")
     private String keyword;
 
     @NotNull(message = "필수 등록사항입니다.")
