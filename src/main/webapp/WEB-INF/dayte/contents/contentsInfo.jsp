@@ -15,7 +15,17 @@
     -->
 <%@include file="../layout/header.jsp" %>
 <!-- 메인 -->
-
+<section id="content-sub-nav">
+    <div class="content-sub-nav-container">
+        <ul>
+            <li><a href="#mainContentsImages">처음으로</a></li>
+            <li><a href="#contentInfo">기본정보</a></li>
+            <li><a href="#amenities">편의시설</a></li>
+            <li><a href="#map-pointer">위치</a></li>
+            <li><a href="#tab-review">리얼리뷰</a></li>
+        </ul>
+    </div>
+</section>
 
 <main>
     <section id="mainContentsImages">
@@ -44,7 +54,8 @@
     <section id="contentInfo">
 
         <!-- 콘텐츠 정보 -->
-        <span>${showContentsDetail.gu}</span> <span>${showContentsDetail.category}</span> <span>${showContentsDetail.keyword}</span>
+        <span>${showContentsDetail.gu}</span> <span>${showContentsDetail.category}</span>
+        <span>${showContentsDetail.keyword}</span>
         <h1>${showContentsDetail.businessName}<span>★ 4.8</span></h1>
         <div class="content-wrapper">
             <div class="left-content">
@@ -60,7 +71,8 @@
             <%--            </div>--%>
 
             <div class="summaryDesc">
-                <span class="pointer-x">${showContentsDetail.positionX}</span> <span class="pointer-y">${showContentsDetail.positionY}</span>
+                <span class="pointer-x">${showContentsDetail.positionX}</span> <span
+                    class="pointer-y">${showContentsDetail.positionY}</span>
                 <div id="content-map">
                     <ul class="content-info-wrapper">
                         <li class="address">
@@ -100,29 +112,107 @@
             <%--            </div>--%>
         </div>
     </section>
+    <section id="amenities">
+        <div class="amenities-container">
+            <h2>편의시설</h2>
+            <div class="amenities-content">
+                <span>상세정보없음</span>
+            </div>
+        </div>
+    </section>
 
+    <section id="map-pointer">
+        <div class="map-pointer-container">
+            <h2>위치</h2>
+            <div class="map-xy">
+
+            </div>
+        </div>
+    </section>
     <!-- 이용후기, 댓글 탭메뉴 -->
-    <div class="tabMenu ">
-        <ul>
-
-            <li id="tab1" class="conBtn">
-                <input type="radio" name="tabMenu" id="tabMenu1"/>
-                <label for="tabMenu1">간단 리뷰</label>
-                <div class="tabContent">
-
+    <section id="tab-review">
+        <div class="tab-container">
+            <div class="tab-wrapper">
+                <div class="tab atv" onclick="openTab('tab1')">리얼리뷰</div>
+                <div class="tab" onclick="openTab('tab2')">관련후기</div>
+            </div>
+            <div id="tab1" class="tab-content active">
+                <div class="reply-content-review-list">
+                    <div class="reply-content-review-item">
+                        <div class="user-info">
+                            <ul>
+                                <li>
+                                    <div class="user-profile-image"></div>
+                                </li>
+                                <li>
+                                    <span>닉네임</span>
+                                </li>
+                            </ul>
+                            <div>
+                                <span>★★★★★</span>
+                            </div>
+                        </div>
+                        <div class="reply-content">
+                            <p>최고로 좋았어요! 가나다라마바사 아자차카 테스트
+                                다음에 또 갈꺼에요 테스트입니다
+                                꼭 추천드립니다.! 이것저것궁시렁궁시렁
+                            </p>
+                        </div>
+                    </div>
+                    <div class="reply-content-review-item">
+                        <div class="user-info">
+                            <ul>
+                                <li>
+                                    <div class="user-profile-image"></div>
+                                </li>
+                                <li>
+                                    <span>닉네임</span>
+                                </li>
+                            </ul>
+                            <div>
+                                <span>★★★★★</span>
+                            </div>
+                        </div>
+                        <div class="reply-content">
+                            <p>최고로 좋았어요! 가나다라마바사 아자차카 테스트
+                                다음에 또 갈꺼에요 테스트입니다
+                                꼭 추천드립니다.! 이것저것궁시렁궁시렁
+                            </p>
+                        </div>
+                    </div>
                 </div>
-            </li>
+            </div>
+            <div id="tab2" class="tab-content">
+                <div class="reply-content-review-list">
+                    <div class="reply-content-review-item">
+                        <div class="user-info-post">
+                            <ul>
+                                <li>
+                                    <div class="user-profile-image"></div>
+                                </li>
+                                <li>
+                                    <span>닉네임</span>
+                                </li>
+                            </ul>
+                        </div>
 
-            <li id="tab2" class="conBtn">
-                <input type="radio" name="tabMenu" id="tabMenu2"/>
-                <label for="tabMenu2">관련 후기</label>
-                <div class="tabContent">
-
+                        <div class="reply-content">
+                            <div class="images-wrapper">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
+                            <p>최고로 좋았어요! 가나다라마바사 아자차카 테스트
+                                다음에 또 갈꺼에요 테스트입니다
+                                꼭 추천드립니다.! 이것저것궁시렁궁시렁
+                            </p>
+                        </div>
+                    </div>
                 </div>
-
-            </li>
-        </ul>
-    </div>
+            </div>
+        </div>
+    </section>
 </main>
 <script defer src="/js/schedule/contentInfo.js"></script>
 <%@include file="../layout/footer.jsp" %>
