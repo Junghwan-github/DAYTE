@@ -47,12 +47,12 @@ public class ScheduleController {
             @RequestBody ScheduleDTO scheduleDTO,
             @AuthenticationPrincipal UserSecurityDTO userSecurityDTO
     ) {
-        Schedule findSchedule = scheduleService.getUserSchedule(scheduleDTO, userSecurityDTO);
-        if (findSchedule.getStartDate() == null) {
+        Schedule existingSchedule = scheduleService.getUserSchedule(scheduleDTO, userSecurityDTO);
+        if (existingSchedule.getStartDate() != null) {
+            return new ResponseDTO<>(HttpStatus.CONFLICT.value(), "일정이 이미 있습니다.");
+        } else {
             scheduleService.insertSchedule(userSecurityDTO, scheduleDTO);
             return new ResponseDTO<>(HttpStatus.OK.value(), "일정이 등록 되었습니다.");
-        } else {
-            return new ResponseDTO<>(HttpStatus.CONFLICT.value(), "일정이 이미 있습니다.");
         }
     }
 

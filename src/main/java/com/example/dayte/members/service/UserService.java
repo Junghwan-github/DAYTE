@@ -12,13 +12,18 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.util.UriUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UserService {
@@ -112,22 +117,28 @@ public class UserService {
     }
     private static final String contentsImageUploadPath = "/temp/images/user/profileImages/";
 
-    public void profileImage(MultipartFile image, UserDTO userDTO) throws IOException {
+    public void profileImage(MultipartFile image, UserDTO userDTO) {
+        try {
+            String uuid = UUID.randomUUID().toString();
         // 이미지 파일을 저장할 디렉토리 경로 설정
-        Path path = Path.of("\\\\192.168.10.75"+this.contentsImageUploadPath);
-        System.out.println("===============" + path);
+        Path path = Path.of("\\\\192.168.10.75"+contentsImageUploadPath);
         // 디렉토리가 존재하지 않으면 생성
         if (!Files.exists(path)) {
             Files.createDirectories(path);
         }
+            String encodedFileName = UriUtils.encode(Objects.requireNonNull(image.getOriginalFilename()), StandardCharsets.UTF_8);
+            String fileName = uuid + "_" + encodedFileName;
 
-        // 이미지 파일을 서버에 저장
-        String fileName = userDTO.getUserEmail() + "_" + System.currentTimeMillis() + ".jpg"; // 파일명을 고유하게 설정
-        Path filePath = path.resolve(fileName);
-        Files.copy(image.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-        // UserDTO에 파일명과 경로 설정
-        userDTO.setProfileImageName(fileName);
-        userDTO.setProfileImagePath(contentsImageUploadPath + fileName);
+            Path targetPath = Path.of(path + "/"+ (uuid  + "_"+ image.getOriginalFilename()));
+            System.out.println(targetPath);
+            Files.copy(image.getInputStream(), targetPath, StandardCopyOption.REPLACE_EXISTING);
+
+            // UserDTO에 파일명과 경로 설정
+            userDTO.setProfileImageName(fileName);
+            userDTO.setProfileImagePath(contentsImageUploadPath + fileName);
+        } catch (IOException e) {
+            ;;
+        }
     }
 
     @Transactional
@@ -136,5 +147,10 @@ public class UserService {
         findUser.setNickName(userDTO.getNickName());
         findUser.setProfileImagePath(userDTO.getProfileImagePath());
         findUser.setProfileImageName(userDTO.getProfileImageName());
+    }
+
+    public Boolean isNickNameAvailable(String nickName) {
+        Optional<User> findNickName =  userRepository.findByNickName(nickName);
+        return findNickName.isEmpty();
     }
 }
