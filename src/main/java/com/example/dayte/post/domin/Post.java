@@ -38,6 +38,7 @@ public class Post {
 
     @OneToMany(mappedBy = "post", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @OrderBy("num desc")
+
     private List<PostReply> replyList;
 
 //        private int cnt;

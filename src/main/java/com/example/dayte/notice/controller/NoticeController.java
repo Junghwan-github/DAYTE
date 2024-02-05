@@ -3,17 +3,15 @@ package com.example.dayte.notice.controller;
 
 import com.example.dayte.members.domain.RoleType;
 import com.example.dayte.members.domain.User;
-import com.example.dayte.notice.controller.advice.FileUtils;
+import com.example.dayte.notice.controller.advice.FileUtil;
 import com.example.dayte.notice.domain.FilesInfo;
 import com.example.dayte.notice.domain.Notice;
 import com.example.dayte.notice.dto.NoticeDTO;
 import com.example.dayte.notice.dto.ResponseDTO;
 import com.example.dayte.notice.service.NoticeService;
 import com.example.dayte.security.service.CustomUserDetailsService;
-import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
-import org.apache.tomcat.util.file.ConfigurationSource;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,14 +19,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -38,7 +34,7 @@ import java.util.Optional;
 public class NoticeController {
 
     @Autowired
-    private FileUtils fileUtils;
+    private FileUtil fileUtils;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -121,8 +117,9 @@ public class NoticeController {
             @RequestPart("content") String content,
             @RequestPart("files")List<MultipartFile> files) {
 
-       /* System.out.println("Title: " + title);
-        System.out.println("Content: " + content);*/
+       System.out.println("Title: " + title);
+        System.out.println("Content: " + content);
+
 
         for (MultipartFile file : files) {
             // 각 파일에 대한 처리 로직 수행

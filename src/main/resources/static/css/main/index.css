@@ -548,12 +548,12 @@ main {
 }
 
 .minMaxtemp,
-.rainPercent {
+.presentRainPercent {
   word-spacing: 3px;
   font-size: 1.7rem;
 }
 
-.rainPercent > span {
+.presentRainPercent > span {
   font-size: 1.7rem;
   vertical-align: top;
   margin-top: 2px;
@@ -596,8 +596,7 @@ main {
   /* border: 1px solid red; */
 }
 
-.today6Hours > ul > li > div,
-.daysWeather > ul > li > div {
+.today6Hours > ul > li > div{
   width: 100%;
   height: 50px;
   background-size: contain;
@@ -657,7 +656,7 @@ main {
 
 .daysWeather > ul > li > div {
   width: 58px;
-  height: 115px;
+
   text-align: center;
 }
 
@@ -673,10 +672,61 @@ main {
 }
 
 .daysListIcon {
+  margin: 5px 0 0 0;
   width: 100%;
   height: 40px;
-  border: 1px solid red;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 
+.rainPercentDiv {
+  width: 100%;
+  height: 20px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rainPercent{
+  color: #fff;
+  font-size: 1.4rem;
+  font-weight: 400;
+
+}
+
+.daysWeather .am{
+  height: 80px;
+}
+
+.daysWeather .pm{
+  height: 80px;
+}
+
+.temperatureOfDay{
+  padding: 4px 7px;
+}
+.maxTemperature,
+.minTemperature {
+  display: inline-block;
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+
+.maxTemperature{
+  margin: 0 4px 0 5px;
+  color: red;
+}
+
+.minTemperature {
+  margin: 0 0 0 5px;
+  color: blue;
+}
+
+.slash{
+  font-size: 1.5rem;
+  color: #fff;
+}
 
 /*푸터*/
