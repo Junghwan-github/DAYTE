@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -21,7 +22,6 @@ import java.util.Optional;
 public class CustomUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
-
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -37,7 +37,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         // user = DB 에서 조회해 온 회원의 엔티티
         User user = result.get();
-
+        user.setLoginDate(LocalDate.now());
+        userRepository.save(user);
         // 전송 객체인 DTO 를 이용하여 회원 정보 반환
         return new UserSecurityDTO(
                 user.getUserEmail(),

@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "USERS")
@@ -50,5 +51,8 @@ public class User {
 
     @Setter
     private String profileImagePath;
+
+    @Setter
+    private LocalDate loginDate;
 }
 

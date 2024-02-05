@@ -8,11 +8,14 @@ import com.example.dayte.schedule.domain.ScheduleDate;
 import com.example.dayte.schedule.domain.ScheduleDateId;
 import com.example.dayte.schedule.dto.DetailedScheduleDTO;
 import com.example.dayte.schedule.dto.ScheduleDateDTO;
+import com.example.dayte.schedule.persistence.ContentsRepository;
 import com.example.dayte.schedule.persistence.DetailedScheduleRepository;
 import com.example.dayte.schedule.persistence.ScheduleDateRepository;
 import com.example.dayte.schedule.persistence.ScheduleRepository;
+import com.example.dayte.security.dto.UserSecurityDTO;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

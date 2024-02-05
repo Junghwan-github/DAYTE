@@ -31,16 +31,6 @@ public class PostService {
         return postRepository.findAll();
     }
 
-    @Transactional(readOnly = true)
-    public Page<Post> getPostList(Pageable pageable) {
-        // Pageable -> 페이징 처리를 위한 매개변수 (클라이언트가 요청한 페이지 번호, 페이지 크기 등을 포함하는 정보)
-        return postRepository.findAll(pageable);
-
-        // pageable = 페이지 정보 (findAll 실행 시 페이지 정보 값을 이용하여 Post 객체 목로가을 조회해 Page<Post>형태로 반환한다)
-        // Page -> Spring Data의 일부로 Spring Data JPA에서 제공하는 페이징과 정렬 기능을 지원하는 인터페이스
-        // 데이터베이스에서 조회된 데이터의 한 부분(즉, 한 페이지)을 나타내며, 추가적으로 페이징 처리에 관련된 정보를 제공한다.
-    }
-
     @Transactional
     public Post getPost(int id) {
         return postRepository.findById(id).get();
@@ -68,4 +58,16 @@ public class PostService {
         postRepository.deleteById(id);
     }
 
+
+
+    // 페이지네이션
+    @Transactional(readOnly = true)
+    public Page<Post> getPostList(Pageable pageable) {
+        // Pageable -> 페이징 처리를 위한 매개변수 (클라이언트가 요청한 페이지 번호, 페이지 크기 등을 포함하는 정보)
+        return postRepository.findAll(pageable);
+
+        // pageable = 페이지 정보 (findAll 실행 시 페이지 정보 값을 이용하여 Post 객체 목로가을 조회해 Page<Post>형태로 반환한다)
+        // Page -> Spring Data의 일부로 Spring Data JPA에서 제공하는 페이징과 정렬 기능을 지원하는 인터페이스
+        // 데이터베이스에서 조회된 데이터의 한 부분(즉, 한 페이지)을 나타내며, 추가적으로 페이징 처리에 관련된 정보를 제공한다.
+    }
 }

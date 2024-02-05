@@ -135,7 +135,7 @@ header > nav > ul > li > a:hover {
 .sub-nav-slide-bar {
     position: absolute;
     top: 70px;
-    right: 7px;
+    right: 10px;
     background: #fff;
     z-index: 9999;
     border-radius: 10px;
