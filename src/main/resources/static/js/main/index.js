@@ -387,207 +387,12 @@ fetch(apiShort)
         }
       }
 
-      //내일부터 6일 뒤의 기온, 날씨, 강수량 화면단에 불러오기
-
-
-      /*for(let i=0; i<apiData.sky.length; i++){
-        console.log(apiData.pty[i]);
-      }
-*/
-
-
-      let weatherInfo = [];
       let formattedDate = apiData.tmn[0].date.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3");
 
-
-
-      /*let tomorrowDate = new Date(formattedDate);
-      tomorrowDate.setDate(tomorrowDate.getDate()+1);
-
-      let theDayAfterTomorrowDate = new Date(formattedDate);
-      theDayAfterTomorrowDate.setDate(theDayAfterTomorrowDate.getDate()+2);
-
-      let tomorrow = tomorrowDate.toISOString().slice(0, 10).replace(/-/g, "");
-      let theDayAfterTomorrow = theDayAfterTomorrowDate.toISOString().slice(0, 10).replace(/-/g, "");
-      console.log(tomorrow);
-      console.log(typeof tomorrow);
-      console.log(theDayAfterTomorrow);
-      console.log(typeof theDayAfterTomorrow);*/
-
-      for(let i=1; i<3; i++){
-
-        let stringToDate = new Date(formattedDate);
-        stringToDate.setDate(stringToDate.getDate()+i);
-        let DateToString = stringToDate.toISOString().slice(0, 10).replace(/-/g, "");
-
-        /* 1일, 2일 최고 기온, 최저 기온 추출  */
-        let temperatures = [];
-
-        apiData.tmp.forEach(k => {
-          if(k.date == DateToString){
-            temperatures.push(parseInt(k.value));
-          }
-        })
-        // console.log(temperatures);
-
-
-        let maxTemperatureOfDay = temperatures[0];
-        let minTemperatureOfDay = temperatures[0];
-
-        for(let i=0; i<temperatures.length; i++){
-          if(temperatures[i]>maxTemperatureOfDay){
-            maxTemperatureOfDay = temperatures[i];
-          }
-        }
-        for(let i=0; i<temperatures.length; i++){
-          if(temperatures[i]<minTemperatureOfDay){
-            minTemperatureOfDay = temperatures[i];
-          }
-        }
-
-        /*console.log(maxTemperatureOfDay);
-        console.log(minTemperatureOfDay);*/
-        /* ============= 1일, 2일 최고 기온, 최저 기온 추출 여기까지 int형 ================ */
-
-        let morningPtyList = [];
-        let afternoonPtyList = [];
-
-
-        apiData.pty.forEach(k => {
-
-          if(k.date == DateToString){
-            if(parseInt(k.Time)<1200){
-              morningPtyList.push(parseInt(k.value));
-            } else{
-              afternoonPtyList.push(parseInt(k.value));
-            }
-          }
-        })
-
-        let morningSkyList = [];
-        let afternoonSkyList = [];
-
-        apiData.sky.forEach(k => {
-          if(k.date == DateToString){
-            if(parseInt(k.Time)<1200){
-              morningSkyList.push(parseInt(k.value));
-            } else{
-              afternoonSkyList.push(parseInt(k.value));
-            }
-          }
-        })
-
-
-        // console.log(morningSkyList);
-        // console.log(afternoonSkyList);
-
-        //exampleArray1,2 는 나중에 morningPtyList, afternoonPtyListfh 바꾸기
-
-        //let exampleArray1 = [2, 1, 1, 1, 0, 3, 2, 3, 1, 3, 3, 4];
-        // let exampleArray2 = [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3];
-// let ampmPty = [exampleArray1, exampleArray2];
-        let morning = [morningPtyList, morningSkyList];
-        let afternoon = [afternoonPtyList, afternoonSkyList];
-        let ampmPty = [morning, afternoon];
-        let ampmPtyValue = [];
-
-
-
-        ampmPty.forEach(array => {
-
-
-
-          let valuesToCheck = [1, 2, 3, 4];
-          let includesAny = valuesToCheck.some(value => array[0].includes(value));
-
-          if (includesAny) {
-            // console.log("배열 안에 1, 2, 3, 4 중 어떤 값이라도 포함되어 있음");
-            let frequency = valuesToCheck.reduce((result, valueToCheck) => {
-              result[valueToCheck] = array[1].filter(value => value === valueToCheck).length;
-              return result;
-            }, {});
-
-            let maxFrequencyValues = Math.max(...Object.values(frequency));
-            let maxFrequency = Object.keys(frequency).filter(key => frequency[key] === maxFrequencyValues).map(value => parseInt(value));
-
-            // pty의 값의 최대빈도수가 1과 3이라면 2로 변경
-            if (maxFrequency.length >= 2 && (maxFrequency.includes(1) && maxFrequency.includes(3))) {
-              maxFrequency.length = 1;
-              maxFrequency[0] = 2;
-            }
-
-            ampmPtyValue.push(maxFrequency[0]);
-            console.log(maxFrequency[0]);
-
-            // 필요한 값은 최대 빈도수를 가지는 번호: maxFrequency
-          } else {
-            // console.log("배열 안에 1, 2, 3, 4 값이 포함되어 있지 않음");
-
-            console.log("else문 이거 한번만 떠야함");
-
-            let skyList = array[1];
-
-            let valuesToCheck = [3, 4];
-            let includesAny = valuesToCheck.some(value => skyList.includes(value));
-
-            if (includesAny) {
-              // console.log("배열 안에 3, 4 중 어떤 값이라도 포함되어 있음");
-              let frequency = valuesToCheck.reduce((result, valueToCheck) => {
-                result[valueToCheck] = skyList.filter(value => value === valueToCheck).length;
-                return result;
-              }, {});
-
-              let maxFrequencyValues = Math.max(...Object.values(frequency));
-              let maxFrequency = Object.keys(frequency).filter(key => frequency[key] === maxFrequencyValues).map(value => parseInt(value));
-
-              console.log("맑음 : " + maxFrequency);
-
-              // pty의 값의 최대빈도수가 1과 3이라면 2로 변경
-              /* if (maxFrequency.length >= 2 && (maxFrequency.includes(1) && maxFrequency.includes(3))) {
-                maxFrequency.length = 1;
-                maxFrequency[0] = 2;
-              } */
-            }
-          }
-
-
-
-        });
-
-
-
-
-        /*  weatherInfo[i] = {
-            maxTem : maxTemperatureOfDay,
-            minTem : minTemperatureOfDay,
-            maxPty : [ampmPtyValue[0], ampmPtyValue[1]]
-
-          }
-          console.log(weatherInfo[i]);
-  */
-
-
-
-      }
-
-
-
-
-
-
-      /*let choi = {myname : "seunogh", gender : "male"};
-      let seungho = {myname : "choiw", gender : "rrmale"};
-
-      let hii = [choi, seungho];
-      hii.forEach(k => {
-        console.log(k.myname);
-        console.log(k.gender);
-      })*/
-
-
-
-
-
+      let weatherInfo = {};
+      weatherInfo.maxTem = [];
+      weatherInfo.minTem = [];
+      weatherInfo.weather = [];
 
 
 
@@ -600,9 +405,9 @@ fetch(apiShort)
           .then((response) => response.json())
           .then((json) => {
             let data2 = json.response.body.items.item;
-            console.log(json);
 
-            for (let k = 1; k < 7; k++) {
+
+           /* for (let k = 1; k < 7; k++) {
               const daysListId = `daysList${k}`;
 
               $(".daysWeather > ul").append(
@@ -615,14 +420,395 @@ fetch(apiShort)
               $(`.${daysListId} > .am`).append(`<h4>오전</h4>`);
               $(`.${daysListId} > .pm`).append(`<h4>오후</h4>`);
               $(`.${daysListId} > div`).append(`<div class="daysListIcon"></div>`);
-            }
+            }*/
+
             //날씨
             fetch(apiLong2)
                 .then((response) => response.json())
                 .then((json) => {
-                  console.log(json);
+
+                  //내일부터 6일 뒤의 기온, 날씨, 강수량 화면단에 불러오기
+
+
+                  /*for(let i=0; i<apiData.pty.length; i++){
+                    console.log(apiData.pty[i]);
+                  }*/
+
+
+
+
+
+                  for(let i=0; i<2; i++){
+
+                    let stringToDate = new Date(formattedDate);
+                    stringToDate.setDate(stringToDate.getDate()+(i+1));
+                    let DateToString = stringToDate.toISOString().slice(0, 10).replace(/-/g, "");
+
+                    /* 1일, 2일 최고 기온, 최저 기온 추출  */
+                    let dayTemperatures = [];
+
+                    apiData.tmp.forEach(k => {
+                      if(k.date == DateToString){
+                        dayTemperatures.push(parseInt(k.value));
+                      }
+                    })
+                    // console.log(temperatures);
+
+
+                    let maxTemperatureOfDay = dayTemperatures[0];
+                    let minTemperatureOfDay = dayTemperatures[0];
+
+                    for(let i=0; i<dayTemperatures.length; i++){
+                      if(dayTemperatures[i]>maxTemperatureOfDay){
+                        maxTemperatureOfDay = dayTemperatures[i];
+                      }
+                    }
+                    for(let i=0; i<dayTemperatures.length; i++){
+                      if(dayTemperatures[i]<minTemperatureOfDay){
+                        minTemperatureOfDay = dayTemperatures[i];
+                      }
+                    }
+
+                    weatherInfo.maxTem.push(maxTemperatureOfDay);
+                    weatherInfo.minTem.push(minTemperatureOfDay);
+
+                    //  console.log(weatherInfo);
+
+                    /*console.log(maxTemperatureOfDay);
+                    console.log(minTemperatureOfDay);*/
+                    /* ============= 1일, 2일 최고 기온, 최저 기온 추출 여기까지 int형 ================ */
+
+                    /*============== 1일, 2일 pty 추출 ==========================*/
+                    let morningPtyList = [];
+                    let afternoonPtyList = [];
+
+
+                    apiData.pty.forEach(k => {
+
+                      if(k.date == DateToString){
+                        if(parseInt(k.Time)<1200){
+                          morningPtyList.push(parseInt(k.value));
+                        } else{
+                          afternoonPtyList.push(parseInt(k.value));
+                        }
+                      }
+                    })
+
+                    let morningSkyList = [];
+                    let afternoonSkyList = [];
+
+                    apiData.sky.forEach(k => {
+                      if(k.date == DateToString){
+                        if(parseInt(k.Time)<1200){
+                          morningSkyList.push(parseInt(k.value));
+                        } else{
+                          afternoonSkyList.push(parseInt(k.value));
+                        }
+                      }
+                    })
+
+
+                    // console.log(morningSkyList);
+                    // console.log(afternoonSkyList);
+
+                    //exampleArray1,2 는 나중에 morningPtyList, afternoonPtyListfh 바꾸기
+
+                    //let exampleArray1 = [2, 1, 1, 1, 0, 3, 2, 3, 1, 3, 3, 4];
+                    // let exampleArray2 = [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3];
+                    // let ampmPty = [exampleArray1, exampleArray2];
+                    let morning = [morningPtyList, morningSkyList];
+                    let afternoon = [afternoonPtyList, afternoonSkyList];
+                    let ampmPty = [morning, afternoon];
+
+
+                    weatherInfo.weather[i] = {};
+
+
+
+
+                    ampmPty.forEach(array => {
+
+
+                      let valuesToCheck = [1, 2, 3, 4];
+                      let includesAny = valuesToCheck.some(value => array[0].includes(value));
+
+                      if (includesAny) {
+                        // console.log("배열 안에 1, 2, 3, 4 중 어떤 값이라도 포함되어 있음");
+                        let frequency = valuesToCheck.reduce((result, valueToCheck) => {
+                          result[valueToCheck] = array[1].filter(value => value === valueToCheck).length;
+                          return result;
+                        }, {});
+
+                        let maxFrequencyValues = Math.max(...Object.values(frequency));
+                        let maxFrequency = Object.keys(frequency).filter(key => frequency[key] === maxFrequencyValues).map(value => parseInt(value));
+
+                        // pty의 값의 최대빈도수가 1과 3이라면 2로 변경
+                        if (maxFrequency.length >= 2 && (maxFrequency.includes(1) && maxFrequency.includes(3))) {
+                          maxFrequency.length = 1;
+                          maxFrequency[0] = 2;
+                        }
+
+                        switch(maxFrequency[0]){
+                          case 1:
+                          case 4:
+                                maxFrequency[0] = "비";
+                                break;
+                          case 2:
+                                maxFrequency[0] = "비눈";
+                                break;
+                          case 3:
+                                maxFrequency[0] = "눈";
+
+                        }
+
+
+
+                        if(weatherInfo.weather[i].wea1 == null){
+                          weatherInfo.weather[i].wea1 = maxFrequency[0];
+                        } else{
+                          weatherInfo.weather[i].wea2 = maxFrequency[0];
+                        }
+
+
+                        // 필요한 값은 최대 빈도수를 가지는 번호: maxFrequency
+                      } else {
+                        // console.log("배열 안에 1, 2, 3, 4 값이 포함되어 있지 않음");
+
+
+                        let skyList = array[1];
+
+                        let valuesToCheck = [3, 4];
+                        let includesAny = valuesToCheck.some(value => skyList.includes(value));
+
+                        if (includesAny) {
+                          // console.log("배열 안에 3, 4 중 어떤 값이라도 포함되어 있음");
+                          let frequency = valuesToCheck.reduce((result, valueToCheck) => {
+                            result[valueToCheck] = skyList.filter(value => value === valueToCheck).length;
+                            return result;
+                          }, {});
+
+                          let maxFrequencyValues = Math.max(...Object.values(frequency));
+                          let maxFrequency = Object.keys(frequency).filter(key => frequency[key] === maxFrequencyValues).map(value => parseInt(value));
+
+
+                          switch (maxFrequency[0]){
+                            case 1:
+                              maxFrequency[0] = "맑음";
+                              break;
+                            case 3:
+                              maxFrequency[0] = "구름많음";
+                              break;
+                            case 4:
+                              maxFrequency[0] = "흐림";
+                              break;
+                          }
+
+
+                          if(weatherInfo.weather[i].wea1 == null){
+                            weatherInfo.weather[i].wea1 = maxFrequency[0];
+                          } else{
+                            weatherInfo.weather[i].wea2 = maxFrequency[0];
+                          }
+
+                        }
+                      }
+
+
+
+                    });
+
+                    /*========= 1일, 2일 pty 추출 여기까지 ==================*/
+
+
+                  }
+
+
+
+                  let data3 = json.response.body.items.item;
+
+                  console.log(data2[0]);
+                  console.log(data3[0]);
+
+                /* == 중기 기온 조회 + 단기와 중기 기온 한 배열에 담음 ==*/
+
+                const taMinpattern = /^taMin\d+$/i;
+                  const taMinfilteredKeys = Object.keys(data2[0]).filter(key => taMinpattern.test(key));
+                  const taMinValues = taMinfilteredKeys.map(key => data2[0][key]);
+
+                  const taMaxpattern = /^taMax\d+$/i;
+                  const taMaxfilteredKeys = Object.keys(data2[0]).filter(key => taMaxpattern.test(key));
+                  const taMaxValues = taMaxfilteredKeys.map(key => data2[0][key]);
+
+
+                  for(let i=0; i<4; i++){
+                    weatherInfo.maxTem.push(taMaxValues[i]);
+                    weatherInfo.minTem.push(taMinValues[i]);
+                  }
+                  console.log(weatherInfo);
+
+                  /* == 중기 기온 조회 + 단기와 중기 기온 한 배열에 담음  여기까지 ==*/
+
+
+                  /* == 중기 날씨 정보 3,4,5,6일 후 날씨 배열에 담음 == */
+
+                  for (let i = 2; i < 6; i++) {
+                    let morningArray = Object.keys(data3[0])
+                        .filter(key => key.match(new RegExp(`^wf${i + 1}(Am)$`)))
+                        .map(key => data3[0][key]);
+
+                    let afternoonArray = Object.keys(data3[0])
+                        .filter(key => key.match(new RegExp(`^wf${i + 1}(Pm)$`)))
+                        .map(key => data3[0][key]);
+
+
+                    weatherInfo.weather[i] = {};
+
+                    weatherInfo.weather[i].wea1 = morningArray[0];
+                    weatherInfo.weather[i].wea2 = afternoonArray[0];
+
+                  }
+
+                  /* == 중기 날씨 정보 3,4,5,6일 후 날씨 배열에 담음  여기까지 == */
+
+console.log(weatherInfo);
+
+                  for (let k = 1; k < 7; k++) {
+                    const daysListId = `daysList${k}`;
+
+                    $(".daysWeather > ul").append(
+                        `<li class='${daysListId}'><h4>${nowDay(k)} 일</h4></li>`
+                    );
+
+                    for (let d = 1; d < 3; d++) {
+                      $(`.${daysListId}`).append(`<div class="${halfTime(d)}">`);
+                    }
+                    $(`.${daysListId} > .am`).append(`<h4>오전</h4>`);
+                    $(`.${daysListId} > .pm`).append(`<h4>오후</h4>`);
+                    $(`.${daysListId} > div`).append(`<div class="daysListIcon"></div>`);
+                  }
+
+
+
+                  for(let i=0; i<6; i++){
+
+                    const daysListId = `daysList${i+1}`;
+
+                    //오전 날씨
+                    switch (weatherInfo.weather[i].wea1) {
+                      case "맑음":
+                        console.log(i+2 + "번 째날 오전 맑음");
+                        $(`.${daysListId} .am .daysListIcon`).css(
+                            "background-image",
+                            "url(../images/sunny.png)"
+                        );
+                        break;
+                      case "흐림":
+                        console.log(i+2 + "번 째날 오전 흐림");
+                        $(`.${daysListId} .am .daysListIcon`).css(
+                            "background-image",
+                            "url(../images/cloud.png)"
+                        );
+                        break;
+                      case "구름많음":
+                        console.log(i+2 + "번 째날 오전 구름많음");
+                        $(`.${daysListId} .am .daysListIcon`).css(
+                            "background-image",
+                            "url(../images/clouds.png)"
+                        );
+                        break;
+                      case "비":
+                      case "구름많고 비":
+                      case "흐리고 비":
+                        console.log(i+2 + "번 째날 오전 비");
+                        $(`.${daysListId} .am .daysListIcon`).css(
+                            "background-image",
+                            "url(../images/rain.png)"
+                        );
+                        break;
+                      case "비눈":
+                        console.log(i+2 + "번 째날 오전 비눈");
+                        $(`.${daysListId} .am .daysListIcon`).css(
+                            "background-image",
+                            "url(../images/rainsnow.png)"
+                        );
+                        break;
+                      case "눈":
+                      case "구름많고 눈":
+                      case "흐리고 눈":
+                        console.log(i+2 + "번 째날 오전 눈");
+                        $(`.${daysListId} .am .daysListIcon`).css(
+                            "background-image",
+                            "url(../images/snow.png)"
+                        );
+                        break;
+                    }
+
+                    //오후 날씨
+                    switch (weatherInfo.weather[i].wea2) {
+                      case "맑음":
+                        console.log(i+2 + "번 째날 오후 맑음");
+                        $(`.${daysListId} .pm .daysListIcon`).css(
+                            "background-image",
+                            "url(../images/sunny.png)"
+                        );
+                        break;
+                      case "흐림":
+                        console.log(i+2 + "번 째날 오후 흐림");
+                        $(`.${daysListId} .pm .daysListIcon`).css(
+                            "background-image",
+                            "url(../images/cloud.png)"
+                        );
+                        break;
+                      case "구름많음":
+                        console.log(i+2 + "번 째날 오후 구름많음");
+                        $(`.${daysListId} .pm .daysListIcon`).css(
+                            "background-image",
+                            "url(../images/clouds.png)"
+                        );
+                        break;
+                      case "비":
+                      case "구름많고 비":
+                      case "흐리고 비":
+                        console.log(i+2 + "번 째날 오후 비");
+                        $(`.${daysListId} .pm .daysListIcon`).css(
+                            "background-image",
+                            "url(../images/rain.png)"
+                        );
+                        break;
+                      case "비눈":
+                        console.log(i+2 + "번 째날 오후 비눈");
+                        $(`.${daysListId} .pm .daysListIcon`).css(
+                            "background-image",
+                            "url(../images/rainsnow.png)"
+                        );
+                        break;
+                      case "눈":
+                      case "구름많고 눈":
+                      case "흐리고 눈":
+                        console.log(i+2 + "번 째날 오후 눈");
+                        $(`.${daysListId} .pm .daysListIcon`).css(
+                            "background-image",
+                            "url(../images/snow.png)"
+                        );
+                        break;
+                    }
+
+
+                  }
+
+
+
+
+
+
+
+
+
+
                 })
+                .catch((error3) => console.log(error3))
           })
           .catch((error2) => console.log(error2));
+
     })
     .catch((error) => console.log(error));
