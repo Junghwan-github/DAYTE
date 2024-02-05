@@ -17,19 +17,17 @@ $(".nextBtn").on("click", function () {
     }
 
     const scheduleDTO = {
-        title: title,
+        title    : title,
         startDate: startDate,
-        endDate: endDate,
+        endDate  : endDate,
     };
-
     $.ajax({
-        url: "/schedule/scheduleList",
-        type: "POST",
+        url        : "/schedule/scheduleList",
+        type       : "POST",
         contentType: "application/json",
-        data: JSON.stringify(scheduleDTO),
-        success: function (data) {
-            // 서버로부터의 응답 처리
-            console.log(data);
+        data       : JSON.stringify(scheduleDTO)
+    })
+        .done(function (data) {
             if (data.status === 200) {
                 location.href = "/schedule/scheduleList";
             } else if (data.status === 409) {
@@ -37,31 +35,30 @@ $(".nextBtn").on("click", function () {
                 if (deleteSchedule) {
                     // 다른 API 엔드포인트로의 DELETE 요청
                     $.ajax({
-                        url: "/schedule/deleteAndInsertSchedule",
-                        type: "POST",
+                        url        : "/schedule/deleteAndInsertSchedule",
+                        type       : "POST",
                         contentType: "application/json",
-                        data: JSON.stringify(scheduleDTO),
-                        success: function (deleteData) {
+                        data       : JSON.stringify(scheduleDTO)
+                    })
+                        .done(function (deleteData) {
                             if (deleteData.status === 200) {
                                 console.log(deleteData);
                                 location.href = "/schedule/scheduleList";
                             } else {
                                 console.error("일정 삭제 실패:", deleteData.message);
                             }
-                        },
-                        error: function (deleteError) {
+                        })
+                        .fail(function (deleteError) {
                             console.error("일정 삭제 오류:", deleteError);
-                        }
-                    });
+                        });
                 }
             } else {
                 console.error("서버 오류:", data.message);
             }
-        },
-        error: function (error) {
+        })
+        .fail(function (error) {
             console.error("오류:", error);
-        }
-    });
+        });
 });
 
 // scheduleDTO를 유효성 검사하는 함수
@@ -85,13 +82,13 @@ function deleteLinks(startDate) {
     if (confirm('일정을 삭제 하시겠습니까?')) {
         // 다른 API 엔드포인트로의 DELETE 요청
         $.ajax({
-            url: "/schedule/scheduleList/" + startDate,
-            type: "DELETE",
+            url        : "/schedule/scheduleList/" + startDate,
+            type       : "DELETE",
             contentType: "application/json; charset=utf-8",
-            success: function (response) {
+            success    : function (response) {
                 location = "/schedule/scheduleList";
             },
-            error: function (error) {
+            error      : function (error) {
                 alert(`에러 발생 : ${error.message}`);
             }
         });
@@ -108,21 +105,21 @@ function scheduleTotalSaveBtn() {
         });
 
         const userSchedule = {
-            nowDate: $(".daysValue").text(),
-            uuid: $(".tableUuid").text(),
+            nowDate     : $(".daysValue").text(),
+            uuid        : $(".tableUuid").text(),
             contentsList: saveSchedule
         };
 
         $.ajax({
-            url: "/schedule/saveSchedule",
-            method: "POST",
+            url        : "/schedule/saveSchedule",
+            method     : "POST",
             contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(userSchedule),
-            success: function (response) {
+            data       : JSON.stringify(userSchedule),
+            success    : function (response) {
                 console.log(response);
                 location.reload();
             },
-            error: function (error) {
+            error      : function (error) {
                 alert(`에러 발생: ${error.message}`);
             }
         });
@@ -153,23 +150,20 @@ function scheduleTotalModifyBtn() {
         }
     });
     const detailedSchedule = {
-        nowDate: nowDate,
-        uuid: uuid,
+        nowDate     : nowDate,
+        uuid        : uuid,
         contentsList: saveSchedule
     }
-    console.log(detailedSchedule);
     $.ajax({
-        url: "/schedule/detailedScheduleModify",
-        type: "PUT",
+        url        : "/schedule/detailedScheduleModify",
+        type       : "PUT",
         contentType: "application/json; charset=utf-8",
-        data: JSON.stringify(detailedSchedule),
-        success: function(response) {
+        data       : JSON.stringify(detailedSchedule),
+        success    : function (response) {
             location.reload();
         },
-        error: function(error) {
+        error      : function (error) {
             alert(`에러 발생 : ${error.message}`);
         }
-    });
-
+    })
 }
-

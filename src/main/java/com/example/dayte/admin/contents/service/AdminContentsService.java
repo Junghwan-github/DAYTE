@@ -69,7 +69,7 @@ public class AdminContentsService {
             String encodedFileName = UriUtils.encode(Objects.requireNonNull(image.getOriginalFilename()), StandardCharsets.UTF_8);
             String fileName = this.uuid + "_" + encodedFileName;
 
-            Path targetPath = Path.of("\\\\192.168.10.75"+this.contentsImageUploadPath + fileName);
+            Path targetPath = Path.of("\\\\192.168.10.75"+this.contentsImageUploadPath + ( this.uuid  + "_"+ image.getOriginalFilename()));
 
             Files.copy(image.getInputStream(), targetPath, StandardCopyOption.REPLACE_EXISTING);
 
