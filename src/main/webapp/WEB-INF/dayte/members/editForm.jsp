@@ -90,7 +90,7 @@
 
             <div class="profileImage">
                 <p>
-                    <img src= "/images/92969_25283_5321.jpg" class= "profile-photo" width= "150" height= "150">
+                    <img src= "/images/default_icon_profile.png" class= "profile-photo" width= "150" height= "150">
                     <br>
                     <br>
                     <input type= "file" id="upload" accept= "image/gif, image/png, image/jpeg" style= "margin-left : 57px;">

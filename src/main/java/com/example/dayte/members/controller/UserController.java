@@ -142,20 +142,30 @@ public class UserController {
         return "members/editForm";
     }
 
-
     @PutMapping("/members/editForm")
     public @ResponseBody ResponseDTO<?> modifyUser(
             @ModelAttribute UserDTO userDTO, // 변경된 부분
             @AuthenticationPrincipal UserSecurityDTO principal
-            ) throws IOException {
+    ) {
 
         if (userDTO.getImage() != null && !userDTO.getImage().isEmpty()) {
             userService.profileImage(userDTO.getImage(), userDTO);
+        } else {
+            userDTO.setProfileImageName("default_icon_profile.png");
+            userDTO.setProfileImagePath("/images/default_icon_profile.png");
         }
 
-        //  userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         userService.modifyUser(userDTO);
         principal.setProfileImagePath(userDTO.getProfileImagePath());
+        principal.setNickName(userDTO.getNickName());
         return new ResponseDTO<>(HttpStatus.OK.value(), "회원 정보가 수정되었습니다.");
+    }
+
+    @PostMapping("/members/editForm/{nickName}")
+    public @ResponseBody ResponseDTO<?> nickNameCheck(@PathVariable String nickName) {
+        if(!userService.isNickNameAvailable(nickName)){
+            return new ResponseDTO<>(HttpStatus.CONFLICT.value(), "닉네임이 이미 있습니다.");
+        }
+        return new ResponseDTO<>(HttpStatus.OK.value(), "닉네임을 사용 할 수 있습니다.");
     }
 }
