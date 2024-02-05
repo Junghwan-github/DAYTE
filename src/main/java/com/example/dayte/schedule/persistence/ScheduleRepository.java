@@ -16,4 +16,5 @@ public interface ScheduleRepository extends JpaRepository<Schedule, String> {
 
     List<Schedule> findAllByUserOrderByStartDate(User user);
 
+    List<Schedule> findAllByUser(User user);
 }

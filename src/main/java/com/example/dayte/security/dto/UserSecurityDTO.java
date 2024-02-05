@@ -46,7 +46,6 @@ public class UserSecurityDTO extends User implements OAuth2User {
         this.del = del;
         this.profileImagePath = profileImagePath;
 
-
     }
 
     public Map<String, Object> getAttributes() {

@@ -69,7 +69,7 @@ public class AdminContentsService {
             String encodedFileName = UriUtils.encode(Objects.requireNonNull(image.getOriginalFilename()), StandardCharsets.UTF_8);
             String fileName = this.uuid + "_" + encodedFileName;
 
-            Path targetPath = Path.of("\\\\192.168.10.75"+this.contentsImageUploadPath + ( this.uuid  + "_"+ image.getOriginalFilename()));
+            Path targetPath = Path.of("\\\\192.168.10.75" +this.contentsImageUploadPath + ( this.uuid  + "_"+ image.getOriginalFilename()));
 
             Files.copy(image.getInputStream(), targetPath, StandardCopyOption.REPLACE_EXISTING);
 
@@ -108,7 +108,16 @@ public class AdminContentsService {
             // Handle the case when the entity with the specified UUID is not found
             throw new EntityNotFoundException("id: " + id);
         }
+    }
 
+    @Transactional(readOnly = true)
+    public List<AdminContents> getContentsList() {
+        return adminContentsRepository.findAll();
+    }
+
+    public List<AdminContents> searchByContents(String searchContents) {
+        if(searchContents == null) searchContents = "";
+        return adminContentsRepository.findAllBySearch(searchContents);
     }
 
 }

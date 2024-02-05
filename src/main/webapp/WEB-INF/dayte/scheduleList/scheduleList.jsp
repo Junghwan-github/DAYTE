@@ -190,7 +190,7 @@
                                             <h2>${content.category}</h2>
                                         </li>
                                         <li>
-                                            <span>대구 ${content.gu} ${content.ro}</span>
+                                            <span>대구 ${content.gu}</span>
                                         </li>
                                         <li>
                                             <p>영업시간 : 09:00</p>
@@ -204,10 +204,10 @@
                                     <div class="contentListItemButton">
                                         <ul>
                                             <li>
-                                                <button class="contentListItemdetailViewBtn" value="${content.id}">상세보기</button>
+                                                <button class="contentListItemdetailViewBtn" value="${content.uuid}">상세보기</button>
                                             </li>
                                             <li>
-                                                <button class="contentListItemAddBtn" value="${content.id}">추가하기
+                                                <button class="contentListItemAddBtn" value="${content.uuid}">추가하기
                                                 </button>
                                             </li>
                                         </ul>
@@ -259,8 +259,8 @@
                                         <li>
                                             <div class="detail-schedule-li-images">
                                             </div>
-                                            <span>${detailedSchedule.contents.businessName}</span>
-                                            <input class="detailedScheduleListId" hidden value="${detailedSchedule.contents.id}">
+                                            <span>${detailedSchedule.adminContents.businessName}</span>
+                                            <input class="detailedScheduleListId" hidden value="${detailedSchedule.adminContents.uuid}">
                                         </li>
                                     </c:forEach>
                                 </ul>
