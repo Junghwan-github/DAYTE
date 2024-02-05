@@ -1,23 +1,24 @@
 package com.example.dayte.schedule.service;
 
-import com.example.dayte.members.domain.User;
-import com.example.dayte.schedule.domain.*;
+import com.example.dayte.admin.contents.domain.AdminContents;
+import com.example.dayte.admin.contents.persistence.AdminContentsRepository;
+import com.example.dayte.schedule.domain.DetailedSchedule;
+import com.example.dayte.schedule.domain.Schedule;
+import com.example.dayte.schedule.domain.ScheduleDate;
+import com.example.dayte.schedule.domain.ScheduleDateId;
 import com.example.dayte.schedule.dto.DetailedScheduleDTO;
 import com.example.dayte.schedule.dto.ScheduleDateDTO;
-import com.example.dayte.schedule.persistence.ContentsRepository;
 import com.example.dayte.schedule.persistence.DetailedScheduleRepository;
 import com.example.dayte.schedule.persistence.ScheduleDateRepository;
 import com.example.dayte.schedule.persistence.ScheduleRepository;
-import com.example.dayte.security.dto.UserSecurityDTO;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
@@ -27,7 +28,7 @@ public class ScheduleDateService {
 
     private final ScheduleRepository scheduleRepository;
 
-    private final ContentsRepository contentsRepository;
+    private final AdminContentsRepository contentsRepository;
 
     private final ModelMapper modelMapper;
 
@@ -52,7 +53,7 @@ public class ScheduleDateService {
         scheduleDateDTO.setScheduleDateId(scheduleDateId); // scheduleDateDTO 에 scheduleDateId 셋팅
 
         List<DetailedSchedule> detailedScheduleList = new ArrayList<>();
-        for (Contents contents : contentsRepository.findAllById(scheduleDateDTO.getContentsList())) {
+        for (AdminContents contents : contentsRepository.findAllById(scheduleDateDTO.getContentsList())) {
             detailedScheduleDTO.setContents(contents);
             detailedScheduleList.add(modelMapper.map(detailedScheduleDTO, DetailedSchedule.class));
         }
@@ -67,14 +68,14 @@ public class ScheduleDateService {
 
         // 일정 수정으로 변경한 Contents
         List<DetailedSchedule> addSchedulesList = new ArrayList<>();
-        List<Contents> addContentsList = contentsRepository.findAllById(scheduleDateDTO.getContentsList());
+        List<AdminContents> addContentsList = contentsRepository.findAllById(scheduleDateDTO.getContentsList());
         for (ScheduleDate scheduleDate : schedule.getScheduleDates()) {
             if (scheduleDate.getScheduleDateId().getNowDate().equals(scheduleDateDTO.getNowDate())) {
                 dbScheduleList = scheduleDate.getDetailedScheduleList();
             }
         }
 
-        for (Contents contents : addContentsList) {
+        for (AdminContents contents : addContentsList) {
             DetailedScheduleDTO scheduleDTO = new DetailedScheduleDTO();
             scheduleDTO.setContents(contents);
             scheduleDTO.setScheduleDate(dbScheduleList.get(0).getScheduleDate());
@@ -84,20 +85,17 @@ public class ScheduleDateService {
         List<DetailedSchedule> toAddContents = new ArrayList<>(addSchedulesList);
         toAddContents.removeAll(dbScheduleList);
         toAddContents.forEach(content -> {
-            System.out.println("content.getId()1: " + content.getContents());
         });
 
 
         List<DetailedSchedule> toRemoveContents = new ArrayList<>(dbScheduleList);
         toRemoveContents.removeAll(addSchedulesList);
         toRemoveContents.forEach(content -> {
-            System.out.println("content.getId()2: " + content.getContents());
         });
 
         // List 타입 바꾸기
         detailedScheduleRepository.saveAll(toAddContents);
         toRemoveContents.forEach(detailedSchedule -> {
-            System.out.println("content.getId()3: " + detailedSchedule.getContents());
             detailedScheduleRepository.deleteById(detailedSchedule.getId());
         });
     }

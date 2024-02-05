@@ -57,7 +57,7 @@ let scheduleContentsListObject = {
         formData.append("contactInfo", $("#contactInfo").val());
         formData.append("opening", $("#opening").val());
         formData.append("closed", $("#closed").val());
-
+        formData.append("facilities", $("#facilities").val());
         $.ajax({
             type : "POST",
             url : "/admin/home/registration/contents",

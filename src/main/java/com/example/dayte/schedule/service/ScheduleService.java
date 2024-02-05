@@ -1,27 +1,23 @@
 package com.example.dayte.schedule.service;
 
 import com.example.dayte.members.domain.User;
+import com.example.dayte.schedule.domain.Schedule;
 import com.example.dayte.schedule.domain.ScheduleDate;
 import com.example.dayte.schedule.domain.ScheduleDateId;
 import com.example.dayte.schedule.dto.ScheduleDTO;
-import com.example.dayte.schedule.domain.Contents;
-import com.example.dayte.schedule.domain.Schedule;
 import com.example.dayte.schedule.dto.ScheduleDateDTO;
-import com.example.dayte.schedule.persistence.ContentsRepository;
 import com.example.dayte.schedule.persistence.ScheduleDateRepository;
 import com.example.dayte.schedule.persistence.ScheduleRepository;
 import com.example.dayte.security.dto.UserSecurityDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -84,21 +80,27 @@ public class ScheduleService {
 
     // 사용자의 일정 유무를 비교하는 메서드
     @Transactional(readOnly = true)
-    public Schedule getUserSchedule(ScheduleDTO scheduleDTO, UserSecurityDTO userSecurityDTO) {
+    public Boolean getUserSchedule(ScheduleDTO scheduleDTO, UserSecurityDTO userSecurityDTO) {
         User user = modelMapper.map(userSecurityDTO, User.class);
         LocalDate startDate = parseDateString(scheduleDTO.getStartDate());
-
-        Schedule result = scheduleRepository.findByUserAndStartDate(user, startDate).orElseGet(() -> {
-            return new Schedule();
-        });
-        return result;
+        LocalDate endDate = parseDateString(scheduleDTO.getEndDate());
+        List<Schedule> result = scheduleRepository.findAllByUser(user);
+        for (Schedule schedule : result) {
+            List<LocalDate> fetchedDateRange = getDateRange(schedule.getStartDate(), schedule.getEndDate());
+            List<LocalDate> inputDateRange = getDateRange(startDate, endDate);
+            boolean overlap = checkDateOverlap(fetchedDateRange, inputDateRange);
+            if (overlap) {
+                return overlap;
+            }
+        }
+        return false;
     }
 
     // 사용자가 선택한 일정 전체를 삭제하는 메서드
     @Transactional
     public void deleteSchedule(LocalDate startDate, UserSecurityDTO userSecurityDTO) {
         User user = modelMapper.map(userSecurityDTO, User.class);
-        Schedule scheduleDate = scheduleRepository.findByUserAndStartDate(user,startDate).get();
+        Schedule scheduleDate = scheduleRepository.findByUserAndStartDate(user, startDate).get();
         scheduleRepository.deleteById(scheduleDate.getUuid());
     }
 
@@ -123,6 +125,47 @@ public class ScheduleService {
     private void handleException(String message, Exception e) {
         e.printStackTrace();
         throw new RuntimeException(message);
+    }
+
+    // startDate와 endDate 사이의 날짜를 추출하는 메서드
+    private static List<LocalDate> getDateRange(LocalDate startDate, LocalDate endDate) {
+        List<LocalDate> dateRange = new java.util.ArrayList<>();
+        LocalDate currentDate = startDate;
+
+        // startDate부터 endDate까지 반복하면서 날짜를 리스트에 추가
+        while (!currentDate.isAfter(endDate)) {
+            dateRange.add(currentDate);
+            currentDate = currentDate.plusDays(1);
+        }
+
+        return dateRange;
+    }
+
+    // 두 날짜 범위 간의 겹치는 날짜가 있는지 확인하는 메서드
+    private boolean checkDateOverlap(List<LocalDate> range1, List<LocalDate> range2) {
+        // range1의 최대 시작일과 최소 종료일 구하기
+        LocalDate maxStartDate = range1.stream().max(LocalDate::compareTo).orElse(null);
+        LocalDate minEndDate = range1.stream().min(LocalDate::compareTo).orElse(null);
+
+        // range2의 날짜들 중 최대 시작일이 range1의 최소 종료일보다 이전이거나
+        // range2의 최소 종료일이 range1의 최대 시작일보다 이후라면 겹치는 날짜가 있다.
+        return range2.stream().anyMatch(date ->
+                (date.isEqual(minEndDate) || date.isAfter(minEndDate)) &&
+                        (date.isEqual(maxStartDate) || date.isBefore(maxStartDate))
+        );
+    }
+
+    public void detailedDeleteSchedule(ScheduleDTO scheduleDTO, UserSecurityDTO userSecurityDTO) {
+        User user = modelMapper.map(userSecurityDTO, User.class);
+        LocalDate startDate = parseDateString(scheduleDTO.getStartDate());
+        LocalDate endDate = parseDateString(scheduleDTO.getEndDate());
+        List<Schedule> result = scheduleRepository.findAllByUser(user);
+        for (Schedule schedule : result) {
+            List<LocalDate> fetchedDateRange = getDateRange(schedule.getStartDate(), schedule.getEndDate());
+            List<LocalDate> inputDateRange = getDateRange(startDate, endDate);
+            boolean overlap = checkDateOverlap(fetchedDateRange, inputDateRange);
+
+        }
     }
 }
 
