@@ -26,7 +26,7 @@ public class Post {
     private String title;
 
     @Lob // db에 varchar를 넘어서 더 큰 값을 넣기 위한 작업
-    @Column(nullable = false)
+    @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
     @CreationTimestamp
