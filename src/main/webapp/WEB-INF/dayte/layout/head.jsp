@@ -43,7 +43,7 @@
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d6e1eeae5c7853c6bd1f34a4ef04e664"></script>
 
     <!-- 써머노트 -->
-    <script src="/webjars/summernote/0.8.10/summernote-bs4.min.js"></script>
-    <link href="/webjars/summernote/0.8.10/summernote-bs4.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
     <script defer src="/js/main/header.js"></script>

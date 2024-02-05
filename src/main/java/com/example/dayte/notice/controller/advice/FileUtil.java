@@ -2,7 +2,6 @@ package com.example.dayte.notice.controller.advice;
 
 
 import com.example.dayte.notice.domain.FilesInfo;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Component;
@@ -21,7 +20,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Component
-public class FileUtils {
+public class FileUtil {
 
     private final String uploadPath = Paths.get("C:", "upload-files").toString();
 
