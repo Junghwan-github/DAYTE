@@ -1,15 +1,4 @@
-<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-<sec:authorize access="isAuthenticated()">
-    <sec:authentication property="principal" var="principal" />
-</sec:authorize>
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+layout head 코드
 
 
     <!--    제이쿼리-->
@@ -27,13 +16,11 @@
     <script src="/webjars/bootstrap/5.3.2/js/bootstrap.min.js"></script>
     <link href="/css/layout/bootstrap.min.css" rel="stylesheet">
 
-    <!--    디폴트 css-->
+    <!--디폴트 css-->
     <link rel="stylesheet" href="/css/layout/header.css">
     <link rel="stylesheet" href="/css/layout/reset.css">
     <link rel="stylesheet" href="/css/layout/footer.css">
     <link rel="stylesheet" href="/css/layout/subnav.css">
-
-
 
 
     <!-- 슬라이더 -->
@@ -43,7 +30,8 @@
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d6e1eeae5c7853c6bd1f34a4ef04e664"></script>
 
     <!-- 써머노트 -->
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    <script src="/webjars/summernote/0.8.10/summernote-bs4.min.js"></script>
+    <link href="/webjars/summernote/0.8.10/summernote-bs4.css" rel="stylesheet">
 
-    <script defer src="/js/main/header.js"></script>
+    <!-- 스크롤시 메뉴바 나오는것 -->
+    <script defer src="/js/main/header.js"></script> 

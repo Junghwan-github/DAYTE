@@ -147,7 +147,7 @@
             </ul>
             <ul class="weatherText">
                 <li class="minMaxtemp"></li>
-                <li class="rainPercent"></li>
+                <li class="presentRainPercent"></li>
             </ul>
         </div>
         <div class="nextWeather">

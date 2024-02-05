@@ -74,7 +74,6 @@ public class ScheduleController {
     }
 
     // 사용자가 일정이 이미 있다면 삭제후 재등록 하는 로직
-    // 사용자가 일정이 이미 있다면 삭제후 재등록 하는 로직
     @DeleteMapping("/schedule/deleteAndInsertSchedule")
     public @ResponseBody ResponseDTO<?> deleteAndInsertSchedule(
             @RequestBody ScheduleDTO scheduleDTO,

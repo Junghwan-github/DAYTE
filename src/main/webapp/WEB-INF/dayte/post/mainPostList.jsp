@@ -42,6 +42,9 @@
             </tr>
         </c:forEach>
     </table>
+
+
+
     <%------------------------------------ 글 작성 버튼  ------------------------------------%>
     <br>
     <div class="postInsertButtonDiv">
@@ -51,15 +54,45 @@
     </div>
     <br>
 
+    <%------------------------------------ 검색 폼 ------------------------------------%>
+    <div class="postSearchForm">
+    <form:form action="/post/search" method="get" modelAttribute="searchForm">
+        <input type="text" name="postKey" />
+        <input type="submit" value="검색" />
+    </form:form>
+    </div>
+
+
     <%------------------------------------ 페이지네이션  ------------------------------------%>
-    <ul class="pagination justify-content-center">
-        <li class="page-item <c:if test="${postList.first}">disabled</c:if>">
-            <a class="page-link" href="?page=${postList.number -1}">이전</a>
+<div class="pagination">
+
+    <ul>
+         <li>  <%-- 첫번째 페이지로 이동하는 버튼 --%>
+             <a class="firstPageOpenBtn" href="?page=0"><<</a>
+         </li>
+
+        <li>  <%-- 이전 페이지로 이동하는 버튼 --%>
+            <a class="beforePageBtn" href="${postList.number -1}"><</a>
         </li>
-        <li class="page-item <c:if test="${postList.last}">disabled</c:if>">
-            <a class="page-link" href="?page=${postList.number +1}">다음</a>
+
+        <%-- 페이지 버튼 생성  --%>
+        <c:forEach var="i" begin="${postStartPage}" end="${postEndPage}">
+        <li class="paginationNum">
+            <a class="<c:if  test='${postNowPage == i}'>active</c:if>" href="?page=${i}">${i + 1}</a>
         </li>
+        </c:forEach>
+
+
+        <li>  <%-- 다음 페이지로 이동하는 버튼 --%>
+            <a class="nextPageBtn" href="${postList.number +1}">></a>
+        </li>
+
+         <li>  <%-- 마지막 페이지로 이동하는 버튼 --%>
+             <a class="lastPageBtn" href="?page=${postList.totalPages -1}" >>></a>
+         </li>
     </ul>
+</div>
+
 
 </main>
 

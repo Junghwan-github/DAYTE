@@ -115,6 +115,9 @@ function scheduleTotalSaveBtn() {
             uuid        : $(".tableUuid").text(),
             contentsList: saveSchedule
         };
+        console.log(userSchedule.nowDate);
+        console.log(userSchedule.uuid);
+        console.log(userSchedule.contentsList);
 
         $.ajax({
             url        : "/schedule/saveSchedule",

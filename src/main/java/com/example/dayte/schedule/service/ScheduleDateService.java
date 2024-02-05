@@ -10,6 +10,7 @@ import com.example.dayte.schedule.domain.ScheduleDateId;
 import com.example.dayte.schedule.dto.DetailedScheduleDTO;
 import com.example.dayte.schedule.dto.ScheduleDTO;
 import com.example.dayte.schedule.dto.ScheduleDateDTO;
+import com.example.dayte.schedule.persistence.ContentsRepository;
 import com.example.dayte.schedule.persistence.DetailedScheduleRepository;
 import com.example.dayte.schedule.persistence.ScheduleDateRepository;
 import com.example.dayte.schedule.persistence.ScheduleRepository;
