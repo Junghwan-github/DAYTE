@@ -15,9 +15,11 @@ import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.FileUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -89,8 +91,27 @@ public class PostController {
 
     // 포스트 리스트 페이지네이션
     @GetMapping({"/mainPostList"})
-    public String getPostList(Model model, @PageableDefault(size = 20, sort = "id", direction = Sort.Direction.DESC)Pageable pageable) {
+    public String getPostList(Model model, @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+        // 보이는 페이지에 게시글을 10개씩 보이게 하고 'id' 를 기준으로 정렬 설정
         model.addAttribute("postList", postService.getPostList(pageable));
+        //
+
+        Page<Post> postListPage = postService.getPostList(pageable);
+        int postTotalPage = postListPage.getTotalPages();
+
+        int nowPage = postListPage.getNumber();
+
+        int pageSize = 5;
+
+        int startPage = Math.max(0, (pageable.getPageNumber() / pageSize) * pageSize);
+        int endPage = Math.min(startPage + pageSize - 1, postTotalPage - 1);
+
+        model.addAttribute("postStartPage", startPage);
+        model.addAttribute("postEndPage", endPage);
+        model.addAttribute("postNowPage", nowPage);
+        model.addAttribute("postList", postService.getPostList(pageable));
+
+
         return "post/mainPostList";
     }
 
@@ -118,39 +139,9 @@ public class PostController {
     }
 
     // 포스트 이미지 등록 로직 수행
-    @PostMapping(value="/uploadSummernoteImageFile", produces = "application/json")
+    @PostMapping("/uploadSummernoteImageFile")
     @ResponseBody
-    public Map<String, String> uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile) {
-
-        System.out.println("123412341234" + multipartFile);
-        Map<String, String> resultMap = new HashMap<>();
-
-        /*JsonObject jsonObject = new JsonObject();*/
-
-        String fileRoot = "D:/summernote_image/";	//저장될 파일 경로
-        String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
-        String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
-        String savedFileName = UUID.randomUUID() + extension;
-
-
-        File targetFile = new File(fileRoot + savedFileName);
-
-        try {
-            InputStream fileStream = multipartFile.getInputStream();
-            FileUtils.copyInputStreamToFile(fileStream, targetFile);	//파일 저장
-
-            resultMap.put("url", "/summernoteImage/" + savedFileName);
-            resultMap.put("responseCode", "success");
-
-        } catch (IOException e) {
-            FileUtils.deleteQuietly(targetFile);	// 실패시 저장된 파일 삭제
-            /*jsonObject.addProperty("responseCode", "error");*/
-
-            resultMap.put("responseCode", "error");
-            e.printStackTrace();
-        }
-
-        return resultMap;
+    public ResponseEntity<Map<String, String>> uploadImage(@RequestParam("files") MultipartFile multipartFile) {
+        return postService.uploadImage(multipartFile);
     }
-
 }

@@ -12,6 +12,11 @@ $(document).ready(function () {
     });
 });
 let slider = document.querySelector('.contentModalSlider');
+let map;
+let imageSrc = '/images/marker.png',
+    imageSize = new kakao.maps.Size(25, 33),
+    imageOption = {offset: new kakao.maps.Point(13, 33)};
+let markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
 
 $(".nextDayBtn").on("click", function (e) {
     $(".tableUuid").text($(e.target).val());
@@ -29,7 +34,6 @@ $(".nextDayBtn").on("click", function (e) {
     });
     sortableInstance.option("disabled", true);
 
-
     $("body").css("overflow", "hidden");
 
     mouseDrag(slider);
@@ -39,7 +43,7 @@ $(".nextDayBtn").on("click", function (e) {
         center: new kakao.maps.LatLng(33.450701, 126.570667),
         level: 5
     };
-    let map = new kakao.maps.Map(container, options);
+    map = new kakao.maps.Map(container, options);
 });
 
 let isDown = false;
@@ -230,3 +234,25 @@ $(".contentListItemdetailViewBtn").click(function () {
     let getUrl = $(this).val();
     window.open("/contents/detail/"+getUrl , "_blank");
 })
+
+let marker = '';
+$('.contentListViewer > li').on('click', function (e) {
+
+    // 상세보기와 추가하기를 제외한 li 요소를 누르면 마커 생성
+    if ($(e.target)[0].localName !== 'button') {
+        let latitude = $(e.target).closest('.contentListItems').find('.contentListItemPoint-y').text();
+        let longitude = $(e.target).closest('.contentListItems').find('.contentListItemPoint-x').text();
+        if (marker != '') {
+            marker.setMap(null);
+        }
+        let moveLatLng = new kakao.maps.LatLng(latitude, longitude);
+        marker = new kakao.maps.Marker({
+            position: moveLatLng,
+            image: markerImage
+        });
+
+        marker.setMap(map);
+        map.panTo(moveLatLng);
+
+    }
+});

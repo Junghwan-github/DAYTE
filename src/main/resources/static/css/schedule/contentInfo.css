@@ -5,7 +5,7 @@
   position: fixed;
   background: #fff;
   transition: display 0.3s ease;
-  z-index: 999;
+  z-index: 900;
 }
 
 #content-sub-nav.fixed-nav {

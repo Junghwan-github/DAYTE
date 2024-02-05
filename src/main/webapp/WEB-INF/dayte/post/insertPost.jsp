@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%-- head --%>
-<%@include file="../layout/head.jsp"%>
+<%@include file="../layout/head.jsp" %>
 
 <%-- css, jquery --%>
 
@@ -14,7 +14,7 @@
 
 <body> <%-- body --%>
 
-<%@include file="../layout/header.jsp"%> <%-- header --%>
+<%@include file="../layout/header.jsp" %> <%-- header --%>
 <%@include file="../layout/subnav.jsp" %>
 <main> <%-- main --%>
     <section id="insert-post-wrap">
@@ -24,11 +24,9 @@
             <input type="text" class="insert-post-title" id="title" name="title">
         </div>
         <%--    서머노트영역--%>
-    <div id="summernote">
-
-    </div>
+        <div id="summernote"></div>
         <div class="save-btn-wrapper">
-        <button id="save-post" class="btn btn-secondary">등록</button>
+            <button id="save-post" class="btn btn-secondary">등록</button>
         </div>
     </section>
     <script src="/js/post/post.js"></script>

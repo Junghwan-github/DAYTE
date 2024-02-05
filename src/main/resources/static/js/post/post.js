@@ -110,7 +110,6 @@ let postObject = {
             .catch(err => {
                 alert(`에러 발생 : ${err.message}`);
             });
-
     },
 }
 
@@ -119,6 +118,7 @@ postObject.init();
 
 $(document).ready(function () {
     $('#summernote').summernote({
+        tabSize: 2,
         height: 450,
         focus: true,
         lang: "ko-KR",
@@ -136,20 +136,18 @@ $(document).ready(function () {
             ['view', ['fullscreen', 'codeview']],
         ],
         fontSizes: ['15', '16', '18', '20', '24', '36', '58', '72'],
-        fontSize: '15',
         callbacks: {
             onImageUpload: function (files) {
-                const [imageFile] = files;
-                sendFile(imageFile);
-            }
+                sendFile(files);
+            },
         },
-    })
-})
+    });
+});
 
 // 이미지를 임시저장합니다.
-function sendFile(file) {
+function sendFile(files) {
     const formData = new FormData();
-    formData.append('file', file);
+    formData.append('files', files[0]); // 'files'는 서버에서 받을 때의 파라미터 이름입니다.
 
     $.ajax({
         type: 'POST',
@@ -159,8 +157,7 @@ function sendFile(file) {
         contentType: false,
         processData: false,
         success: function (response) {
-            const imageUrl = response.url;
-            $('.summernote').summernote('insertImage', imageUrl);
+            $('#summernote').summernote('insertImage', response.url);
         },
         error: function (error) {
             console.error('이미지 업로드 실패:', error);

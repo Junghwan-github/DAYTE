@@ -15,6 +15,7 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.*;
 
 @Service
@@ -74,7 +75,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                     .role(RoleType.USER)
                     .profileImagePath(null)
                     .build();
-
+            user.setLoginDate(LocalDate.now());
             userRepository.save(user);
 
             UserSecurityDTO userSecurityDTO = new UserSecurityDTO(
@@ -96,7 +97,8 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         }
 
         user = result.get();
-
+        user.setLoginDate(LocalDate.now());
+        userRepository.save(user);
         return new UserSecurityDTO(
                 user.getUserEmail(),
                 user.getPassword(),

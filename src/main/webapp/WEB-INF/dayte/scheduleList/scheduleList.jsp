@@ -1,8 +1,4 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="java.time.LocalDate" %>
-<%@ page import="com.example.dayte.schedule.domain.Schedule" %>
-<%@ page import="java.util.List" %>
-<%@ page import="com.fasterxml.jackson.databind.ObjectMapper" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="../layout/head.jsp" %>
 <link rel="stylesheet" href="/css/schedule/schedule.css">
@@ -50,7 +46,7 @@
             <c:forEach var="scheduleList" items="${userScheduleList}">
                 <c:set var="startDate" value="${scheduleList.startDate.toEpochDay()}"/>
                 <c:set var="endDate" value="${scheduleList.endDate.toEpochDay()}"/>
-                <c:if test="${startDate - dDay > 0}">
+                <c:if test="${startDate - dDay >= 0}">
                     <div class="scheduleContentsItem">
                         <i class="xi-ellipsis-v">
                         </i>
@@ -64,9 +60,15 @@
                         </div>
                         <div class="scheduleItemSliderArea">
                             <ul class="scheduleItemSlider">
-                                <li><img src="/images/testimages1.jpg"></li>
-                                <li><img src="/images/testimages2.jpg"></li>
-                                <li><img src="/images/testimages3.jpg"></li>
+                                <li><img
+                                        src="${scheduleList.scheduleDates[0].detailedScheduleList[0].adminContents.adminContentsImageList[0].imageURL}">
+                                </li>
+                                <li><img
+                                        src="${scheduleList.scheduleDates[0].detailedScheduleList[0].adminContents.adminContentsImageList[1].imageURL}">
+                                </li>
+                                <li><img
+                                        src="${scheduleList.scheduleDates[0].detailedScheduleList[0].adminContents.adminContentsImageList[2].imageURL}">
+                                </li>
                             </ul>
                         </div>
                         <div class="contentTextArea">
@@ -92,8 +94,7 @@
                                     <c:set var="nextDays" value="${day + 1 }"/>
                                     <li>
                                         <button class="nextDayBtn" value="${scheduleList.uuid}"
-                                                data-now-days="${scheduleList.scheduleDates[day].scheduleDateId.nowDate}">${nextDays}일
-                                            차
+                                                data-now-days="${scheduleList.scheduleDates[day].scheduleDateId.nowDate}">${nextDays}일차
                                         </button>
                                     </li>
                                     <c:set var="day" value="${nextDays}"/>
@@ -182,7 +183,7 @@
                                     <span class="contentListItemPoint-x">${content.positionX}</span>
                                     <span class="contentListItemPoint-y">${content.positionY}</span>
                                     <div class="contentListItemsImages">
-                                        <img src="../images/testimages1.jpg">
+                                        <img src="${content.adminContentsImageList[0].imageURL}">
                                     </div>
                                     <ul class="contentListItemText">
                                         <li>
@@ -190,12 +191,12 @@
                                             <h2>${content.category}</h2>
                                         </li>
                                         <li>
-                                            <span>대구 ${content.gu} ${content.ro}</span>
+                                            <span>${content.detailedAddress}</span>
                                         </li>
                                         <li>
-                                            <p>영업시간 : 09:00</p>
+                                            <p>영업시간 : ${content.opening} ~ ${content.closed}</p>
                                             <p>기간 : 없음</p>
-                                            <p>문의 : 0507-2221-1321</p>
+                                            <p>문의 : ${content.contactInfo}</p>
                                         </li>
                                         <li>
                                             <span>★ 4.5</span>
@@ -204,10 +205,12 @@
                                     <div class="contentListItemButton">
                                         <ul>
                                             <li>
-                                                <button class="contentListItemdetailViewBtn" value="${content.id}">상세보기</button>
+                                                <button class="contentListItemdetailViewBtn" value="${content.uuid}">
+                                                    상세보기
+                                                </button>
                                             </li>
                                             <li>
-                                                <button class="contentListItemAddBtn" value="${content.id}">추가하기
+                                                <button class="contentListItemAddBtn" value="${content.uuid}">추가하기
                                                 </button>
                                             </li>
                                         </ul>
@@ -258,9 +261,11 @@
                                                items="${scheduleList.scheduleDates[day].detailedScheduleList}">
                                         <li>
                                             <div class="detail-schedule-li-images">
+                                                <img src="${detailedSchedule.adminContents.adminContentsImageList[0].imageURL}">
                                             </div>
-                                            <span>${detailedSchedule.contents.businessName}</span>
-                                            <input class="detailedScheduleListId" hidden value="${detailedSchedule.contents.id}">
+                                            <span>${detailedSchedule.adminContents.businessName}</span>
+                                            <input class="detailedScheduleListId" hidden
+                                                   value="${detailedSchedule.adminContents.uuid}">
                                         </li>
                                     </c:forEach>
                                 </ul>
