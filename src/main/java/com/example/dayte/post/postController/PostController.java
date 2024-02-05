@@ -19,6 +19,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -140,7 +141,7 @@ public class PostController {
     // 포스트 이미지 등록 로직 수행
     @PostMapping("/uploadSummernoteImageFile")
     @ResponseBody
-    public ResponseEntity<Map<String, String>>  uploadSummernoteImageFile(@RequestParam("files") MultipartFile multipartFile) {
+    public ResponseEntity<Map<String, String>> uploadSummernoteImageFile(@RequestParam("files") MultipartFile multipartFile) {
         Map<String, String> resultMap = new HashMap<>();
         System.out.println("ddddddddddasdfasdfasdf" + multipartFile);
         /*JsonObject jsonObject = new JsonObject();*/
