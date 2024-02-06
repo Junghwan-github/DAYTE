@@ -20,10 +20,8 @@
     </div>
 
     <div class="post-list-container">
-        <c:set var="postListSize" value="${postListText.size()}"></c:set>
         <c:forEach var="post" items="${postList.content}">
-            <c:set var="index" value="${postListSize-1}"></c:set>
-            <div class="post-list-items-wrapper">
+            <div class="post-list-items-wrapper" onclick="getPostDetail(${post.id})">
                 <div class="user-part">
                     <ul>
                         <li>
@@ -48,13 +46,17 @@
                             </ul>
                     </div>
                     <div class="post-items-content">
+                        <c:set var="postId" value="${post.id}"></c:set>
                         <p>
-                            ${postListText[index]}
+                            <c:forEach var="text" items="${postListText}">
+                               <c:if test="${text.getLeft() eq postId}">
+                                ${text.getRight()}
+                               </c:if>
+                            </c:forEach>
                         </p>
                     </div>
                 </div>
             </div>
-            <c:set var="postListSize" value="${index}"></c:set>
         </c:forEach>
     </div>
 
@@ -115,5 +117,5 @@
     </div>
 
 </main>
-
+<script src="/js/post/mainPostList.js"></script>
 <jsp:include page="../layout/footer.jsp"/>

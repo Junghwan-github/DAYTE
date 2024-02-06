@@ -21,7 +21,7 @@ public class PostReply {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int num; // 댓글 번호
+    private Long num; // 댓글 번호
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user")

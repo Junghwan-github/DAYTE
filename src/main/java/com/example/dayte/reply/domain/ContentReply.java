@@ -21,7 +21,7 @@ public class ContentReply {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int num; // 댓글 번호
+    private Long num; // 댓글 번호
 
     @JoinColumn(name = "user")
     @ManyToOne(fetch = FetchType.EAGER)

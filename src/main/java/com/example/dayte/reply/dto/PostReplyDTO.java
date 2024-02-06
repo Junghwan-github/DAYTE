@@ -13,7 +13,7 @@ import java.sql.Timestamp;
 @Data
 public class PostReplyDTO {
 
-    private int num;
+    private Long num;
 
     private User user;
 
@@ -21,7 +21,7 @@ public class PostReplyDTO {
 
     private String content;
 
-    private int id;
+    private Long id;
 
     private Timestamp createDate;
 

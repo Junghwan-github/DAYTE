@@ -13,12 +13,13 @@ main {
 
 .post-list-items-wrapper {
     width: 100%;
-    padding: 50px 10px;
+    padding: 35px 10px;
     box-sizing: border-box;
     border-bottom: 1px solid #ddd;
     display: flex;
     justify-content: center;
     flex-flow: row nowrap;
+    cursor: pointer;
 }
 
 .user-part {
@@ -66,7 +67,7 @@ main {
 
 .post-items-title > h2 {
     font-weight: 500;
-    font-size: 2rem;
+    font-size: 2.5rem;
     color: #111;
 }
 
@@ -74,7 +75,6 @@ main {
     display: flex;
     justify-content: flex-start;
     flex-flow: row nowrap;
-    padding: 15px 0;
 }
 
 .post-items-images > ul > li {
@@ -87,6 +87,36 @@ main {
     overflow: hidden;
     border-radius: 15px;
     background: #ddd;
+    margin: 20px 0;
+}
+
+.post-items-images > ul > li > div img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.post-items-content {
+    position: relative;
+    height: 70px;
+    overflow: hidden;
+
+}
+
+.post-items-content:before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 70%);
+
+}
+
+.post-items-content > p {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #111;
+    line-height: 20px;
 }
 
 
