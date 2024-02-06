@@ -109,8 +109,6 @@ public class PostController {
         model.addAttribute("postEndPage", endPage);
         model.addAttribute("postNowPage", nowPage);
         model.addAttribute("postList", postService.getPostList(pageable));
-
-
         return "post/mainPostList";
     }
 

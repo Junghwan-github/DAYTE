@@ -25,7 +25,9 @@
             <div class="user-part">
                 <ul>
                     <li>
-                        <div></div>
+                        <div>
+                        <img src="${post.user.profileImagePath}">
+                        </div>
                     </li>
                     <li><span>${post.user.nickName}</span></li>
                     <li><span><fmt:formatDate value="${post.createDate}" pattern="yyyy.MM.dd"/></span></li>

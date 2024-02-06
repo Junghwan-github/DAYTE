@@ -5,14 +5,14 @@ import com.example.dayte.reply.domain.PostReply;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
 import java.util.List;
 
-@Data
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -41,5 +41,18 @@ public class Post {
 
     private List<PostReply> replyList;
 
-//        private int cnt;
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    private List<PostImages> postImages;
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 }

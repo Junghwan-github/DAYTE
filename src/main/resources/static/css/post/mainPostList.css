@@ -34,13 +34,17 @@ main {
     margin-left: 7px;
 }
 
-
+.user-part > ul > li > div > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 
 .user-part > ul > li > div {
     width: 35px;
     height: 35px;
-    background: #20c997;
     border-radius: 50px;
+    overflow: hidden;
 }
 .user-part > ul > li > span {
     font-size: 1.5rem;
