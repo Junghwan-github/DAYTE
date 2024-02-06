@@ -176,11 +176,6 @@ public class UserController {
 
         String encodedPassword = userService.getUser(userEmail).getPassword();
         String rawPassword = (String)map.get("password");
-        System.out.println("======================================" +userEmail );
-        System.out.println("======================================" +rawPassword );
-        System.out.println("======================================" +encodedPassword );
-
-
 
         if(passwordEncoder.matches(rawPassword, encodedPassword)){
             userService.deleteUser(userEmail);
