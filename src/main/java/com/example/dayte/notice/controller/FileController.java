@@ -3,6 +3,7 @@ package com.example.dayte.notice.controller;
 import com.example.dayte.notice.controller.advice.FileUtil;
 import com.example.dayte.notice.domain.FilesInfo;
 import com.example.dayte.notice.service.FileService;
+import com.nimbusds.jose.shaded.gson.Gson;
 import com.nimbusds.jose.shaded.gson.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -20,6 +21,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 
@@ -54,33 +60,53 @@ public class FileController {
 
     @PostMapping(value="/uploadNoticeImageFile", produces = "application/json")
     @ResponseBody
-    public JsonObject uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile) {
+    public Map<String, String> uploadSummernoteImageFile(@RequestPart("file") MultipartFile multipartFile) {
 
-        JsonObject jsonObject = new JsonObject();
+        Map<String, String> fileObject = new HashMap<>();
+
 
         String fileRoot = "C:\\summernote_image\\";	//저장될 외부 파일 경로
         String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
         String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
 
-        String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
-
+        String savedFileName = UUID.randomUUID() + extension;	//저장될 파일명
         File targetFile = new File(fileRoot + savedFileName);
 
         try {
             InputStream fileStream = multipartFile.getInputStream();
             FileUtils.copyInputStreamToFile(fileStream, targetFile);	//파일 저장
-            jsonObject.addProperty("url", "/summernoteImage/"+savedFileName);
-            jsonObject.addProperty("responseCode", "success");
+            fileObject.put("url", "/summernoteImage/"+savedFileName);
+            fileObject.put("responseCode", "success");
+
+
 
         } catch (IOException e) {
             FileUtils.deleteQuietly(targetFile);	//저장된 파일 삭제
-            jsonObject.addProperty("responseCode", "error");
             e.printStackTrace();
         }
+        
+        return fileObject;
+    }
 
-        System.out.println("^^^^^^^");
-        System.out.println(jsonObject);
-        return jsonObject;
+    @RequestMapping(value = "/deleteSummernoteImageFile", produces = "application/json; charset=utf8")
+    @ResponseBody
+    public void deleteSummernoteImageFile(@RequestParam("file") String fileName) {
+        String fileRoot = "C:\\summernote_image\\";
+        // 폴더 위치
+        /*String filePath = fileRoot + "/summernote_image/";*/
+
+        // 해당 파일 삭제
+        deleteFile(fileRoot, fileName);
+    }
+
+    // 파일 하나 삭제
+    private void deleteFile(String filePath, String fileName) {
+        Path path = Paths.get(filePath, fileName);
+        try {
+            Files.delete(path);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
