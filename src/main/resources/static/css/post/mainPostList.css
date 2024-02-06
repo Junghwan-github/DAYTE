@@ -101,13 +101,30 @@ tr:hover {
     display: flex;
     justify-content: center;
     margin-top: 20px;
+
 }
 
 .postInsertButtonDiv {
     margin: 0 auto;
-    width: 50%;
     display: flex;
     justify-content: right;
+}
+
+.paginationNum {
+    margin: 0 10px 0 10px;
+}
+
+.paginationList {
+    display: flex;
+    justify-content: center;
+}
+
+.firstPageOpenBtn {
+    margin-right: 10px;
+}
+
+.nextPageBtn {
+    margin-right: 10px;
 }
 
 
