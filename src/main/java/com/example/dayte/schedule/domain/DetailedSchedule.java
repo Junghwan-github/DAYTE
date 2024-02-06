@@ -1,5 +1,6 @@
 package com.example.dayte.schedule.domain;
 
+import com.example.dayte.admin.contents.domain.AdminContents;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,7 +21,7 @@ public class DetailedSchedule {
 
     @ManyToOne
     @JoinColumn(name = "contentId", unique = false)
-    private Contents contents;
+    private AdminContents adminContents;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumns({

@@ -1,6 +1,7 @@
 package com.example.dayte.schedule.controller;
 
 
+import com.example.dayte.admin.contents.service.AdminContentsService;
 import com.example.dayte.members.dto.ResponseDTO;
 import com.example.dayte.schedule.domain.Schedule;
 import com.example.dayte.schedule.dto.ScheduleDTO;
@@ -24,11 +25,12 @@ import java.time.format.DateTimeFormatter;
 @RequiredArgsConstructor
 public class ScheduleController {
 
+
     private final ScheduleService scheduleService;
 
     private final ScheduleDateService scheduleDateService;
 
-    private final ContentsService contentsService;
+    private final AdminContentsService contentsService;
 
     // 사용자가 계획한 일정 전체를 보여주는 로직
     @GetMapping("/schedule/scheduleList")
