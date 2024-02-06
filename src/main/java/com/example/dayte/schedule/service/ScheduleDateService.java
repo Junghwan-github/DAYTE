@@ -46,7 +46,7 @@ public class ScheduleDateService {
         DetailedScheduleDTO detailedScheduleDTO = new DetailedScheduleDTO();
 
         scheduleDateId.setSchedule(schedule); // schedule 객체 셋팅
-        //scheduleDateId.setNowDate(scheduleDateDTO.getNowDate()); // nowDate 셋팅
+        scheduleDateId.setNowDate(scheduleDateDTO.getNowDate()); // nowDate 셋팅
 
         detailedScheduleDTO.setScheduleDate(scheduleDateRepository.findById(scheduleDateId).get());
 
