@@ -1,12 +1,15 @@
 // 콘텐츠 검색 함수
 function searchContents(search) {
     $.ajax({
-        url: '/search',
-        method : 'POST',
-        contentType: 'application/json',
+        url: "/search",
+        method : "POST",
+        contentType: "application/json; charset=utf-8",
         data   : JSON.stringify({search: search}),
         success: function(data) {
             // 검색 결과를 UI에 표시
+            if(!!!data){
+                alert("값 없음");
+            }
             displaySearchResults(data);
             console.log(data);
         },
@@ -20,7 +23,7 @@ function searchContents(search) {
 function displaySearchResults(data) {
     const contentListViewer = $('.contentListViewer');
     contentListViewer.html('');
-
+console.log(data.adminContentsImageList);
     if (data.length === 0) {
         const listItem = $('<li>').html('<p>검색 결과가 없습니다.</p>');
         contentListViewer.append(listItem);
@@ -33,7 +36,7 @@ function displaySearchResults(data) {
                 <span class="contentListItemPoint-y">${content.positionY}</span>
                 <div class="contentListItems">
                     <div class="contentListItemsImages">
-                        <img src="../images/testimages1.jpg">
+                        <img src="${content.adminContentsImageList[0].imageURL}">
                     </div>
                     <ul class="contentListItemText">
                         <li>
@@ -41,12 +44,12 @@ function displaySearchResults(data) {
                             <h2>${content.category}</h2>
                         </li>
                         <li>
-                            <span>대구 ${content.gu} ${content.ro}</span>
+                            <span>대구 ${content.detailedAddress}</span>
                         </li>
                         <li>
-                            <p>영업시간 : 09:00</p>
+                            <p>영업시간 : ${content.opening} ~ ${content.closed}</p>
                             <p>기간 : 없음</p>
-                            <p>문의 : 0507-2221-1321</p>
+                            <p>문의 : ${content.contactInfo}</p>
                         </li>
                         <li>
                             <span>★ 4.5</span>
@@ -73,6 +76,7 @@ function displaySearchResults(data) {
 
 // "#guList" 요소 안의 <li> 클릭 이벤트 핸들러 등록
 $("#guList").on("click", "li", function () {
+    console.log($(this).text())
     searchContents($(this).text());
 });
 

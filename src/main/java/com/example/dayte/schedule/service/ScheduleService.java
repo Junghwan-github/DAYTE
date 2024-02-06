@@ -56,7 +56,7 @@ public class ScheduleService {
                 ScheduleDateId scheduleDateId = new ScheduleDateId();
                 scheduleDateId.setSchedule(schedule);
                 scheduleDateId.setNowDate(startDate.plusDays(i));
-//                scheduleDateDTO.setScheduleDateId(scheduleDateId);
+                scheduleDateDTO.setScheduleDateId(scheduleDateId);
                 scheduleDateRepository.save(modelMapper.map(scheduleDateDTO, ScheduleDate.class));
             }
 

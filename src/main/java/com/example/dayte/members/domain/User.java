@@ -43,6 +43,8 @@ public class User {
 
     private boolean del;
 
+    private boolean social;
+
     @CreationTimestamp
     private Timestamp joinDate;
 

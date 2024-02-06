@@ -31,7 +31,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         // 요청 아이디에 해당하는 회원이 있는지 조회 (DB => domain.User)
         Optional<User> result = userRepository.findById(username);
 
-
         if (result.isEmpty())  // 해당 아이디를 가진 사용자가 없다면
             throw new UsernameNotFoundException("username 에 해당하는 회원이 없다...");
 
@@ -50,6 +49,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                 user.getGender(),
                 user.isDel(),
                 user.getProfileImagePath(),
+                user.isSocial(),
                 Arrays.asList(new SimpleGrantedAuthority("ROLE_" + user.getRole().name()))
 
                 // List 컬렉션을 하나 생성해서 1. ROLE_USER, 2. ROLE_ADMIN

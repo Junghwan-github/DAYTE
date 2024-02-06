@@ -115,6 +115,7 @@ public class AdminContentsService {
         return adminContentsRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
     public List<AdminContents> searchByContents(String searchContents) {
         if(searchContents == null) searchContents = "";
         return adminContentsRepository.findAllBySearch(searchContents);
