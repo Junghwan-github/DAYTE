@@ -72,6 +72,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                     .phone("010-0000-0000") // 임의의 값 넣기
                     .birthDate("99999999") // 임의의 값 넣기
                     .del(false)
+                    .social(true)
                     .role(RoleType.USER)
                     .profileImagePath("/images/default_icon_profile.png")
                     .profileImageName("default_icon_profile.png")
@@ -88,7 +89,8 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                     "99999999", // birthDate
                     "", // gender
                     false, // del
-                    null, // profileImagePath
+                    "/images/default_icon_profile.png", // profileImagePath
+                    true,
                     Arrays.asList(new SimpleGrantedAuthority("ROLE_USER")) // RoleType
             );
 
@@ -110,6 +112,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                 user.getGender(),
                 user.isDel(),
                 user.getProfileImagePath(),
+                user.isSocial(),
                 Arrays.asList(
                         new SimpleGrantedAuthority("ROLE_" + user.getRole().name())
                 ));

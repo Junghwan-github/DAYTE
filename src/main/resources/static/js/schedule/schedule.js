@@ -236,7 +236,7 @@ $(".contentListItemdetailViewBtn").click(function () {
 })
 
 let marker = '';
-$('.contentListViewer > li').on('click', function (e) {
+$('.contentListItems').on('click', function (e) {
 
     // 상세보기와 추가하기를 제외한 li 요소를 누르면 마커 생성
     if ($(e.target)[0].localName !== 'button') {

@@ -136,7 +136,7 @@
             <div id="file-input-Div-parentNode">
                 <input type="file" accept=".pdf, .hwp, .docx, .xlsx, .xls, .jpg, .png, .jpeg, .zip "
                        class="fileInput"
-                       name="files" id="file-input" multiple="multiple" onchange="selectFile(this);"/>
+                       name="inputFiles" id="file-input" multiple="multiple" onchange="selectFile(this);"/>
             </div>
             <div>
                 <div id="preview"></div>
@@ -228,7 +228,15 @@
                             e.preventDefault();
                         }
                     }
-                }
+                },
+                onMediaDelete: function ($target, editor, $editable) {
+                        var deletedImageUrl = $target
+                            .attr('src')
+                            .split('/')
+                            .pop()
+                        deleteSummernoteImageFile(deletedImageUrl)
+
+                },
             }
         });
     });
@@ -246,12 +254,24 @@
                 processData: false,
                 success: function (data) {
                     //항상 업로드된 파일의 url이 있어야 한다.
-                    $(editor).summernote('insertImage', data.members.url.value);
-                    console.log(data.members.url);
+                    $(editor).summernote('insertImage', data.url);
+                    console.log(data.url);
                 }
             });
         }
 
+    function deleteSummernoteImageFile(imageName) {
+        data = new FormData()
+        data.append('file', imageName)
+        $.ajax({
+            data: data,
+            type: 'POST',
+            url: '/deleteSummernoteImageFile',
+            contentType: false,
+            enctype: 'multipart/form-data',
+            processData: false,
+        })
+    }
 
 </script>
 

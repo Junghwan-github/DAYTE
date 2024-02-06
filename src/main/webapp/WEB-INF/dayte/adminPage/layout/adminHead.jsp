@@ -32,7 +32,7 @@
             <div class="me-2"aria-label="breadcrumb">
                 <ul class="breadcrumb mb-0 " >
                     <li class="breadcrumb-item "><a href="/admin/home" class="text-decoration-none text-reset fw-semibold">관리자 메인</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"><span class="text-reset fw-bold">회원 관리</span></li>
+                    <li class="breadcrumb-item active" aria-current="page"><span class="h6 fw-bold" id="nowPageTitle"></span></li>
                 </ul>
             </div>
         </div>

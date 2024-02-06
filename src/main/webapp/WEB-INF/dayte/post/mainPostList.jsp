@@ -1,5 +1,6 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <%-- head --%>
 <%@include file="../layout/head.jsp" %>
@@ -63,78 +64,61 @@
             </c:forEach>
     </div>
 
-    <%--    <table border="1">--%>
-    <%--        <tr>--%>
-    <%--            <th></th>--%>
-    <%--            <th>번호</th>--%>
-    <%--            <th>제목</th>--%>
-    <%--            <th>내용</th>--%>
-    <%--            <th>작성일</th>--%>
-    <%--            <th>작성자</th>--%>
-    <%--        </tr>--%>
-    <%--        <c:forEach var="post" items="${postList.content}">--%>
-    <%--            <tr>--%>
-    <%--                <td>--%>
-    <%--                    <img src="/images/1.PNG">--%>
-    <%--                </td>--%>
-    <%--                <td>${post.id}</td>--%>
-    <%--                <td><a href="/post/${post.id}"> ${post.title}</a></td>--%>
-    <%--                <td>${post.content}</td>--%>
-    <%--                <td><fmt:formatDate value="${post.createDate}" pattern="yyyy-MM-dd"/></td>--%>
-    <%--                <td>${post.user.userEmail}</td>--%>
-    <%--            </tr>--%>
-    <%--        </c:forEach>--%>
-    <%--    </table>--%>
-
-
     <%------------------------------------ 글 작성 버튼  ------------------------------------%>
-    <br>
     <div class="postInsertButtonDiv">
         <form class="postInsertButton" method="get" action="/mainPostList/in">
             <button type="submit">글 작성</button>
         </form>
     </div>
-    <br>
 
     <%------------------------------------ 검색 폼 ------------------------------------%>
     <div class="postSearchForm">
-        <form:form action="/post/search" method="get" modelAttribute="searchForm">
-            <input type="text" name="postKey"/>
-            <input type="submit" value="검색"/>
-        </form:form>
+        <form action="/post/postSearch" method="get">
+            <label for="postBordSearchDropDown"></label>
+            <select id="postBordSearchDropDown" name="postBordSearchDropDownMenu" >
+                <option value="postAll">전체</option>
+                <option value="postTitle">제목</option>
+                <option value="postContent">내용</option>
+            </select>
+            <input type="text" name="postSearchInputBox"/>
+            <button class="postSearchSubmitBtn">검색</button>
+        </form>
     </div>
-
 
     <%------------------------------------ 페이지네이션  ------------------------------------%>
     <div class="pagination">
-
-        <ul>
-            <li>  <%-- 첫번째 페이지로 이동하는 버튼 --%>
-                <a class="firstPageOpenBtn" href="?page=0"><<</a>
-            </li>
-
-            <li>  <%-- 이전 페이지로 이동하는 버튼 --%>
-                <a class="beforePageBtn" href="${postList.number -1}"><</a>
-            </li>
-
-            <%-- 페이지 버튼 생성  --%>
-            <c:forEach var="i" begin="${postStartPage}" end="${postEndPage}">
-                <li class="paginationNum">
-                    <a class="<c:if  test='${postNowPage == i}'>active</c:if>" href="?page=${i}">${i + 1}</a>
+        <ul class="paginationList">
+            <c:if test="${!postList.first}">
+                <li>  <%-- 첫번째 페이지로 이동하는 버튼 --%>
+                    <a class="firstPageOpenBtn" href="?page=0">처음</a>
                 </li>
-            </c:forEach>
+
+                <li>  <%-- 이전 페이지로 이동하는 버튼 --%>
+                    <a class="pastPageBtn" href="?page=${postList.number -1}">이전</a>
+                </li>
+            </c:if>
+
+            <%-- 페이지 생성  --%>
+            <c:if test="${postEndPage >= 0}">
+                <c:forEach var="i" begin="${postStartPage}" end="${postEndPage}">
+                    <li class="paginationNum">
+                        <a class="<c:if  test='${postNowPage == i}'>active</c:if>" href="?page=${i}">${i + 1}</a>
+                    </li>
+                </c:forEach>
+            </c:if>
 
 
-            <li>  <%-- 다음 페이지로 이동하는 버튼 --%>
-                <a class="nextPageBtn" href="${postList.number +1}">></a>
-            </li>
+            <c:if test="${!postList.last}">
+                <li>  <%-- 다음 페이지로 이동하는 버튼 --%>
+                    <a class="nextPageBtn" href="?page=${postList.number +1}">다음</a>
+                </li>
 
-            <li>  <%-- 마지막 페이지로 이동하는 버튼 --%>
-                <a class="lastPageBtn" href="?page=${postList.totalPages -1}">>></a>
-            </li>
+                <li>  <%-- 마지막 페이지로 이동하는 버튼 --%>
+                     <a class="lastPageBtn" href="?page=${postList.totalPages -1}">마지막</a>
+                  </li>
+             </c:if>
         </ul>
     </div>
-
 
 </main>
 
