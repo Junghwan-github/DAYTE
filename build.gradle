@@ -67,7 +67,6 @@ dependencies {
 
 
     implementation 'commons-io:commons-io:2.11.0'
-    implementation 'com.google.code.gson:gson:2.8.1'
 
     //db 본문 jquery 파싱할때 쓰는거
     implementation 'org.jsoup:jsoup:1.14.3'

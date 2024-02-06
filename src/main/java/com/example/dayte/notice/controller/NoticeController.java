@@ -19,6 +19,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -44,6 +45,7 @@ public class NoticeController {
 
     @Autowired
     private CustomUserDetailsService userDetailsService;
+
 
     @GetMapping("/notice")
     public String getNoticeList(Model model, @PageableDefault(size = 10, sort = "no", direction = Sort.Direction.DESC) Pageable pageable,
@@ -73,6 +75,7 @@ public class NoticeController {
         return "notice/notice";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/notice/modAll")
     public String modAllNotice(Model model, @PageableDefault(size = 5, sort = "no", direction = Sort.Direction.DESC) Pageable pageable) {
 
@@ -100,6 +103,7 @@ public class NoticeController {
     }
 
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/notice/createNotice")
     public String createNotice(Model model) {
 
@@ -110,23 +114,25 @@ public class NoticeController {
     }
 
     //공지사항 추가
-//    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/notice/createNotice")
     public @ResponseBody ResponseDTO<?> createNotice(
             @RequestPart("title") String title,
             @RequestPart("content") String content,
-            @RequestPart("files")List<MultipartFile> files) {
+            @RequestPart("inputFiles")List<MultipartFile> files) {
 
-       System.out.println("Title: " + title);
-        System.out.println("Content: " + content);
+       /*System.out.println("Title: " + title);
+        System.out.println("Content: " + content);*/
 
 
         for (MultipartFile file : files) {
+            System.out.println("Received file: " + file.getOriginalFilename());
+
             // 각 파일에 대한 처리 로직 수행
-            if(!file.isEmpty()) {
-                   /*System.out.println("Received file: " + file.getOriginalFilename());
-                System.out.println("파일 크기 : " + (double)file.getSize()/(1024*1024));*/
-            }
+          /*  if(!file.isEmpty()) {
+
+                System.out.println("파일 크기 : " + (double)file.getSize()/(1024*1024));
+            }*/
         }
 
         List<FilesInfo> filesInfos = fileUtils.uploadFiles(files);
@@ -205,6 +211,7 @@ public class NoticeController {
 
 
     //공지사항 수정페이지 이동
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/update/{id}")
     public String updateNotice(@PathVariable int id, Model model) {
         model.addAttribute("notice", noticeService.getNotice(id));
@@ -212,6 +219,7 @@ public class NoticeController {
     }
 
     //공지사항 수정
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(value = "/update/all", consumes = "multipart/form-data")
     public @ResponseBody ResponseDTO<?> updateNotice(@RequestParam("no") int no,
                                                      @RequestPart("title") String title,
@@ -252,7 +260,7 @@ for(MultipartFile file: files) {
 
 
     //공지사항 삭제
-
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/notice/delete")
     public @ResponseBody ResponseDTO<?> deleteNotice(@RequestBody List<Integer> noticeIds) {
         for (int noticeId : noticeIds) {
@@ -262,6 +270,7 @@ for(MultipartFile file: files) {
     }
 
     //필독 공지사항 전체 우선순위 변경
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/notice/fixPriority")
     public @ResponseBody ResponseDTO<?> fixPriority(@RequestBody List<Integer> noticeIds) {
         log.info("^^^^^^^^^^^^^^^^^^^^^^");
@@ -272,6 +281,7 @@ for(MultipartFile file: files) {
     }
 
     //필독 공지사항을 일반 공지사항으로 변경(priority 값을 0으로)
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/notice/resetPriority{no}")
     public @ResponseBody ResponseDTO<?> resetPriority(@PathVariable int no) {
         noticeService.resetPriority(no);
@@ -281,6 +291,7 @@ for(MultipartFile file: files) {
     }
 
     //일반 공지사항을 필독 공지사항으로 변경(priority 값을 부여된 값 중 가장 높은 값으로)
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/notice/grantPriority{no}")
     public @ResponseBody ResponseDTO<?> grantPriority(@PathVariable int no) {
         noticeService.grantPriority(no);
@@ -290,6 +301,7 @@ for(MultipartFile file: files) {
     }
 
     // 페이지 벗어날 때 마다 체크박스 상태 저장
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/notice/ViewCheck")
     public @ResponseBody ResponseDTO<?> ViewCheck(@RequestBody Map<String, Boolean> checkboxIdState) {
 
@@ -311,6 +323,7 @@ for(MultipartFile file: files) {
 
 
     //관리자 페이지 검색
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/notice/searchNoticesAdmin")
     public String searchNoticesAdmin(String searchWord, String searchOption, Model model, @PageableDefault(size = 5, sort = "no", direction = Sort.Direction.DESC) Pageable pageable) {
 

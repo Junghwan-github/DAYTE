@@ -64,4 +64,6 @@ public class AdminContentsDTO implements Serializable {
 
     private List<MultipartFile> imageFiles;
 
+    private String facilities;
+
 }
