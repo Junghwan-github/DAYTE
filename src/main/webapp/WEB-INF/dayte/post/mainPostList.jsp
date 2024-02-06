@@ -20,45 +20,42 @@
     </div>
 
     <div class="post-list-container">
-<c:forEach var="post" items="${postList.content}">
-        <div class="post-list-items-wrapper">
-            <div class="user-part">
-                <ul>
-                    <li>
-                        <div></div>
-                    </li>
-                    <li><span>${post.user.nickName}</span></li>
-                    <li><span><fmt:formatDate value="${post.createDate}" pattern="yyyy.MM.dd"/></span></li>
-                </ul>
-            </div>
-            <div class="content-part">
-                <div class="post-items-title">
-                    <h2></h2>
-                </div>
-                <div class="post-items-images">
+        <c:set var="postListSize" value="${postListText.size()}"></c:set>
+        <c:forEach var="post" items="${postList.content}">
+            <c:set var="index" value="${postListSize-1}"></c:set>
+            <div class="post-list-items-wrapper">
+                <div class="user-part">
                     <ul>
                         <li>
-                            <div><img src=""></div>
+                            <div></div>
                         </li>
-                        <li>
-                            <div><img src=""></div>
-                        </li>
-                        <li>
-                            <div><img src=""></div>
-                        </li>
-                        <li>
-                            <div><img src=""></div>
-                        </li>
+
+                        <li><span>${post.user.nickName}</span></li>
+                        <li><span><fmt:formatDate value="${post.createDate}" pattern="yyyy.MM.dd"/></span></li>
                     </ul>
                 </div>
-                <div class="post-items-content">
-                    <p>
-                        테스트오집니다.
-                    </p>
+                <div class="content-part">
+                    <div class="post-items-title">
+                        <h2>${post.title}</h2>
+                    </div>
+                    <div class="post-items-images">
+                            <ul>
+                                <c:forEach var="images" items="${post.postImages}">
+                                <li>
+                                    <div><img src="${images.imageUrl}"/></div>
+                                </li>
+                                </c:forEach>
+                            </ul>
+                    </div>
+                    <div class="post-items-content">
+                        <p>
+                            ${postListText[index]}
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
-            </c:forEach>
+            <c:set var="postListSize" value="${index}"></c:set>
+        </c:forEach>
     </div>
 
     <%--    <table border="1">--%>
@@ -112,7 +109,7 @@
             </li>
 
             <li>  <%-- 이전 페이지로 이동하는 버튼 --%>
-                <a class="beforePageBtn" href="${postList.number -1}"><</a>
+                <a class="beforePageBtn" href="?page=${postList.number -1}"><</a>
             </li>
 
             <%-- 페이지 버튼 생성  --%>
@@ -124,7 +121,7 @@
 
 
             <li>  <%-- 다음 페이지로 이동하는 버튼 --%>
-                <a class="nextPageBtn" href="${postList.number +1}">></a>
+                <a class="nextPageBtn" href="?page=${postList.number +1}">></a>
             </li>
 
             <li>  <%-- 마지막 페이지로 이동하는 버튼 --%>

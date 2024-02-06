@@ -41,5 +41,8 @@ public class Post {
 
     private List<PostReply> replyList;
 
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<PostImages> postImages;
+
 //        private int cnt;
 }

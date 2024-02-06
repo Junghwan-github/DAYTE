@@ -1,10 +1,10 @@
-package com.example.dayte.post.postController;
+package com.example.dayte.post.controller;
 
 import com.example.dayte.members.domain.User;
 import com.example.dayte.members.dto.ResponseDTO;
 import com.example.dayte.members.service.UserService;
 import com.example.dayte.post.domin.Post;
-import com.example.dayte.post.postDto.PostDTO;
+import com.example.dayte.post.dto.PostDTO;
 import com.example.dayte.post.postService.PostService;
 import com.example.dayte.reply.dto.PostReplyDTO;
 import com.example.dayte.reply.service.FormatCreateDateService;
@@ -27,7 +27,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.*;
 
 @Controller
@@ -62,7 +61,7 @@ public class PostController {
         User user = userService.getUser(principal.getUsername()); // 해당 user의 Email을 담음
         post.setUser(user);
         postService.insertPost(post);
-
+        postService.extractPostContentImages(post);
         return new ResponseDTO<>(HttpStatus.OK.value(), "새로운 포스트를 등록했습니다.");
     }
 
@@ -90,10 +89,8 @@ public class PostController {
 
     // 포스트 리스트 페이지네이션
     @GetMapping({"/mainPostList"})
-    public String getPostList(Model model, @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+    public String getPostList(Model model, @PageableDefault(size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
         // 보이는 페이지에 게시글을 10개씩 보이게 하고 'id' 를 기준으로 정렬 설정
-        model.addAttribute("postList", postService.getPostList(pageable));
-        //
 
         Page<Post> postListPage = postService.getPostList(pageable);
         int postTotalPage = postListPage.getTotalPages();
@@ -108,9 +105,9 @@ public class PostController {
         model.addAttribute("postStartPage", startPage);
         model.addAttribute("postEndPage", endPage);
         model.addAttribute("postNowPage", nowPage);
-        model.addAttribute("postList", postService.getPostList(pageable));
+        model.addAttribute("postList", postListPage);
 
-
+        model.addAttribute("postListText",postService.extractPostContentText());
         return "post/mainPostList";
     }
 
