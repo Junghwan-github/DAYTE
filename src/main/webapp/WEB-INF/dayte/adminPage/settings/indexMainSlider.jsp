@@ -30,7 +30,7 @@
 </style>
 <div class="upload h-100 bg-body-tertiary px-3" >
     <form id="indexMainSliderUploadForm" class="py-3 px-5">
-        <p class="h4 fw-bold" >메인 설정</p>
+        <p class="h4 fw-bold titleName" >메인 설정</p>
         <ul class="m-0 p-0 list-unstyled">
             <li class="mb-3 p-0">
                 <input type="hidden" name="article"/>
