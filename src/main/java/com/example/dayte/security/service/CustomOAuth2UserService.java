@@ -73,7 +73,8 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                     .birthDate("99999999") // 임의의 값 넣기
                     .del(false)
                     .role(RoleType.USER)
-                    .profileImagePath(null)
+                    .profileImagePath("/images/default_icon_profile.png")
+                    .profileImageName("default_icon_profile.png")
                     .build();
             user.setLoginDate(LocalDate.now());
             userRepository.save(user);
