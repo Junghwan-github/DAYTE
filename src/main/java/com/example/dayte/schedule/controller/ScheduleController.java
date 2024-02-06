@@ -61,11 +61,11 @@ public class ScheduleController {
     }
 
     // 사용자가 만든 일정의 세부계획을 생성하는 로직
-    @PostMapping("/schedule/saveSchedule")
-    public @ResponseBody ResponseDTO<?> saveScheduleList(@RequestBody ScheduleDateDTO scheduleDateDTO) {
-        scheduleDateService.insertSchedule(scheduleDateDTO);
-        return new ResponseDTO<>(HttpStatus.OK.value(), "일정이 등록 되었습니다.");
-    }
+//    @PostMapping("/schedule/saveSchedule")
+//    public @ResponseBody ResponseDTO<?> saveScheduleList(@RequestBody ScheduleDateDTO scheduleDateDTO) {
+//        scheduleDateService.insertSchedule(scheduleDateDTO);
+//        return new ResponseDTO<>(HttpStatus.OK.value(), "일정이 등록 되었습니다.");
+//    }
 
     // 사용자의 일정 전체를 삭제하는 로직
     @DeleteMapping("schedule/scheduleList/{startDate}")
@@ -91,13 +91,13 @@ public class ScheduleController {
             return new ResponseDTO<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "일정 삭제 및 등록 중 오류가 발생했습니다.");
         }
     }
-    @Transactional
-    @PutMapping("/schedule/detailedScheduleModify")
-    public @ResponseBody ResponseDTO<?> detailedScheduleModify(
-            @RequestBody ScheduleDateDTO scheduleDateDTO
-    ){
-        scheduleDateService.updateSchedule(scheduleDateDTO);
-        return new ResponseDTO<>(HttpStatus.OK.value(), "일정이 수정 되었습니다.");
-    }
+//    @Transactional
+//    @PutMapping("/schedule/detailedScheduleModify")
+//    public @ResponseBody ResponseDTO<?> detailedScheduleModify(
+//            @RequestBody ScheduleDateDTO scheduleDateDTO
+//    ){
+//        scheduleDateService.updateSchedule(scheduleDateDTO);
+//        return new ResponseDTO<>(HttpStatus.OK.value(), "일정이 수정 되었습니다.");
+//    }
 }
 
