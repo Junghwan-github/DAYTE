@@ -1,6 +1,7 @@
 package com.example.dayte.post.postRepository;
 
 
+import com.example.dayte.members.domain.User;
 import com.example.dayte.notice.domain.Notice;
 import com.example.dayte.post.domin.Post;
 import org.springframework.data.domain.Page;
@@ -16,8 +17,9 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
     @Query("select p FROM Post p where case when :postBordSearchDropDownMenu = 'postTitle' then (p.title like %:postSearchInputBox%) when :postBordSearchDropDownMenu = 'postContent' then (p.content like %:postSearchInputBox%) when :postBordSearchDropDownMenu = 'postAll' then (p.title LIKE %:postSearchInputBox% OR p.content LIKE %:postSearchInputBox%) end ")
     Page<Post> postSearch(Pageable pageable, @Param("postSearchInputBox") String postSearchInputBox, @Param("postBordSearchDropDownMenu")String postBordSearchDropDownMenu);
 
+    Page<Post> findAllByUser(User user, Pageable pageable);
+
 //    @Query("SELECT p FROM Post p ORDER BY p.id ASC")
 //    List<com.example.dayte.post.domin.Post> findSearchPosts();
 
 }
-
