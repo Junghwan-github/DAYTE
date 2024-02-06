@@ -107,5 +107,16 @@ public class AdminContentsService {
             // Handle the case when the entity with the specified UUID is not found
             throw new EntityNotFoundException("id: " + id);
         }
+
+    }
+    @Transactional(readOnly = true)
+    public List<AdminContents> getContentsList() {
+        return adminContentsRepository.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    public List<AdminContents> searchByContents(String searchContents) {
+        if(searchContents == null) searchContents = "";
+        return adminContentsRepository.findAllBySearch(searchContents);
     }
 }

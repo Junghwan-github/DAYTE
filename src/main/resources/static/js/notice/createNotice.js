@@ -66,6 +66,7 @@ let noticeObject = {
         formData.append("content", content);
         console.log(form);
         console.log(form.title);
+        console.log(form.files);
 
 
         let confirmed = confirm("새 공지사항을 등록 하시겠습니까?")
@@ -81,7 +82,7 @@ let noticeObject = {
 
             }).then(data => {
             console.log(data);
-           /* location = "/notice/modAll";*/
+           location = "/notice/modAll";
         })
             .catch(error => {
                 alert(`에러발생 : ${error.message}`);

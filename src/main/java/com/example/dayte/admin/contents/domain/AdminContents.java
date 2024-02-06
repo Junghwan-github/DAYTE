@@ -1,10 +1,14 @@
 package com.example.dayte.admin.contents.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import net.minidev.json.annotate.JsonIgnore;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -18,7 +22,6 @@ import java.util.List;
 public class AdminContents {
 
     // 일정추가 시 보일 리스트에서 보여질 부분
-
     @Id
     private String uuid;
 
@@ -46,12 +49,14 @@ public class AdminContents {
 
     @Column(columnDefinition = "TEXT")
     private String detailedDescription; // 상세설명
-
+    @JsonIgnoreProperties("adminContents")
     @OneToMany(
+
             mappedBy = "adminContents",
             fetch = FetchType.EAGER,
             cascade = CascadeType.REMOVE
     )
     private List<AdminContentsImage> adminContentsImageList;
 
+    private String facilities;
 }

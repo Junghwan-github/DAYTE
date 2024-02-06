@@ -147,9 +147,8 @@ $(document).ready(function () {
 // 이미지를 임시저장합니다.
 function sendFile(files) {
     const formData = new FormData();
-    for (let i = 0; i < files.length; i++) {
-        formData.append('files', files[i]);
-    }
+    formData.append('files', files[0]); // 'files'는 서버에서 받을 때의 파라미터 이름입니다.
+
     $.ajax({
         type: 'POST',
         url: '/uploadSummernoteImageFile',
@@ -157,10 +156,8 @@ function sendFile(files) {
         cache: false,
         contentType: false,
         processData: false,
-        success: function (imageUrls) {
-            for (let i = 0; i < imageUrls.length; i++)
-            $('#summernote').summernote('insertImage', imageUrls[i]);
-            console.log(imageUrls);
+        success: function (response) {
+            $('#summernote').summernote('insertImage', response.url);
         },
         error: function (error) {
             console.error('이미지 업로드 실패:', error);

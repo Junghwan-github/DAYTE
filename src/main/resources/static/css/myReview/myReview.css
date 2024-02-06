@@ -1,0 +1,140 @@
+.wrapper{
+    width: 1180px;
+    /*height: 100vh;*/
+    margin: 0 auto;
+    background: white;
+}
+.title{
+    font-size: 2.8rem;
+    color: #333;
+    padding: 20px 0;
+
+
+}
+.wrapper > form {
+    padding: 0;
+}
+
+
+/*==================================== 테이블 */
+.tableContainer{
+    width: 100%;
+    margin: 0 auto;
+}
+#myReviewTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin : 0 auto;
+    box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+}
+.myReviewTrStyle {
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+}
+#myReviewTable > tbody > tr:first-child {
+    border-top: #333 solid 2px;
+}
+.thStyle, .tdStyle {
+    padding-left: 30px;
+    padding-right: 30px;
+
+    font-size: 1.8rem;
+    color: #333;
+}
+.thTitle {
+    padding-left: 10px;
+}
+.thDate {
+    padding-right: 40px;
+}
+.tdTitle {
+    text-decoration: none; /* 기본 링크 텍스트에 있는 밑줄 제거 */
+    display : block;
+    width: 700px;
+    padding: 5px 0;
+
+    font-size: 1.8rem;
+    color: #333;
+}
+
+.listHover:hover {
+    background-color: #e6e8ea;
+    transition: 0.2s;
+}
+/* ====================================== 페이지네이션*/
+.pagination{
+    margin: 30px 0 0 0;
+    padding: 0;
+}
+
+
+.pagination > ul {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.pagination > ul > li:hover {
+    background-color: #eee;
+    transition: 0.4s;
+}
+.paginationNum {
+    width: 30px;
+    height: 30px;
+    border-collapse: collapse;
+    margin: 0;
+
+    border: 1px solid #e6e6e6;
+}
+.paginationNum > a {
+    display: inline-block;
+    color: #333;
+    text-decoration: none;
+    padding: 5px 10px 8px 11px;
+    vertical-align: center;
+    text-align: center;
+
+    font-size: 1.7rem;
+}
+
+.pageMoveBtn > img{
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    object-fit: cover;
+
+}
+.pageDoubleMoveBtn > img {
+    width: 30px;
+    height: 30px;
+}
+
+.pageMoveBtn,
+.pageDoubleMoveBtn
+{
+    display: inline-block;
+    font-size: 0;
+    width: 30px;
+    height: 30px;
+    border: 1px solid #e6e6e6;
+}
+
+a.active {
+    background-color: #f6f7f8;
+}
+
+.priorityNotZero{
+    background-color: #f6f7f8;
+}
+
+

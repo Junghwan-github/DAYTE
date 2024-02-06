@@ -24,8 +24,8 @@
     <script src="https://kit.fontawesome.com/8ccf456cfd.js" crossorigin="anonymous"></script>
 
     <!-- 부트스트랩 -->
-    <script src="/webjars/bootstrap/5.3.2/js/bootstrap.min.js"></script>
-    <link href="/css/layout/bootstrap.min.css" rel="stylesheet">
+<%--    <script src="/webjars/bootstrap/5.3.2/js/bootstrap.min.js"></script>--%>
+<%--    <link href="/css/layout/bootstrap.min.css" rel="stylesheet">--%>
 
     <!--    디폴트 css-->
     <link rel="stylesheet" href="/css/layout/header.css">
