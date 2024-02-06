@@ -115,6 +115,10 @@
                 <label for="detailedDescription" class="d-block">상세설명</label>
                 <textarea id="detailedDescription" name="detailedDescription" required></textarea>
             </li>
+            <li class="mb-3 p-0">
+                <label for="facilities" class="d-block">편의시설</label>
+                <textarea id="facilities" name="facilities" required></textarea>
+            </li>
 
 
             <li class="mb-3 p-0">

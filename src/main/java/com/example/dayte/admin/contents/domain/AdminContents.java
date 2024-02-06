@@ -54,4 +54,5 @@ public class AdminContents {
     )
     private List<AdminContentsImage> adminContentsImageList;
 
+    private String facilities;
 }

@@ -240,8 +240,8 @@ $('.contentListViewer > li').on('click', function (e) {
 
     // 상세보기와 추가하기를 제외한 li 요소를 누르면 마커 생성
     if ($(e.target)[0].localName !== 'button') {
-        let latitude = $(e.target).closest('.contentListItems').find('.contentListItemPoint-y').text();
-        let longitude = $(e.target).closest('.contentListItems').find('.contentListItemPoint-x').text();
+        let latitude = $(e.target).closest('.contentListItems').find('.contentListItemPoint-x').text();
+        let longitude = $(e.target).closest('.contentListItems').find('.contentListItemPoint-y').text();
         if (marker != '') {
             marker.setMap(null);
         }

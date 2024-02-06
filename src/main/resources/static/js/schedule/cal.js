@@ -36,9 +36,9 @@ $(".nextBtn").on("click", function () {
                     // 다른 API 엔드포인트로의 DELETE 요청
                     $.ajax({
                         url        : "/schedule/deleteAndInsertSchedule",
-                        type       : "POST",
+                        type       : "DELETE",
                         contentType: "application/json",
-                        data       : JSON.stringify(scheduleDTO)
+                        data       : JSON.stringify(deleteUuid)
                     })
                         .done(function (deleteData) {
                             if (deleteData.status === 200) {
@@ -109,9 +109,6 @@ function scheduleTotalSaveBtn() {
             uuid        : $(".tableUuid").text(),
             contentsList: saveSchedule
         };
-        console.log(userSchedule.nowDate);
-        console.log(userSchedule.uuid);
-        console.log(userSchedule.contentsList);
 
         $.ajax({
             url        : "/schedule/saveSchedule",
