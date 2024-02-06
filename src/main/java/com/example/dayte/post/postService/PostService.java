@@ -1,8 +1,10 @@
 package com.example.dayte.post.postService;
 
 
+import com.example.dayte.notice.domain.Notice;
 import com.example.dayte.post.domin.Post;
 import com.example.dayte.post.postRepository.PostRepository;
+import lombok.extern.log4j.Log4j2;
 import org.jsoup.Jsoup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,6 +20,7 @@ import java.io.IOException;
 import java.util.*;
 
 @Service
+@Log4j2
 public class PostService {
 
     @Autowired
@@ -63,8 +66,6 @@ public class PostService {
     public void deletePost(int id) {
         postRepository.deleteById(id);
     }
-
-
 
     // 페이지네이션
     @Transactional(readOnly = true)
@@ -128,4 +129,30 @@ public class PostService {
 
         return imageUrls;
     }
+
+    public Page<Post> postSearch(Pageable pageable, String postSearchInputBox, String postBordSearchDropDownMenu) {
+        Page<Post> postFindSearch = postRepository.postSearch(pageable, postSearchInputBox, postBordSearchDropDownMenu);
+
+       /* for(Post post : postFindSearch.getContent()){
+            log.info("===============================");
+            log.info(post.getTitle());
+        }
+*/
+        return postFindSearch;
+
+    }
+
+//    @Transactional(readOnly = true)
+//    public List<Post> findSearchPost(){
+//        List<Post> posts = postRepository.findSearchPosts();
+//
+//        if(posts.isEmpty()){
+//            return Collections.emptyList();
+//
+//        } else{
+//            return posts;
+//        }
+//    }
+
 }
+
