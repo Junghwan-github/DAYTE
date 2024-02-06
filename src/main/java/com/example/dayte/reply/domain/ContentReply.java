@@ -2,7 +2,6 @@ package com.example.dayte.reply.domain;
 
 import com.example.dayte.admin.contents.domain.AdminContents;
 import com.example.dayte.members.domain.User;
-import com.example.dayte.schedule.domain.Contents;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

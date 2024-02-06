@@ -4,6 +4,7 @@ package com.example.dayte.schedule.controller;
 import com.example.dayte.admin.contents.service.AdminContentsService;
 import com.example.dayte.members.dto.ResponseDTO;
 import com.example.dayte.schedule.domain.Schedule;
+import com.example.dayte.schedule.dto.CheckScheduleDTO;
 import com.example.dayte.schedule.dto.ScheduleDTO;
 import com.example.dayte.schedule.dto.ScheduleDateDTO;
 import com.example.dayte.schedule.service.ContentsService;
@@ -45,23 +46,26 @@ public class ScheduleController {
 
     // 사용자가 선택한 날짜에 맞춰 일정이 생성되는 로직
     @PostMapping("/schedule/scheduleList")
-    public @ResponseBody ResponseDTO<?> insertScheduleList(
+    public @ResponseBody CheckScheduleDTO<?> insertScheduleList(
             @RequestBody ScheduleDTO scheduleDTO,
             @AuthenticationPrincipal UserSecurityDTO userSecurityDTO
     ) {
-        if (scheduleService.getUserSchedule(scheduleDTO, userSecurityDTO)) {
-            return new ResponseDTO<>(HttpStatus.CONFLICT.value(), "일정이 이미 있습니다.");
+        CheckScheduleDTO checkScheduleDTO = scheduleService.getUserSchedule(scheduleDTO, userSecurityDTO);
+        if (checkScheduleDTO.getOverlap()) {
+            checkScheduleDTO.setStatus(HttpStatus.CONFLICT.value());
+            checkScheduleDTO.setData("일정이 이미 있습니다.");
+            return checkScheduleDTO;
         } else {
             scheduleService.insertSchedule(userSecurityDTO, scheduleDTO);
-            return new ResponseDTO<>(HttpStatus.OK.value(), "일정이 등록 되었습니다.");
+            return new CheckScheduleDTO<>(HttpStatus.OK.value(), "일정이 등록 되었습니다.");
         }
     }
 
     // 사용자가 만든 일정의 세부계획을 생성하는 로직
     @PostMapping("/schedule/saveSchedule")
     public @ResponseBody ResponseDTO<?> saveScheduleList(@RequestBody ScheduleDateDTO scheduleDateDTO) {
-        System.out.println("==============" +scheduleDateDTO );
-        scheduleDateService.insertSchedule(scheduleDateDTO);
+        System.out.println("===============================" + scheduleDateDTO);
+//        scheduleDateService.insertSchedule(scheduleDateDTO);
         return new ResponseDTO<>(HttpStatus.OK.value(), "일정이 등록 되었습니다.");
     }
 
@@ -73,14 +77,16 @@ public class ScheduleController {
     }
 
     // 사용자가 일정이 이미 있다면 삭제후 재등록 하는 로직
-    @PostMapping("/schedule/deleteAndInsertSchedule")
+    @DeleteMapping("/schedule/deleteAndInsertSchedule")
     public @ResponseBody ResponseDTO<?> deleteAndInsertSchedule(
             @RequestBody ScheduleDTO scheduleDTO,
             @AuthenticationPrincipal UserSecurityDTO userSecurityDTO
     ) {
         try {
             // 이미 존재하는 일정 삭제
-            scheduleService.detailedDeleteSchedule(scheduleDTO, userSecurityDTO);
+//            scheduleService.detailedDeleteSchedule(scheduleDTO, userSecurityDTO);
+
+            scheduleService.detailedDeleteSchedule(scheduleDTO.getUuid());
 
             // 새로운 일정 등록
             scheduleService.insertSchedule(userSecurityDTO, scheduleDTO);
@@ -94,7 +100,7 @@ public class ScheduleController {
     public @ResponseBody ResponseDTO<?> detailedScheduleModify(
             @RequestBody ScheduleDateDTO scheduleDateDTO
     ){
-        scheduleDateService.updateSchedule(scheduleDateDTO);
+//        scheduleDateService.updateSchedule(scheduleDateDTO);
         return new ResponseDTO<>(HttpStatus.OK.value(), "일정이 수정 되었습니다.");
     }
 }

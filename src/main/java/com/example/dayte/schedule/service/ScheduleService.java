@@ -4,6 +4,7 @@ import com.example.dayte.members.domain.User;
 import com.example.dayte.schedule.domain.Schedule;
 import com.example.dayte.schedule.domain.ScheduleDate;
 import com.example.dayte.schedule.domain.ScheduleDateId;
+import com.example.dayte.schedule.dto.CheckScheduleDTO;
 import com.example.dayte.schedule.dto.ScheduleDTO;
 import com.example.dayte.schedule.dto.ScheduleDateDTO;
 import com.example.dayte.schedule.persistence.ScheduleDateRepository;
@@ -11,7 +12,6 @@ import com.example.dayte.schedule.persistence.ScheduleRepository;
 import com.example.dayte.security.dto.UserSecurityDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -56,7 +56,7 @@ public class ScheduleService {
                 ScheduleDateId scheduleDateId = new ScheduleDateId();
                 scheduleDateId.setSchedule(schedule);
                 scheduleDateId.setNowDate(startDate.plusDays(i));
-                scheduleDateDTO.setScheduleDateId(scheduleDateId);
+//                scheduleDateDTO.setScheduleDateId(scheduleDateId);
                 scheduleDateRepository.save(modelMapper.map(scheduleDateDTO, ScheduleDate.class));
             }
 
@@ -80,20 +80,30 @@ public class ScheduleService {
 
     // 사용자의 일정 유무를 비교하는 메서드
     @Transactional(readOnly = true)
-    public Boolean getUserSchedule(ScheduleDTO scheduleDTO, UserSecurityDTO userSecurityDTO) {
+    public CheckScheduleDTO getUserSchedule(ScheduleDTO scheduleDTO, UserSecurityDTO userSecurityDTO) {
         User user = modelMapper.map(userSecurityDTO, User.class);
+
         LocalDate startDate = parseDateString(scheduleDTO.getStartDate());
         LocalDate endDate = parseDateString(scheduleDTO.getEndDate());
+
         List<Schedule> result = scheduleRepository.findAllByUser(user);
+
+        CheckScheduleDTO checkScheduleDTO = new CheckScheduleDTO();
         for (Schedule schedule : result) {
+            // getDateRange(startDate, endDate) : 두 인자값 사이에 들어올 수 있는 날짜 전체를
+            // List 에 담는 구문
+            // User 가 이미 작성한 일정을 List 에 담음
             List<LocalDate> fetchedDateRange = getDateRange(schedule.getStartDate(), schedule.getEndDate());
+            // view 단에서 유저가 선택한 날짜만큼 List 에 담음
             List<LocalDate> inputDateRange = getDateRange(startDate, endDate);
             boolean overlap = checkDateOverlap(fetchedDateRange, inputDateRange);
             if (overlap) {
-                return overlap;
+                checkScheduleDTO.setUuid(schedule.getUuid());
+                checkScheduleDTO.setOverlap(overlap);
+                return checkScheduleDTO;
             }
         }
-        return false;
+        return new CheckScheduleDTO();
     }
 
     // 사용자가 선택한 일정 전체를 삭제하는 메서드
@@ -155,17 +165,8 @@ public class ScheduleService {
         );
     }
 
-    public void detailedDeleteSchedule(ScheduleDTO scheduleDTO, UserSecurityDTO userSecurityDTO) {
-        User user = modelMapper.map(userSecurityDTO, User.class);
-        LocalDate startDate = parseDateString(scheduleDTO.getStartDate());
-        LocalDate endDate = parseDateString(scheduleDTO.getEndDate());
-        List<Schedule> result = scheduleRepository.findAllByUser(user);
-        for (Schedule schedule : result) {
-            List<LocalDate> fetchedDateRange = getDateRange(schedule.getStartDate(), schedule.getEndDate());
-            List<LocalDate> inputDateRange = getDateRange(startDate, endDate);
-            boolean overlap = checkDateOverlap(fetchedDateRange, inputDateRange);
-
-        }
+    public void detailedDeleteSchedule(String uuid) {
+        scheduleRepository.deleteById(uuid);
     }
 }
 

@@ -21,4 +21,5 @@ public class ScheduleDateId implements Serializable {
     @Temporal(TemporalType.DATE)
     @Column(name = "now_date")
     private LocalDate nowDate;
+
 }

@@ -1,8 +1,4 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="java.time.LocalDate" %>
-<%@ page import="com.example.dayte.schedule.domain.Schedule" %>
-<%@ page import="java.util.List" %>
-<%@ page import="com.fasterxml.jackson.databind.ObjectMapper" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="../layout/head.jsp" %>
 <link rel="stylesheet" href="/css/schedule/schedule.css">
