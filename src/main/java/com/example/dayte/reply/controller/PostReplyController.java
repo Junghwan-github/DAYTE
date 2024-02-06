@@ -2,7 +2,7 @@ package com.example.dayte.reply.controller;
 
 import com.example.dayte.members.domain.User;
 import com.example.dayte.post.domin.Post;
-import com.example.dayte.post.postService.PostService;
+import com.example.dayte.post.service.PostService;
 import com.example.dayte.reply.domain.PostReply;
 import com.example.dayte.reply.dto.PostReplyDTO;
 import com.example.dayte.reply.dto.ResponseDTO;

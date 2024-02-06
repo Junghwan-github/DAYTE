@@ -3,10 +3,7 @@ package com.example.dayte.post.domin;
 import com.example.dayte.members.domain.User;
 import com.example.dayte.reply.domain.PostReply;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
@@ -22,9 +19,11 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Setter
     @Column(nullable = false, length = 100)
     private String title;
 
+    @Setter
     @Lob // db에 varchar를 넘어서 더 큰 값을 넣기 위한 작업
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
@@ -32,6 +31,7 @@ public class Post {
     @CreationTimestamp
     private Timestamp createDate;
 
+    @Setter
     @ManyToOne(fetch = FetchType.EAGER)// N : 1
     @JoinColumn(name = "user")
     private User user;
@@ -41,18 +41,7 @@ public class Post {
 
     private List<PostReply> replyList;
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<PostImages> postImages;
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
+    
 }

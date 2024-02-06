@@ -27,7 +27,7 @@
                 <div class="user-part">
                     <ul>
                         <li>
-                            <div></div>
+                            <div><img src="${post.user.profileImagePath}"></div>
                         </li>
 
                         <li><span>${post.user.nickName}</span></li>

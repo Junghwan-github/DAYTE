@@ -1,4 +1,4 @@
-package com.example.dayte.post.postService;
+package com.example.dayte.post.service;
 
 
 import com.example.dayte.post.domin.Post;
@@ -75,16 +75,13 @@ public class PostService {
     }
 
 
-
     // 페이지네이션
     @Transactional(readOnly = true)
     public Page<Post> getPostList(Pageable pageable) {
         // Pageable -> 페이징 처리를 위한 매개변수 (클라이언트가 요청한 페이지 번호, 페이지 크기 등을 포함하는 정보)
 
 
-
         return postRepository.findAll(pageable);
-
 
 
         // pageable = 페이지 정보 (findAll 실행 시 페이지 정보 값을 이용하여 Post 객체 목로가을 조회해 Page<Post>형태로 반환한다)
@@ -123,14 +120,13 @@ public class PostService {
     private void extractPostContentHTML(Post post) {
 
 
-
         Document doc = Jsoup.parse(post.getContent());
 
         Elements imgElements = doc.select("img");
 
         for (Element imgElement : imgElements) {
             String src = imgElement.attr("src");
-            System.out.println("가나다"+src);
+            System.out.println("가나다" + src);
             PostImages postImages = PostImages.builder()
                     .imageUrl(src)
                     .post(post)
@@ -145,7 +141,7 @@ public class PostService {
 
         List<Post> postContentText = postRepository.findAll();
         List<String> contentTextList = new ArrayList<>();
-        for(Post postContentTextItem : postContentText) {
+        for (Post postContentTextItem : postContentText) {
             String contentText = postContentTextItem.getContent();
             Document doc = Jsoup.parse(contentText);
             Elements pTagElements = doc.select("p");
@@ -154,10 +150,9 @@ public class PostService {
         return contentTextList;
     }
 
-}
 
     public Page<Post> postSearch(Pageable pageable, String postSearchInputBox, String postBordSearchDropDownMenu) {
-        Page<Post> postFindSearch = postRepository.postSearch(pageable, postSearchInputBox, postBordSearchDropDownMenu);
+        Page<Post> postFindSearch =  postRepository.postSearch(pageable, postSearchInputBox, postBordSearchDropDownMenu);
 
        /* for(Post post : postFindSearch.getContent()){
             log.info("===============================");
@@ -180,5 +175,5 @@ public class PostService {
 //        }
 //    }
 
-}
 
+}

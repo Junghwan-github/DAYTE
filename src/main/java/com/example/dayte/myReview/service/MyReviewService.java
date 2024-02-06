@@ -3,7 +3,7 @@ package com.example.dayte.myReview.service;
 import com.example.dayte.members.domain.User;
 import com.example.dayte.members.persistence.UserRepository;
 import com.example.dayte.post.domin.Post;
-import com.example.dayte.post.postRepository.PostRepository;
+import com.example.dayte.post.repository.PostRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
