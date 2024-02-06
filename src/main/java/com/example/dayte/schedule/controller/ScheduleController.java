@@ -4,6 +4,7 @@ package com.example.dayte.schedule.controller;
 import com.example.dayte.admin.contents.service.AdminContentsService;
 import com.example.dayte.members.dto.ResponseDTO;
 import com.example.dayte.schedule.domain.Schedule;
+import com.example.dayte.schedule.dto.CheckScheduleDTO;
 import com.example.dayte.schedule.dto.ScheduleDTO;
 import com.example.dayte.schedule.dto.ScheduleDateDTO;
 import com.example.dayte.schedule.service.ScheduleDateService;
