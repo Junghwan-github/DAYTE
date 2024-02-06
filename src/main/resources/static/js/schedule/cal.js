@@ -24,7 +24,7 @@ $(".nextBtn").on("click", function () {
     $.ajax({
         url        : "/schedule/scheduleList",
         type       : "POST",
-        contentType: "application/json",
+        contentType: "application/json; charset=utf-8",
         data       : JSON.stringify(scheduleDTO)
     })
         .done(function (data) {

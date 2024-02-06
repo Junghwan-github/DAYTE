@@ -64,10 +64,10 @@
                                         src="${scheduleList.scheduleDates[0].detailedScheduleList[0].adminContents.adminContentsImageList[0].imageURL}">
                                 </li>
                                 <li><img
-                                        src="${scheduleList.scheduleDates[0].detailedScheduleList[0].adminContents.adminContentsImageList[1].imageURL}">
+                                        src="${scheduleList.scheduleDates[0].detailedScheduleList[1].adminContents.adminContentsImageList[0].imageURL}">
                                 </li>
                                 <li><img
-                                        src="${scheduleList.scheduleDates[0].detailedScheduleList[0].adminContents.adminContentsImageList[2].imageURL}">
+                                        src="${scheduleList.scheduleDates[0].detailedScheduleList[2].adminContents.adminContentsImageList[0].imageURL}">
                                 </li>
                             </ul>
                         </div>

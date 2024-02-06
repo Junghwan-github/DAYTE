@@ -11,55 +11,55 @@
 <%@include file="../layout/header.jsp" %>
 
 <c:if test="${!empty notice.files}">
-    <c:forEach var="file" items="${notice.files}">
+<c:forEach var="file" items="${notice.files}">
 
-    </c:forEach>
+</c:forEach>
 
 </c:if>
 <div class="wrapper">
     <h1>공지사항 수정</h1>
-        <form id="saveForm" method="post" autocomplete="off" enctype="multipart/form-data">
-            <div>
-                <input type="hidden" id="id" value="${notice.no}">
-                <div class="noticeTitle">
-                    <input type="text" id="title" value="${notice.title}">
-                </div>
-                <div class>
-                    <textarea id="content" class="summernote" name="content">${notice.content}</textarea>
-                </div>
+    <form id="saveForm" method="post" autocomplete="off" enctype="multipart/form-data">
+        <div>
+            <input type="hidden" id="id" value="${notice.no}">
+            <div class="noticeTitle">
+                <input type="text" id="title" value="${notice.title}">
             </div>
-            <div class="fileList">
-                <div id="file-input-Div-parentNode">
-                        <input type="file" accept=".pdf, .hwp, .docx, .xlsx, .xls, .jpg, .png, .jpeg, .zip "
-                               class="fileInput"
-                               name="files" id="file-input" multiple="multiple" onchange="selectFile(this);"/>
-                    <%-- <label for="file-add">파일 추가</label>
-                     <input type="file" accept=".pdf, .hwp, .docx, .xlsx, .xls, .jpg, .png, .jpeg, .zip " name="files" id="file-add" multiple="multiple" style="display: none" onchange="addFile();" />
-     --%>
-                </div>
-                <div>
-                    <div id="preview">
-                        <c:forEach var="file" items="${notice.files}">
-                            <p>
-                                ${file.originalName}
-                                <button class='file-remove' value="${file.saveName}" onclick="removeFileOnView(this)">
-                                    X
-                                </button>
-                                <input class="savedFile" name="savedFile" type="hidden" value="${file.saveName}">
-                            </p>
-                        </c:forEach>
-                    </div>
-                    <div id="newPreview">
-
-                    </div>
-                </div>
+            <div class>
+                <textarea id="summernote" name="content">${notice.content}</textarea>
             </div>
-        </form>
-
-        <div class="noticebtns">
-            <a id="btn-update" class="btn"> 수정</a>
-            <a id="cancelBtn" class="btn"> 취소</a>
         </div>
+        <div class="fileList">
+            <div id="file-input-Div-parentNode">
+                <input type="file" accept=".pdf, .hwp, .docx, .xlsx, .xls, .jpg, .png, .jpeg, .zip "
+                       class="fileInput"
+                       name="files" id="file-input" multiple="multiple" onchange="selectFile(this);"/>
+                <%-- <label for="file-add">파일 추가</label>
+                 <input type="file" accept=".pdf, .hwp, .docx, .xlsx, .xls, .jpg, .png, .jpeg, .zip " name="files" id="file-add" multiple="multiple" style="display: none" onchange="addFile();" />
+ --%>
+            </div>
+            <div>
+                <div id="preview">
+                    <c:forEach var="file" items="${notice.files}">
+                        <p>
+                                ${file.originalName}
+                            <button class='file-remove' value="${file.saveName}" onclick="removeFileOnView(this)">
+                                X
+                            </button>
+                            <input class="savedFile" name="savedFile" type="hidden" value="${file.saveName}">
+                        </p>
+                    </c:forEach>
+                </div>
+                <div id="newPreview">
+
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="noticebtns">
+        <a id="btn-update" class="btn"> 수정</a>
+        <a id="cancelBtn" class="btn"> 취소</a>
+    </div>
 
 
 </div>
@@ -70,10 +70,11 @@
 <script src="/js/notice/modifyFile.js"></script>
 <script>
     $(document).ready(function() {
-        $('.summernote').summernote({
+        $('#summernote').summernote({
             height: 500,
             focus: true,
             lang: "ko-KR",
+            focus: true,
             placeholder: '내용',
             disableResizeEditor: true,
             toolbar: [
@@ -87,6 +88,7 @@
                 ['view', ['codeview']]
             ],
             fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
+            fontSizeUnit : "pt",
             fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
             callbacks: {
                 onImageUpload: function(files){

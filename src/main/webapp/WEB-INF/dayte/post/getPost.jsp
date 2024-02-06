@@ -107,7 +107,8 @@
                         </li>
                     </ul>
                     <p class="changeTextarea">${reply.content}</p>
-                    <button type="button" style="display: none" class="checkButton" onclick="checkButtonClick(this)" >확인</button>
+                        <%--                    <button type="button" style="display: none" class="checkButton" onclick="checkButtonClick(this)" >확인</button>--%>
+                    <button type="button" style="display: none" class="checkButton" onclick="replyObject.checkButtonClick(this.value)" value="${reply.num}" >확인</button>
                     <button type="button" style="display: none" class="cancelButton" onclick="cancelButtonClick(this)" >취소</button>
                 </li>
 

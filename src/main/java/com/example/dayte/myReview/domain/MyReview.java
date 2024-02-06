@@ -1,29 +1,30 @@
-package com.example.dayte.post.domin;
+package com.example.dayte.myReview.domain;
 
+import com.example.dayte.members.domain.User;
+import com.example.dayte.post.domin.Post;
 import jakarta.persistence.*;
-import lombok.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
+@Table
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
-public class PostImages {
+public class MyReview {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
-    @Setter
-    private String imageUrl;
+    @ManyToOne
+    @JoinColumn(name = "user_email")
+    private User user;
 
-    // 다대일 관계 설정
     @ManyToOne
     @JoinColumn(name = "post_id")
     private Post post;
-
 }

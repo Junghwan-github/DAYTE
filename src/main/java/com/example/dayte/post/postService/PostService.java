@@ -1,15 +1,15 @@
 package com.example.dayte.post.postService;
 
 
-import ch.qos.logback.core.net.SyslogOutputStream;
 import com.example.dayte.post.domin.Post;
 import com.example.dayte.post.domin.PostImages;
 import com.example.dayte.post.repository.PostImagesRepository;
 import com.example.dayte.post.repository.PostRepository;
+import lombok.extern.log4j.Log4j2;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.util.*;
 
 @Service
+@Log4j2
 public class PostService {
 
     @Autowired
@@ -37,8 +38,8 @@ public class PostService {
      */
     @Transactional // 해당 어노테이션이 붙은 메서드 (혹은 클래스)는 트랜잭션의 일부로 실행된다.
     public void insertPost(Post post) {
+        System.out.println("service의 post : " + post);
         postRepository.save(post);
-
     }
 
     @Transactional(readOnly = true)
@@ -72,6 +73,7 @@ public class PostService {
     public void deletePost(int id) {
         postRepository.deleteById(id);
     }
+
 
 
     // 페이지네이션
@@ -153,3 +155,30 @@ public class PostService {
     }
 
 }
+
+    public Page<Post> postSearch(Pageable pageable, String postSearchInputBox, String postBordSearchDropDownMenu) {
+        Page<Post> postFindSearch = postRepository.postSearch(pageable, postSearchInputBox, postBordSearchDropDownMenu);
+
+       /* for(Post post : postFindSearch.getContent()){
+            log.info("===============================");
+            log.info(post.getTitle());
+        }
+*/
+        return postFindSearch;
+
+    }
+
+//    @Transactional(readOnly = true)
+//    public List<Post> findSearchPost(){
+//        List<Post> posts = postRepository.findSearchPosts();
+//
+//        if(posts.isEmpty()){
+//            return Collections.emptyList();
+//
+//        } else{
+//            return posts;
+//        }
+//    }
+
+}
+

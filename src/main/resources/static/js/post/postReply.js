@@ -62,16 +62,62 @@ let replyObject = {
 
 
     // ------------- 댓글 수정 -------------
-    updateReply: function (num) {
+    checkButtonClick: function (replyId) {
+        let updateReply = {
+            content: $("#reply-content").val(), // 등록한 댓글 내용
+            id: $("#postId").val() // 댓글이 등록될 포스트의 번호(id값)
+        }
+        console.log(updateReply);
 
-
+        fetch("/postReply" + replyId, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json; charset=utf-8",
+            },
+            body: JSON.stringify(updateReply),
+        })
+            .then(res => {
+                return res.json();
+            })
+            .then(data => {
+                console.log(data);
+                location.reload();
+            })
+            .catch(err => {
+                alert(`에러 발생 : ${err.message}`);
+            });
     }
 }
 
+// ------------- 댓글 햄버거창 onclick 이벤트 -------------
+replyObject.init();
+// replyObject 초기화
+
+let replyItems = document.querySelectorAll(".post-reply-li");
+
+replyItems.forEach(function (scheduleItem) {
+    let replyModifyBtn = scheduleItem.querySelector(".xi-ellipsis-v");
+
+    replyModifyBtn.addEventListener("click", function (e) {
+        let postReplyBtnList = scheduleItem.querySelector(".postReplyBtnList");
+
+        if (postReplyBtnList) {
+            postReplyBtnList.classList.toggle("showPostReplyBtnList");
+        }
+
+        e.preventDefault();
+    });
+});
+
+// ------------ 댓글 수정 버튼을 눌렀을때 a태그를 textarea로 바꿔주는 이벤트 실행 -------------
 let textarea;
 let textP;
 
 // 포스트 수정 버튼을 눌렀을때 기존 댓글 컨텐츠 태그를 textarea 로 변경
+
+// html5(data-set) 기능 사용법 익히기
+// <c:forech 사용해서 key 와 vel 을 이용하여 this요소 사용>
+
 function updateBtnClick (btn) {
     let existingValue = $(btn).closest('.post-reply-li').find('.changeTextarea').text();
     textP = existingValue;
@@ -89,16 +135,9 @@ function updateBtnClick (btn) {
     pTag.parentNode.replaceChild(textarea, pTag);
     // pTag 에 changeTextarea 클래스 요소를 담고 기존 댓글 정보를 담고 있는 textarea 와 pTag 의 요소를 바꿔줌
     // (pTag 를 textarea 로 바꿔줌)
-
-    // textarea 태그 안에 만들어진 '취소' 버튼과 '확인' 버튼을 자식 요소로 지정함
 }
 
-function checkButtonClick (checkBtn) {
-    console.log("확인 버튼 클릭");
-}
-// '확인' 버튼을 눌렀을때 발생 하는 이벤트 메서드
-
-
+// ------------ 취소 버튼을 눌렀을때 수정 하기 전 데이터로 초기화 -------------
 function cancelButtonClick (cancelBtn) {
     console.log("취소 버튼 클릭");
 
@@ -121,29 +160,6 @@ function cancelButtonClick (cancelBtn) {
     $(cancelBtn).closest('.post-reply-li').find('.cancelButton').css('display', 'none');
 
 }
-// '취소' 버튼을 눌렀을때 발생 하는 이벤트 메서드
 
 
-
-
-// 댓글 햄버거창 onclick 이벤트
-replyObject.init();
-// replyObject 초기화
-
-
-let replyItems = document.querySelectorAll(".post-reply-li");
-
-replyItems.forEach(function (scheduleItem) {
-    let replyModifyBtn = scheduleItem.querySelector(".xi-ellipsis-v");
-
-    replyModifyBtn.addEventListener("click", function (e) {
-        let postReplyBtnList = scheduleItem.querySelector(".postReplyBtnList");
-
-        if (postReplyBtnList) {
-            postReplyBtnList.classList.toggle("showPostReplyBtnList");
-        }
-
-        e.preventDefault();
-    });
-});
 

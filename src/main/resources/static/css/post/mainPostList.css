@@ -37,11 +37,17 @@ main {
 }
 
 
+.user-part > ul > li > div > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 .user-part > ul > li > div {
     width: 35px;
     height: 35px;
-    background: #20c997;
     border-radius: 50px;
+    overflow: hidden;
 }
 
 .user-part > ul > li > span {
@@ -131,5 +137,22 @@ main {
 /*    display: flex;*/
 /*    justify-content: right;*/
 /*}*/
+
+.paginationNum {
+    margin: 0 10px 0 10px;
+}
+
+.paginationList {
+    display: flex;
+    justify-content: center;
+}
+
+.firstPageOpenBtn {
+    margin-right: 10px;
+}
+
+.nextPageBtn {
+    margin-right: 10px;
+}
 
 

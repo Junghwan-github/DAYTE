@@ -1,4 +1,5 @@
 $(document).ready(function(){
+  $("#nowPageTitle").text($(".titleName").text());
   $('#sideVarList li button').click(function(){
     var $btn = $(this);
     var $collapseDiv = $btn.next();
@@ -14,3 +15,6 @@ $(document).ready(function(){
     
   });
 })
+
+
+

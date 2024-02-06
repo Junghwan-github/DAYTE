@@ -55,7 +55,7 @@
 
 <div class="upload h-100 bg-body-tertiary px-3" >
     <form id="scheduleMainListUploadForm" class="py-3 px-5" enctype="multipart/form-data">
-        <p class="h4 fw-bold" >컨텐츠 관리</p>
+        <p class="h4 fw-bold titleName" >컨텐츠 관리</p>
         <ul class="m-0 p-0 list-unstyled">
             <li class="mb-3 p-0">
                 <input type="hidden" name="article"/>
