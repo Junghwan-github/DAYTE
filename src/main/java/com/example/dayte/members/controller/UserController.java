@@ -52,6 +52,8 @@ public class UserController {
         }
 
         userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        userDTO.setProfileImageName("default_icon_profile.png");
+        userDTO.setProfileImagePath("/images/default_icon_profile.png");
 
         userDTO.setRole(RoleType.USER);
         System.out.println("userDTO : " + userDTO);
