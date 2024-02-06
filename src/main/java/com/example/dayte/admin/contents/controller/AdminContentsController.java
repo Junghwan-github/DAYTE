@@ -19,8 +19,6 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class AdminContentsController {
 
-    private final ModelMapper modelMapper;
-
     private final AdminContentsService adminContentsService;
 
 

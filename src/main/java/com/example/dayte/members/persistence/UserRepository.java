@@ -32,7 +32,5 @@ public interface UserRepository extends JpaRepository<User, String> {
 
     Page<User> findByDel(boolean del, Pageable pageable);
 
-    Optional<User> findByNickName(String nickName);
-
-
+    boolean existsByNickName(String nickName);
 }

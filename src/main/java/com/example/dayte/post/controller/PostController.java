@@ -69,7 +69,7 @@ public class PostController {
 
     // ----------------------- 포스트 상세 조회 처리 및 화면 응답 -----------------------
     @GetMapping("/post/{id}")
-    public String getPost(Model model, @PathVariable int id) {
+    public String getPost(Model model, @PathVariable Long id) {
 
         Post post = postService.getPost(id);
 
@@ -111,6 +111,7 @@ public class PostController {
         model.addAttribute("postList", postListPage);
 
         model.addAttribute("postListText",postService.extractPostContentText());
+        System.out.println("포스트텍스트"+postService.extractPostContentText());
         return "post/mainPostList";
     }
     // ----------------------- 포스트 검색 -----------------------
@@ -146,7 +147,7 @@ public class PostController {
 
     // ----------------------- 포스트 수정 화면 응답 -----------------------
     @GetMapping("/post/updatePost/{id}")
-    public String updateForm(@PathVariable int id, Model model) {
+    public String updateForm(@PathVariable Long id, Model model) {
         model.addAttribute("post", postService.getPost(id));
         return "post/updatePost";
     }
@@ -160,7 +161,7 @@ public class PostController {
 
     // ----------------------- 포스트 삭제 로직 수행 -----------------------
     @DeleteMapping("/post/{id}")
-    public @ResponseBody ResponseDTO<?> deletePost(@PathVariable int id) {
+    public @ResponseBody ResponseDTO<?> deletePost(@PathVariable Long id) {
         postService.deletePost(id);
 
         return new ResponseDTO<>(HttpStatus.OK.value(), id + "번 포스트가 삭제되었습니다.");
@@ -170,55 +171,6 @@ public class PostController {
     @PostMapping("/uploadSummernoteImageFile")
     @ResponseBody
     public ResponseEntity<Map<String, String>> uploadSummernoteImageFile(@RequestParam("files") MultipartFile multipartFile) {
-        Map<String, String> resultMap = new HashMap<>();
-        System.out.println("ddddddddddasdfasdfasdf" + multipartFile);
-        /*JsonObject jsonObject = new JsonObject();*/
-
-        String fileRoot = "\\\\192.168.10.75/temp/images/post/";	//저장될 파일 경로
-        String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
-        String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
-        String savedFileName = UUID.randomUUID() + extension;
-
-
-        File targetFile = new File(fileRoot + savedFileName);
-
-        try {
-//            InputStream fileStream = multipartFile.getInputStream();
-            multipartFile.transferTo(targetFile);
-//            FileUtils.copyInputStreamToFile(fileStream, targetFile);	//파일 저장
-
-            String imageUrl = "/temp/images/post/" + savedFileName;
-
-            resultMap.put("url", imageUrl);
-            resultMap.put("responseCode", "success");
-            return ResponseEntity.ok(resultMap);
-
-        } catch (IOException e) {
-            if (targetFile.exists()) {
-                targetFile.delete();
-            }
-
-//            FileUtils.deleteQuietly(targetFile);	// 실패시 저장된 파일 삭제
-
-            /*jsonObject.addProperty("responseCode", "error");*/
-
-            resultMap.put("responseCode", "error");
-//
-//            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(resultMap);
-        }
-    }
-
-    // ----------------------- 포스트 이미지 등록 서머노트 -----------------------
-    @GetMapping("/summernoteImage/{fileName:.+}")
-    public ResponseEntity<File> getSummernoteImage(@PathVariable String fileName) {
-        String fileRoot = "/temp/images/post/";
-        File file = new File(fileRoot + fileName);
-
-        if (file.exists()) {
-            return ResponseEntity.ok(file);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    return postService.uploadImage(multipartFile);
     }
 }

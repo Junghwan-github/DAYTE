@@ -6,6 +6,7 @@ import com.example.dayte.post.domin.PostImages;
 import com.example.dayte.post.repository.PostImagesRepository;
 import com.example.dayte.post.repository.PostRepository;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.lang3.tuple.Pair;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -48,7 +49,7 @@ public class PostService {
     }
 
     @Transactional
-    public Post getPost(int id) {
+    public Post getPost(Long id) {
         return postRepository.findById(id).get();
     }
 
@@ -70,7 +71,7 @@ public class PostService {
 
     // 삭제
     @Transactional
-    public void deletePost(int id) {
+    public void deletePost(Long id) {
         postRepository.deleteById(id);
     }
 
@@ -126,7 +127,6 @@ public class PostService {
 
         for (Element imgElement : imgElements) {
             String src = imgElement.attr("src");
-            System.out.println("가나다" + src);
             PostImages postImages = PostImages.builder()
                     .imageUrl(src)
                     .post(post)
@@ -137,16 +137,19 @@ public class PostService {
 
     }
 
-    public List<String> extractPostContentText() {
+    public List<Pair<Long, String>> extractPostContentText() {
 
-        List<Post> postContentText = postRepository.findAll();
-        List<String> contentTextList = new ArrayList<>();
-        for (Post postContentTextItem : postContentText) {
-            String contentText = postContentTextItem.getContent();
+        List<Post> postContentList = postRepository.findAll();
+        List<Pair<Long, String>> contentTextList = new ArrayList<>();
+
+        for (Post post : postContentList) {
+            Long postId = post.getId();
+            String contentText = post.getContent();
             Document doc = Jsoup.parse(contentText);
             Elements pTagElements = doc.select("p");
-            contentTextList.add(pTagElements.text());
+            contentTextList.add(Pair.of(postId, pTagElements.text()));
         }
+
         return contentTextList;
     }
 

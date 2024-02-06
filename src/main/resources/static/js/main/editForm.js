@@ -1,4 +1,29 @@
+let isNicknameChecked = false;
+$("#nickNameChk").on("click", function (){
+    let nickName = $("#nickName").val()
+    $.ajax({
+        url        : "/members/nickNameChk/" + nickName,
+        type       : "POST",
+        contentType: "application/json; charset=utf-8",
+    }).done(function (response) {
+        if(response.status == 200){
+            isNicknameChecked = true;
+            alert("사용 가능한 닉네임 입니다.");
+        } else if(response.status == 409) {
+            isNicknameChecked = false;
+            alert("이미 사용 중인 닉네임입니다. 다른 닉네임을 입력하세요.");
+        }
+    }).fail(function (error) {
+        alert("에러 발생 : " + error);
+    })
+});
+
 $("#editBttn").on("click", function (){
+    if (!isNicknameChecked) {
+        alert("닉네임 중복을 먼저 확인하세요.");
+        return;
+    }
+
     let user = {
         nickName: $("#nickName").val(),
         phone: $("#phone").val(),
@@ -21,7 +46,7 @@ $("#editBttn").on("click", function (){
         contentType: false,
     }).done(function (response) {
             alert("정보 수정이 완료되었습니다.");
-            location = "/members/editform";
+            location.reload()
     }).fail(function (error) {
         alert("에러 발생 : " + error);
     })
