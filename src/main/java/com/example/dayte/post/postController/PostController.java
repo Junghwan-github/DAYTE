@@ -12,7 +12,6 @@ import com.example.dayte.reply.service.PostReplyService;
 import com.example.dayte.security.dto.UserSecurityDTO;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.io.FileUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
@@ -96,7 +95,7 @@ public class PostController {
         model.addAttribute("postList", postService.getPostList(pageable));
         //
 
-        Page<Post> postListPage =postService.getPostList(pageable);
+        Page<Post> postListPage = postService.getPostList(pageable);
         int postTotalPage = postListPage.getTotalPages();
 
         int nowPage = postListPage.getNumber();
@@ -179,7 +178,6 @@ public class PostController {
 //            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(resultMap);
         }
-
     }
     @GetMapping("/summernoteImage/{fileName:.+}")
     public ResponseEntity<File> getSummernoteImage(@PathVariable String fileName) {
@@ -192,5 +190,4 @@ public class PostController {
             return ResponseEntity.notFound().build();
         }
     }
-
 }

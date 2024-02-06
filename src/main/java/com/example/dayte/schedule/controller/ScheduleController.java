@@ -4,10 +4,8 @@ package com.example.dayte.schedule.controller;
 import com.example.dayte.admin.contents.service.AdminContentsService;
 import com.example.dayte.members.dto.ResponseDTO;
 import com.example.dayte.schedule.domain.Schedule;
-import com.example.dayte.schedule.dto.CheckScheduleDTO;
 import com.example.dayte.schedule.dto.ScheduleDTO;
 import com.example.dayte.schedule.dto.ScheduleDateDTO;
-import com.example.dayte.schedule.service.ContentsService;
 import com.example.dayte.schedule.service.ScheduleDateService;
 import com.example.dayte.schedule.service.ScheduleService;
 import com.example.dayte.security.dto.UserSecurityDTO;
@@ -64,8 +62,7 @@ public class ScheduleController {
     // 사용자가 만든 일정의 세부계획을 생성하는 로직
     @PostMapping("/schedule/saveSchedule")
     public @ResponseBody ResponseDTO<?> saveScheduleList(@RequestBody ScheduleDateDTO scheduleDateDTO) {
-        System.out.println("===============================" + scheduleDateDTO);
-//        scheduleDateService.insertSchedule(scheduleDateDTO);
+        scheduleDateService.insertSchedule(scheduleDateDTO);
         return new ResponseDTO<>(HttpStatus.OK.value(), "일정이 등록 되었습니다.");
     }
 
@@ -84,8 +81,6 @@ public class ScheduleController {
     ) {
         try {
             // 이미 존재하는 일정 삭제
-//            scheduleService.detailedDeleteSchedule(scheduleDTO, userSecurityDTO);
-
             scheduleService.detailedDeleteSchedule(scheduleDTO.getUuid());
 
             // 새로운 일정 등록
@@ -100,7 +95,7 @@ public class ScheduleController {
     public @ResponseBody ResponseDTO<?> detailedScheduleModify(
             @RequestBody ScheduleDateDTO scheduleDateDTO
     ){
-//        scheduleDateService.updateSchedule(scheduleDateDTO);
+        scheduleDateService.updateSchedule(scheduleDateDTO);
         return new ResponseDTO<>(HttpStatus.OK.value(), "일정이 수정 되었습니다.");
     }
 }

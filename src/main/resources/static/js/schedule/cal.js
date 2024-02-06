@@ -33,12 +33,6 @@ $(".nextBtn").on("click", function () {
             } else if (data.status === 409) {
                 let deleteSchedule = confirm("일정이 이미 있습니다 삭제 하고 다시 생성 하시겠습니까?");
                 if (deleteSchedule) {
-                    let deleteUuid = {
-                        uuid     : data.uuid,
-                        title    : title,
-                        startDate: startDate,
-                        endDate  : endDate
-                    }
                     // 다른 API 엔드포인트로의 DELETE 요청
                     $.ajax({
                         url        : "/schedule/deleteAndInsertSchedule",
@@ -110,16 +104,17 @@ function scheduleTotalSaveBtn() {
             saveSchedule.push(button.val());
         });
 
-        let userSchedule =  {
-            uuid : $(".tableUuid").text(),
-            nowDate : $(".daysValue").text(),
+        const userSchedule = {
+            nowDate     : $(".daysValue").text(),
+            uuid        : $(".tableUuid").text(),
             contentsList: saveSchedule
-             }
+        };
+
         $.ajax({
             url        : "/schedule/saveSchedule",
             method     : "POST",
             contentType: "application/json; charset=utf-8",
-            data : JSON.stringify(userSchedule),
+            data       : JSON.stringify(userSchedule),
             success    : function (response) {
                 console.log(response);
                 location.reload();

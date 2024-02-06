@@ -26,8 +26,8 @@ public class AdminContentsController {
     // 컨텐츠 등록 로직
     @PostMapping("/admin/home/registration/contents")
     public @ResponseBody ResponseDTO<?> insertIndexMainSlider (
-                    @ModelAttribute AdminContentsDTO adminContentsDTO
-                    ) {
+            @ModelAttribute AdminContentsDTO adminContentsDTO
+    ) {
 
         adminContentsService.insertAdminContents(adminContentsDTO);
         adminContentsService.insertAdminContentsImage(new AdminContentsImageDTO(adminContentsDTO.getImageFiles()));
