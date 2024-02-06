@@ -15,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriUtils;
 
 import java.io.IOException;
-import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -108,24 +107,5 @@ public class AdminContentsService {
             // Handle the case when the entity with the specified UUID is not found
             throw new EntityNotFoundException("id: " + id);
         }
-    }
-
-    @Transactional(readOnly = true)
-    public List<AdminContents> getContentsList() {
-        return adminContentsRepository.findAll();
-    }
-
-    public List<AdminContents> searchByContents(String searchContents) {
-        if(searchContents == null) searchContents = "";
-        return adminContentsRepository.findAllBySearch(searchContents);
-    }
-    @Transactional(readOnly = true)
-    public List<AdminContents> getContentsList() {
-        return adminContentsRepository.findAll();
-    }
-
-    public List<AdminContents> searchByContents(String searchContents) {
-        if(searchContents == null) searchContents = "";
-        return adminContentsRepository.findAllBySearch(searchContents);
     }
 }
