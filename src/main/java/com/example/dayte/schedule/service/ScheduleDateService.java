@@ -28,7 +28,7 @@ public class ScheduleDateService {
 
     private final ScheduleRepository scheduleRepository;
 
-    private final AdminContentsRepository contentsRepository;
+    private final AdminContentsRepository adminContentsRepository;
 
     private final ModelMapper modelMapper;
 
@@ -53,8 +53,8 @@ public class ScheduleDateService {
         scheduleDateDTO.setScheduleDateId(scheduleDateId); // scheduleDateDTO 에 scheduleDateId 셋팅
 
         List<DetailedSchedule> detailedScheduleList = new ArrayList<>();
-        for (AdminContents contents : contentsRepository.findAllById(scheduleDateDTO.getContentsList())) {
-            detailedScheduleDTO.setContents(contents);
+        for (AdminContents contents : adminContentsRepository.findAllById(scheduleDateDTO.getContentsList())) {
+            detailedScheduleDTO.setAdminContents(contents);
             detailedScheduleList.add(modelMapper.map(detailedScheduleDTO, DetailedSchedule.class));
         }
         detailedScheduleRepository.saveAll(detailedScheduleList);
@@ -68,7 +68,7 @@ public class ScheduleDateService {
 
         // 일정 수정으로 변경한 Contents
         List<DetailedSchedule> addSchedulesList = new ArrayList<>();
-        List<AdminContents> addContentsList = contentsRepository.findAllById(scheduleDateDTO.getContentsList());
+        List<AdminContents> addContentsList = adminContentsRepository.findAllById(scheduleDateDTO.getContentsList());
         for (ScheduleDate scheduleDate : schedule.getScheduleDates()) {
             if (scheduleDate.getScheduleDateId().getNowDate().equals(scheduleDateDTO.getNowDate())) {
                 dbScheduleList = scheduleDate.getDetailedScheduleList();
@@ -77,7 +77,7 @@ public class ScheduleDateService {
 
         for (AdminContents contents : addContentsList) {
             DetailedScheduleDTO scheduleDTO = new DetailedScheduleDTO();
-            scheduleDTO.setContents(contents);
+            scheduleDTO.setAdminContents(contents);
             scheduleDTO.setScheduleDate(dbScheduleList.get(0).getScheduleDate());
             addSchedulesList.add(modelMapper.map(scheduleDTO, DetailedSchedule.class));
         }

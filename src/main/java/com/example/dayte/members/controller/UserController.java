@@ -119,7 +119,7 @@ public class UserController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/admin/editUser")
-    public @ResponseBody ResponseDTO<?> updateUser(@RequestBody UserDTO userDTO)throws IOException {
+    public @ResponseBody ResponseDTO<?> updateUser(@RequestBody UserDTO userDTO) throws IOException {
         userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         //userDTO.setRole(userDTO.getRole());
         userDTO.setUserName(userDTO.getUserName());
@@ -140,6 +140,7 @@ public class UserController {
         model.addAttribute("userInfo", userService.getUser(userSecurityDTO.getUserEmail()));
         return "members/myProfile";
     }
+
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/members/editPsForm")
     public String modifyPasswordForm(Model model,
@@ -153,37 +154,51 @@ public class UserController {
     public @ResponseBody ResponseDTO<?> modifyUser(
             @ModelAttribute UserDTO userDTO, // 변경된 부분
             @AuthenticationPrincipal UserSecurityDTO principal
-            ) throws IOException {
+    ) {
 
         if (userDTO.getImage() != null && !userDTO.getImage().isEmpty()) {
-            userService.profileImage(userDTO.getImage(), userDTO);
+            userService.profileImage(userDTO);
+        } else {
+            userDTO.setProfileImageName("default_icon_profile.png");
+            userDTO.setProfileImagePath("/images/default_icon_profile.png");
         }
 
-        //  userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-        userService.modifyUser(userDTO);
+        userService.modifyUser(principal, userDTO);
         principal.setProfileImagePath(userDTO.getProfileImagePath());
+        principal.setNickName(userDTO.getNickName());
         return new ResponseDTO<>(HttpStatus.OK.value(), "회원 정보가 수정되었습니다.");
     }
+
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/members/delete")
-    public String deletePage(){
+    public String deletePage() {
         return "members/delForm";
     }
+
     @PreAuthorize("isAuthenticated()")
     @DeleteMapping("/members/delete/{userEmail}")
     public @ResponseBody ResponseDTO<?> deleteUser(@PathVariable String userEmail,
-                                                   @RequestBody Map<String,Object> map ){
+                                                   @RequestBody Map<String, Object> map) {
 
         String encodedPassword = userService.getUser(userEmail).getPassword();
-        String rawPassword = (String)map.get("password");
+        String rawPassword = (String) map.get("password");
 
-        if(passwordEncoder.matches(rawPassword, encodedPassword)){
+        if (passwordEncoder.matches(rawPassword, encodedPassword)) {
             userService.deleteUser(userEmail);
             return new ResponseDTO<>(HttpStatus.OK.value(), "회원 탈퇴가 완료되었습니다.");
-        }else{
+        } else {
             return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "회원 탈퇴를 실패했습니다.");
         }
+    }
 
-        
+    @PostMapping("/members/nickNameChk/{nickName}")
+    public @ResponseBody ResponseDTO<?> nickNameChk(
+            @PathVariable String nickName // 변경된 부분
+    ) throws IOException {
+        if (nickName != null && !userService.nickNameChk(nickName)) {
+                return new ResponseDTO<>(HttpStatus.OK.value(), "사용 할 수 있는 닉네임 입니다.");
+            } else {
+                return new ResponseDTO<>(HttpStatus.CONFLICT.value(), "중복된 닉네임 입니다.");
+            }
     }
 }

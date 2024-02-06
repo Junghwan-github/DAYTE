@@ -4,6 +4,7 @@ import com.example.dayte.members.domain.RoleType;
 import com.example.dayte.members.domain.User;
 import com.example.dayte.members.dto.UserDTO;
 import com.example.dayte.members.persistence.UserRepository;
+import com.example.dayte.security.dto.UserSecurityDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,14 +12,19 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.util.UriUtils;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.Objects;
+import java.util.UUID;
 
 @Service
 public class UserService {
+
     @Autowired
     private UserRepository userRepository;
 
@@ -26,7 +32,7 @@ public class UserService {
     private ModelMapper modelMapper;
 
     @Transactional
-    public void insertUser(User user){
+    public void insertUser(User user) {
         userRepository.save(user);
     }
 
@@ -35,6 +41,7 @@ public class UserService {
         User findUser = userRepository.findByUserEmail(userEmail).orElseGet(User::new);
         return findUser;
     }
+
     @Transactional
     public Page<User> userList(Pageable pageable) {
         return userRepository.findAll(pageable);
@@ -73,7 +80,7 @@ public class UserService {
         return userRepository.findByPhone(phone, pageable);
     }
 
-//    회원 수정
+    //    회원 수정
     @Transactional
     public void updateUser(UserDTO userDTO) {
         User findUser = userRepository.findByUserEmail(userDTO.getUserEmail()).get();
@@ -100,7 +107,7 @@ public class UserService {
                 roleName = "ADMIN";
             } else if (role.equals("휴면") || role.toUpperCase().equals("DORMANCY")) {
                 roleName = "DORMANCY";
-            }  else if (role.equals("정지") || role.toUpperCase().equals("BLOCK")) {
+            } else if (role.equals("정지") || role.toUpperCase().equals("BLOCK")) {
                 roleName = "BLOCK";
             }
             return RoleType.valueOf(roleName.toUpperCase());
@@ -109,34 +116,54 @@ public class UserService {
             throw new IllegalArgumentException("Invalid RoleType value");
         }
     }
+
     private static final String contentsImageUploadPath = "/temp/images/user/profileImages/";
 
-    public void profileImage(MultipartFile image, UserDTO userDTO) throws IOException {
-        // 이미지 파일을 저장할 디렉토리 경로 설정
-        Path path = Path.of("\\\\192.168.10.75"+this.contentsImageUploadPath);
-        System.out.println("===============" + path);
-        // 디렉토리가 존재하지 않으면 생성
-        if (!Files.exists(path)) {
-            Files.createDirectories(path);
-        }
+    public void profileImage(UserDTO userDTO) {
+        try {
+            String uuid = UUID.randomUUID().toString();
+            // 이미지 파일을 저장할 디렉토리 경로 설정
+            Path path = Path.of("\\\\192.168.10.75"+contentsImageUploadPath);
+            // 디렉토리가 존재하지 않으면 생성
+            if (!Files.exists(path)) {
+                Files.createDirectories(path);
+            }
+            String encodedFileName = UriUtils.encode(Objects.requireNonNull(userDTO.getImage().getOriginalFilename()), StandardCharsets.UTF_8);
+            String fileName = uuid + "_" + encodedFileName;
 
-        // 이미지 파일을 서버에 저장
-        String fileName = userDTO.getUserEmail() + "_" + System.currentTimeMillis() + ".jpg"; // 파일명을 고유하게 설정
-        Path filePath = path.resolve(fileName);
-        Files.copy(image.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-        // UserDTO에 파일명과 경로 설정
-        userDTO.setProfileImageName(fileName);
-        userDTO.setProfileImagePath(contentsImageUploadPath + fileName);
+            Path targetPath = Path.of(path + "/"+ (uuid  + "_"+ userDTO.getImage().getOriginalFilename()));
+            System.out.println(targetPath);
+            Files.copy(userDTO.getImage().getInputStream(), targetPath, StandardCopyOption.REPLACE_EXISTING);
+
+            // UserDTO에 파일명과 경로 설정
+            userDTO.setProfileImageName(fileName);
+            userDTO.setProfileImagePath(contentsImageUploadPath + fileName);
+        } catch (IOException e) {
+            ;;
+        }
     }
 
     @Transactional
-    public void modifyUser(UserDTO userDTO){
-        User findUser = userRepository.findByUserEmail(userDTO.getUserEmail()).get();
-        findUser.setNickName(userDTO.getNickName());
+    public void modifyUser(UserSecurityDTO userSecurityDTO, UserDTO userDTO) {
+        User findUser = userRepository.findByUserEmail(userSecurityDTO.getUserEmail()).get();
+       if(userDTO.getNickName() != null && !nickNameChk(userDTO.getNickName())){
+            findUser.setNickName(userDTO.getNickName());
+        }
+
+        // 전화번호가 존재하지 않는 경우 사용자 정보에서 가져오도록 함
+        String phone = userDTO.getPhone() != null ? userDTO.getPhone() : userSecurityDTO.getPhone();
+
+        findUser.setPhone(phone);
         findUser.setProfileImagePath(userDTO.getProfileImagePath());
         findUser.setProfileImageName(userDTO.getProfileImageName());
     }
 
     @Transactional
-    public void deleteUser(String userEmail) { userRepository.deleteById(userEmail);}
+    public void deleteUser(String userEmail) {
+        userRepository.deleteById(userEmail);
+    }
+
+    public boolean nickNameChk(String nickName) {
+        return userRepository.existsByNickName(nickName);
+    }
 }
