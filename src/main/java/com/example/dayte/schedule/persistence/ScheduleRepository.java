@@ -18,4 +18,7 @@ public interface ScheduleRepository extends JpaRepository<Schedule, String> {
     List<Schedule> findAllByUser(User user);
 
     Optional<Schedule> findByUserAndStartDate(User user, LocalDate startDate);
+
+    @Query("select s from Schedule s where s.endDate < CURRENT_DATE and s.user.userEmail = :email")
+    List<Schedule> findAllPastScheduleByUserid(@Param("email") String email);
 }

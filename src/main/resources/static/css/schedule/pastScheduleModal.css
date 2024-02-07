@@ -1,0 +1,59 @@
+.daysPrint{
+    width: 1800px;
+    height: 1000px;
+}
+
+
+.modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+
+}
+
+.modal_body {
+    display: none;
+
+    position: absolute;
+    top: 20px;
+    left: 50%;
+
+
+    width: 80%;
+    height: 80%;
+
+    padding: 40px;
+
+    text-align: center;
+
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+
+    transform: translate(-50%, 0);
+}
+
+#tabMenu{
+    width: 100%;
+    display: flex;
+    flex-flow: nowrap;
+    justify-content: center;
+}
+
+#tabMenu > li {
+    flex: 1;
+    display: inline-block;
+    border: 1px solid black;
+    border-bottom: 1px solid white;
+}
+
+.nowTab{
+    font-size: 20px;
+}
+
+.closeTabPage{
+    display: none;
+}
+

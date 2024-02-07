@@ -566,8 +566,7 @@ main {
   box-sizing: border-box;
 }
 
-.today6Hours,
-.daysWeather {
+.today6Hours{
   width: 100%;
   height: 210px;
   box-sizing: border-box;
@@ -576,8 +575,11 @@ main {
 }
 
 .daysWeather {
+  width: 100%;
+  padding: 30px 20px;
   border-top: 1px solid #ddd;
   border-radius: 0 0 15px 0;
+  box-sizing: border-box;
 }
 
 .today6Hours > ul > li > h4,
@@ -706,17 +708,24 @@ main {
 
 .temperatureOfDay{
   padding: 4px 7px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
 }
+
 .maxTemperature,
 .minTemperature {
   display: inline-block;
   font-size: 1.5rem;
   font-weight: 400;
+
 }
 
 .maxTemperature{
-  margin: 0 4px 0 5px;
+  margin: 0 5px 0 5px;
   color: red;
+
 }
 
 .minTemperature {
