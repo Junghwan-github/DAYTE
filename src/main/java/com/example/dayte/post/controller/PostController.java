@@ -90,7 +90,7 @@ public class PostController {
     }
 
 
-    // ----------------------- 포스트 리스트 페이지네이션 -----------------------
+    // ----------------------- 포스트 검색 및 페이지네이션 -----------------------
     @GetMapping({"/mainPostList"})
     public String getPostList(Model model,
                               @PageableDefault(size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
@@ -102,19 +102,15 @@ public class PostController {
                               @RequestParam(required = false, defaultValue = "") String postWord
 
     ) {
-//        System.out.println("들어왔어요 !!!!");
-//        System.out.println("postField : " + postField);
-//        System.out.println("postWord : " + postWord);
-
         Page<Post> postListPage = postService.getPostList(pageable);
         // Post 에 있는 모든 데이터를 페이지네이션화하여 가져옴
 
         Page<Post> postSearchList = postService.getPostSearchList(pageable, postField, postWord);
 
-//        System.out.println("getTotalPages() : " + postSearchList.getTotalPages());
-//        System.out.println("getTotalElements() :" + postSearchList.getTotalElements());
-//        System.out.println("getTotalElements() : " + postSearchList.getTotalElements());
         int postTotalPage;
+
+        // 인풋창에 공백인 상태로 검색버튼을 눌렀을때 postListPage 을 담아 넘겨주고
+        // 검색 키워드가 있을시 postSearchList 을 남아 넘겨줌
         if ("".equals(postWord))
             postTotalPage = postListPage.getTotalPages();
          else
@@ -129,6 +125,7 @@ public class PostController {
 
         int postStartPage = Math.max(0, (pageable.getPageNumber() / pageSize) * pageSize);
         // 현재 페이지를 기준으로 페이징된 시작 페이지를 계산
+
         int postEndPage = Math.min(postStartPage + pageSize - 1, postTotalPage - 1);
         // 현재 페이지를 기준으로 페이징된 끝 페이지를 계산
 
@@ -139,11 +136,9 @@ public class PostController {
 
         model.addAttribute("postField", postField);
         model.addAttribute("postWord", postWord);
+        model.addAttribute("postSearchList", postSearchList);
 
         model.addAttribute("postListText",postService.extractPostContentText());
-
-        model.addAttribute("postSearchList", postSearchList); // 검색 시 넘어감
-
         System.out.println("포스트텍스트"+postService.extractPostContentText());
         return "post/mainPostList";
     }
