@@ -49,53 +49,73 @@ public class NoticeController {
 
     @GetMapping("/notice")
     public String getNoticeList(Model model, @PageableDefault(size = 10, sort = "no", direction = Sort.Direction.DESC) Pageable pageable,
-                                @RequestParam(value="page", required=false) Integer page) {
+                                @RequestParam(value="page", required=false) Integer page,
+                                @RequestParam(required = false, defaultValue = "") String searchOption,
+                                @RequestParam(required = false, defaultValue = "") String searchWord) {
 
-        Page<Notice> noticeListPage = noticeService.getNoticeList(pageable);
-        int totalPages = noticeListPage.getTotalPages();
+        Page<Notice> noticeList = noticeService.noticeList(pageable);
 
-        // 현재 페이지
-        int currentPage = noticeListPage.getNumber();
+        if(searchOption.equals("all")){
+            noticeList = noticeService.AllBySearchWord(searchWord, pageable);
+        } else if(searchOption.equals("title")){
+            noticeList = noticeService.TitleBySearchWord(searchWord, pageable);
+        } else if(searchOption.equals("content")){
+            noticeList = noticeService.ContentBySearchWord(searchWord, pageable);
+        }
 
-        // 목록 하단 페이지 번호의 노출 개수
+        model.addAttribute("noticeList", noticeList);
+
+        int currentPage = noticeList.getPageable().getPageNumber();
+        int totalPages = noticeList.getTotalPages();
         int pageSize = 5;
-
         int startPage = Math.max(0, (pageable.getPageNumber() / pageSize) * pageSize);
         int endPage = Math.min(startPage + pageSize - 1, totalPages - 1);
 
-
         model.addAttribute("startPage", startPage);
-        model.addAttribute("endPage", endPage);
-        model.addAttribute("currentPage", currentPage);
-        model.addAttribute("noticeList", noticeService.getNoticeList(pageable));
-
-
-
+        if(endPage >=0){
+            model.addAttribute("endPage", endPage);
+        }
 
         return "notice/notice";
     }
 
+    
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/notice/modAll")
-    public String modAllNotice(Model model, @PageableDefault(size = 5, sort = "no", direction = Sort.Direction.DESC) Pageable pageable) {
-
+    public String modAllNotice(Model model,
+                               @RequestParam(required = false, defaultValue = "") String searchOption,
+                               @RequestParam(required = false, defaultValue = "") String searchWord,
+                               @PageableDefault(size = 5, sort = "no", direction = Sort.Direction.DESC) Pageable pageable) {
+        // 필독 공지사항들
         List<Notice> trueNotices = noticeService.findTrueNotice();
         model.addAttribute("trueNotices", trueNotices);
 
+        // 일반 공지사항들
         Page<Notice> defaultNotices = noticeService.findDefaultNotice(pageable);
-        model.addAttribute("defaultNotices", noticeService.findDefaultNotice(pageable));
+
+        // 일반 공지사항 검색
+        if(searchOption.equals("all")){
+            defaultNotices = noticeService.AllBySearchWord(searchWord, pageable);
+        } else if(searchOption.equals("title")){
+            defaultNotices = noticeService.TitleBySearchWord(searchWord, pageable);
+        } else if(searchOption.equals("content")){
+            defaultNotices = noticeService.ContentBySearchWord(searchWord, pageable);
+        }
+
+        model.addAttribute("defaultNotices", defaultNotices);
 
 
+        // 페이지네이션
+        int currentPage = defaultNotices.getPageable().getPageNumber();
         int totalPages = defaultNotices.getTotalPages();
 
         // 목록 하단 페이지 번호의 노출 개수
         int pageSize = 5;
 
         int startPage = Math.max(0, (pageable.getPageNumber() / pageSize) * pageSize);
-        model.addAttribute("startPage", startPage);
-
-
         int endPage = Math.min(startPage + pageSize - 1, totalPages - 1);
+
+        model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
 
 
@@ -313,85 +333,7 @@ for(MultipartFile file: files) {
         return new ResponseDTO<>(HttpStatus.OK.value(), "checkbox상태를 확인하고 변경값이 생겼을 경우 DB에 반영했습니다.");
 
     }
-
-    /*@GetMapping("/notice/searchedNotices")
-    public String goToSearchedPage(){
-
-
-        return "notice/searchedNotices";
-    }*/
-
-
-    //관리자 페이지 검색
-    @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping("/notice/searchNoticesAdmin")
-    public String searchNoticesAdmin(String searchWord, String searchOption, Model model, @PageableDefault(size = 5, sort = "no", direction = Sort.Direction.DESC) Pageable pageable) {
-
-        log.info("폼에서 넘어오는 문자열 : " + searchWord);
-        log.info("폼에서 넘어오는 드롭다운 : " + searchOption);
-
-
-        Page<Notice> searchNotices = noticeService.searchNoticesAdmin(pageable, searchWord, searchOption);
-        model.addAttribute("searchNotices", searchNotices);
-
-
-        List<Notice> trueNotices = noticeService.findTrueNotice();
-        model.addAttribute("trueNotices", trueNotices);
-
-
-        int totalPages = searchNotices.getTotalPages();
-
-        // 목록 하단 페이지 번호의 노출 개수
-        int pageSize = 5;
-
-        int startPage = Math.max(0, (pageable.getPageNumber() / pageSize) * pageSize);
-        model.addAttribute("startPage", startPage);
-
-        int endPage = Math.min(startPage + pageSize - 1, totalPages - 1);
-        if(endPage >=0){
-            model.addAttribute("endPage", endPage);
-        }
-
-        return "notice/searchedNoticesAdmin";
-
-    }
-
-    //사용자 페이지 검색
-    @GetMapping("/notice/searchNotices")
-    public String searchNotices(String searchWord, String searchOption, Model model,
-                                @PageableDefault(size = 5, sort = "no", direction = Sort.Direction.DESC) Pageable pageable
-                                ) {
-
-        log.info("폼에서 넘어오는 문자열 : " + searchWord);
-        log.info("폼에서 넘어오는 드롭다운 : " + searchOption);
-
-
-        Page<Notice> searchNotices = noticeService.searchNotices(pageable, searchWord, searchOption);
-        model.addAttribute("searchNotices", searchNotices);
-
-
-        List<Notice> trueNotices = noticeService.findTrueNotice();
-        model.addAttribute("trueNotices", trueNotices);
-
-
-        int totalPages = searchNotices.getTotalPages();
-
-        // 목록 하단 페이지 번호의 노출 개수
-        int pageSize = 5;
-
-        int startPage = Math.max(0, (pageable.getPageNumber() / pageSize) * pageSize);
-        model.addAttribute("startPage", startPage);
-
-        int endPage = Math.min(startPage + pageSize - 1, totalPages - 1);
-        if(endPage >=0){
-            model.addAttribute("endPage", endPage);
-        }
-
-
-        return "notice/searchedNotices";
-
-    }
-
+    
 
 }
 
