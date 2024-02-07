@@ -719,7 +719,7 @@ fetch(apiShort)
                             $(`.${daysListId} > .pm`).append(`<h4>오후</h4>`);
                             $(`.${daysListId} > div`).append(`<div class="daysListIcon"></div>`);
                             $(`.${daysListId} > div`).append(`<div class="rainPercentDiv"></div>`);
-                            $(`.${daysListId}`).append(`<div class="temperatureOfDay"></div>`);
+                            $(`.${daysListId}`).append(`<ul class="temperatureOfDay"></ul>`);
 
 
 
@@ -826,7 +826,7 @@ fetch(apiShort)
                             $(`.${daysListId} .am .rainPercentDiv`).append(`<span class="rainPercent">${weatherInfo.pop[i].pop1} %</span>`);
                             $(`.${daysListId} .pm .rainPercentDiv`).append(`<span class="rainPercent">${weatherInfo.pop[i].pop2} %</span>`);
 
-                            $(`.${daysListId} .temperatureOfDay`).append(`<span class="maxTemperature">${weatherInfo.maxTem[i]}º</span><span class="slash">/</span></span><span class="minTemperature">${weatherInfo.minTem[i]}º</span>`);
+                            $(`.${daysListId} .temperatureOfDay`).append(`<li class="maxTemperature">${weatherInfo.maxTem[i]}º</li><li class="slash">/</li><li class="minTemperature">${weatherInfo.minTem[i]}º</li>`);
 
 
 

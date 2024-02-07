@@ -50,7 +50,7 @@
             <c:forEach var="scheduleList" items="${userScheduleList}">
                 <c:set var="startDate" value="${scheduleList.startDate.toEpochDay()}"/>
                 <c:set var="endDate" value="${scheduleList.endDate.toEpochDay()}"/>
-                <c:if test="${startDate - dDay >= 0}">
+                <c:if test="${endDate - dDay >= 0}">
                     <div class="scheduleContentsItem">
                         <i class="xi-ellipsis-v">
                         </i>
@@ -83,9 +83,12 @@
                                         <li><span class="contentsTextDate">${scheduleList.startDate}</span>
                                             <span>| D - Day</span></li>
                                     </c:when>
+                                    <c:when test="${startDate - dDay < 0}">
+                                        <li><span class="contentsTextDate">${scheduleList.startDate}</span>
+                                            <span>| 진행중인 일정</span></li>
+                                    </c:when>
                                     <c:otherwise>
                                         <li><span class="contentsTextDate">${scheduleList.startDate} </span>
-
                                             <span>| D - ${startDate - dDay }</span></li>
                                     </c:otherwise>
                                 </c:choose>
@@ -267,8 +270,8 @@
                                             <div class="detail-schedule-li-images">
                                                 <img src="${detailedSchedule.adminContents.adminContentsImageList[0].imageURL}">
                                             </div>
-                                            <span>${detailedSchedule.contents.businessName}</span>
-                                            <input class="detailedScheduleListId" hidden value="${detailedSchedule.contents.id}">
+                                            <span>${detailedSchedule.adminContents.businessName}</span>
+                                            <input class="detailedScheduleListId" hidden value="${detailedSchedule.adminContents.uuid}">
                                         </li>
                                     </c:forEach>
                                 </ul>
@@ -281,9 +284,6 @@
         </div>
     </div>
 </main>
-<script>
-    <%--let contentsList =`<c:out value=" ${contentsList}"/>`;--%>
-</script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 <script src="/js/schedule/cal.js"></script>
 <script src="/js/schedule/schedule.js"></script>

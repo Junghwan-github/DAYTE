@@ -60,7 +60,7 @@ public class PostController {
         Post post = modelMapper.map(postDTO, Post.class); //
 
 
-        User user = userService.getUser(principal.getUsername()); // 해당 user의 Email을 담음
+        User user = userService.getUser(principal.getNickName()); // 해당 user의 Email을 담음
         post.setUser(user);
         postService.insertPost(post);
         postService.extractPostContentImages(post);
@@ -90,59 +90,88 @@ public class PostController {
     }
 
 
-    // ----------------------- 포스트 리스트 페이지네이션 -----------------------
+    // ----------------------- 포스트 검색 및 페이지네이션 -----------------------
     @GetMapping({"/mainPostList"})
-    public String getPostList(Model model, @PageableDefault(size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
-        // 보이는 페이지에 게시글을 10개씩 보이게 하고 'id' 를 기준으로 정렬 설정
+    public String getPostList(Model model,
+                              @PageableDefault(size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
+                              // @PageableDefault = pageable 의 기본 설정
+                              // size = 한 페이지당 담길 데이터 양
+                              // sort = 무엇을 기준으로 정렬할 것인가
+                              // direction = 정렬방향을 정함
+                              @RequestParam(required = false, defaultValue = "") String postField,
+                              @RequestParam(required = false, defaultValue = "") String postWord
 
+    ) {
         Page<Post> postListPage = postService.getPostList(pageable);
-        int postTotalPage = postListPage.getTotalPages();
+        // Post 에 있는 모든 데이터를 페이지네이션화하여 가져옴
 
-        int nowPage = postListPage.getNumber();
+        Page<Post> postSearchList = postService.getPostSearchList(pageable, postField, postWord);
 
-        int pageSize = 5;
+        int postTotalPage;
+
+        // 인풋창에 공백인 상태로 검색버튼을 눌렀을때 postListPage 을 담아 넘겨주고
+        // 검색 키워드가 있을시 postSearchList 을 남아 넘겨줌
+        if ("".equals(postWord))
+            postTotalPage = postListPage.getTotalPages();
+         else
+            postTotalPage = postSearchList.getTotalPages();
+
+        // postListPage 필드에 담긴 페이지네이션화된 전체 데이터를 postTotalPage 필드에 대입
+        int postNowPage = postListPage.getNumber(); // 현재 게시판 페이지
+        //
+
+        int pageSize = 10;
+        // 한 페이지에 표시될 게시물 수를 정함
 
         int postStartPage = Math.max(0, (pageable.getPageNumber() / pageSize) * pageSize);
+        // 현재 페이지를 기준으로 페이징된 시작 페이지를 계산
+
         int postEndPage = Math.min(postStartPage + pageSize - 1, postTotalPage - 1);
+        // 현재 페이지를 기준으로 페이징된 끝 페이지를 계산
 
         model.addAttribute("postStartPage", postStartPage);
         model.addAttribute("postEndPage", postEndPage);
-        model.addAttribute("postNowPage", nowPage);
+        model.addAttribute("postNowPage", postNowPage);
         model.addAttribute("postList", postListPage);
+
+        model.addAttribute("postField", postField);
+        model.addAttribute("postWord", postWord);
+        model.addAttribute("postSearchList", postSearchList);
 
         model.addAttribute("postListText",postService.extractPostContentText());
         System.out.println("포스트텍스트"+postService.extractPostContentText());
         return "post/mainPostList";
     }
+
     // ----------------------- 포스트 검색 -----------------------
-    @GetMapping("/post/postSearch")
-    public String postBordSearch(String postSearchInputBox, String postBordSearchDropDownMenu, Model model,
-                                 @PageableDefault(size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
-
-        Page<Post> postSearch = postService.postSearch(pageable, postSearchInputBox, postBordSearchDropDownMenu);
-        model.addAttribute("postSearch", postSearch);
-
-
-//        List<Post> postSearchList = postService.findSearchPost();
-//        model.addAttribute("postSearchList", postSearchList);
-
-
-        int totalPages = postSearch.getTotalPages();
-
-        // 목록 하단 페이지 번호의 노출 개수
-        int pageSize = 5;
-
-        int postStartPage = Math.max(0, (pageable.getPageNumber() / pageSize) * pageSize);
-        model.addAttribute("postStartPage", postStartPage);
-
-        int postEndPage = Math.min(postStartPage + pageSize - 1, totalPages - 1);
-        if(postEndPage >=0){
-            model.addAttribute("postEndPage", postEndPage);
-        }
-
-
-        return "/post/mainPostList";
-    }
+//    @GetMapping("/post/postSearch")
+//    public String postBordSearch(String postSearchInputBox, String postBordSearchDropDownMenu, Model model,
+//                                 @PageableDefault(size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+//
+//        Page<Post> postSearch = postService.getPostSearchList(pageable, postSearchInputBox, postBordSearchDropDownMenu);
+//        model.addAttribute("postSearch", postSearch);
+//
+//
+////        List<Post> postSearchList = postService.findSearchPost();
+////        model.addAttribute("postSearchList", postSearchList);
+//
+//
+//        int totalPages = postSearch.getTotalPages();
+//
+//        // 목록 하단 페이지 번호의 노출 개수
+//        int pageSize = 10;
+//
+//        int postStartPage = Math.max(0, (pageable.getPageNumber() / pageSize) * pageSize);
+//        model.addAttribute("postStartPage", postStartPage);
+//
+//        int postEndPage = Math.min(postStartPage + pageSize - 1, totalPages - 1);
+//        if (postEndPage >= 0) {
+//            model.addAttribute("postEndPage", postEndPage);
+//        }
+//
+//
+//        return "/post/mainPostList";
+//    }
 
 
     // ----------------------- 포스트 수정 화면 응답 -----------------------
@@ -171,6 +200,6 @@ public class PostController {
     @PostMapping("/uploadSummernoteImageFile")
     @ResponseBody
     public ResponseEntity<Map<String, String>> uploadSummernoteImageFile(@RequestParam("files") MultipartFile multipartFile) {
-    return postService.uploadImage(multipartFile);
+        return postService.uploadImage(multipartFile);
     }
 }

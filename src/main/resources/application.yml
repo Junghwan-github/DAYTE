@@ -7,9 +7,9 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/project?useUnicode=ture&characterEncoding=utf8&serverTimezone=Asia/Seoul
-    username: root
-    password: 1234
+    url: jdbc:mysql://192.168.10.75:3306/project?useUnicode=ture&characterEncoding=utf8&serverTimezone=Asia/Seoul
+    username: admin
+    password: 3785*
 
   jpa:
     open-in-view: false
@@ -91,8 +91,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: j2studio.jungie2@gmail.com
-    password: nzwttixznzahtuva
+    username: ririchild07@gmail.com
+    password: fihlpxgwelvfwhei
     properties:
       mail:
         smtp:

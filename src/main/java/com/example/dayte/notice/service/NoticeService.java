@@ -236,25 +236,22 @@ public class NoticeService {
 
     }
 
-    public Page<Notice> searchNoticesAdmin(Pageable pageable, String searchWord, String searchOption) {
-        Page<Notice> findNotice = noticeRepository.searchNoticesAdmin(pageable, searchWord, searchOption);
+    // 공지사항 검색
+    @Transactional
+    public Page<Notice> noticeList(Pageable pageable) { return noticeRepository.findAll(pageable);}
 
-        /*log.info("^^^^^^^^^^^^^^^^^");
-        log.info(findNotice.getTotalElements());
-        log.info(findNotice.get());
-
-        findNotice.get().forEach(notice -> {
-            log.info("Title: " + notice.getTitle());
-        });*/
-
-        return findNotice;
-
+    @Transactional
+    public Page<Notice> AllBySearchWord(String searchWord, Pageable pageable){
+        return noticeRepository.findAllBySearchWord(searchWord, pageable);
+    }
+    @Transactional
+    public Page<Notice> TitleBySearchWord(String searchWord, Pageable pageable){
+        return noticeRepository.findTitleBySearchWord(searchWord, pageable);
     }
 
-    public Page<Notice> searchNotices(Pageable pageable, String searchWord, String searchOption) {
-        Page<Notice> findNotice = noticeRepository.searchNotices(pageable, searchWord, searchOption);
-
-        return findNotice;
-
+    @Transactional
+    public Page<Notice> ContentBySearchWord(String searchWord, Pageable pageable){
+        return noticeRepository.findContentBySearchWord(searchWord, pageable);
     }
 }
+

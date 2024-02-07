@@ -2,6 +2,8 @@ package com.example.dayte.members.persistence;
 
 import com.example.dayte.members.domain.RoleType;
 import com.example.dayte.members.domain.User;
+import com.example.dayte.post.domin.Post;
+import com.example.dayte.post.repository.PostRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,6 +18,9 @@ class UserRepositoryTest {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PostRepository postRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -47,10 +52,10 @@ class UserRepositoryTest {
     public void insertOneAdmin() {
 
             User user = User.builder()
-                    .userEmail("testAdmin@test.com")
-                    .password(passwordEncoder.encode("qweqweqwe"))
+                    .userEmail("fpdlan12@test.com")
+                    .password(passwordEncoder.encode("!!test01"))
                     .userName("테스트어드민")
-                    .nickName("testAdminNickName")
+                    .nickName("OhyeonTest")
                     .phone("010-1010-0101")
                     .birthDate("20001011")
                     .gender("other")
@@ -61,6 +66,32 @@ class UserRepositoryTest {
                     .profileImagePath("/images/default_icon_profile.png")
                     .build();
             userRepository.save(user);
+
+
+    }
+
+    @Test
+    public void insertPostDate() {
+
+        IntStream.rangeClosed(31, 100).forEach(i -> {
+            Post post;
+            if(i < 66) {
+                post = Post.builder()
+                        .title("실험용으로 양산한 포스트 " + i)
+                        .content("실험용으로 양산한 포스트 내용 " + i)
+                        .user(userRepository.findById("jungie2@naver.com").get())
+                        .build();
+            } else {
+                post = Post.builder()
+                        .title("실험용으로 양산한 포스트 " + i)
+                        .content("실험용으로 양산한 포스트 내용 " + i)
+                        .user(userRepository.findById("fpdlan12@naver.com").get())
+                        .build();
+            }
+
+            postRepository.save(post);
+
+        });
 
 
     }

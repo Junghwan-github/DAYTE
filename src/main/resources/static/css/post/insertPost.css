@@ -4,43 +4,39 @@ main {
 }
 
 #insert-post-wrap {
-    width: 100%;
+    width: 966px;
+    margin: 0 auto;
 }
 
-#insert-post-wrap > h2 {
+.post-insert-title {
     font-size: 2.2rem;
     font-weight: 500;
     color: #111;
-    margin: 0 0 50px 0;
-}
-.post-title-wrapper {
-    margin: 20px 0;
-}
-.post-title-wrapper > label {
-    display: inline-block;
-    font-size: 2.5rem;
-    color: #111;
-    margin: 0 0 30px 0;
+    margin: 0 0 35px 0;
 }
 
-.post-title-wrapper > input {
-    margin-bottom: 20px;
+.post-title-wrapper {
+    margin: 10px 0 20px 0;
 }
+
 .insert-post-title {
     width: 100%;
-    font-size: 1.7rem;
+    font-size: 1.8rem;
     padding: 10px 10px;
     box-sizing: border-box;
     color: #111;
     border: none;
+    font-weight: 500;
     border-bottom: 1px solid #ddd;
 }
 
 
 .insert-post-title:focus {
-outline: none;
+    outline: none;
 }
-
+.insert-post-title::placeholder {
+    color: #aaa;
+}
 .save-btn-wrapper {
     display: flex;
     justify-content: flex-end;
@@ -60,21 +56,12 @@ outline: none;
 }
 
 
-/*.note-editable {*/
-/*    font-size: 1.5rem; /*/
-/*}*/
 
-/*.note-toolbar {*/
-/*    height: 30px;*/
-/*}*/
+.note-editable p {
+    font-size: 1.5rem;
+    font-family: "Noto Sans KR", sans-serif;
+    line-height: 1.5rem;
 
-
-/*.note-editable {*/
-/*    margin-top: 10px; */
-/*    overflow-y: auto;*/
-/*}*/
+}
 
 
-/*.note-current-fontsize {*/
-/*    font-size: 1.39rem;*/
-/*}*/

@@ -38,7 +38,8 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public User getUser(String userEmail) {
-        User findUser = userRepository.findByUserEmail(userEmail).orElseGet(User::new);
+        User findUser = userRepository.findByUserEmail(userEmail).orElseThrow(()->
+                new IllegalArgumentException("해당 회원이 존재하지 않습니다."));
         return findUser;
     }
 
@@ -123,7 +124,7 @@ public class UserService {
         try {
             String uuid = UUID.randomUUID().toString();
             // 이미지 파일을 저장할 디렉토리 경로 설정
-            Path path = Path.of("\\\\192.168.10.75"+contentsImageUploadPath);
+            Path path = Path.of("\\\\192.168.10.75" + contentsImageUploadPath);
             // 디렉토리가 존재하지 않으면 생성
             if (!Files.exists(path)) {
                 Files.createDirectories(path);
@@ -131,7 +132,7 @@ public class UserService {
             String encodedFileName = UriUtils.encode(Objects.requireNonNull(userDTO.getImage().getOriginalFilename()), StandardCharsets.UTF_8);
             String fileName = uuid + "_" + encodedFileName;
 
-            Path targetPath = Path.of(path + "/"+ (uuid  + "_"+ userDTO.getImage().getOriginalFilename()));
+            Path targetPath = Path.of(path + "/" + (uuid + "_" + userDTO.getImage().getOriginalFilename()));
             System.out.println(targetPath);
             Files.copy(userDTO.getImage().getInputStream(), targetPath, StandardCopyOption.REPLACE_EXISTING);
 
@@ -139,14 +140,15 @@ public class UserService {
             userDTO.setProfileImageName(fileName);
             userDTO.setProfileImagePath(contentsImageUploadPath + fileName);
         } catch (IOException e) {
-            ;;
+            ;
+            ;
         }
     }
 
     @Transactional
-    public void modifyUser(UserSecurityDTO userSecurityDTO, UserDTO userDTO) {
+    public User modifyUser(UserSecurityDTO userSecurityDTO, UserDTO userDTO) {
         User findUser = userRepository.findByUserEmail(userSecurityDTO.getUserEmail()).get();
-       if(userDTO.getNickName() != null && !nickNameChk(userDTO.getNickName())){
+        if (userDTO.getNickName() != null && !nickNameChk(userDTO.getNickName())) {
             findUser.setNickName(userDTO.getNickName());
         }
 
@@ -154,8 +156,12 @@ public class UserService {
         String phone = userDTO.getPhone() != null ? userDTO.getPhone() : userSecurityDTO.getPhone();
 
         findUser.setPhone(phone);
-        findUser.setProfileImagePath(userDTO.getProfileImagePath());
-        findUser.setProfileImageName(userDTO.getProfileImageName());
+        if (userDTO.getImage() != null && !userDTO.getImage().isEmpty()) {
+            findUser.setProfileImagePath(userDTO.getProfileImagePath());
+            findUser.setProfileImageName(userDTO.getProfileImageName());
+        }
+
+        return findUser;
     }
 
     @Transactional

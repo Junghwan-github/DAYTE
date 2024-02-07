@@ -119,15 +119,16 @@ postObject.init();
 $(document).ready(function () {
     $('#summernote').summernote({
         tabSize: 2,
-        height: 450,
+        height: 750,
         focus: true,
         lang: "ko-KR",
         placeholder: '여기 내용을 입력하세요',
-        disableResizeEditor: true,
+        disableResizeEditor: false,
         toolbar: [
             ['style', ['style']],
             ['font', ['bold', 'italic', 'underline', 'clear']],
             ['fontsize', ['fontsize']],
+            ['fontname', ['fontname']],
             ['color', ['color']],
             ['para', ['ul', 'ol', 'paragraph']],
             ['height', ['height']],
@@ -142,6 +143,7 @@ $(document).ready(function () {
             },
         },
     });
+
 });
 
 // 이미지를 임시저장합니다.
