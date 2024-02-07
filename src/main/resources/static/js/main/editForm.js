@@ -1,6 +1,10 @@
 let isNicknameChecked = false;
+let oldNickName = $("#nickName").val();
 $("#nickNameChk").on("click", function (){
     let nickName = $("#nickName").val()
+    if(nickName == oldNickName) {
+
+    }
     $.ajax({
         url        : "/members/nickNameChk/" + nickName,
         type       : "POST",
