@@ -7,6 +7,7 @@ import com.example.dayte.members.dto.UserDTO;
 import com.example.dayte.members.service.UserService;
 import com.example.dayte.security.dto.UserSecurityDTO;
 import jakarta.validation.Valid;
+import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

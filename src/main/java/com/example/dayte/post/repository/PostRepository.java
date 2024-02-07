@@ -11,12 +11,8 @@ import org.springframework.data.repository.query.Param;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
 
-    @Query("select p FROM Post p where case when :postBordSearchDropDownMenu = 'postTitle' then (p.title like %:postSearchInputBox%) when :postBordSearchDropDownMenu = 'postContent' then (p.content like %:postSearchInputBox%) when :postBordSearchDropDownMenu = 'postAll' then (p.title LIKE %:postSearchInputBox% OR p.content LIKE %:postSearchInputBox%) end ")
-    Page<Post> postSearch(Pageable pageable, @Param("postSearchInputBox") String postSearchInputBox, @Param("postBordSearchDropDownMenu")String postBordSearchDropDownMenu);
+    @Query("select p FROM Post p where case when :postField = 'postTitle' then (p.title like %:postWord%) when :postField = 'postContent' then (p.content like %:postWord%) when :postField = 'postAll' then (p.title LIKE %:postWord% OR p.content LIKE %:postWord%) end")
+    Page<Post> postSearch(Pageable pageable, @Param("postField") String postField, @Param("postWord")String postWord);
 
     Page<Post> findAllByUser(User user, Pageable pageable);
-
-//    @Query("SELECT p FROM Post p ORDER BY p.id ASC")
-//    List<com.example.dayte.post.domin.Post> findSearchPosts();
-
 }
