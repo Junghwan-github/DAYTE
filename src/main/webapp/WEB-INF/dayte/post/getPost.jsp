@@ -1,20 +1,17 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
-
 <%-- head --%>
 <%@include file="../layout/head.jsp"%>
 
 <%-- css --%>
-<link rel="stylesheet" href="/css/post/post.css">
-<link rel="stylesheet" href="/css/post/postReply.css">
+<link rel="stylesheet" href="/css/post/getPost.css">
 <title>일정후기 | ${post.title} </title>
 </head> <%-- /head --%>
 
 <body> <%-- body --%>
-
-<%@include file="../layout/header.jsp"%> <%-- header --%>
+<%-- header --%>
+<%@include file="../layout/header.jsp"%>
 <%@include file="../layout/subnav.jsp" %>
-
 
 <main class="contentArea"> <%-- main --%>
 

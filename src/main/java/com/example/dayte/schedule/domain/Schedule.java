@@ -38,6 +38,7 @@ public class Schedule {
     @OneToMany(mappedBy = "scheduleDateId.schedule",
             fetch = FetchType.EAGER,
             cascade = CascadeType.REMOVE)
+
     private List<ScheduleDate> scheduleDates;
 
 }

@@ -30,6 +30,7 @@ public class MyReviewController {
             @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable
     )
     {
+
             User user = modelMapper.map(principal, User.class);
 
             Page<Post> myReviewPage = myReviewService.getMyReview(user, pageable);
