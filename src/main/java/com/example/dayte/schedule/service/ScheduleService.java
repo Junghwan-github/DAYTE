@@ -1,6 +1,7 @@
 package com.example.dayte.schedule.service;
 
 import com.example.dayte.members.domain.User;
+import com.example.dayte.members.persistence.UserRepository;
 import com.example.dayte.schedule.domain.Schedule;
 import com.example.dayte.schedule.domain.ScheduleDate;
 import com.example.dayte.schedule.domain.ScheduleDateId;
@@ -31,6 +32,9 @@ public class ScheduleService {
 
     @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired
+    private UserRepository userRepository;
 
     // 일정 추가
     @Transactional
@@ -163,6 +167,17 @@ public class ScheduleService {
                 (date.isEqual(minEndDate) || date.isAfter(minEndDate)) &&
                         (date.isEqual(maxStartDate) || date.isBefore(maxStartDate))
         );
+    }
+
+    public List<Schedule> myPageTestSchedule(String userEmail) {
+        User user = userRepository.findById(userEmail).orElse(new User());
+        LocalDate now = LocalDate.now();
+        LocalDate test = now.plusDays(3);
+        List<Schedule> scheduleList = scheduleRepository.findAllByUserAndEndDateGreaterThanEqualOrderByStartDate(user, now);
+        scheduleList.forEach(a -> System.out.println("schedule : " + a));
+
+        return scheduleList;
+
     }
 
     public void detailedDeleteSchedule(String uuid) {

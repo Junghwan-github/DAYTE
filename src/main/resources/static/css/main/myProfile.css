@@ -245,6 +245,25 @@ main > div:first-child {
 /* ==================================== 닉네임 에러  */
 #nickNameErrs {
     width: 30%;
-    height:20px;
+    height:25px;
     padding-left: 10px;
+    color: red;
+    line-height: 1.5;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+}
+#err1 {
+    display: inline;
+    font-size: 11px;
+}
+
+.day-contents > ul {
+    display: flex;
+    align-items: center;
+}
+
+.day-contents > ul > li > img {
+    width: 30%;
+    height: 30%;
 }

@@ -5,6 +5,7 @@ import com.example.dayte.members.domain.User;
 import com.example.dayte.members.dto.ResponseDTO;
 import com.example.dayte.members.dto.UserDTO;
 import com.example.dayte.members.service.UserService;
+import com.example.dayte.schedule.service.ScheduleService;
 import com.example.dayte.security.dto.UserSecurityDTO;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
@@ -35,6 +36,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ScheduleService scheduleService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -138,6 +142,7 @@ public class UserController {
     public String modifyUserForm(Model model,
                                  @AuthenticationPrincipal UserSecurityDTO userSecurityDTO) {
         model.addAttribute("userInfo", userService.getUser(userSecurityDTO.getUserEmail()));
+        model.addAttribute("mySchedule", scheduleService.myPageTestSchedule(userSecurityDTO.getUserEmail()));
         return "members/myProfile";
     }
 
@@ -155,17 +160,12 @@ public class UserController {
             @ModelAttribute UserDTO userDTO, // 변경된 부분
             @AuthenticationPrincipal UserSecurityDTO principal
     ) {
-
-        if (userDTO.getImage() != null && !userDTO.getImage().isEmpty()) {
+        if (userDTO.getImage() != null && !userDTO.getImage().isEmpty()){
             userService.profileImage(userDTO);
-        } else {
-            userDTO.setProfileImageName("default_icon_profile.png");
-            userDTO.setProfileImagePath("/images/default_icon_profile.png");
         }
-
-        userService.modifyUser(principal, userDTO);
-        principal.setProfileImagePath(userDTO.getProfileImagePath());
-        principal.setNickName(userDTO.getNickName());
+        User user = userService.modifyUser(principal, userDTO);
+        principal.setProfileImagePath(user.getProfileImagePath());
+        principal.setNickName(user.getNickName());
         return new ResponseDTO<>(HttpStatus.OK.value(), "회원 정보가 수정되었습니다.");
     }
 
@@ -191,11 +191,13 @@ public class UserController {
         }
     }
 
-    @PostMapping("/members/nickNameChk/{nickName}")
+    @PostMapping("/members/nickNameCheck/{nickName}")
     public @ResponseBody ResponseDTO<?> nickNameChk(
-            @PathVariable String nickName // 변경된 부분
-    ) throws IOException {
-        if (nickName != null && !userService.nickNameChk(nickName)) {
+            @PathVariable String nickName,
+            @AuthenticationPrincipal UserSecurityDTO userSecurityDTO
+    ) {
+
+        if (!userService.nickNameChk(nickName) || nickName.equals(userSecurityDTO.getNickName())) {
                 return new ResponseDTO<>(HttpStatus.OK.value(), "사용 할 수 있는 닉네임 입니다.");
             } else {
                 return new ResponseDTO<>(HttpStatus.CONFLICT.value(), "중복된 닉네임 입니다.");
