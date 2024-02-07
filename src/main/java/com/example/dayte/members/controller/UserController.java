@@ -69,6 +69,7 @@ public class UserController {
         }
     }
 
+    // 관리자페이지 메인, 검색
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/admin/home")
     public String adminHome(Model model,

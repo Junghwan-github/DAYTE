@@ -17,17 +17,17 @@
 
     <h1 class="title"> 공지사항 </h1>
     <div class="formBtnArray">
-    <form action="/notice/searchNotices" method="get">
+    <form action="/notice" method="get">
         <div class="noticeSearchForm">
             <div>
-                <label for="dropdown"></label>
-                <select id="dropdown" name="searchOption">
+                <label for="searchOption"></label>
+                <select id="searchOption" name="searchOption">
                     <option value="all">전체</option>
                     <option value="title">제목</option>
                     <option value="content">내용</option>
                 </select>
             </div>
-            <input type="text" id="searchText" name="searchWord">
+            <input type="text" id="searchWord" name="searchWord">
             <button id="searchFunction"><img src="/images/searchIconB.png"></button>
         </div>
     </form>
