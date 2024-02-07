@@ -1,6 +1,5 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <%-- head --%>
 <%@include file="../layout/head.jsp" %>
@@ -21,45 +20,44 @@
     </div>
 
     <div class="post-list-container">
-<c:forEach var="post" items="${postList.content}">
-        <div class="post-list-items-wrapper">
-            <div class="user-part">
-                <ul>
-                    <li>
-                        <div></div>
-                    </li>
-                    <li><span>${post.user.nickName}</span></li>
-                    <li><span><fmt:formatDate value="${post.createDate}" pattern="yyyy.MM.dd"/></span></li>
-                </ul>
-            </div>
-            <div class="content-part">
-                <div class="post-items-title">
-                    <h2></h2>
-                </div>
-                <div class="post-items-images">
+        <c:forEach var="post" items="${postList.content}">
+            <div class="post-list-items-wrapper" onclick="getPostDetail(${post.id})">
+                <div class="user-part">
                     <ul>
                         <li>
-                            <div><img src=""></div>
+                            <div><img src="${post.user.profileImagePath}"></div>
                         </li>
-                        <li>
-                            <div><img src=""></div>
-                        </li>
-                        <li>
-                            <div><img src=""></div>
-                        </li>
-                        <li>
-                            <div><img src=""></div>
-                        </li>
+
+                        <li><span>${post.user.nickName}</span></li>
+                        <li><span><fmt:formatDate value="${post.createDate}" pattern="yyyy.MM.dd"/></span></li>
                     </ul>
                 </div>
-                <div class="post-items-content">
-                    <p>
-                        테스트오집니다.
-                    </p>
+                <div class="content-part">
+                    <div class="post-items-title">
+                        <h2>${post.title}</h2>
+                    </div>
+                    <div class="post-items-images">
+                            <ul>
+                                <c:forEach var="images" items="${post.postImages}">
+                                <li>
+                                    <div><img src="${images.imageUrl}"/></div>
+                                </li>
+                                </c:forEach>
+                            </ul>
+                    </div>
+                    <div class="post-items-content">
+                        <c:set var="postId" value="${post.id}"></c:set>
+                        <p>
+                            <c:forEach var="text" items="${postListText}">
+                               <c:if test="${text.getLeft() eq postId}">
+                                ${text.getRight()}
+                               </c:if>
+                            </c:forEach>
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
-            </c:forEach>
+        </c:forEach>
     </div>
 
     <%------------------------------------ 글 작성 버튼  ------------------------------------%>
@@ -119,5 +117,5 @@
     </div>
 
 </main>
-
+<script src="/js/post/mainPostList.js"></script>
 <jsp:include page="../layout/footer.jsp"/>

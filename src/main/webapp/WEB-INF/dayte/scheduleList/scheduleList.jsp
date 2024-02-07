@@ -1,4 +1,8 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="java.time.LocalDate" %>
+<%@ page import="com.example.dayte.schedule.domain.Schedule" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.fasterxml.jackson.databind.ObjectMapper" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="../layout/head.jsp" %>
 <link rel="stylesheet" href="/css/schedule/schedule.css">
@@ -64,10 +68,10 @@
                                         src="${scheduleList.scheduleDates[0].detailedScheduleList[0].adminContents.adminContentsImageList[0].imageURL}">
                                 </li>
                                 <li><img
-                                        src="${scheduleList.scheduleDates[0].detailedScheduleList[0].adminContents.adminContentsImageList[1].imageURL}">
+                                        src="${scheduleList.scheduleDates[0].detailedScheduleList[1].adminContents.adminContentsImageList[0].imageURL}">
                                 </li>
                                 <li><img
-                                        src="${scheduleList.scheduleDates[0].detailedScheduleList[0].adminContents.adminContentsImageList[2].imageURL}">
+                                        src="${scheduleList.scheduleDates[0].detailedScheduleList[2].adminContents.adminContentsImageList[0].imageURL}">
                                 </li>
                             </ul>
                         </div>
@@ -263,9 +267,8 @@
                                             <div class="detail-schedule-li-images">
                                                 <img src="${detailedSchedule.adminContents.adminContentsImageList[0].imageURL}">
                                             </div>
-                                            <span>${detailedSchedule.adminContents.businessName}</span>
-                                            <input class="detailedScheduleListId" hidden
-                                                   value="${detailedSchedule.adminContents.uuid}">
+                                            <span>${detailedSchedule.contents.businessName}</span>
+                                            <input class="detailedScheduleListId" hidden value="${detailedSchedule.contents.id}">
                                         </li>
                                     </c:forEach>
                                 </ul>

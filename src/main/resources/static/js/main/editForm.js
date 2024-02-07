@@ -1,18 +1,38 @@
+let isNicknameChecked = false;
+$("#nickNameChk").on("click", function (){
+    let nickName = $("#nickName").val()
+    $.ajax({
+        url        : "/members/nickNameChk/" + nickName,
+        type       : "POST",
+        contentType: "application/json; charset=utf-8",
+    }).done(function (response) {
+        if(response.status == 200){
+            isNicknameChecked = true;
+            alert("사용 가능한 닉네임 입니다.");
+        } else if(response.status == 409) {
+            isNicknameChecked = false;
+            alert("이미 사용 중인 닉네임입니다. 다른 닉네임을 입력하세요.");
+        }
+    }).fail(function (error) {
+        alert("에러 발생 : " + error);
+    })
+});
+
 $("#editBttn").on("click", function (){
-    let nickName = $("#nickName").val();
-    if(!!$("#nickName").val()) {
-        nickName = $("#nickName").val();
-    } else {
-        nickName = $("#nickName").attr('placeholder');
+    if (!isNicknameChecked) {
+        alert("닉네임 중복을 먼저 확인하세요.");
+        return;
     }
+
     let user = {
-        email: $("#email").text(),
-        nickName: nickName,
+        nickName: $("#nickName").val(),
+        phone: $("#phone").val(),
     }
+
     let formData = new FormData();
     // formData.append("user", JSON.stringify(user));
-    formData.append("userEmail", user.email); // 변경된 부분
     formData.append("nickName", user.nickName); // 변경된 부분
+    formData.append("phone", user.phone); // 변경된 부분
     // 이미지 파일이 선택되었을 때만 추가
     let my_photo = $("#upload")[0];
     if (my_photo.files.length > 0){
@@ -26,32 +46,14 @@ $("#editBttn").on("click", function (){
         contentType: false,
     }).done(function (response) {
             alert("정보 수정이 완료되었습니다.");
-            location = "/";
+            location.reload()
     }).fail(function (error) {
         alert("에러 발생 : " + error);
     })
 });
 
-// 닉네임 중복 체크
-// $("#editBttn").on("click", function (){
-//     let nickName = $("#email").val();
-//     $.ajax({
-//         type : "POST",
-//         url : "/members/editForm" + nickName ,
-//         contentType: "application/json; charset=utf-8",
-//     }).done(function (response) {
-//         if (response.status === 200) {
-//             alert("일치하는 닉네임이 없습니다.");
-//         } else if (response.status === 409) {
-//             alert("이미 있는 닉네임 입니다.");
-//         }
-//     }).fail(function (error) {
-//         alert("에러 발생 : " + error);
-//     })
-// });
-
-    // 처음 이미지 가져오기
 $(function(){
+    // 처음 이미지 가져오기
     let photo_path = $('.profile-photo').attr('src');
     let my_photo; // 회원이 업로드할 이미지를 담을 변수
 

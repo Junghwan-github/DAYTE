@@ -3,16 +3,13 @@ package com.example.dayte.post.domin;
 import com.example.dayte.members.domain.User;
 import com.example.dayte.reply.domain.PostReply;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
 import java.util.List;
 
-@Data
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -20,11 +17,13 @@ import java.util.List;
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
+    @Setter
     @Column(nullable = false, length = 100)
     private String title;
 
+    @Setter
     @Lob // db에 varchar를 넘어서 더 큰 값을 넣기 위한 작업
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
@@ -32,6 +31,7 @@ public class Post {
     @CreationTimestamp
     private Timestamp createDate;
 
+    @Setter
     @ManyToOne(fetch = FetchType.EAGER)// N : 1
     @JoinColumn(name = "user")
     private User user;
@@ -41,5 +41,7 @@ public class Post {
 
     private List<PostReply> replyList;
 
-//        private int cnt;
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<PostImages> postImages;
+    
 }

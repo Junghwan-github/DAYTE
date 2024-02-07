@@ -22,7 +22,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -52,8 +51,6 @@ public class UserController {
         }
 
         userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-        userDTO.setProfileImageName("default_icon_profile.png");
-        userDTO.setProfileImagePath("/images/default_icon_profile.png");
 
         userDTO.setRole(RoleType.USER);
         System.out.println("userDTO : " + userDTO);
@@ -122,7 +119,7 @@ public class UserController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/admin/editUser")
-    public @ResponseBody ResponseDTO<?> updateUser(@RequestBody UserDTO userDTO) {
+    public @ResponseBody ResponseDTO<?> updateUser(@RequestBody UserDTO userDTO) throws IOException {
         userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         //userDTO.setRole(userDTO.getRole());
         userDTO.setUserName(userDTO.getUserName());
@@ -141,7 +138,16 @@ public class UserController {
     public String modifyUserForm(Model model,
                                  @AuthenticationPrincipal UserSecurityDTO userSecurityDTO) {
         model.addAttribute("userInfo", userService.getUser(userSecurityDTO.getUserEmail()));
-        return "members/editForm";
+        return "members/myProfile";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/members/editPsForm")
+    public String modifyPasswordForm(Model model,
+                                     @AuthenticationPrincipal UserSecurityDTO userSecurityDTO) {
+        model.addAttribute("userInfo", userService.getUser(userSecurityDTO.getUserEmail()));
+        return "members/editPassword";
+
     }
 
     @PutMapping("/members/editForm")
@@ -151,23 +157,48 @@ public class UserController {
     ) {
 
         if (userDTO.getImage() != null && !userDTO.getImage().isEmpty()) {
-            userService.profileImage(userDTO.getImage(), userDTO);
+            userService.profileImage(userDTO);
         } else {
             userDTO.setProfileImageName("default_icon_profile.png");
             userDTO.setProfileImagePath("/images/default_icon_profile.png");
         }
 
-        userService.modifyUser(userDTO);
+        userService.modifyUser(principal, userDTO);
         principal.setProfileImagePath(userDTO.getProfileImagePath());
         principal.setNickName(userDTO.getNickName());
         return new ResponseDTO<>(HttpStatus.OK.value(), "회원 정보가 수정되었습니다.");
     }
 
-    @PostMapping("/members/editForm/{nickName}")
-    public @ResponseBody ResponseDTO<?> nickNameCheck(@PathVariable String nickName) {
-        if(!userService.isNickNameAvailable(nickName)){
-            return new ResponseDTO<>(HttpStatus.CONFLICT.value(), "닉네임이 이미 있습니다.");
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/members/delete")
+    public String deletePage() {
+        return "members/delForm";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @DeleteMapping("/members/delete/{userEmail}")
+    public @ResponseBody ResponseDTO<?> deleteUser(@PathVariable String userEmail,
+                                                   @RequestBody Map<String, Object> map) {
+
+        String encodedPassword = userService.getUser(userEmail).getPassword();
+        String rawPassword = (String) map.get("password");
+
+        if (passwordEncoder.matches(rawPassword, encodedPassword)) {
+            userService.deleteUser(userEmail);
+            return new ResponseDTO<>(HttpStatus.OK.value(), "회원 탈퇴가 완료되었습니다.");
+        } else {
+            return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "회원 탈퇴를 실패했습니다.");
         }
-        return new ResponseDTO<>(HttpStatus.OK.value(), "닉네임을 사용 할 수 있습니다.");
+    }
+
+    @PostMapping("/members/nickNameChk/{nickName}")
+    public @ResponseBody ResponseDTO<?> nickNameChk(
+            @PathVariable String nickName // 변경된 부분
+    ) throws IOException {
+        if (nickName != null && !userService.nickNameChk(nickName)) {
+                return new ResponseDTO<>(HttpStatus.OK.value(), "사용 할 수 있는 닉네임 입니다.");
+            } else {
+                return new ResponseDTO<>(HttpStatus.CONFLICT.value(), "중복된 닉네임 입니다.");
+            }
     }
 }

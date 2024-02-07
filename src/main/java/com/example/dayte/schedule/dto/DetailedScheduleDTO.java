@@ -11,7 +11,7 @@ import lombok.*;
 @AllArgsConstructor
 public class DetailedScheduleDTO {
 
-    private AdminContents contents;
+    private AdminContents adminContents;
 
     private ScheduleDate scheduleDate;
 }

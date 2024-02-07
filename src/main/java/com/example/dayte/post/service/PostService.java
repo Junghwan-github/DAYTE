@@ -1,11 +1,16 @@
-package com.example.dayte.post.postService;
+package com.example.dayte.post.service;
 
 
-import com.example.dayte.notice.domain.Notice;
 import com.example.dayte.post.domin.Post;
-import com.example.dayte.post.postRepository.PostRepository;
+import com.example.dayte.post.domin.PostImages;
+import com.example.dayte.post.repository.PostImagesRepository;
+import com.example.dayte.post.repository.PostRepository;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.lang3.tuple.Pair;
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,6 +31,9 @@ public class PostService {
     @Autowired
     private PostRepository postRepository;
 
+    @Autowired
+    private PostImagesRepository postImagesRepository;
+
     /*
         기능 : 트랜잭션이 시작되고, 메서드가 성공적으로 완료되면 트랜잭션이 커밋, 예외가 발생하면 트랜잭션이 롤백
      */
@@ -41,7 +49,7 @@ public class PostService {
     }
 
     @Transactional
-    public Post getPost(int id) {
+    public Post getPost(Long id) {
         return postRepository.findById(id).get();
     }
 
@@ -63,15 +71,19 @@ public class PostService {
 
     // 삭제
     @Transactional
-    public void deletePost(int id) {
+    public void deletePost(Long id) {
         postRepository.deleteById(id);
     }
+
 
     // 페이지네이션
     @Transactional(readOnly = true)
     public Page<Post> getPostList(Pageable pageable) {
         // Pageable -> 페이징 처리를 위한 매개변수 (클라이언트가 요청한 페이지 번호, 페이지 크기 등을 포함하는 정보)
+
+
         return postRepository.findAll(pageable);
+
 
         // pageable = 페이지 정보 (findAll 실행 시 페이지 정보 값을 이용하여 Post 객체 목로가을 조회해 Page<Post>형태로 반환한다)
         // Page -> Spring Data의 일부로 Spring Data JPA에서 제공하는 페이징과 정렬 기능을 지원하는 인터페이스
@@ -80,8 +92,8 @@ public class PostService {
 
     public ResponseEntity<Map<String, String>> uploadImage(MultipartFile multipartFile) {
         Map<String, String> resultMap = new HashMap<>();
-        String fileRoot = "E:/temp/images/post/";
-            // 저장될 경로 학원에서 서버로 수정해야되고
+        String fileRoot = "\\\\192.168.10.75/temp/images/post/";
+        // 저장될 경로 학원에서 서버로 수정해야되고
         try {
             String originalFileName = multipartFile.getOriginalFilename();
             String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
@@ -102,36 +114,48 @@ public class PostService {
         }
     }
 
-    @Transactional
-    public List<String> extractImageUrlsById(int id) {
-        // 데이터베이스에서 해당 ID의 포스트를 가져옵니다.
-        Post post = postRepository.findById(id).orElse(null);
+    public void extractPostContentImages(Post post) {
+        extractPostContentHTML(post);
+    }
 
-        if (post != null) {
-            // 가져온 서머노트 본문 내용에서 이미지의 src 속성을 추출합니다.
-            return extractImageUrlsFromSummernoteContent(post.getContent());
-        } else {
-            return Collections.emptyList();
+    private void extractPostContentHTML(Post post) {
+
+
+        Document doc = Jsoup.parse(post.getContent());
+
+        Elements imgElements = doc.select("img");
+
+        for (Element imgElement : imgElements) {
+            String src = imgElement.attr("src");
+            PostImages postImages = PostImages.builder()
+                    .imageUrl(src)
+                    .post(post)
+                    .build();
+            postImagesRepository.save(postImages);
+
         }
+
     }
 
-    private List<String> extractImageUrlsFromSummernoteContent(String summernoteContent) {
-        List<String> imageUrls = new ArrayList<>();
+    public List<Pair<Long, String>> extractPostContentText() {
 
-        // 서머노트 본문 내용을 jQuery로 파싱합니다.
-        var $content = Jsoup.parse(summernoteContent);
+        List<Post> postContentList = postRepository.findAll();
+        List<Pair<Long, String>> contentTextList = new ArrayList<>();
 
-        // 각 이미지를 찾아서 배열에 추가합니다.
-        $content.select("img").forEach(element -> {
-            String imageUrl = element.attr("src");
-            imageUrls.add(imageUrl);
-        });
+        for (Post post : postContentList) {
+            Long postId = post.getId();
+            String contentText = post.getContent();
+            Document doc = Jsoup.parse(contentText);
+            Elements pTagElements = doc.select("p");
+            contentTextList.add(Pair.of(postId, pTagElements.text()));
+        }
 
-        return imageUrls;
+        return contentTextList;
     }
+
 
     public Page<Post> postSearch(Pageable pageable, String postSearchInputBox, String postBordSearchDropDownMenu) {
-        Page<Post> postFindSearch = postRepository.postSearch(pageable, postSearchInputBox, postBordSearchDropDownMenu);
+        Page<Post> postFindSearch =  postRepository.postSearch(pageable, postSearchInputBox, postBordSearchDropDownMenu);
 
        /* for(Post post : postFindSearch.getContent()){
             log.info("===============================");
@@ -154,5 +178,5 @@ public class PostService {
 //        }
 //    }
 
-}
 
+}

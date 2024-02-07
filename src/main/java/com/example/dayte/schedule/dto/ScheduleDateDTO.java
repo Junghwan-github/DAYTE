@@ -2,7 +2,6 @@ package com.example.dayte.schedule.dto;
 
 import com.example.dayte.admin.contents.domain.AdminContents;
 import com.example.dayte.schedule.domain.ScheduleDateId;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.springframework.cglib.core.Local;
 

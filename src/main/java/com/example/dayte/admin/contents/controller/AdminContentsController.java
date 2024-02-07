@@ -19,8 +19,6 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class AdminContentsController {
 
-    private final ModelMapper modelMapper;
-
     private final AdminContentsService adminContentsService;
 
 
@@ -50,6 +48,7 @@ public class AdminContentsController {
     // 검색 기능
     @PostMapping("/search")
     public @ResponseBody List<AdminContents> searchContents(@RequestBody Map<String, String> search) {
+        System.out.println("================================"+search);
         List<AdminContents> searchByContents = adminContentsService.searchByContents(search.get("search"));
         return searchByContents;
     }

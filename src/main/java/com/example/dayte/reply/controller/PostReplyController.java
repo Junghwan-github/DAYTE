@@ -2,7 +2,7 @@ package com.example.dayte.reply.controller;
 
 import com.example.dayte.members.domain.User;
 import com.example.dayte.post.domin.Post;
-import com.example.dayte.post.postService.PostService;
+import com.example.dayte.post.service.PostService;
 import com.example.dayte.reply.domain.PostReply;
 import com.example.dayte.reply.dto.PostReplyDTO;
 import com.example.dayte.reply.dto.ResponseDTO;
@@ -37,7 +37,7 @@ public class PostReplyController {
                                                      @AuthenticationPrincipal UserSecurityDTO principal) {
         postReplyDTO.setUser(modelMapper.map(principal, User.class));
 
-        int id = postReplyDTO.getId();
+        Long id = postReplyDTO.getId();
         Post post = postService.getPost(id);
         postReplyDTO.setPost(post);
         PostReply postReply = modelMapper.map(postReplyDTO, PostReply.class);
