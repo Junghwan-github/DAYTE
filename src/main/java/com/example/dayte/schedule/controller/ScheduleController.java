@@ -91,6 +91,7 @@ public class ScheduleController {
             return new ResponseDTO<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "일정 삭제 및 등록 중 오류가 발생했습니다.");
         }
     }
+
     @Transactional
     @PutMapping("/schedule/detailedScheduleModify")
     public @ResponseBody ResponseDTO<?> detailedScheduleModify(
