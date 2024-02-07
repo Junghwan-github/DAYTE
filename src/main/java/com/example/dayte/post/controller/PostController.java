@@ -148,7 +148,7 @@ public class PostController {
     public String postBordSearch(String postSearchInputBox, String postBordSearchDropDownMenu, Model model,
                                  @PageableDefault(size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
 
-        Page<Post> postSearch = postService.postSearch(pageable, postSearchInputBox, postBordSearchDropDownMenu);
+        Page<Post> postSearch = postService.getPostSearchList(pageable, postSearchInputBox, postBordSearchDropDownMenu);
         model.addAttribute("postSearch", postSearch);
 
 
