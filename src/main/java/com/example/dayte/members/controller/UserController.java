@@ -8,6 +8,7 @@ import com.example.dayte.members.service.UserService;
 import com.example.dayte.schedule.service.ScheduleService;
 import com.example.dayte.security.dto.UserSecurityDTO;
 import jakarta.validation.Valid;
+import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -73,6 +74,7 @@ public class UserController {
         }
     }
 
+    // 관리자페이지 메인, 검색
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/admin/home")
     public String adminHome(Model model,

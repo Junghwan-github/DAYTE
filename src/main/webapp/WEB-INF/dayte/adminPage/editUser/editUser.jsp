@@ -5,7 +5,7 @@
 <!-- 콘텐츠 -->
 <div class="h-100 bg-body-tertiary px-3" style="padding-top: 70px; min-width:375px;">
     <div class="px-5 position-relative">
-        <p class="h4 fw-bold mt-1 mb-3" >회원 수정</p>
+        <p class="h4 fw-bold mt-1 mb-3 titleName" >회원 수정</p>
         <form class="w-100 ">
             <table class="table border">
                 <tr>
@@ -17,7 +17,7 @@
                 <tr>
 
                     <th><label for="userName" class="ps-3">이름</label></th>
-                    <td><input type="text" name="userName" id="userName"  value="${user.userName}"></td>
+                    <td><input type="text" name="userName" id="userName"  value="${user.userName}" disabled></td>
                     <th><label for="nickName" class="ps-3">닉네임</label></th>
                     <td><input type="text" name="nickName" id="nickName"  value="${user.nickName}"></td>
                 </tr>
@@ -50,7 +50,7 @@
                 </tr>
                 <tr>
                     <th><label for="latelyDate" class="ps-3">최근접속일</label></th>
-                    <td><input type="text" name="latelyDate" id="latelyDate" value=""></td>
+                    <td><input type="text" name="latelyDate" id="latelyDate" value="${user.loginDate}" disabled></td>
                     <th><label for="del" class="ps-3">탈퇴여부</label></th>
                     <td><input type="text" name="del" id="del" value="${user.del}"></td>
                 </tr>
