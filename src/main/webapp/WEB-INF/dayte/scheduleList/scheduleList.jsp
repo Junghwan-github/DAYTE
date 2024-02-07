@@ -267,8 +267,8 @@
                                             <div class="detail-schedule-li-images">
                                                 <img src="${detailedSchedule.adminContents.adminContentsImageList[0].imageURL}">
                                             </div>
-                                            <span>${detailedSchedule.contents.businessName}</span>
-                                            <input class="detailedScheduleListId" hidden value="${detailedSchedule.contents.id}">
+                                            <span>${detailedSchedule.adminContents.businessName}</span>
+                                            <input class="detailedScheduleListId" hidden value="${detailedSchedule.adminContents.uuid}">
                                         </li>
                                     </c:forEach>
                                 </ul>
@@ -281,9 +281,6 @@
         </div>
     </div>
 </main>
-<script>
-    <%--let contentsList =`<c:out value=" ${contentsList}"/>`;--%>
-</script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 <script src="/js/schedule/cal.js"></script>
 <script src="/js/schedule/schedule.js"></script>
