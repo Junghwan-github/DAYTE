@@ -37,21 +37,21 @@
                         <h2>${post.title}</h2>
                     </div>
                     <div class="post-items-images">
-                            <ul>
-                                <c:forEach var="images" items="${post.postImages}">
+                        <ul>
+                            <c:forEach var="images" items="${post.postImages}">
                                 <li>
                                     <div><img src="${images.imageUrl}"/></div>
                                 </li>
-                                </c:forEach>
-                            </ul>
+                            </c:forEach>
+                        </ul>
                     </div>
                     <div class="post-items-content">
                         <c:set var="postId" value="${post.id}"></c:set>
                         <p>
                             <c:forEach var="text" items="${postListText}">
-                               <c:if test="${text.getLeft() eq postId}">
-                                ${text.getRight()}
-                               </c:if>
+                                <c:if test="${text.getLeft() eq postId}">
+                                    ${text.getRight()}
+                                </c:if>
                             </c:forEach>
                         </p>
                     </div>
@@ -60,37 +60,35 @@
         </c:forEach>
     </div>
 
-    <%------------------------------------ 글 작성 버튼  ------------------------------------%>
-    <div class="postInsertButtonDiv">
-        <form class="postInsertButton" method="get" action="/mainPostList/in">
-            <button type="submit">글 작성</button>
-        </form>
-    </div>
+    <%------------------------------------ bottom wrapper ------------------------------------%>
+    <div class="post-bottom-wrapper">
 
-    <%------------------------------------ 검색 폼 ------------------------------------%>
-    <div class="postSearchForm">
-        <form action="/post/postSearch" method="get">
-            <label for="postBordSearchDropDown"></label>
-            <select id="postBordSearchDropDown" name="postBordSearchDropDownMenu" >
-                <option value="postAll">전체</option>
-                <option value="postTitle">제목</option>
-                <option value="postContent">내용</option>
-            </select>
-            <input type="text" name="postSearchInputBox"/>
-            <button class="postSearchSubmitBtn">검색</button>
-        </form>
+<%--        검색폼--%>
+        <div class="postSearchForm">
+            <form action="/post/postSearch" method="get">
+                <label for="postBordSearchDropDown"></label>
+                <select id="postBordSearchDropDown" name="postBordSearchDropDownMenu">
+                    <option value="postAll">전체</option>
+                    <option value="postTitle">제목</option>
+                    <option value="postContent">내용</option>
+                </select>
+                <input type="text" name="postSearchInputBox"/>
+                <button class="postSearchSubmitBtn" onclick="postSearch()">검색</button>
+                <button class="postSearchSubmitBtn" onclick="postPostList()">전체목록</button>
+            </form>
+        </div>
+        <button type="button" onclick="writingPost()">글 작성</button>
     </div>
-
-    <%------------------------------------ 페이지네이션  ------------------------------------%>
+        <%------------------------------------ 페이지네이션  ------------------------------------%>
     <div class="pagination">
         <ul class="paginationList">
             <c:if test="${!postList.first}">
                 <li>  <%-- 첫번째 페이지로 이동하는 버튼 --%>
-                    <a class="firstPageOpenBtn" href="?page=0">처음</a>
+                    <a class="firstPageOpenBtn" href="?page=0"><i class="fa-solid fa-angles-left"></i></a>
                 </li>
 
                 <li>  <%-- 이전 페이지로 이동하는 버튼 --%>
-                    <a class="pastPageBtn" href="?page=${postList.number -1}">이전</a>
+                    <a class="pastPageBtn" href="?page=${postList.number -1}"><i class="fa-solid fa-angle-left"></i></a>
                 </li>
             </c:if>
 
@@ -106,16 +104,15 @@
 
             <c:if test="${!postList.last}">
                 <li>  <%-- 다음 페이지로 이동하는 버튼 --%>
-                    <a class="nextPageBtn" href="?page=${postList.number +1}">다음</a>
+                    <a class="nextPageBtn" href="?page=${postList.number +1}"><i class="fa-solid fa-angle-right"></i></a>
                 </li>
 
                 <li>  <%-- 마지막 페이지로 이동하는 버튼 --%>
-                     <a class="lastPageBtn" href="?page=${postList.totalPages -1}">마지막</a>
-                  </li>
-             </c:if>
+                    <a class="lastPageBtn" href="?page=${postList.totalPages -1}"><i class="fa-solid fa-angles-right"></i></a>
+                </li>
+            </c:if>
         </ul>
     </div>
-
 </main>
 <script src="/js/post/mainPostList.js"></script>
 <jsp:include page="../layout/footer.jsp"/>

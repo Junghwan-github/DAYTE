@@ -60,7 +60,7 @@ public class PostController {
         Post post = modelMapper.map(postDTO, Post.class); //
 
 
-        User user = userService.getUser(principal.getUsername()); // 해당 user의 Email을 담음
+        User user = userService.getUser(principal.getNickName()); // 해당 user의 Email을 담음
         post.setUser(user);
         postService.insertPost(post);
         postService.extractPostContentImages(post);
@@ -100,7 +100,7 @@ public class PostController {
 
         int nowPage = postListPage.getNumber();
 
-        int pageSize = 5;
+        int pageSize = 10;
 
         int postStartPage = Math.max(0, (pageable.getPageNumber() / pageSize) * pageSize);
         int postEndPage = Math.min(postStartPage + pageSize - 1, postTotalPage - 1);
@@ -110,10 +110,11 @@ public class PostController {
         model.addAttribute("postNowPage", nowPage);
         model.addAttribute("postList", postListPage);
 
-        model.addAttribute("postListText",postService.extractPostContentText());
-        System.out.println("포스트텍스트"+postService.extractPostContentText());
+        model.addAttribute("postListText", postService.extractPostContentText());
+        System.out.println("포스트텍스트" + postService.extractPostContentText());
         return "post/mainPostList";
     }
+
     // ----------------------- 포스트 검색 -----------------------
     @GetMapping("/post/postSearch")
     public String postBordSearch(String postSearchInputBox, String postBordSearchDropDownMenu, Model model,
@@ -130,13 +131,13 @@ public class PostController {
         int totalPages = postSearch.getTotalPages();
 
         // 목록 하단 페이지 번호의 노출 개수
-        int pageSize = 5;
+        int pageSize = 10;
 
         int postStartPage = Math.max(0, (pageable.getPageNumber() / pageSize) * pageSize);
         model.addAttribute("postStartPage", postStartPage);
 
         int postEndPage = Math.min(postStartPage + pageSize - 1, totalPages - 1);
-        if(postEndPage >=0){
+        if (postEndPage >= 0) {
             model.addAttribute("postEndPage", postEndPage);
         }
 
@@ -171,6 +172,6 @@ public class PostController {
     @PostMapping("/uploadSummernoteImageFile")
     @ResponseBody
     public ResponseEntity<Map<String, String>> uploadSummernoteImageFile(@RequestParam("files") MultipartFile multipartFile) {
-    return postService.uploadImage(multipartFile);
+        return postService.uploadImage(multipartFile);
     }
 }

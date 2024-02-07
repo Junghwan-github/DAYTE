@@ -60,9 +60,13 @@ outline: none;
 }
 
 
-/*.note-editable {*/
-/*    font-size: 1.5rem; /*/
-/*}*/
+
+
+.note-editable p{
+    font-size: 1.5rem;
+    font-family: "Noto Sans KR",sans-serif;
+    line-height: 1.3;
+}
 
 /*.note-toolbar {*/
 /*    height: 30px;*/
