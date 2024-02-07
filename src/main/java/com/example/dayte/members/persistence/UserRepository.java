@@ -2,6 +2,8 @@ package com.example.dayte.members.persistence;
 
 import com.example.dayte.members.domain.RoleType;
 import com.example.dayte.members.domain.User;
+import com.example.dayte.myReview.domain.MyReview;
+import com.example.dayte.post.domin.Post;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -24,7 +26,6 @@ public interface UserRepository extends JpaRepository<User, String> {
     @Query("SELECT c FROM User c WHERE c.nickName LIKE %:nickName%")
     Page<User> findByNickName(String nickName, Pageable pageable);
 
-
     Page<User> findByRole(RoleType role, Pageable pageable);
 
     @Query("SELECT c FROM User c WHERE c.phone LIKE %:phone%")
@@ -33,4 +34,6 @@ public interface UserRepository extends JpaRepository<User, String> {
     Page<User> findByDel(boolean del, Pageable pageable);
 
     boolean existsByNickName(String nickName);
+
+
 }
