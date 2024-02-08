@@ -116,7 +116,7 @@
 
         <%--        검색폼--%>
         <div class="postSearchForm">
-            <form action="/post/postSearch" method="get">
+            <form action="/mainPostList" method="get">
                 <label for="postBordSearchDropDown"></label>
                 <select id="postBordSearchDropDown" name="postBordSearchDropDownMenu">
                     <option value="postAll">전체</option>

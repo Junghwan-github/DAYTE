@@ -5,6 +5,7 @@
 <title>내 정보 | 나의 프로필</title>
 <link rel="stylesheet" href="/css/main/myProfile.css">
 <link rel="stylesheet" href="/css/layout/myProfileSideBar.css">
+
 </head>
 <body>
 <%@include file="../layout/header.jsp" %>
@@ -90,5 +91,6 @@
             </div>
         </div>
     </main>
+</div>
     <script defer src="/js/main/editForm.js"></script>
 <%@include file="../layout/footer.jsp" %>
