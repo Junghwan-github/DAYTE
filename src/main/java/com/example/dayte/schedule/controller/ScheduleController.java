@@ -68,10 +68,11 @@ public class ScheduleController {
     }
 
     // 사용자의 일정 전체를 삭제하는 로직
-    @DeleteMapping("schedule/scheduleList/{startDate}")
-    public void deleteSchedule(@PathVariable LocalDate startDate,
+    @DeleteMapping("/schedule/deleteSchedule/{startDate}")
+    public @ResponseBody ResponseDTO<?> deleteSchedule(@PathVariable LocalDate startDate,
                                @AuthenticationPrincipal UserSecurityDTO userSecurityDTO) {
         scheduleService.deleteSchedule(startDate, userSecurityDTO);
+        return new ResponseDTO<>(HttpStatus.OK.value(), startDate + "에 대한 여행 일정이 삭제되었습니다.");
     }
 
     // 사용자가 일정이 이미 있다면 삭제후 재등록 하는 로직

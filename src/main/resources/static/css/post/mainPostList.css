@@ -178,6 +178,14 @@ main {
     color: #fff;
     padding: 10px 20px;
     border: none;
+    margin-right: 5px;
+}
+
+.postSearchForm > form button:last-child {
+    background: transparent;
+    border: 1px solid #888;
+    padding: 9px 19px;
+    color: #333;
 }
 
 .pagination {

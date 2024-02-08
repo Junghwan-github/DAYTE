@@ -27,8 +27,7 @@ public class MyReviewController {
     private String myReviewPage(
             Model model,
             @AuthenticationPrincipal UserSecurityDTO principal,
-            @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable
-    )
+            @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable)
     {
 
             User user = modelMapper.map(principal, User.class);
@@ -36,6 +35,16 @@ public class MyReviewController {
             Page<Post> myReviewPage = myReviewService.getMyReview(user, pageable);
 
             model.addAttribute("myReviewPage", myReviewPage);
+
+        int totalPages = myReviewPage.getTotalPages();
+        int pageSize = 5;
+        int startPage = Math.max(0, (pageable.getPageNumber() / pageSize) * pageSize);
+        int endPage = Math.min(startPage + pageSize - 1, totalPages - 1);
+
+        model.addAttribute("startPage", startPage);
+        if(endPage >=0){
+            model.addAttribute("endPage", endPage);
+        }
 
             return "myReview/myReview";
     }

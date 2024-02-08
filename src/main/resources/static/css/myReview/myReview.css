@@ -8,13 +8,19 @@
     font-size: 2.8rem;
     color: #333;
     padding: 20px 0;
-
-
 }
+
 .wrapper > form {
     padding: 0;
 }
 
+.myReviewTable {
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+}
 
 /*==================================== 테이블 */
 .tableContainer{
@@ -27,6 +33,17 @@
     margin : 0 auto;
     box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
 }
+
+
+.myReviewTable {
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+}
+
+
 .myReviewTrStyle {
     border-bottom: 1px solid #ddd;
     display: flex;

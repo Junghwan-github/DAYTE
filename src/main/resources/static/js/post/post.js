@@ -123,7 +123,7 @@ $(document).ready(function () {
         focus: true,
         lang: "ko-KR",
         placeholder: '여기 내용을 입력하세요',
-        disableResizeEditor: true,
+        disableResizeEditor: false,
         toolbar: [
             ['style', ['style']],
             ['font', ['bold', 'italic', 'underline', 'clear']],
@@ -143,6 +143,7 @@ $(document).ready(function () {
             },
         },
     });
+
 });
 
 // 이미지를 임시저장합니다.

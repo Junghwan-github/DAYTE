@@ -13,7 +13,7 @@
 
 <%@include file="../layout/header.jsp" %>
 <div class=wrapper>
-<h1 class="title"> 내 리뷰 </h1>
+<h1 class="title"> 내 리뷰 | 내 별점 </h1>
 
 <div id="divform" class="tableContainer">
     <c:if test="${!empty myReviewPage}">
@@ -37,7 +37,7 @@
 
         <div class="pagination">
             <ul>
-                <c:if test="${!myReviewpage.first}">
+                <c:if test="${!myReviewPage.first}">
                     <li>
                         <a class="pageDoubleMoveBtn" href="?page=0">
                             <img src="/images/doublePrevious.png"/>

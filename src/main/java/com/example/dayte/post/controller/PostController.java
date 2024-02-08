@@ -60,7 +60,7 @@ public class PostController {
         Post post = modelMapper.map(postDTO, Post.class); //
 
 
-        User user = userService.getUser(principal.getNickName()); // 해당 user의 Email을 담음
+        User user = userService.getUser(principal.getUserEmail()); // 해당 user의 Email을 담음
         post.setUser(user);
         postService.insertPost(post);
         postService.extractPostContentImages(post);
@@ -143,35 +143,6 @@ public class PostController {
         return "post/mainPostList";
     }
 
-    // ----------------------- 포스트 검색 -----------------------
-    @GetMapping("/post/postSearch")
-    public String postBordSearch(String postSearchInputBox, String postBordSearchDropDownMenu, Model model,
-                                 @PageableDefault(size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
-
-        Page<Post> postSearch = postService.getPostSearchList(pageable, postSearchInputBox, postBordSearchDropDownMenu);
-        model.addAttribute("postSearch", postSearch);
-
-
-//        List<Post> postSearchList = postService.findSearchPost();
-//        model.addAttribute("postSearchList", postSearchList);
-
-
-        int totalPages = postSearch.getTotalPages();
-
-        // 목록 하단 페이지 번호의 노출 개수
-        int pageSize = 10;
-
-        int postStartPage = Math.max(0, (pageable.getPageNumber() / pageSize) * pageSize);
-        model.addAttribute("postStartPage", postStartPage);
-
-        int postEndPage = Math.min(postStartPage + pageSize - 1, totalPages - 1);
-        if (postEndPage >= 0) {
-            model.addAttribute("postEndPage", postEndPage);
-        }
-
-
-        return "/post/mainPostList";
-    }
 
 
     // ----------------------- 포스트 수정 화면 응답 -----------------------

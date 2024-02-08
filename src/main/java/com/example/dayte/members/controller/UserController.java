@@ -46,13 +46,13 @@ public class UserController {
 
 
     @PostMapping("/members/joinForm")
-    public @ResponseBody int insertUser(@Valid @RequestBody UserDTO userDTO, BindingResult bindingResult) {
+    public @ResponseBody ResponseDTO<?> insertUser(@Valid @RequestBody UserDTO userDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             Map<String, String> errMap = new HashMap<>();
             for (FieldError err : bindingResult.getFieldErrors()) {
                 errMap.put(err.getField(), err.getDefaultMessage());
             }
-            return HttpStatus.BAD_REQUEST.value();
+            return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), errMap);
         }
 
         userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
@@ -65,12 +65,16 @@ public class UserController {
         User findUser = userService.getUser(user.getUserEmail());
         System.out.println("user.getUserEmail() : " + user.getUserEmail());
         if (findUser.getUserEmail() == null && findUser.getNickName() == null) {
-            System.out.println("user : " + user);
-            userService.insertUser(user);
-            return HttpStatus.OK.value();
+            if(user.getNickName().equals(findUser.getNickName())){
+                return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "중복된 닉네임 입니다.");
+            }else {
+                System.out.println("user : " + user);
+                userService.insertUser(user);
+                return new ResponseDTO<>(HttpStatus.OK.value(), user.getUserName() + "님 회원가입을 축하드립니다.");
+            }
 
         } else {
-            return HttpStatus.BAD_REQUEST.value();
+            return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), user.getUserName() + "님은 이미 회원입니다.");
         }
     }
 
@@ -122,7 +126,8 @@ public class UserController {
         model.addAttribute("user", userService.getUser(userEmail));
         return "adminPage/editUser/editUser";
     }
-
+    
+    // 관리자 - 회원정보 수정 - 비밀번호 고장남
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/admin/editUser")
     public @ResponseBody ResponseDTO<?> updateUser(@RequestBody UserDTO userDTO) throws IOException {
@@ -149,11 +154,11 @@ public class UserController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @GetMapping("/members/editPsForm")
+    @GetMapping("/members/editPwdForm")
     public String modifyPasswordForm(Model model,
                                      @AuthenticationPrincipal UserSecurityDTO userSecurityDTO) {
         model.addAttribute("userInfo", userService.getUser(userSecurityDTO.getUserEmail()));
-        return "members/editPassword";
+        return "members/updatePwd";
 
     }
 
@@ -171,6 +176,7 @@ public class UserController {
         return new ResponseDTO<>(HttpStatus.OK.value(), "회원 정보가 수정되었습니다.");
     }
 
+    // 사용자 - 회원 탈퇴
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/members/delete")
     public String deletePage() {
@@ -204,5 +210,27 @@ public class UserController {
             } else {
                 return new ResponseDTO<>(HttpStatus.CONFLICT.value(), "중복된 닉네임 입니다.");
             }
+    }
+
+    // 사용자 - 비밀번호 변경
+    @PreAuthorize("isAuthenticated()")
+    @PutMapping("/members/updatePwd")
+    public @ResponseBody ResponseDTO<?> checkPwd(@AuthenticationPrincipal UserSecurityDTO principal,
+                                                 @RequestBody Map<String, Object> map){
+
+        String encodedPwd = userService.getUser(principal.getUserEmail()).getPassword();
+        String rawPwdCheck = (String) map.get("checkPwd");
+
+        String rawNewPwd = (String)map.get("newPwd");
+
+        // 기존 비밀번호 일치
+        if (passwordEncoder.matches(rawPwdCheck, encodedPwd)) {
+            userService.checkPassword(principal, rawNewPwd);
+
+            return new ResponseDTO<>(HttpStatus.OK.value(), "비밀번호가 변경되었습니다. 다시 로그인 해주세요.");
+        }else{
+            //기존 비밀번호 불일치
+            return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "현재 비밀번호를 확인해주세요.");
+        }
     }
 }

@@ -27,13 +27,13 @@
 <%--    <script src="/webjars/bootstrap/5.3.2/js/bootstrap.min.js"></script>--%>
 <%--    <link href="/css/layout/bootstrap.min.css" rel="stylesheet">--%>
 
+
+
     <!--    디폴트 css-->
-    <link rel="stylesheet" href="/css/layout/header.css">
     <link rel="stylesheet" href="/css/layout/reset.css">
+    <link rel="stylesheet" href="/css/layout/header.css">
     <link rel="stylesheet" href="/css/layout/footer.css">
     <link rel="stylesheet" href="/css/layout/subnav.css">
-
-
 
 
     <!-- 슬라이더 -->
@@ -45,5 +45,4 @@
     <!-- 써머노트 -->
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-
     <script defer src="/js/main/header.js"></script>
