@@ -42,8 +42,7 @@ $(".nextBtn").on("click", function () {
                     })
                         .done(function (deleteData) {
                             if (deleteData.status === 200) {
-                                console.log(deleteData);
-                                location.href = "/schedule/scheduleList";
+                                location.reload();
                             } else {
                                 console.error("일정 삭제 실패:", deleteData.message);
                             }
@@ -80,16 +79,16 @@ function validateScheduleDTO(title, startDate, endDate) {
 // 일정 삭제 함수
 function deleteLinks(startDate) {
     if (confirm('일정을 삭제 하시겠습니까?')) {
-        // 다른 API 엔드포인트로의 DELETE 요청
         $.ajax({
-            url        : "/schedule/scheduleList/" + startDate,
+            url        : "/schedule/deleteSchedule/" + startDate,
             type       : "DELETE",
             contentType: "application/json; charset=utf-8",
-            success    : function (response) {
-                location = "/schedule/scheduleList";
+            success    : function (data) {
+                alert("일정이 삭제 되었습니다.")
+                location.reload();
             },
             error      : function (error) {
-                alert(`에러 발생 : ${error.message}`);
+                alert("error");
             }
         });
     }
