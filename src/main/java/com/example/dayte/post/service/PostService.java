@@ -74,12 +74,30 @@ public class PostService {
         // 모든 게시물을 페이지네이션화하여 pageable 객체를 매개변수로 받아와서 페이지네이션 정보를 적용하여 컨트롤러단에 반환
     }
 
-    // 검색창
-    @Transactional
-    public Page<Post> getPostSearchList(Pageable pageable, String postField, String postWord) {
+    // ------------------------- 검색한 타이틀에 따라 작동하게 될 메서드 -------------------------
 
-        return postRepository.postSearch(pageable, postField, postWord);
+    // 제목으로 검색했을 경우
+    @Transactional
+    public Page<Post> getPostSearchToTitleList(Pageable pageable, String postWord) {
+
+        return postRepository.postSearchToPostTitle(pageable, postWord);
     }
+
+    // 내용으로 검색했을 경우
+    @Transactional
+    public Page<Post> getPostSearchToContentList(Pageable pageable, String postWord) {
+
+        return postRepository.postSearchToPostContent(pageable, postWord);
+    }
+
+    // 전체로 검색했을 경우
+    @Transactional
+    public Page<Post> getPostSearchToAllList(Pageable pageable, String postWord) {
+
+        return postRepository.postSearchToPostAll(pageable, postWord);
+    }
+
+    // --------------------------------------------------------------------------------------
 
     public ResponseEntity<Map<String, String>> uploadImage(MultipartFile multipartFile) {
         Map<String, String> resultMap = new HashMap<>();

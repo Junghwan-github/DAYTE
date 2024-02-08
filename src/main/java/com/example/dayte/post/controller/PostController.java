@@ -59,8 +59,7 @@ public class PostController {
                                                    @AuthenticationPrincipal UserSecurityDTO principal) {
         Post post = modelMapper.map(postDTO, Post.class); //
 
-
-        User user = userService.getUser(principal.getUserEmail()); // 해당 user의 Email을 담음
+        User user = userService.getUser(principal.getNickName()); // 해당 user의 Email을 담음
         post.setUser(user);
         postService.insertPost(post);
         postService.extractPostContentImages(post);
@@ -100,25 +99,28 @@ public class PostController {
                               // direction = 정렬방향을 정함
                               @RequestParam(required = false, defaultValue = "") String postField,
                               @RequestParam(required = false, defaultValue = "") String postWord
-
     ) {
-        Page<Post> postListPage = postService.getPostList(pageable);
-        // Post 에 있는 모든 데이터를 페이지네이션화하여 가져옴
-
-        Page<Post> postSearchList = postService.getPostSearchList(pageable, postField, postWord);
 
         int postTotalPage;
-
+        Page<Post> postListPage;
         // 인풋창에 공백인 상태로 검색버튼을 눌렀을때 postListPage 을 담아 넘겨주고
         // 검색 키워드가 있을시 postSearchList 을 남아 넘겨줌
-        if ("".equals(postWord))
+
+        if ("".equals(postWord) || postWord == null) { // 검색키워드가 없거나 검색하지 않았을 때
+            postListPage = postService.getPostList(pageable);
             postTotalPage = postListPage.getTotalPages();
-         else
-            postTotalPage = postSearchList.getTotalPages();
+        } else { // 무언가를 검색했을 때
+            switch (postField) {
+                case "postTitle" -> postListPage = postService.getPostSearchToTitleList(pageable, postWord);
+                case "postContent" -> postListPage = postService.getPostSearchToContentList(pageable, postWord);
+                case "postAll" -> postListPage = postService.getPostSearchToAllList(pageable, postWord);
+                default -> postListPage = postService.getPostList(pageable);
+            }
+            postTotalPage = postListPage.getTotalPages();
+        }
 
         // postListPage 필드에 담긴 페이지네이션화된 전체 데이터를 postTotalPage 필드에 대입
         int postNowPage = postListPage.getNumber(); // 현재 게시판 페이지
-        //
 
         int pageSize = 10;
         // 한 페이지에 표시될 게시물 수를 정함
@@ -134,16 +136,10 @@ public class PostController {
         model.addAttribute("postNowPage", postNowPage);
         model.addAttribute("postList", postListPage);
 
-        model.addAttribute("postField", postField);
-        model.addAttribute("postWord", postWord);
-        model.addAttribute("postSearchList", postSearchList);
-
         model.addAttribute("postListText",postService.extractPostContentText());
         System.out.println("포스트텍스트"+postService.extractPostContentText());
         return "post/mainPostList";
     }
-
-
 
     // ----------------------- 포스트 수정 화면 응답 -----------------------
     @GetMapping("/post/updatePost/{id}")
@@ -170,7 +166,7 @@ public class PostController {
     // ----------------------- 포스트 이미지 등록 로직 수행 -----------------------
     @PostMapping("/uploadSummernoteImageFile")
     @ResponseBody
-    public ResponseEntity<Map<String, String>> uploadSummernoteImageFile(@RequestParam("files")  MultipartFile multipartFile) {
+    public ResponseEntity<Map<String, String>> uploadSummernoteImageFile(@RequestParam("files") MultipartFile multipartFile) {
         return postService.uploadImage(multipartFile);
     }
 }
