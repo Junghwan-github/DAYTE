@@ -45,4 +45,8 @@ public class PastScheduleController {
 
     }
 
+    /*@PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/contentsReview/{id}")
+    public String contentsReview*/
+
 }

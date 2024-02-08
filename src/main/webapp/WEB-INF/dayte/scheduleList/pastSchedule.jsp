@@ -81,71 +81,35 @@
                         <li class="${tab} closeTab">${i+1}일차</li>
                     </c:forEach>
                 </ul>
-                <ul id="tabPage">
+                <div id="tabPage">
                     <c:forEach var="scheduleDates" items="${scheduleModal.scheduleDates}" varStatus="loop" >
-                        <li class="tab${loop.index + 1} closeTabPage">
+                        <div class="tab${loop.index + 1} closeTabPage">
                             <ul>
                                 <c:forEach var="detailedSchedule" items="${scheduleDates.detailedScheduleList}">
-                                    <li>
-<%--                                    <img src="${detailedSchedule.adminContents.adminContentsImageList[0].imageURL}" >--%>
-                                    <h1>${detailedSchedule.adminContents.businessName}</h1>
-                                    <h1>${detailedSchedule.adminContents.category}</h1>
-                                    <h1>${detailedSchedule.adminContents.detailedAddress}</h1>
+                                    <li class="contents">
+                                        <div class="contentsImg">
+                                            <img src="${detailedSchedule.adminContents.adminContentsImageList[0].imageURL}" >
+                                        </div>
+                                        <ul class="contentsInfo">
+                                            <li>${detailedSchedule.adminContents.businessName}</li>
+                                            <li>${detailedSchedule.adminContents.detailedAddress}</li>
+                                            <li>${detailedSchedule.adminContents.category}</li>
+                                            <li>${detailedSchedule.adminContents.}</li>
+                                            <li>
+
+                                                    <button type="button" onclick="goToReview(this)">리뷰 쓰기</button>
+
+                                            </li>
+                                        </ul>
                                     </li>
                                 </c:forEach>
                             </ul>
-                        </li>
+                        </div>
                     </c:forEach>
 
-                    <%--<c:forEach var="scheduleDate" items="${scheduleModal.scheduleDates}">
-                            <li class="tab${loop.index+1} closeTabPage">
-                                <c:forEach var="detailedSchedule" items="${scheduleDate.detailedScheduleList}">
-                                <h1>${detailedSchedule.adminContents.businessName}</h1>
-                                <h1>${detailedSchedule.adminContents.category}</h1>
-                                </c:forEach>
-                            </li>
-                    </c:forEach>--%>
-                    <%--<c:forEach var="i" begin="0" end="${endDate - startDate}">
-                        <c:set var="tab" value="tab${i+1}"/>
-                        <li class="${tab} closeTabPage">
-                            <c:forEach var="scheduleDates" items="${scheduleModal.scheduleDates}" >
-                                <c:forEach var="detailedSchedule" items="${scheduleDates}">
-
-
-                                </c:forEach>
-                            </c:forEach>
-                            지금 일차는 ${i+1}일차
-                            <h1>${scheduleModal.uuid}</h1>
-                            <h1>${scheduleModal.scheduleDates}</h1>
-
-                        </li>
-
-                    </c:forEach>--%>
-                </ul>
+                </div>
             </div>
         </c:forEach>
-
-
-        <%--<c:forEach var="scheduleTab" items="${pastScheduleList}" varStatus="loop">
-            <c:set var="startDate" value="${scheduleTab.startDate.toEpochDay()}"/>
-            <c:set var="endDate" value="${scheduleTab.endDate.toEpochDay()}"/>
-
-            <div class="modal_body scheduleCard${loop.index+1}">
-                <button id="close-modal" onclick="closeModal(this)">모달 창 닫기</button>
-                <ul id="tabMenu">
-                    <c:forEach var="i" begin="0" end="${endDate - startDate}">
-                        <c:set var="tab" value="tab${i+1}"/>
-                        <li class="${tab} closeTab">${i+1}일차</li>
-                    </c:forEach>
-                </ul>
-                <ul id="tabPage">
-                    <c:forEach var="i" begin="0" end="${endDate - startDate}">
-                        <c:set var="tab" value="tab${i+1}"/>
-                        <li class="${tab} closeTabPage">지금 일차는 ${i+1}일차</li>
-                    </c:forEach>
-                </ul>
-            </div>
-        </c:forEach>--%>
     </div>
 </div>
 

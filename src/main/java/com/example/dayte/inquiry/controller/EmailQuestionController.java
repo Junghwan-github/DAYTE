@@ -16,7 +16,7 @@ public class EmailQuestionController {
     @Autowired
     private EmailQuestionService emailQuestionService;
 
-    @GetMapping("/question")
+    @GetMapping("/customerService")
     public String goToEmailQuestion(){
         return "emailQuestion/emailQuestion";
     }

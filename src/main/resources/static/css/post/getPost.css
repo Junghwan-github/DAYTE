@@ -38,9 +38,9 @@ main {
 }
 
 .post-content-container {
-    width: 966px;
+    width: 1180px;
     margin: 0 auto;
-    padding: 30px 0;
+    padding: 50px 0;
 }
 
 .title > h1 {
@@ -48,6 +48,9 @@ main {
     font-weight: 500;
     color: #111;
     margin-bottom: 30px;
+    text-align: center;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #ddd;
 }
 
 .menu-button > div {
@@ -55,11 +58,87 @@ main {
     flex-flow: row nowrap;
     justify-content: center;
     align-items: center;
-    font-size: 1.7rem;
+    font-size: 1.5rem;
     font-weight: 400;
 }
 
 .menu-button > div > span {
     font-size: 3rem;
     font-weight: 400;
+}
+
+.post-content-container > .content {
+    text-align: center;
+    padding-bottom: 30px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.post-content-reply-container {
+    width: 100%;
+    margin: 20px 0;
+    padding: 25px;
+    background: rgba(190, 224, 206, 0.15);
+    border-radius: 10px;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.post-content-reply-wrapper {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+
+.ContainerForm > .form-control {
+    width: 920px;
+    height: 150px;
+    resize: none;
+    border: 1px solid #ddd;
+    padding: 5px;
+    font-size: 1.5rem;
+    font-family: "Noto Sans KR",sans-serif;
+    font-weight: 400;
+    box-sizing: border-box;
+}
+
+.ContainerForm2 .btn-secondary {
+    width: 190px;
+    height: 150px;
+    background: #116edb;
+    border: 1px solid #ddd;
+    font-family: "Noto Sans KR",sans-serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #fff;
+
+}
+
+.reply-show-hide-btn {
+    width: 120px;
+    height: 40px;
+    background: #fff;
+    border: 1px solid #ddd;
+    font-family: "Noto Sans KR",sans-serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #555;
+}
+
+.post-reply-write-btn {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+}
+
+.reply-show-hide-btn > i {
+    font-size: 1.9rem;
+    color: #bee0ce;
+    margin-right: 5px;
+}
+
+.reply-wrapper {
+    width: 100%;
+    padding: 30px 0;
+    border-top: 1px solid #ddd;
 }

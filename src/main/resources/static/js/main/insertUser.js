@@ -2,6 +2,7 @@ let userObject = {
     init: function () {
         let _this = this;
         $("#signBttn").on("click", () => {
+            // 바꿔야할 부분
             if(varificationValue) {
                 _this.insertUser();
             } else {
@@ -26,8 +27,10 @@ let userObject = {
             data : JSON.stringify(user),
             contentType : "application/json; charset=utf-8",
         }).done(function (response) {
-            if(response === 200) {
-                alert("회원가입이 완료되었습니다.");
+            let status = response["status"];
+            if(status == 200) {
+                let message = response["data"];
+                alert(message);
                 location = "/";
             } else {
                 let warn = "";

@@ -15,6 +15,7 @@
 
 <%@include file="../layout/header.jsp"%>
 
+
 <form action="/question" method="POST">
     <div class="title">
         <span>제목</span>
@@ -24,12 +25,11 @@
         <span>내용</span>
         <textarea id="content"></textarea>
     </div>
-
-
-
 </form>
 
 <button type="button" id="sendEmail">문의하기</button>
+
+<a href="http://pf.kakao.com/_MXjSG/chat">카카오톡 문의</a>
 
 <script src="/js/main/emailQuestion.js"></script>
 

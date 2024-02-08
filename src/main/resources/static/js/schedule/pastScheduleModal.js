@@ -1,8 +1,8 @@
-let tabMenuUl = document.getElementById('tabMenu');
+/*let tabMenuUl = document.getElementById('tabMenu');
 let tabPageUl = document.getElementById('tabPage');
 
 let tabMenuList = tabMenuUl.querySelectorAll('[class*="tab"]');
-let tabPageList = tabPageUl.querySelectorAll('[class*="tab"]');
+let tabPageList = tabPageUl.querySelectorAll('[class*="tab"]');*/
 
 
 function openModal(element) {
@@ -104,3 +104,9 @@ function closeModal(element){
 
 
 }
+
+
+
+
+
+

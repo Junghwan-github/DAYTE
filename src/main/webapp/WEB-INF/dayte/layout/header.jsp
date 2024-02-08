@@ -7,7 +7,7 @@
         <ul>
             <li><a href="/notice">공지사항</a></li>
             <li><a href="/mainPostList">일정후기</a></li>
-            <li><a href="#">고객센터</a></li>
+            <li><a href="/customerService">고객센터</a></li>
             <c:choose>
                 <c:when test="${principal == null}">
                     <li><a href="/members/login">로그인</a></li>
