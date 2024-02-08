@@ -90,7 +90,7 @@ public class PostController {
     }
 
 
-    // ----------------------- 포스트 검색 및 페이지네이션 -----------------------
+//     ----------------------- 포스트 검색 및 페이지네이션 -----------------------
     @GetMapping({"/mainPostList"})
     public String getPostList(Model model,
                               @PageableDefault(size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
@@ -143,7 +143,7 @@ public class PostController {
         return "post/mainPostList";
     }
 
-    // ----------------------- 포스트 검색 -----------------------
+//     ----------------------- 포스트 검색 -----------------------
 //    @GetMapping("/post/postSearch")
 //    public String postBordSearch(String postSearchInputBox, String postBordSearchDropDownMenu, Model model,
 //                                 @PageableDefault(size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
