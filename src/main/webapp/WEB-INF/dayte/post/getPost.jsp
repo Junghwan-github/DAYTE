@@ -17,9 +17,9 @@
     <div class="get-post-detail">
         <div class="PostItems">
             <div class="menu-button">
-                <span class="material-symbols-outlined">
+                <div><span class="material-symbols-outlined">
 arrow_back_ios_new
-</span>
+</span>뒤로가기</div>
                 <span class="material-symbols-outlined">
 more_vert
 </span>
