@@ -37,8 +37,8 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public User getUser(String userNickName) {
-        User findUser = userRepository.findPostNickName(userNickName).orElseThrow(()->
+    public User getUser(String userEmail) {
+        User findUser = userRepository.findByUserEmail(userEmail).orElseThrow(()->
                 new IllegalArgumentException("해당 회원이 존재하지 않습니다."));
         return findUser;
     }
