@@ -9,9 +9,8 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 80%;
     background-color: rgba(0, 0, 0, 0.4);
-
 }
 
 .modal_body {
@@ -55,5 +54,20 @@
 
 .closeTabPage{
     display: none;
+}
+
+.contentsImg{
+    display: inline-block;
+
+}
+
+.contentsImg > img{
+    width: 100px;
+    height: 100%;
+}
+
+.contentsInfo{
+    display: inline-block;
+    height: 100%;
 }
 

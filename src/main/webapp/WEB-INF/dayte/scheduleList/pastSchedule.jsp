@@ -81,20 +81,24 @@
                         <li class="${tab} closeTab">${i+1}일차</li>
                     </c:forEach>
                 </ul>
-                <ul id="tabPage">
+                <div id="tabPage">
                     <c:forEach var="scheduleDates" items="${scheduleModal.scheduleDates}" varStatus="loop" >
-                        <li class="tab${loop.index + 1} closeTabPage">
+                        <div class="tab${loop.index + 1} closeTabPage">
                             <ul>
                                 <c:forEach var="detailedSchedule" items="${scheduleDates.detailedScheduleList}">
                                     <li>
-<%--                                    <img src="${detailedSchedule.adminContents.adminContentsImageList[0].imageURL}" >--%>
-                                    <h1>${detailedSchedule.adminContents.businessName}</h1>
-                                    <h1>${detailedSchedule.adminContents.category}</h1>
-                                    <h1>${detailedSchedule.adminContents.detailedAddress}</h1>
+                                        <div class="contentsImg">
+                                            <img src="${detailedSchedule.adminContents.adminContentsImageList[0].imageURL}" >
+                                        </div>
+                                        <ul class="contentsInfo">
+                                            <li>${detailedSchedule.adminContents.businessName}</li>
+                                            <li>${detailedSchedule.adminContents.category}</li>
+                                            <li>${detailedSchedule.adminContents.detailedAddress}</li>
+                                        </ul>
                                     </li>
                                 </c:forEach>
                             </ul>
-                        </li>
+                        </div>
                     </c:forEach>
 
                     <%--<c:forEach var="scheduleDate" items="${scheduleModal.scheduleDates}">
@@ -121,7 +125,7 @@
                         </li>
 
                     </c:forEach>--%>
-                </ul>
+                </div>
             </div>
         </c:forEach>
 
