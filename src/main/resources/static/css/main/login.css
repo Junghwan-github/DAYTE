@@ -49,6 +49,10 @@ input[type="submit"] {
   font-weight: 800;
 }
 
+input[type="submit"]:hover {
+  cursor: pointer;
+}
+
 ul {
   list-style: none;
 }

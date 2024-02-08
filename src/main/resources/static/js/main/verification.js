@@ -30,7 +30,7 @@ let verificationBtn = {
 
             })
             .fail(function (err) {
-                alert("에러발생 :" + err);
+
             });
     },
     checkEmail: function () {

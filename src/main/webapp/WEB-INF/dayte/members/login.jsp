@@ -1,5 +1,6 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@include file="../layout/head.jsp"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--여기 각자 쓸 css--%>
 
 <link rel="stylesheet" href="/css/main/login.css">
@@ -8,6 +9,16 @@
 
 <body>
 <%@include file="../layout/header.jsp"%>
+
+<c:if test="${hasMessage == true}">
+<script>
+  $(document).ready(function(){
+    alert("${errorMessage}");
+    location.href="/member/login";
+  });
+</script>
+</c:if>
+
   <section class="loginForm">
     <form action="/members/securityLogin" method="post">
       <h1>DAYTE 로그인</h1>
@@ -58,4 +69,5 @@
     </div>
 
   </section>
+
 <%@include file="../layout/footer.jsp"%>
