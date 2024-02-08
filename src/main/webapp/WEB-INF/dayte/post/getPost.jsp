@@ -31,7 +31,7 @@ more_vert
             <%--            <div>--%>
             <%--                <c:if test="${post.user.userEmail eq principal.userEmail}">--%>
             <%--                                        <button class="btn btn-secondary" onclick="history.back()">돌아가기</button>--%>
-            <%--                                        <a href="/post/updatePost/${post.id}" class="btn btn-warning"><button class="btn btn-warning">수정하기</button></a>--%>
+                                                    <a href="/post/updatePost/${post.id}" class="btn btn-warning"><button class="btn btn-warning">수정하기</button></a>
             <%--                                        <button id="btn-delete" class="btn btn-danger">삭제하기</button>--%>
             <%--                </c:if>--%>
             <%--            </div>--%>
