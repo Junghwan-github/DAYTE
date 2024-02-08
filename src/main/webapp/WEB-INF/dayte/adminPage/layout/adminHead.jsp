@@ -59,7 +59,7 @@
                 <ul class="list-unstyled ps-0 " id="sideVarList">
                     <li class="border-top border-secondary-subtle my-3"></li>
                     <li class="mb-1">
-                        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed fw-bold" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
+                        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed fw-bold ps-3" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
                             <img src="/images/chevron-down.svg" style="width: 16px; height:16px; " class="me-1" alt="">
                             환경 설정
                         </button>
@@ -73,7 +73,7 @@
                         </div>
                     </li>
                     <li class="mb-1">
-                        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed fw-bold" data-bs-toggle="collapse" data-bs-target="#user-collapse" aria-expanded="true">
+                        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed fw-bold ps-3" data-bs-toggle="collapse" data-bs-target="#user-collapse" aria-expanded="true">
                             <img src="/images/chevron-down.svg" style="width: 16px; height:16px; " class="me-1" alt="회원 관리 메뉴 보기">
                             회원 관리
                         </button>
@@ -86,14 +86,14 @@
                         </div>
                     </li>
                     <li class="mb-1">
-                        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed fw-bold" data-bs-toggle="collapse" data-bs-target="#board-collapse" aria-expanded="false">
+                        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed fw-bold ps-3" data-bs-toggle="collapse" data-bs-target="#board-collapse" aria-expanded="false">
                             <img src="/images/chevron-down.svg" style="width: 16px; height:16px; " class="me-1" alt="">
                             게시판 관리
                         </button>
                         <div class="collapse " id="board-collapse">
                             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small bg-light ps-4 ">
                                 <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded ">게시판 관리</a></li>
-                                <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded ">게시판 그룹 관리</a></li>
+                                <li><a href="/notice/modAll" class="link-body-emphasis d-inline-flex text-decoration-none rounded ">공지사항 관리</a></li>
                                 <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded ">인기검색어관리</a></li>
                                 <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded ">인기검색어순위</a></li>
                                 <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded ">1:1 문의설정</a></li>
