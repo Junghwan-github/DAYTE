@@ -19,7 +19,8 @@
             <div class="menu-button">
                 <div><span class="material-symbols-outlined">
 arrow_back_ios_new
-</span>뒤로가기</div>
+</span>뒤로가기
+                </div>
                 <span class="material-symbols-outlined">
 more_vert
 </span>
@@ -31,7 +32,9 @@ more_vert
             <%--            <div>--%>
             <%--                <c:if test="${post.user.userEmail eq principal.userEmail}">--%>
             <%--                                        <button class="btn btn-secondary" onclick="history.back()">돌아가기</button>--%>
-            <%--                                        <a href="/post/updatePost/${post.id}" class="btn btn-warning"><button class="btn btn-warning">수정하기</button></a>--%>
+            <a href="/post/updatePost/${post.id}" class="btn btn-warning">
+                <button class="btn btn-warning">수정하기</button>
+            </a>
             <%--                                        <button id="btn-delete" class="btn btn-danger">삭제하기</button>--%>
             <%--                </c:if>--%>
             <%--            </div>--%>
@@ -45,35 +48,24 @@ more_vert
             </h1>
         </div>
         <div class="content">
-            <span>
-                <%--글 내용--%>
-               ${post.content}
-            </span>
+            <%--글 내용--%>
+            ${post.content}
         </div>
         <%-- 포스트 내용 끝 --%>
-
+        <div class="post-reply-write-btn">
+            <button type="button">댓글 쓰기</button>
+        </div>
         <%-- 댓글 등록 폼 --%>
-        <div class="container mt-3">
+        <div class="post-content-reply-container">
             <input type="hidden" id="postId" value="${post.id}">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>
-                        <h3>댓글 목록</h3>
-                    </th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr align="right">
-                    <td class="ContainerForm">
-                        <textarea id="reply-content" rows="1" class="form-control" placeholder="댓글을 입력하세요."></textarea>
-                    </td>
-                    <td class="ContainerForm2">
-                        <button id="btn-save-reply" class="btn btn-secondary">댓글 등록</button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+            <div class="post-content-reply-wrapper">
+                <div class="ContainerForm">
+                    <textarea id="reply-content" rows="1" class="form-control" placeholder="댓글을 입력하세요."></textarea>
+                </div>
+                <div class="ContainerForm2">
+                    <button id="btn-save-reply" class="btn-secondary">댓글 등록</button>
+                </div>
+            </div>
         </div>
 
         <%-- 댓글 목록 불러오기 구현 --%>

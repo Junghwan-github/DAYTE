@@ -1,6 +1,7 @@
 package com.example.dayte.members.verification.controller;
 
 
+import com.example.dayte.members.dto.ResponseDTO;
 import com.example.dayte.members.verification.dto.VerificationDTO;
 import com.example.dayte.members.verification.service.VerificationService;
 import lombok.extern.log4j.Log4j2;
@@ -26,12 +27,10 @@ public class VerificationController {
     ModelMapper modelMapper;
 
     @PostMapping("/members/sendEmail")
-    @ResponseBody
-    public int verificationEmail (@RequestBody VerificationDTO verificationDTO) {
-
+    public void verificationEmail (@RequestBody VerificationDTO verificationDTO) {
+        log.info("======== VerificationDTO : " + verificationDTO);
         this.verifyValueNumber = verificationService.sendEmail(verificationDTO.getAddress());
         log.info("======== VerificationDTO : " + verificationDTO);
-        return HttpStatus.OK.value();
     }
 
     @PostMapping("/members/checkEmail")
