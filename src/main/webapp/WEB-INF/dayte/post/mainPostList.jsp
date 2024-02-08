@@ -159,10 +159,12 @@
 
                     <c:if test="${!postList.last}">
                         <li>  <%-- 다음 페이지로 이동하는 버튼 --%>
-                            <a class="nextPageBtn" href="?page=${postList.number +1}">다음</a>
+                            <a class="nextPageBtn" href="?page=${postList.number +1}"><i
+                                    class="fa-solid fa-angle-right"></i></a>
                         </li>
                         <li>  <%-- 마지막 페이지로 이동하는 버튼 --%>
-                            <a class="lastPageBtn" href="?page=${postList.totalPages -1}">마지막</a>
+                            <a class="lastPageBtn" href="?page=${postList.totalPages -1}"><i
+                                    class="fa-solid fa-angles-right"></i></a>
                         </li>
                     </c:if>
                 </c:when>
@@ -173,7 +175,7 @@
                     <c:if test="${!postSearchList.first}">
                         <li>  <%-- 첫번째 페이지로 이동하는 버튼 --%>
                             <a class="firstPageOpenBtn" href="?postField=${postField}&postWord=${postWord}&page=0"><i
-                                    class="fa-solid fa-angle-left"></i></a>
+                                    class="fa-solid fa-angles-left"></i></a>
                         </li>
 
                         <li>  <%-- 이전 페이지로 이동하는 버튼 --%>
