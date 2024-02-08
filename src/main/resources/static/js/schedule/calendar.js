@@ -53,15 +53,15 @@ const $calTable = document.querySelector(".cal-table");
 
 $(".ctr-box").append(
     `<a id='prevLink' href="calMonth-1"><i class="xi-angle-left"></i></a><h2>${
-        init.monForChange + 1
+        init.monForChange +1
     } 월</h2><a id='nextLink' href="calMonth-1"><i class="xi-angle-right"></i></a>`
 );
-
 let values = 1;
 $("#nextLink").on("click", function () {
     values++;
     let ctd = new Date();
-    let getMonthd = ctd.getMonth() + values;
+    let getMonthd = (ctd.getMonth() + values) % 12; // values가 12 이상일 때를 고려하여 12로 나눈 나머지를 취합니다.
+    if (getMonthd === 0) getMonthd = 12; // 0이 나오면 12월로 변경합니다.
     if (values < 13) {
         $(this).attr("href", `#calMonth-${values}`);
         $(".ctr-box > h2").text(`${getMonthd} 월`);

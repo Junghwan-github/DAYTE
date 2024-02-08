@@ -1,13 +1,13 @@
 $(document).ready(function () {
     $(".scheduleItemSlider").bxSlider({
-        mode: "horizontal",
-        slideWidth: 350,
-        speed: 500,
-        auto: true,
-        slideMargin: 0,
-        minSlides: 1,
-        maxSlides: 1,
-        pager: false,
+        mode        : "horizontal",
+        slideWidth  : 350,
+        speed       : 500,
+        auto        : true,
+        slideMargin : 0,
+        minSlides   : 1,
+        maxSlides   : 1,
+        pager       : false,
         infiniteLoop: false
     });
 });
@@ -27,10 +27,10 @@ $(".nextDayBtn").on("click", function (e) {
 
     let containerEl = document.querySelector('.contentModalSlider');
     sortableInstance = new Sortable(containerEl, {
-        animation: 150,
+        animation : 150,
         ghostClass: 'active',
-        direction: "horizontal",
-        filter: '.contentsListItemDelete'
+        direction : "horizontal",
+        filter    : '.contentsListItemDelete'
     });
     sortableInstance.option("disabled", true);
 
@@ -41,7 +41,7 @@ $(".nextDayBtn").on("click", function (e) {
     let container = document.getElementById("rightModalLayout");
     let options = {
         center: new kakao.maps.LatLng(33.450701, 126.570667),
-        level: 5
+        level : 5
     };
     map = new kakao.maps.Map(container, options);
 });
@@ -169,20 +169,19 @@ function detailedLinks(uuid) {
         }
     })
 }
+
 let nowDateValue;
 $(".detail-daysPrint-button").on("click", function () {
     let detailedScheduleList = [];
     nowDateValue = $(this).closest('.detailedScheduleDiv').data('now-days');
 
     $(".detailedScheduleAddModal").hide();
-    $(".daysListAddModal").show({
-
-    });
+    $(".daysListAddModal").show({});
     $(".contentListModalArea").addClass("show");
     $(".scheduleTotalSaveBtn").hide();
     $(".scheduleTotalModifyBtn").show();
 
-        // 담아놓은 컨텐츠를 비교하여 같은 날짜 인것만 넘기는 forEach
+    // 담아놓은 컨텐츠를 비교하여 같은 날짜 인것만 넘기는 forEach
     $(".detailedScheduleListUl li").each(function () {
         if ($(this).closest('.detailedScheduleDiv').data('now-days') === nowDateValue) {
             let contentId = $(this).find('.detailedScheduleListId').val(); // .detailedScheduleListId의 value를 가져옴
@@ -213,16 +212,16 @@ $(".detail-daysPrint-button").on("click", function () {
     let container = document.getElementById("rightModalLayout");
     let options = {
         center: new kakao.maps.LatLng(33.450701, 126.570667),
-        level: 5
+        level : 5
     };
     let map = new kakao.maps.Map(container, options);
 
     let containerEl = document.querySelector('.contentModalSlider');
     sortableInstance = new Sortable(containerEl, {
-        animation: 150,
+        animation : 150,
         ghostClass: 'active',
-        direction: "horizontal",
-        filter: '.contentsListItemDelete'
+        direction : "horizontal",
+        filter    : '.contentsListItemDelete'
     });
     sortableInstance.option("disabled", true);
 
@@ -230,29 +229,58 @@ $(".detail-daysPrint-button").on("click", function () {
 
 });
 
-$(".contentListItemdetailViewBtn").click(function () {
+$('.contentListViewer').on('click', '.contentListItemdetailViewBtn', function (e) {
     let getUrl = $(this).val();
-    window.open("/contents/detail/"+getUrl , "_blank");
+    window.open("/contents/detail/" + getUrl, "_blank");
 })
 
 let marker = '';
-$('.contentListItems').on('click', function (e) {
+$('.contentListViewer').on('click', '.contentListItems', function (e) {
 
     // 상세보기와 추가하기를 제외한 li 요소를 누르면 마커 생성
     if ($(e.target)[0].localName !== 'button') {
         let latitude = $(e.target).closest('.contentListItems').find('.contentListItemPoint-x').text();
         let longitude = $(e.target).closest('.contentListItems').find('.contentListItemPoint-y').text();
+
+        console.log(latitude);
+        console.log(longitude);
         if (marker != '') {
             marker.setMap(null);
         }
         let moveLatLng = new kakao.maps.LatLng(latitude, longitude);
         marker = new kakao.maps.Marker({
             position: moveLatLng,
-            image: markerImage
+            image   : markerImage
         });
 
         marker.setMap(map);
         map.panTo(moveLatLng);
-
     }
+});
+$('.contentListModalBtnWrap').on("click", '.scheduleTotalListMapBtn', function () {
+    let markers = [];
+    let container = document.getElementById("rightModalLayout");
+    let options = {
+        center: new kakao.maps.LatLng(33.450701, 126.570667),
+        level : 5
+    };
+    map = new kakao.maps.Map(container, options);
+
+    $(".contentModalSlider li").each(function () {
+        let moveLatLng = new kakao.maps.LatLng($(this).find(".contentListItemPoint-x").text(), $(this).find(".contentListItemPoint-y").text());
+        let marker = new kakao.maps.Marker({
+            position: moveLatLng,
+            image   : markerImage
+        });
+
+        markers.push(marker); // 각 마커를 배열에 추가합니다.
+        marker.setMap(map);
+    });
+
+    // 모든 마커가 보이는 지도 영역으로 지도의 중심을 이동하고 확대 수준을 조정합니다.
+    let bounds = new kakao.maps.LatLngBounds();
+    markers.forEach(function (marker) {
+        bounds.extend(marker.getPosition());
+    });
+    map.setBounds(bounds);
 });
