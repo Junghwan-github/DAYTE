@@ -93,9 +93,9 @@ $(function () {
             return;
         }
 
-        if (my_photo.size > 1024 * 1024) {
+        if (my_photo.size > 10240 * 1024) {
             // 이미지 크기가 1MB를 초과하는 경우 알림 후 복원
-            alert(Math.round(my_photo.size / 1024 / 1024) + 'MB(1MB까지만 업로드 가능)');
+            alert(Math.round(my_photo.size / 1024 / 1024) + 'MB(10MB까지만 업로드 가능)');
             $('.profile-photo').attr('src', photo_path);
             $(this).val(''); // 파일 입력 필드 초기화
             return;

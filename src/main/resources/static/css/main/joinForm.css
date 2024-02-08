@@ -159,6 +159,9 @@ select {
   border: none;
   background-color: transparent;
 }
+select:hover {
+  cursor: pointer;
+}
 
 #domainSelect {
   width: 120px;

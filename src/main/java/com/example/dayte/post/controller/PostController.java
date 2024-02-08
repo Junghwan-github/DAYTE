@@ -170,7 +170,7 @@ public class PostController {
     // ----------------------- 포스트 이미지 등록 로직 수행 -----------------------
     @PostMapping("/uploadSummernoteImageFile")
     @ResponseBody
-    public ResponseEntity<Map<String, String>> uploadSummernoteImageFile(@RequestParam("files") MultipartFile multipartFile) {
+    public ResponseEntity<Map<String, String>> uploadSummernoteImageFile(@RequestParam("files")  MultipartFile multipartFile) {
         return postService.uploadImage(multipartFile);
     }
 }

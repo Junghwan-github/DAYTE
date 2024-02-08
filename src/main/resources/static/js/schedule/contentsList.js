@@ -23,7 +23,6 @@ function searchContents(search) {
 function displaySearchResults(data) {
     const contentListViewer = $('.contentListViewer');
     contentListViewer.html('');
-console.log(data.adminContentsImageList);
     if (data.length === 0) {
         const listItem = $('<li>').html('<p>검색 결과가 없습니다.</p>');
         contentListViewer.append(listItem);
@@ -32,9 +31,9 @@ console.log(data.adminContentsImageList);
             const listItem = $('<li>');
 
             listItem.html(`
+                <div class="contentListItems">
                 <span class="contentListItemPoint-x">${content.positionX}</span>
                 <span class="contentListItemPoint-y">${content.positionY}</span>
-                <div class="contentListItems">
                     <div class="contentListItemsImages">
                         <img src="${content.adminContentsImageList[0].imageURL}">
                     </div>
@@ -58,10 +57,10 @@ console.log(data.adminContentsImageList);
                     <div class="contentListItemButton">
                         <ul>
                             <li>
-                                <button class="contentListItemdetailViewBtn">상세보기</button>
+                                <button class="contentListItemdetailViewBtn" value="${content.uuid}">상세보기</button>
                             </li>
                             <li>
-                                <button class="contentListItemAddBtn" value="${content.id}">추가하기
+                                <button class="contentListItemAddBtn" value="${content.uuid}">추가하기
                                 </button>
                             </li>
                         </ul>
@@ -76,14 +75,12 @@ console.log(data.adminContentsImageList);
 
 // "#guList" 요소 안의 <li> 클릭 이벤트 핸들러 등록
 $("#guList").on("click", "li", function () {
-    console.log($(this).text())
     searchContents($(this).text());
 });
 
 // ".contentListItemAddBtn" 클래스를 가진 모든 버튼에 대한 이벤트 핸들러 등록
 const itemArr = [];
 $('.contentListViewer').on('click', '.contentListItemAddBtn', function (e) {
-
     let id = $(e.target).val();
     let businessName = $(e.target).closest('.contentListItems').find('.contentListItemText h2:first').text();
     let latitude = $(e.target).closest('.contentListItems').find('.contentListItemPoint-x').text();

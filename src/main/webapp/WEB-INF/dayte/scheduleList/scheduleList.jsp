@@ -133,6 +133,9 @@
                         <li>
                             <button class="scheduleTotalListCancelBtn">확인</button>
                         </li>
+                        <li>
+                            <button class="scheduleTotalListMapBtn">전체 지도 보기</button>
+                        </li>
                     </ul>
                     <ul class="contentModalSlider">
                     </ul>

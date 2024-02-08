@@ -24,18 +24,18 @@ let postObject = {
         console.log("포스트 등록 요청됨");
 
         let post = {
-            title: $("#title").val(),
+            title  : $("#title").val(),
             content: $("#summernote").summernote('code')
         }
         console.log(post);
 
         fetch("/mainPostList/reg", {
-            method: "POST", //  요청 방식
+            method : "POST", //  요청 방식
             headers: {
                 "Content-Type": "application/json; charset=utf-8",
                 // HTTP의 body에 설정되는 마임타입
             },
-            body: JSON.stringify(post), // 요청 데이터
+            body   : JSON.stringify(post), // 요청 데이터
         })
             .then(response => {
                 // 응답으로 들어온 promise 객체의 응답 결과 json을 js에서 사용할 수 있는 객체로 변환 후 반환
@@ -65,17 +65,17 @@ let postObject = {
     updatePost: function () {
         // console.log('포스트 수정 요청됨');
         let post = {
-            id: $("#id").val(),
-            title: $("#title").val(),
+            id     : $("#id").val(),
+            title  : $("#title").val(),
             content: $("#content").val()
         }
 
         fetch("/post", {
-            method: "PUT", // 요청 방식
+            method : "PUT", // 요청 방식
             headers: {
                 "Content-Type": "application/json; charset=utf-8",
             },
-            body: JSON.stringify(post), // 요청 데이터
+            body   : JSON.stringify(post), // 요청 데이터
         })
             .then(res => {
                 // Promise 객체 안의 응답 결과(json)를 담은 데이터만 뽑아내어 객체로 만든 후 반환
@@ -95,7 +95,7 @@ let postObject = {
         let id = $("#id").text();
 
         fetch("/post/" + id, {
-            method: "DELETE",
+            method : "DELETE",
             headers: {
                 "Content-Type": "application/json; charset=utf-8",
             },
@@ -118,13 +118,13 @@ postObject.init();
 
 $(document).ready(function () {
     $('#summernote').summernote({
-        tabSize: 2,
-        height: 750,
-        focus: true,
-        lang: "ko-KR",
-        placeholder: '여기 내용을 입력하세요',
+        tabSize            : 2,
+        height             : 750,
+        focus              : true,
+        lang               : "ko-KR",
+        placeholder        : '여기 내용을 입력하세요',
         disableResizeEditor: false,
-        toolbar: [
+        toolbar            : [
             ['style', ['style']],
             ['font', ['bold', 'italic', 'underline', 'clear']],
             ['fontsize', ['fontsize']],
@@ -136,34 +136,60 @@ $(document).ready(function () {
             ['insert', ['link', 'picture', 'video']],
             ['view', ['fullscreen', 'codeview']],
         ],
-        fontSizes: ['15', '16', '18', '20', '24', '36', '58', '72'],
-        callbacks: {
+        fontSizes          : ['15', '16', '18', '20', '24', '36', '58', '72'],
+        callbacks          : {
             onImageUpload: function (files) {
-                sendFile(files);
+                /** upload start */
+                    // 이미지 용량 제한
+                let maxSize = 10 * 1024 * 1024; // limit = 10MB
+                let isMaxSize = false;
+                let maxFiles = [];
+
+                for (let i = 0; i < files.length; i++) {
+                    if (files[i].size > maxSize) {
+                        isMaxSize = true;
+                        maxFiles.push(files[i].name);
+                    } else {
+                        sendFile(files[i], this);
+                    }
+                }
+                if (isMaxSize) { // 사이즈 제한에 걸렸을 때
+                    alert('이미지 파일이 업로드 용량(10MB)을 초과하였습니다.');
+                } else {
+                    /** upload end */
+                    // 이미지 업로드시 크기
+                    for (let i = 0; i < files.length; i++) {
+                        let reader = new FileReader();
+                        reader.onloadend = function () {
+                            var image = $('<img>').attr('src', reader.result);
+                            image.attr('width', '50%');
+                            $('#summernote').summernote("insertNode", image[0]);
+                        }
+                        reader.readAsDataURL(files[i]);
+                    }
+                }
             },
         },
     });
-
 });
 
 // 이미지를 임시저장합니다.
 function sendFile(files) {
     const formData = new FormData();
     formData.append('files', files[0]); // 'files'는 서버에서 받을 때의 파라미터 이름입니다.
-
+    console.log(files[0])
     $.ajax({
-        type: 'POST',
-        url: '/uploadSummernoteImageFile',
-        data: formData,
-        cache: false,
+        type       : 'POST',
+        url        : '/uploadSummernoteImageFile',
+        data       : formData,
+        cache      : false,
         contentType: false,
         processData: false,
-        success: function (response) {
+        success    : function (response) {
             $('#summernote').summernote('insertImage', response.url);
         },
-        error: function (error) {
+        error      : function (error) {
             console.error('이미지 업로드 실패:', error);
         }
     });
 }
-

@@ -2,6 +2,7 @@ package com.example.dayte.security.config;
 
 import com.example.dayte.security.handler.Custom403Handler;
 import com.example.dayte.security.handler.CustomSocialLoginHandler;
+import com.example.dayte.security.handler.LoginFailHandler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -41,6 +42,7 @@ public class SecurityConfig {
                 .formLogin(frm -> {
                     frm.loginPage("/members/login")
                             .loginProcessingUrl("/members/securityLogin")
+                            .failureHandler(new LoginFailHandler())
                             .defaultSuccessUrl("/");
                 })
                 .logout(logout -> {
@@ -81,6 +83,11 @@ public class SecurityConfig {
     @Bean
     public AccessDeniedHandler accessDeniedHandler() {
         return new Custom403Handler(); // : 사용자의 접근 거부 핸들러 반환
+    }
+
+    @Bean
+    public LoginFailHandler loginFailHandler() {
+        return new LoginFailHandler();
     }
 
 
