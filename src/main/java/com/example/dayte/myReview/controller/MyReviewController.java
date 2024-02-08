@@ -37,6 +37,16 @@ public class MyReviewController {
 
             model.addAttribute("myReviewPage", myReviewPage);
 
+        int totalPages = myReviewPage.getTotalPages();
+        int pageSize = 5;
+        int startPage = Math.max(0, (pageable.getPageNumber() / pageSize) * pageSize);
+        int endPage = Math.min(startPage + pageSize - 1, totalPages - 1);
+
+        model.addAttribute("startPage", startPage);
+        if(endPage >=0){
+            model.addAttribute("endPage", endPage);
+        }
+
             return "myReview/myReview";
     }
 
