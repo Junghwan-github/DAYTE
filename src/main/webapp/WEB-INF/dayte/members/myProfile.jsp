@@ -4,19 +4,13 @@
 <%@include file="../layout/head.jsp" %>
 <title>내 정보 | 나의 프로필</title>
 <link rel="stylesheet" href="/css/main/myProfile.css">
+<link rel="stylesheet" href="/css/layout/myProfileSideBar.css">
 </head>
 <body>
 <%@include file="../layout/header.jsp" %>
 <div class="wrapper">
-    <aside class="sideBar">
-        <ul>
-            <li> 내 정보</li>
-            <li><a href="/members/editForm">나의 프로필<img src="/images/next.png"></a></li>
-            <li><a href="/members/editPsForm">비밀번호 변경<img src="/images/next.png"></a></li>
-            <li><a href="/members/delete">회원탈퇴<img src="/images/next.png"></a></li>
-            <li></li>
-        </ul>
-    </aside>
+
+    <%@include file="./layout/profileSideBar.jsp" %>
     <main>
         <c:set var="nowDate" value="${java.time.LocalDate.now()}"/>
         <span>등록된 일정의 수 ${mySchedule.size()}</span>
