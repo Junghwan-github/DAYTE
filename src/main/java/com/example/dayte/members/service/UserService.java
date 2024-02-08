@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,14 +32,17 @@ public class UserService {
     @Autowired
     private ModelMapper modelMapper;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Transactional
     public void insertUser(User user) {
         userRepository.save(user);
     }
 
     @Transactional(readOnly = true)
-    public User getUser(String userNickName) {
-        User findUser = userRepository.findPostNickName(userNickName).orElseThrow(()->
+    public User getUser(String userEmail) {
+        User findUser = userRepository.findByUserEmail(userEmail).orElseThrow(()->
                 new IllegalArgumentException("해당 회원이 존재하지 않습니다."));
         return findUser;
     }
@@ -171,5 +175,17 @@ public class UserService {
 
     public boolean nickNameChk(String nickName) {
         return userRepository.existsByNickName(nickName);
+    }
+
+    // 사용자 - 비밀번호 변경
+    @Transactional
+    public User checkPassword(UserSecurityDTO principal, String rawNewPwd) {
+        User findUser = userRepository.findByUserEmail(principal.getUserEmail()).orElseThrow(() -> {
+            return new IllegalArgumentException("회원 찾기 실패");
+        });
+
+        findUser.setPassword(passwordEncoder.encode(rawNewPwd));
+
+        return findUser;
     }
 }

@@ -35,9 +35,4 @@ public interface UserRepository extends JpaRepository<User, String> {
 
     boolean existsByNickName(String nickName);
 
-    @Query("SELECT c FROM User c Where c.nickName =:nickName")
-    Optional<User> findPostNickName(String nickName);
-
-
-
 }

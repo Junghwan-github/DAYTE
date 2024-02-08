@@ -49,3 +49,17 @@ main {
     color: #111;
     margin-bottom: 30px;
 }
+
+.menu-button > div {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.7rem;
+    font-weight: 400;
+}
+
+.menu-button > div > span {
+    font-size: 3rem;
+    font-weight: 400;
+}
