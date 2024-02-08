@@ -2,6 +2,7 @@ let userObject = {
     init: function () {
         let _this = this;
         $("#signBttn").on("click", () => {
+            // 바꿔야할 부분
             if(varificationValue) {
                 _this.insertUser();
             } else {

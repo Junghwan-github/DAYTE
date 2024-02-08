@@ -46,7 +46,5 @@
         </div>
     </main>
 </div>
-</main>
-</div>
 <script src="/js/main/updatePwd.js"></script>
 <%@include file="../layout/footer.jsp" %>
