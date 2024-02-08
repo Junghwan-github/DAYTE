@@ -70,15 +70,15 @@ main {
 .post-content-container > .content {
     text-align: center;
     padding-bottom: 30px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     border-bottom: 1px solid #ddd;
 }
 
 .post-content-reply-container {
     width: 100%;
-    margin-top: 20px;
+    margin: 20px 0;
     padding: 25px;
-    background: rgba(169, 204, 203, 0.1);
+    background: rgba(190, 224, 206, 0.15);
     border-radius: 10px;
     overflow: hidden;
     box-sizing: border-box;
@@ -112,4 +112,33 @@ main {
     font-weight: 500;
     color: #fff;
 
+}
+
+.reply-show-hide-btn {
+    width: 120px;
+    height: 40px;
+    background: #fff;
+    border: 1px solid #ddd;
+    font-family: "Noto Sans KR",sans-serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #555;
+}
+
+.post-reply-write-btn {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+}
+
+.reply-show-hide-btn > i {
+    font-size: 1.9rem;
+    color: #bee0ce;
+    margin-right: 5px;
+}
+
+.reply-wrapper {
+    width: 100%;
+    padding: 30px 0;
+    border-top: 1px solid #ddd;
 }

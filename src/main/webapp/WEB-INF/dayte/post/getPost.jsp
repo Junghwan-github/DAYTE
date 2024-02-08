@@ -53,7 +53,7 @@ more_vert
         </div>
         <%-- 포스트 내용 끝 --%>
         <div class="post-reply-write-btn">
-            <button type="button">댓글 쓰기</button>
+            <button type="button" class="reply-show-hide-btn"><i class="xi-comment"></i>댓글 쓰기</button>
         </div>
         <%-- 댓글 등록 폼 --%>
         <div class="post-content-reply-container">
@@ -71,46 +71,48 @@ more_vert
         <%-- 댓글 목록 불러오기 구현 --%>
         <c:if test="${!empty postReplyList}">
         <div class="reply-wrapper">
-            <ul id="postReplyView">
+            <div id="postReplyView">
                 <c:forEach var="reply" items="${postReplyList}">
-                    <li class="post-reply-li">
-                        <ul>
-                            <li>
-                                <span>○ 프로필사진</span>
-                                <span>${reply.user.nickName}</span>
-                                <span>${reply.formatDate}</span>
-                            </li>
-                        </ul>
-                        <div class="reply-sub-nav">
-                                <%-- 햄버거바 --%>
-                            <button type="button" class="postReplyHamburger"><i
-                                    class="xi-ellipsis-v"></i></button>
-                        </div>
-                        <ul class="postReplyBtnList">
-                            <li>
-                                <button id="btn-update-reply" class="replyBtnShow"
-                                    <%--onclick="replyObject.updateReply(this.value)" value="${reply.num}">수정--%>
-                                        onclick="updateBtnClick(this)">수정
-                                </button>
-                            </li>
-                            <li>
-                                <button id="btn-delete-reply" onclick="replyObject.deleteReply(this.value)"
-                                        value="${reply.num}">삭제
-                                </button>
-                            </li>
-                        </ul>
-                        <p class="changeTextarea">${reply.content}</p>
-                            <%--                    <button type="button" style="display: none" class="checkButton" onclick="checkButtonClick(this)" >확인</button>--%>
-                        <button type="button" style="display: none" class="checkButton"
-                                onclick="replyObject.checkButtonClick(this.value)" value="${reply.num}">확인
-                        </button>
-                        <button type="button" style="display: none" class="cancelButton"
-                                onclick="cancelButtonClick(this)">
-                            취소
-                        </button>
-                    </li>
+                    <ul class="post-reply-user-info">
+                        <li>
+                            <div class="post-user-profile-image"></div>
+                        </li>
+                        <li>
+                            <span>${reply.user.nickName}</span>
+                        </li>
+                        <li>
+                            <span>${reply.formatDate}</span>
+                        </li>
+                    </ul>
+                    <div class="reply-sub-nav">
+                            <%-- 햄버거바 --%>
+
+                    </div>
+                    <ul class="postReplyBtnList">
+                        <li>
+                            <button id="btn-update-reply" class="replyBtnShow"
+                                <%--onclick="replyObject.updateReply(this.value)" value="${reply.num}">수정--%>
+                                    onclick="updateBtnClick(this)">수정
+                            </button>
+                        </li>
+                        <li>
+                            <button id="btn-delete-reply" onclick="replyObject.deleteReply(this.value)"
+                                    value="${reply.num}">삭제
+                            </button>
+                        </li>
+                    </ul>
+                    <p class="changeTextarea">${reply.content}</p>
+                    <%--                    <button type="button" style="display: none" class="checkButton" onclick="checkButtonClick(this)" >확인</button>--%>
+                    <button type="button" style="display: none" class="checkButton"
+                            onclick="replyObject.checkButtonClick(this.value)" value="${reply.num}">확인
+                    </button>
+                    <button type="button" style="display: none" class="cancelButton"
+                            onclick="cancelButtonClick(this)">
+                        취소
+                    </button>
+                    </ul>
                 </c:forEach>
-            </ul>
+            </div>
         </div>
     </div>
     </c:if>
