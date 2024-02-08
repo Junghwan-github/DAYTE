@@ -1,5 +1,6 @@
 package com.example.dayte.admin.contents.domain;
 
+import com.example.dayte.reply.domain.ContentReply;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -59,4 +60,6 @@ public class AdminContents {
     private List<AdminContentsImage> adminContentsImageList;
 
     private String facilities;
+
+
 }
