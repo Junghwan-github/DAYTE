@@ -19,6 +19,7 @@ public class User {
     @Column(nullable = false, length = 100)
     private String userEmail; // 로그인 이메일 아이디
 
+
     @Column(nullable = false, length = 100)
     private String password; // 비밀번호
 
@@ -57,5 +58,10 @@ public class User {
 
     @Setter
     private LocalDate loginDate;
+
+    // 비밀번호 변경 메서드
+    public void setPassword(String newPassword) {
+        this.password = newPassword;
+    }
 }
 
