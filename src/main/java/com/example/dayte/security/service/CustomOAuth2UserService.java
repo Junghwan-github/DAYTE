@@ -105,8 +105,8 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         return new UserSecurityDTO(
                 user.getUserEmail(),
                 user.getPassword(),
-                user.getNickName(),
                 user.getUserName(),
+                user.getNickName(),
                 user.getPhone(),
                 user.getBirthDate(),
                 user.getGender(),
