@@ -12,7 +12,7 @@ let postObject = {
             }
         });
 
-        $("#btn-delete").on("click", () => {
+        $("#post-delete").on("click", () => {
             let check = confirm("해당 게시글을 삭제하시겠습니까?");
             if (check) {
                 this.deletePost();
@@ -67,7 +67,7 @@ let postObject = {
         let post = {
             id     : $("#id").val(),
             title  : $("#title").val(),
-            content: $("#content").val()
+            content: $("#summernote").summernote('code')
         }
 
         fetch("/post", {
@@ -92,7 +92,7 @@ let postObject = {
 
     deletePost: function () {
         // console.log('삭제 요청');
-        let id = $("#id").text();
+        let id = $("#post-id").val();
 
         fetch("/post/" + id, {
             method : "DELETE",
@@ -105,7 +105,7 @@ let postObject = {
             })
             .then(data => {
                 alert(data.data);
-                location = "/";
+                location = "/mainPostList";
             })
             .catch(err => {
                 alert(`에러 발생 : ${err.message}`);

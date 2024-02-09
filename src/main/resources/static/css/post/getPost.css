@@ -4,17 +4,107 @@ main {
 }
 
 .menu-button {
+    position: relative;
     width: 100%;
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
     align-items: center;
 }
+
+#post-main-list-btn {
+    font-size: 1.5rem;
+    padding: 10px 15px;
+    border: 1px solid #111;
+    color: #111;
+}
+
+#post-modify-delete-btn {
+    cursor: pointer;
+}
+
 .menu-button > span {
     display: inline-block;
     font-size: 3rem;
     font-weight: 300;
     color: #111;
+}
+
+#post-modify-delete-menu {
+    position: absolute;
+    top: 35px;
+    right: 0;
+    border: 1px solid #ddd;
+    display: none;
+}
+
+#post-modify-delete-menu > ul > li {
+    padding: 10px 20px;
+}
+
+#post-modify-delete-menu > ul > li:hover {
+    background: #eee;
+}
+
+#post-modify-delete-menu > ul > li > a {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #111;
+}
+
+#post-modify-delete-menu > ul > li > a > i {
+    margin-right: 10px;
+    font-size: 1.5rem;
+    color: #111;
+}
+
+.user-part {
+    width: 100%;
+    margin-top: 30px;
+}
+
+.user-part > ul {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+}
+
+.user-part > ul > li:nth-child(2),
+.user-part > ul > li:nth-child(3) {
+    margin-left: 7px;
+}
+
+
+.user-part > ul > li > div > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.user-part > ul > li > div {
+    width: 35px;
+    height: 35px;
+    border-radius: 50px;
+    overflow: hidden;
+}
+
+.user-part > ul > li > span {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #111;
+}
+
+.user-part > ul > li:nth-child(3) > span {
+    color: #bbb;
+}
+
+.user-part > p {
+    margin-top: 15px;
+    font-size: 1.3rem;
+    color: #aaa;
+    font-weight: 400;
+
+
 }
 
 .information-wrapper > span {
@@ -60,11 +150,16 @@ main {
     align-items: center;
     font-size: 1.5rem;
     font-weight: 400;
+    cursor: pointer;
 }
 
 .menu-button > div > span {
     font-size: 3rem;
     font-weight: 400;
+}
+
+.menu-button > div:hover {
+    color: #ff0000;
 }
 
 .post-content-container > .content {
@@ -76,12 +171,13 @@ main {
 
 .post-content-reply-container {
     width: 100%;
-    margin: 20px 0;
+    margin: 20px 0 0 0;
     padding: 25px;
     background: rgba(190, 224, 206, 0.15);
     border-radius: 10px;
     overflow: hidden;
     box-sizing: border-box;
+    display: none;
 }
 
 .post-content-reply-wrapper {
@@ -90,14 +186,16 @@ main {
     justify-content: space-between;
 }
 
+
 .ContainerForm > .form-control {
+    white-space: pre-line;
     width: 920px;
     height: 150px;
     resize: none;
     border: 1px solid #ddd;
     padding: 5px;
     font-size: 1.5rem;
-    font-family: "Noto Sans KR",sans-serif;
+    font-family: "Noto Sans KR", sans-serif;
     font-weight: 400;
     box-sizing: border-box;
 }
@@ -107,19 +205,19 @@ main {
     height: 150px;
     background: #116edb;
     border: 1px solid #ddd;
-    font-family: "Noto Sans KR",sans-serif;
+    font-family: "Noto Sans KR", sans-serif;
     font-size: 1.5rem;
     font-weight: 500;
     color: #fff;
 
 }
 
-.reply-show-hide-btn {
+#reply-show-hide-btn {
     width: 120px;
     height: 40px;
     background: #fff;
     border: 1px solid #ddd;
-    font-family: "Noto Sans KR",sans-serif;
+    font-family: "Noto Sans KR", sans-serif;
     font-size: 1.5rem;
     font-weight: 400;
     color: #555;
@@ -131,7 +229,7 @@ main {
     justify-content: flex-end;
 }
 
-.reply-show-hide-btn > i {
+#reply-show-hide-btn > i {
     font-size: 1.9rem;
     color: #bee0ce;
     margin-right: 5px;
@@ -139,6 +237,123 @@ main {
 
 .reply-wrapper {
     width: 100%;
+}
+
+#post-reply-items {
     padding: 30px 0;
-    border-top: 1px solid #ddd;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    /*align-items: flex-start;*/
+    position: relative;
+    border-bottom: 1px solid #ddd;
+}
+
+.post-content-container > hr {
+    border: none;
+    height: 1px;
+    background: #ddd;
+    margin-top: 20px;
+}
+
+.user-part-reply {
+    width: 280px;
+}
+
+.user-part-reply > ul {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+}
+
+.user-part-reply > ul > li:nth-child(2),
+.user-part-reply > ul > li:nth-child(3) {
+    margin-left: 7px;
+}
+
+
+.user-part-reply > ul > li > div > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.user-part-reply > ul > li > div {
+    width: 35px;
+    height: 35px;
+    border-radius: 50px;
+    overflow: hidden;
+}
+
+.user-part-reply > ul > li > span {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #111;
+}
+
+.user-part-reply > ul > li:nth-child(3) > span {
+    color: #bbb;
+}
+
+.post-reply-content {
+    width: 780px;
+    padding: 10px 0 0 0;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+
+
+}
+
+
+.post-reply-content > .changeTextarea {
+    white-space: pre-line;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #111;
+}
+
+.reply-sub-nav {
+    width: 120px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+}
+
+.reply-sub-nav > span {
+    font-size: 2rem;
+    color: #111;
+    cursor: pointer;
+}
+
+.reply-sub-nav-plate {
+    position: absolute;
+    top: 55px;
+    right: 0;
+    border: 1px solid #ddd;
+    background: #fff;
+    display: none;
+    z-index: 20;
+}
+
+.reply-sub-nav-plate > ul > li {
+    padding: 5px 10px;
+}
+
+.reply-sub-nav-plate > ul > li:hover {
+    background: #eee;
+}
+
+.reply-sub-nav-plate > ul > li > button {
+    border: none;
+    font-size: 1.2rem;
+    font-weight: 400;
+    font-family: 'Noto Sans KR', sans-serif;
+    background: transparent;
+}
+
+.reply-sub-nav-plate > ul > li > button > i {
+    margin-right: 10px;
+    font-size: 1.2rem;
+    color: #111;
 }

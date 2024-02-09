@@ -27,7 +27,6 @@
                         <li>
                             <div><img src="${post.user.profileImagePath}"></div> <!-- 프로필 사진 -->
                         </li>
-
                         <li><span>${post.user.nickName}</span></li>
                         <li><span><fmt:formatDate value="${post.createDate}" pattern="yyyy.MM.dd"/></span></li>
                     </ul>
@@ -77,7 +76,7 @@
                 </select>
                 <input type="text" name="postWord"/>
                 <button type="submit" class="postSearchSubmitBtn">검색</button>
-                <button class="postSearchSubmitBtn" onclick="postPostList()">전체목록</button>
+                <button class="postSearchSubmitBtn" onclick="postPostList()">목록</button>
             </form>
         </div>
         <button type="button" onclick="writingPost()">글 작성</button>

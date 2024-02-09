@@ -1,4 +1,6 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 
 <%-- head --%>
 <%@include file="../layout/head.jsp" %>
@@ -14,111 +16,121 @@
 <%@include file="../layout/subnav.jsp" %>
 
 <main> <%-- main --%>
+    <input type="hidden" id="post-id" value="${post.id}"/>
     <div class="get-post-detail">
-        <div class="PostItems">
+        <div class="postItems">
             <div class="menu-button">
-                <div><span class="material-symbols-outlined">
-arrow_back_ios_new
-</span>뒤로가기
+                <div>
+                    <a href="/mainPostList" id="post-main-list-btn">목록</a>
                 </div>
-                <span class="material-symbols-outlined">
-more_vert
-</span>
-            </div>
-            <%--            <div class="information-wrapper">--%>
-            <%--                <p>포스트 번호 : ${post.id}</p>--%>
-            <%--                <p>작성자 : ${post.user.nickName}</p>--%>
-            <%--            </div>--%>
-            <%--            <div>--%>
-            <%--                <c:if test="${post.user.userEmail eq principal.userEmail}">--%>
-            <%--                                        <button class="btn btn-secondary" onclick="history.back()">돌아가기</button>--%>
-            <a href="/post/updatePost/${post.id}" class="btn btn-warning">
-                <button class="btn btn-warning">수정하기</button>
-            </a>
-            <%--                                        <button id="btn-delete" class="btn btn-danger">삭제하기</button>--%>
-            <%--                </c:if>--%>
-            <%--            </div>--%>
-        </div>
-    </div>
-    <div class="post-content-container">
-        <div class="title">
-            <h1>
-                <%--글 제목--%>
-                ${post.title}
-            </h1>
-        </div>
-        <div class="content">
-            <%--글 내용--%>
-            ${post.content}
-        </div>
-        <%-- 포스트 내용 끝 --%>
-        <div class="post-reply-write-btn">
-            <button type="button" class="reply-show-hide-btn"><i class="xi-comment"></i>댓글 쓰기</button>
-        </div>
-        <%-- 댓글 등록 폼 --%>
-        <div class="post-content-reply-container">
-            <input type="hidden" id="postId" value="${post.id}">
-            <div class="post-content-reply-wrapper">
-                <div class="ContainerForm">
-                    <textarea id="reply-content" rows="1" class="form-control" placeholder="댓글을 입력하세요."></textarea>
-                </div>
-                <div class="ContainerForm2">
-                    <button id="btn-save-reply" class="btn-secondary">댓글 등록</button>
-                </div>
-            </div>
-        </div>
-
-        <%-- 댓글 목록 불러오기 구현 --%>
-        <c:if test="${!empty postReplyList}">
-        <div class="reply-wrapper">
-            <div id="postReplyView">
-                <c:forEach var="reply" items="${postReplyList}">
-                    <ul class="post-reply-user-info">
-                        <li>
-                            <div class="post-user-profile-image"></div>
-                        </li>
-                        <li>
-                            <span>${reply.user.nickName}</span>
-                        </li>
-                        <li>
-                            <span>${reply.formatDate}</span>
-                        </li>
-                    </ul>
-                    <div class="reply-sub-nav">
-                            <%-- 햄버거바 --%>
-
+                <c:if test="${post.user.userEmail eq principal.userEmail}">
+                    <span class="material-symbols-outlined" id="post-modify-delete-btn">more_vert</span>
+                    <div id="post-modify-delete-menu">
+                        <ul>
+                            <li><a href="/post/updatePost/${post.id}" id="post-modify"><i class="xi-pen-o"></i>수정</a>
+                            </li>
+                            <li><a href="" id="post-delete"><i class="xi-trash-o"></i>삭제</a></li>
+                        </ul>
                     </div>
-                    <ul class="postReplyBtnList">
-                        <li>
-                            <button id="btn-update-reply" class="replyBtnShow"
-                                <%--onclick="replyObject.updateReply(this.value)" value="${reply.num}">수정--%>
-                                    onclick="updateBtnClick(this)">수정
-                            </button>
-                        </li>
-                        <li>
-                            <button id="btn-delete-reply" onclick="replyObject.deleteReply(this.value)"
-                                    value="${reply.num}">삭제
-                            </button>
-                        </li>
-                    </ul>
-                    <p class="changeTextarea">${reply.content}</p>
-                    <%--                    <button type="button" style="display: none" class="checkButton" onclick="checkButtonClick(this)" >확인</button>--%>
-                    <button type="button" style="display: none" class="checkButton"
-                            onclick="replyObject.checkButtonClick(this.value)" value="${reply.num}">확인
-                    </button>
-                    <button type="button" style="display: none" class="cancelButton"
-                            onclick="cancelButtonClick(this)">
-                        취소
-                    </button>
-                    </ul>
-                </c:forEach>
+                </c:if>
+            </div>
+            <div class="user-part">
+                <ul>
+                    <li>
+                        <div><img src="${post.user.profileImagePath}"></div> <!-- 프로필 사진 -->
+                    </li>
+                    <li><span>${post.user.nickName}</span></li>
+                    <li><span><fmt:formatDate value="${post.createDate}" pattern="yyyy.MM.dd"/></span></li>
+                </ul>
+                <p class="post-number">포스트 번호 : ${post.id}</p>
             </div>
         </div>
+        <div class="post-content-container">
+            <div class="title">
+                <h1>
+                    <%--글 제목--%>
+                    ${post.title}
+                </h1>
+            </div>
+            <div class="content">
+                <%--글 내용--%>
+                ${post.content}
+            </div>
+            <%-- 댓글 폼 감추기 버튼 --%>
+            <div class="post-reply-write-btn">
+                <button type="button" id="reply-show-hide-btn"><i class="xi-comment"></i>댓글 쓰기</button>
+            </div>
+            <%-- 댓글 등록 폼 --%>
+            <div class="post-content-reply-container">
+                <input type="hidden" id="postId" value="${post.id}">
+                <div class="post-content-reply-wrapper">
+                    <div class="ContainerForm">
+                        <textarea id="reply-content" rows="1" class="form-control" placeholder="댓글을 입력하세요."></textarea>
+                    </div>
+                    <div class="ContainerForm2">
+                        <button id="btn-save-reply" class="btn-secondary">댓글 등록</button>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <%-- 댓글 목록 불러오기 구현 --%>
+            <c:if test="${!empty postReplyList}">
+                <div class="reply-wrapper">
+                    <c:forEach var="reply" items="${postReplyList}">
+                        <div id="post-reply-items">
+                            <div class="user-part-reply">
+                                <ul>
+                                    <li>
+                                        <div><img src="${post.user.profileImagePath}"></div>
+                                    </li>
+                                    <li><span>${post.user.nickName}</span></li>
+                                    <li><span><fmt:formatDate value="${post.createDate}"
+                                                              pattern="yyyy.MM.dd"/></span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="post-reply-content">
+                                <p class="changeTextarea">${reply.content}</p>
+                            </div>
+
+                            <div class="reply-sub-nav">
+                                <c:if test="${post.user.userEmail eq principal.userEmail}">
+                                    <span class="material-symbols-outlined post-reply-modify-delete-btn">more_vert</span>
+                                    <div class="reply-sub-nav-plate">
+                                        <ul>
+                                            <li>
+                                                <button id="btn-update-reply" class="replyBtnShow"
+                                                        onclick="updateBtnClick(this)"><i class="xi-pen-o"></i>수정
+                                                </button>
+                                                <button type="button" style="display: none" class="checkButton"
+                                                        onclick="checkButtonClick(this)"><i class="xi-check"></i>확인
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button id="btn-delete-reply"
+                                                        onclick="replyObject.deleteReply(this.value)"
+                                                        value="${reply.num}"><i class="xi-trash-o"></i>삭제
+                                                </button>
+                                                <button type="button" style="display: none" class="cancelButton"
+                                                        onclick="cancelButtonClick(this)"><i class="xi-close"></i>취소
+                                                </button>
+                                                    <%--                                            <button type="button" style="display: none" class="checkButton"--%>
+                                                    <%--                                                    onclick="replyObject.checkButtonClick(this.value)"--%>
+                                                    <%--                                                    value="${reply.num}">확인--%>
+                                                    <%--                                            </button>--%>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </c:if>
+                            </div>
+                        </div>
+                    </c:forEach>
+                </div>
+            </c:if>
+        </div>
     </div>
-    </c:if>
-
-    <script src="/js/post/post.js"></script>
-    <script src="/js/post/postReply.js"></script>
 </main>
-
+<script src="/js/post/getPost.js"></script>
+<script src="/js/post/post.js"></script>
+<script src="/js/post/postReply.js"></script>
 <%@include file="../layout/footer.jsp" %>
