@@ -17,12 +17,12 @@ $(document).ready(function () {
 
     $(".replyBtnShow").on("click", function () {
         let _this = $(this);
-        let postReplyContentText = $(_this).closest("#post-reply-items").find(".changeTextarea");
+        let postReplyContentText = $(_this).closest(".post-reply-items").find(".changeTextarea");
         let pToTextarea = $("<textarea class='changedTextarea'>").text(postReplyContentText.text());
         let pToHeight = Math.max(postReplyContentText.height(),150);
         $(_this).hide();
         $(_this).parent().find(".checkButton").show();
-        $(_this).closest(".reply-sub-nav-plate > ul").find("#btn-delete-reply").hide();
+        $(_this).closest(".reply-sub-nav-plate > ul").find(".btn-delete-reply").hide();
         $(_this).closest(".reply-sub-nav-plate > ul").find(".cancelButton").show();
 
         $(postReplyContentText).replaceWith(pToTextarea.height(pToHeight));
@@ -30,20 +30,15 @@ $(document).ready(function () {
 
     $(".cancelButton").on("click", function () {
         let _this = $(this);
-        let postReplyContentText = $(_this).closest("#post-reply-items").find(".changedTextarea");
+        let postReplyContentText = $(_this).closest(".post-reply-items").find(".changedTextarea");
         let textareaToP = $("<p class='changeTextarea'>").text(postReplyContentText.text());
 
         $(_this).hide();
-        $(_this).parent().find("#btn-delete-reply").show();
+        $(_this).parent().find(".btn-delete-reply").show();
         $(_this).closest(".reply-sub-nav-plate > ul").find(".checkButton").hide();
         $(_this).closest(".reply-sub-nav-plate > ul").find(".replyBtnShow").show();
         $(_this).closest(".reply-sub-nav-plate").hide();
         $(postReplyContentText).replaceWith(textareaToP);
     })
 
-    $(".checkButton").on("click", function () {
-        let _this = $(this).val();
-
-
-    })
 })

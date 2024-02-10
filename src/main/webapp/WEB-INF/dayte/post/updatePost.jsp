@@ -17,18 +17,17 @@
 <%@include file="../layout/header.jsp" %> <%-- header --%>
 <%@include file="../layout/subnav.jsp" %>
 <main> <%-- main --%>
+    <h1 class="post-insert-title">일정후기 | 수정</h1>
     <section id="insert-post-wrap">
-        <h2>일정후기 | 수정</h2>
         <input type="hidden" id="id" value="${post.id}">
         <div class="post-title-wrapper">
-            <label for="title">제목</label>
             <input type="text" class="insert-post-title" id="title" name="title" value="${post.title}">
         </div>
         <%--    서머노트영역--%>
         <div id="summernote">${post.content}</div>
         <div class="save-btn-wrapper">
-            <button class="btn btn-secondary" onclick="history.back()">돌아가기</button>
-            <button id="btn-update" class="btn btn-secondary">포스트 수정</button>
+            <button id="btn-back" class="btn btn-secondary" onclick="history.back()">돌아가기</button>
+            <button id="btn-update" class="btn btn-secondary">수정</button>
         </div>
     </section>
     <script src="/js/post/post.js"></script>
