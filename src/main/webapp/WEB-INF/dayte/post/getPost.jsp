@@ -99,25 +99,16 @@
                                     <div class="reply-sub-nav-plate">
                                         <ul>
                                             <li>
-                                                <button id="btn-update-reply" class="replyBtnShow"
-                                                        onclick="updateBtnClick(this)"><i class="xi-pen-o"></i>수정
+                                                <button id="btn-update-reply" class="replyBtnShow"><i class="xi-pen-o"></i>수정
                                                 </button>
-                                                <button type="button" style="display: none" class="checkButton"
-                                                        onclick="checkButtonClick(this)"><i class="xi-check"></i>확인
+                                                <button type="button" class="checkButton" value="${reply.num}"><i class="xi-check"></i>확인
                                                 </button>
                                             </li>
                                             <li>
-                                                <button id="btn-delete-reply"
-                                                        onclick="replyObject.deleteReply(this.value)"
-                                                        value="${reply.num}"><i class="xi-trash-o"></i>삭제
+                                                <button id="btn-delete-reply" value="${reply.num}"><i class="xi-trash-o"></i>삭제
                                                 </button>
-                                                <button type="button" style="display: none" class="cancelButton"
-                                                        onclick="cancelButtonClick(this)"><i class="xi-close"></i>취소
+                                                <button type="button" class="cancelButton"><i class="xi-close"></i>취소
                                                 </button>
-                                                    <%--                                            <button type="button" style="display: none" class="checkButton"--%>
-                                                    <%--                                                    onclick="replyObject.checkButtonClick(this.value)"--%>
-                                                    <%--                                                    value="${reply.num}">확인--%>
-                                                    <%--                                            </button>--%>
                                             </li>
                                         </ul>
                                     </div>
