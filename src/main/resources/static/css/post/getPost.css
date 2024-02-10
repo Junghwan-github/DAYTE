@@ -313,11 +313,35 @@ main {
     color: #111;
 }
 
+.post-reply-content > .changedTextarea {
+    white-space: pre-line;
+    width: 100%;
+    padding: 3px 7px;
+    height: auto;
+    resize: none;
+    border: 1px solid #ddd;
+    font-size: 1.5rem;
+    font-family: "Noto Sans KR", sans-serif;
+    font-weight: 400;
+    box-sizing: border-box;
+}
+
+.post-reply-content > .changedTextarea::-webkit-scrollbar {
+    width: 10px;
+}
+.post-reply-content > .changedTextarea::-webkit-scrollbar-thumb {
+    background: #eee;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+}
+
 .reply-sub-nav {
     width: 120px;
     display: flex;
     flex-flow: row nowrap;
     justify-content: flex-end;
+    align-self: flex-start;
 }
 
 .reply-sub-nav > span {
@@ -356,4 +380,9 @@ main {
     margin-right: 10px;
     font-size: 1.2rem;
     color: #111;
+}
+
+.reply-sub-nav-plate > ul > li > .checkButton,
+.reply-sub-nav-plate > ul > li > .cancelButton{
+    display: none;
 }
