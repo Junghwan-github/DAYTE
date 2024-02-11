@@ -54,15 +54,11 @@
     border: 1px solid #eaeaea;
 }
 
-.subNavIcon > li > a > span {
-    display: block;
-    text-align: center;
-    font-size: 1.2rem;
-    font-weight: 400;
-    color: #000;
+.subNavIcon > li {
+    cursor: pointer;
 }
 
-.subNavIcon > li > a > img {
+.subNavIcon > li > img {
     width: 30px;
 }
 

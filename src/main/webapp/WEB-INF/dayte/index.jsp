@@ -101,7 +101,7 @@
     <!-- 카드박스 -->
     <section id="categoryCard">
         <ul class="subNav">
-            <li>
+            <li onclick="indexContentsListLink('hotels')">
                 <div>
                     <h3>숙소</h3>
                     <p>아직도 숙소를 찾고있나요?</p>
@@ -109,7 +109,7 @@
                     <img src="/images/hotel.png">
                 </div>
             </li>
-            <li>
+            <li onclick="indexContentsListLink('restaurants')">
                 <div>
                     <h3>맛집</h3>
                     <p>어디가 맛집일까?</p>
@@ -117,7 +117,7 @@
                     <img src="/images/rest.png">
                 </div>
             </li>
-            <li>
+            <li onclick="indexContentsListLink('cafes')">
                 <div>
                     <h3>카페</h3>
                     <p>오늘의 내 기분은?</p>
@@ -125,9 +125,9 @@
                     <img src="/images/cafe.png">
                 </div>
             </li>
-            <li>
+            <li onclick="indexContentsListLink('events')">
                 <div>
-                    <h3>공연/전시</h3>
+                    <h3>이벤트</h3>
                     <p>무엇을 보고싶으세요?</p>
                     <p>모든 공연/전시 일정 알려드릴께요!</p>
                     <img src="/images/event.png">
