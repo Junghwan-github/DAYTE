@@ -59,7 +59,7 @@ public class PostController {
                                                    @AuthenticationPrincipal UserSecurityDTO principal) {
         Post post = modelMapper.map(postDTO, Post.class); //
 
-        User user = userService.getUser(principal.getNickName()); // 해당 user의 Email을 담음
+        User user = userService.getUser(principal.getUserEmail()); // 해당 user의 Email을 담음
         post.setUser(user);
         postService.insertPost(post);
         postService.extractPostContentImages(post);
