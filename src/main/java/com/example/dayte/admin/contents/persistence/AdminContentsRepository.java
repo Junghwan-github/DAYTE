@@ -11,4 +11,9 @@ public interface AdminContentsRepository extends JpaRepository<AdminContents, St
     @Query("SELECT c FROM AdminContents c WHERE c.businessName LIKE %:search% OR c.category LIKE %:search% OR c.gu LIKE %:search%")
     List<AdminContents> findAllBySearch(String search);
 
+    List<AdminContents> findAllByCategory(String category);
+
+    @Query("SELECT category, COUNT(category) FROM AdminContents WHERE category = :category GROUP BY category")
+    List<Object[]> countByCategory(String category);
+
 }

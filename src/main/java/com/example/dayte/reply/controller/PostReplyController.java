@@ -84,7 +84,7 @@ public class PostReplyController {
 
         System.out.println(newContent.get("content"));
         postReplyService.postReplyUpdate(num, newContent.get("content"));
-        return new ResponseDTO<>(HttpStatus.OK.value(), "댓글이 업데이트되었습니다.");
+        return new ResponseDTO<>(HttpStatus.OK.value(), "댓글이 수정되었습니다.");
         // "/contentReply/{num}" 경로에 대한 PUT 요청을 처리하고,
         // 해당 번호의 댓글을 새 내용으로 업데이트한 후에 성공적으로 업데이트되었다는 메시지를 포함하는 응답을 반환합니다.
     }

@@ -77,7 +77,7 @@
             <c:if test="${!empty postReplyList}">
                 <div class="reply-wrapper">
                     <c:forEach var="reply" items="${postReplyList}">
-                        <div id="post-reply-items">
+                        <div class="post-reply-items">
                             <div class="user-part-reply">
                                 <ul>
                                     <li>
@@ -99,13 +99,13 @@
                                     <div class="reply-sub-nav-plate">
                                         <ul>
                                             <li>
-                                                <button id="btn-update-reply" class="replyBtnShow"><i class="xi-pen-o"></i>수정
+                                                <button type="button" class="replyBtnShow"><i class="xi-pen-o"></i>수정
                                                 </button>
-                                                <button type="button" class="checkButton" value="${reply.num}"><i class="xi-check"></i>확인
+                                                <button type="button"  class="checkButton" value="${reply.num}"><i class="xi-check"></i>확인
                                                 </button>
                                             </li>
                                             <li>
-                                                <button id="btn-delete-reply" value="${reply.num}"><i class="xi-trash-o"></i>삭제
+                                                <button type="button" class="btn-delete-reply" value="${reply.num}"><i class="xi-trash-o"></i>삭제
                                                 </button>
                                                 <button type="button" class="cancelButton"><i class="xi-close"></i>취소
                                                 </button>

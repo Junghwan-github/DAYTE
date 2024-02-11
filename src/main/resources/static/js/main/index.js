@@ -399,13 +399,11 @@ fetch(apiShort)
         weatherInfo.pop = [];
 
 
-
 //기온
         fetch(apiLong1)
             .then((response) => response.json())
             .then((json) => {
                 let data2 = json.response.body.items.item;
-
 
 
                 //날씨
@@ -609,18 +607,18 @@ fetch(apiShort)
 
                             let plusMorningPop = 0;
 
-                            morningPopList.forEach(k=> {
+                            morningPopList.forEach(k => {
                                 plusMorningPop += k;
                             })
 
-                            let morningPop = roundToNearestTen(Math.floor(plusMorningPop/12));
+                            let morningPop = roundToNearestTen(Math.floor(plusMorningPop / 12));
 
                             let plusAfternoonPop = 0;
                             afternoonPopList.forEach(k => {
                                 plusAfternoonPop += k;
                             })
 
-                            let afternoonPop = roundToNearestTen(Math.floor(plusAfternoonPop/12));
+                            let afternoonPop = roundToNearestTen(Math.floor(plusAfternoonPop / 12));
 
                             weatherInfo.pop[i] = {};
 
@@ -631,9 +629,7 @@ fetch(apiShort)
                             /*========= 1일, 2일 pop 추출 여기까지 ==================*/
 
 
-
                         }
-
 
 
                         let data3 = json.response.body.items.item;
@@ -703,13 +699,12 @@ fetch(apiShort)
                         }
 
 
-
                         for (let i = 0; i < 6; i++) {
 
                             const daysListId = `daysList${i + 1}`;
 
                             $(".daysWeather > ul").append(
-                                `<li class='${daysListId}'><h4>${nowDay(i+1)} 일</h4></li>`
+                                `<li class='${daysListId}'><h4>${nowDay(i + 1)} 일</h4></li>`
                             );
 
                             for (let d = 1; d < 3; d++) {
@@ -720,7 +715,6 @@ fetch(apiShort)
                             $(`.${daysListId} > div`).append(`<div class="daysListIcon"></div>`);
                             $(`.${daysListId} > div`).append(`<div class="rainPercentDiv"></div>`);
                             $(`.${daysListId}`).append(`<ul class="temperatureOfDay"></ul>`);
-
 
 
                             //오전 날씨
@@ -829,7 +823,6 @@ fetch(apiShort)
                             $(`.${daysListId} .temperatureOfDay`).append(`<li class="maxTemperature">${weatherInfo.maxTem[i]}º</li><li class="slash">/</li><li class="minTemperature">${weatherInfo.minTem[i]}º</li>`);
 
 
-
                         }
 
 
@@ -840,3 +833,10 @@ fetch(apiShort)
 
     })
     .catch((error) => console.log(error));
+
+
+function indexContentsListLink (categoryName) {
+
+    location.href = "/contents/category/" + categoryName ;
+
+}

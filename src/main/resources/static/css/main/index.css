@@ -357,7 +357,7 @@ main {
 
 .subNav {
   display: flex;
-  flex-flow: row, nowrap;
+  flex-flow: row nowrap;
   justify-content: space-evenly;
   justify-items: center;
   align-items: center;
@@ -497,7 +497,7 @@ main {
 }
 
 .present > ul {
-  width: 100;
+  width: 100%;
 }
 
 .present > h3 {

@@ -6,10 +6,15 @@
             <button type="submit"><i class="xi-search"></i></button>
         </form>
         <ul class="subNavIcon">
-            <li><a href="#"><img src="/images/hotel-i.png"></a></li>
-            <li><a href="#"><img src="/images/restaurant-i.png"></a></li>
-            <li><a href="#"><img src="/images/cafe-i.png"></a></li>
-            <li><a href="#"><img src="/images/events.png"></a></li>
+            <li onclick="indexContentsListLink('hotels')"><img src="/images/hotel-i.png"></li>
+            <li onclick="indexContentsListLink('restaurants')"><img src="/images/restaurant-i.png"></li>
+            <li onclick="indexContentsListLink('cafes')"><img src="/images/cafe-i.png"></li>
+            <li onclick="indexContentsListLink('events')"><img src="/images/events.png"></li>
         </ul>
     </div>
+    <script>
+        function indexContentsListLink (category) {
+            location.href = "/contents/category/" + category
+        }
+    </script>
 </section>
