@@ -542,9 +542,7 @@ fetch(apiShort)
                                     let skyList = array[1];
 
                                     let valuesToCheck = [1, 3, 4];
-                                    let includesAny = valuesToCheck.some(value => skyList.includes(value));
-                                    if (includesAny) {
-                                        // console.log("배열 안에 3, 4 중 어떤 값이라도 포함되어 있음");
+
                                         let frequency = valuesToCheck.reduce((result, valueToCheck) => {
                                             result[valueToCheck] = skyList.filter(value => value === valueToCheck).length;
                                             return result;
@@ -552,6 +550,10 @@ fetch(apiShort)
                                         let maxFrequencyValues = Math.max(...Object.values(frequency));
                                         let maxFrequency = Object.keys(frequency).filter(key => frequency[key] === maxFrequencyValues).map(value => parseInt(value));
 
+                                        if (maxFrequency.length >= 2 && (maxFrequency.includes(3) && maxFrequency.includes(4))) {
+                                            maxFrequency.length = 1;
+                                            maxFrequency[0] = 4;
+                                        }
 
                                         switch (maxFrequency[0]) {
                                             case 1:
@@ -570,7 +572,7 @@ fetch(apiShort)
                                         } else {
                                             weatherInfo.weather[i].wea2 = maxFrequency[0];
                                         }
-                                    }
+
                                 }
 
 

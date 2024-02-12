@@ -10,6 +10,7 @@ import com.example.dayte.security.dto.UserSecurityDTO;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,16 +24,50 @@ public class ContentReplyController {
 
     private final ModelMapper modelMapper;
 
+    //댓글 등록창 가기전 이 유저가 해당 컨텐츠에 댓글을 썼는지 안 썼는지 체크
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/checkcontentsReview/{uuid}")
+    public @ResponseBody ResponseDTO<?> checkcontentsReview(@PathVariable String uuid, @AuthenticationPrincipal UserSecurityDTO principal){
+
+        String userEmail = principal.getUserEmail();
+
+        Boolean writtenUser = contentReplyService.findContentReply(userEmail, uuid);
+
+        if(writtenUser){
+            return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "이미 해당 컨텐츠에 댓글을 등록한 유저입니다.");
+        } else {
+            return new ResponseDTO<>(HttpStatus.OK.value(), "댓글 등록창으로 이동합니다");
+        }
+
+    }
+
+    //댓글 등록창 이동
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/contentsReview/{uuid}")
+    public String contentsReview(Model model, @PathVariable String uuid){
+
+            model.addAttribute("uuid", uuid);
+            System.out.println("^^^^^^^^^");
+            System.out.println(uuid);
+
+        return "reply/contentReply";
+
+    }
+
+
     @PostMapping("/contentReply")
     public @ResponseBody ResponseDTO<?> ContentReplyGet(@RequestBody ContentReplyDTO contentReplyDTO
                                                         ,@AuthenticationPrincipal UserSecurityDTO principal) {
         contentReplyDTO.setUser(modelMapper.map(principal, User.class));
         ContentReply contentReply = modelMapper.map(contentReplyDTO, ContentReply.class);
-        contentReplyService.contentReplyinsert(contentReply);
+
+        String contentUuid = contentReplyDTO.getUuid();
+        contentReplyService.contentReplyinsert(contentReply, contentUuid);
 
         return new ResponseDTO<>(HttpStatus.OK.value(), "댓글이 등록됐습니다.");
     }
 
+    //아래 로직 필요없으면 삭제 바랍니다!
     @GetMapping("/contentReply")
     public String index(Model model) {
         model.addAttribute("contentReplyList", contentReplyService.contentReplyList());
