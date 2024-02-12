@@ -4,13 +4,14 @@
     <sec:authentication property="principal" var="principal" />
 </sec:authorize>--%>
 <%@include file="../layout/head.jsp"%>
+<c:set var="contentUuid" value="${uuid}" />
 <link rel="stylesheet" href="/css/schedule/contentsReply.css">
 </head>
 <body>
 
 <%-- 댓글 작성 부분 --%>
 <div class="container mt-3">
-    <input type="hidden" id="postId">
+    <input type="hidden" id="contentUuid" value="${contentUuid}">
     <table class="table">
 
 
