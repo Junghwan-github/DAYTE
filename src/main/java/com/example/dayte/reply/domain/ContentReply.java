@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Fetch;
 
 import java.sql.Timestamp;
 
@@ -23,7 +24,7 @@ public class ContentReply {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long num; // 댓글 번호
 
-    @JoinColumn(name = "user")
+    @JoinColumn(name = "userEmail")
     @ManyToOne(fetch = FetchType.EAGER)
     private User user; // 사용자 이름
 
@@ -44,6 +45,10 @@ public class ContentReply {
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Timestamp createDate; // 댓글 등록일
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "uuid")
+    private AdminContents adminContents;
 
 
 

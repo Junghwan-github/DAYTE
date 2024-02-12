@@ -57,8 +57,8 @@ let replyObject = {
 
         // 사용자가 입력한 내용과 임의 작성자 정보를 가져와서 객체 생성
         let contentReply = {
+            uuid: $("#contentUuid").val(),
             content: $("#reply-content").val(),
-
             rating: $('input[name=rating]:checked').val()
         }
 
@@ -72,8 +72,8 @@ let replyObject = {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
-                location.reload(); // 페이지 새로고침
+                alert("댓글 등록이 완료되었습니다.")
+                location = "/schedule/pastSchedule";
             })
             .catch(err => console.log(`에러 발생 : ${err.message}`));
     },

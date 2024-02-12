@@ -7,7 +7,6 @@
             <li><a target="_blank" href="#">개인정보처리방침</a></li>
             <li><a target="_blank" href="#">고객센터</a></li>
         </ul>
-
         <div class="familySite">
             <ul>
                 <li>

@@ -13,7 +13,5 @@ public interface AdminContentsRepository extends JpaRepository<AdminContents, St
 
     List<AdminContents> findAllByCategory(String category);
 
-    @Query("SELECT category, COUNT(category) FROM AdminContents WHERE category = :category GROUP BY category")
-    List<Object[]> countByCategory(String category);
 
 }

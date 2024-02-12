@@ -1,6 +1,8 @@
 package com.example.dayte.reply.service;
 
 
+import com.example.dayte.admin.contents.domain.AdminContents;
+import com.example.dayte.admin.contents.persistence.AdminContentsRepository;
 import com.example.dayte.members.domain.User;
 import com.example.dayte.reply.domain.ContentReply;
 import com.example.dayte.reply.repository.ContentReplyRepository;
@@ -17,24 +19,45 @@ import java.util.List;
 public class ContentReplyService {
 
     @Autowired
+    private AdminContentsRepository adminContentsRepository;
+
+    @Autowired
     private ContentReplyRepository contentReplyRepository;
 
     @Autowired
     private ModelMapper modelMapper;
 
 
+    public boolean findContentReply(String userEmail, String uuid) {
+        List<ContentReply> findContent = contentReplyRepository.findByContentUuid(uuid);
+
+        if (!findContent.isEmpty()) {
+            for (ContentReply contentReply : findContent) {
+                if (contentReply.getUser().getUserEmail().equals(userEmail)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+
     // 새로운 댓글 추가
     @Transactional
-    public void contentReplyinsert(ContentReply contentReply) {
-        List<String> contReply = contentReplyRepository.findByContentsId(contentReply.getUser().getUserEmail());
+    public void contentReplyinsert(ContentReply contentReply, String contentUuid) {
+        /*List<String> contReply = contentReplyRepository.findByContentsId(contentReply.getUser().getUserEmail());
 
         boolean istrue = contReply.contains(contentReply.getUser().getUserEmail());
 
         if(istrue) {
             System.out.println("끼얏호");
-        } else {
+        } else {}*/
+
+            AdminContents adminContents = adminContentsRepository.findById(contentUuid).get();
+            contentReply.setAdminContents(adminContents);
             contentReplyRepository.save(contentReply);
-        }
+
     }
 
     // 모든 댓글 목록 조회
@@ -64,4 +87,6 @@ public class ContentReplyService {
 
 
     }
+
+
 }

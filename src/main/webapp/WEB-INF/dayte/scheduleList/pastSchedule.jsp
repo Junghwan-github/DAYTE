@@ -91,14 +91,14 @@
                                             <img src="${detailedSchedule.adminContents.adminContentsImageList[0].imageURL}" >
                                         </div>
                                         <ul class="contentsInfo">
-                                            <li>${detailedSchedule.adminContents.businessName}</li>
-                                            <li>${detailedSchedule.adminContents.detailedAddress}</li>
-                                            <li>${detailedSchedule.adminContents.category}</li>
-                                            <li>${detailedSchedule.adminContents.}</li>
+                                            <c:set var="contentUuid" value="${detailedSchedule.adminContents.uuid}" />
+                                            <a href="/contents/detail/${contentUuid}">
+                                            <li class="businessName">${detailedSchedule.adminContents.businessName}</li>
+                                            </a>
+                                            <li class="address">${detailedSchedule.adminContents.detailedAddress}</li>
+                                            <li class="category">${detailedSchedule.adminContents.category}</li>
                                             <li>
-
-                                                    <button type="button" onclick="goToReview(this)">리뷰 쓰기</button>
-
+                                                    <button type="button" value="${contentUuid}" onclick="goToReview(this.value)">리뷰 쓰기</button>
                                             </li>
                                         </ul>
                                     </li>
@@ -120,6 +120,7 @@
 <script src="/js/schedule/contentsList.js"></script>--%>
 <script src="/js/schedule/pastSchedule.js"></script>
 <script src="/js/schedule/pastScheduleModal.js"></script>
+<script src="/js/contentReply/goToReview.js"></script>
 
 
 <%@include file="../layout/footer.jsp" %>

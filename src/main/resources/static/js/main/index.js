@@ -494,7 +494,6 @@ fetch(apiShort)
 
                             weatherInfo.weather[i] = {};
 
-
                             ampmPty.forEach(array => {
 
 
@@ -536,28 +535,25 @@ fetch(apiShort)
                                     } else {
                                         weatherInfo.weather[i].wea2 = maxFrequency[0];
                                     }
-
-
                                     // 필요한 값은 최대 빈도수를 가지는 번호: maxFrequency
                                 } else {
                                     // console.log("배열 안에 1, 2, 3, 4 값이 포함되어 있지 않음");
 
-
                                     let skyList = array[1];
 
-                                    let valuesToCheck = [3, 4];
-                                    let includesAny = valuesToCheck.some(value => skyList.includes(value));
+                                    let valuesToCheck = [1, 3, 4];
 
-                                    if (includesAny) {
-                                        // console.log("배열 안에 3, 4 중 어떤 값이라도 포함되어 있음");
                                         let frequency = valuesToCheck.reduce((result, valueToCheck) => {
                                             result[valueToCheck] = skyList.filter(value => value === valueToCheck).length;
                                             return result;
                                         }, {});
-
                                         let maxFrequencyValues = Math.max(...Object.values(frequency));
                                         let maxFrequency = Object.keys(frequency).filter(key => frequency[key] === maxFrequencyValues).map(value => parseInt(value));
 
+                                        if (maxFrequency.length >= 2 && (maxFrequency.includes(3) && maxFrequency.includes(4))) {
+                                            maxFrequency.length = 1;
+                                            maxFrequency[0] = 4;
+                                        }
 
                                         switch (maxFrequency[0]) {
                                             case 1:
@@ -571,14 +567,12 @@ fetch(apiShort)
                                                 break;
                                         }
 
-
                                         if (weatherInfo.weather[i].wea1 == null) {
                                             weatherInfo.weather[i].wea1 = maxFrequency[0];
                                         } else {
                                             weatherInfo.weather[i].wea2 = maxFrequency[0];
                                         }
 
-                                    }
                                 }
 
 
