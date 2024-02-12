@@ -6,10 +6,10 @@
             <button type="submit"><i class="xi-search"></i></button>
         </form>
         <ul class="subNavIcon">
-            <li onclick="indexContentsListLink('hotels')"><img src="/images/hotel-i.png"></li>
-            <li onclick="indexContentsListLink('restaurants')"><img src="/images/restaurant-i.png"></li>
-            <li onclick="indexContentsListLink('cafes')"><img src="/images/cafe-i.png"></li>
-            <li onclick="indexContentsListLink('events')"><img src="/images/events.png"></li>
+            <li onclick="indexContentsListLink('hotels')"><img src="/images/bedicon.png"></li>
+            <li onclick="indexContentsListLink('restaurants')"><img src="/images/foodicon.png"></li>
+            <li onclick="indexContentsListLink('cafes')"><img src="/images/coffeicon1.png"></li>
+            <li onclick="indexContentsListLink('events')"><img src="/images/eventicon2.png"></li>
         </ul>
     </div>
     <script>
