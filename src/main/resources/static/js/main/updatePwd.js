@@ -69,7 +69,7 @@ let userObject = {
         }
         $.ajax({
             type: "PUT",
-            url: "/members/updatePwd",
+            url: "/members/pwdForm",
             data: JSON.stringify(user),
             contentType: "application/json; charset=utf-8"
         }).done(function (response) {
