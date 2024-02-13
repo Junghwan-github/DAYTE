@@ -2,7 +2,26 @@ let userObject = {
     init: function () {
         let _this = this;
         $("#signBttn").on("click", () => {
-            // 바꿔야할 부분
+            if(!pwd2Chk){
+                alert("비밀번호가 일치하지 않습니다. 다시 입력해 주세요.")
+                return;
+            }
+            if(!uNameChk){
+                alert("이름을 다시 확인해 주세요.")
+                return;
+            }
+            if(!nickNameChk){
+                alert("닉네임을 다시 확인해 주세요.")
+                return;
+            }
+            if(!phoneChk){
+                alert("휴대전화번호를 다시 확인해 주세요.")
+                return;
+            }
+            if(!birthChk){
+                alert("생년월일을 다시 확인해 주세요.")
+                return;
+            }
             if(varificationValue) {
                 _this.insertUser();
             } else {

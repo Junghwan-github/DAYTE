@@ -48,6 +48,7 @@ let verificationBtn = {
                 else if(res === 200) {
                     alert("인증이 완료되었습니다.");
                     varificationValue = true;
+                    clearInterval(timer);
                 } else {
                     alert("인증번호가 틀립니다.");
                 }
@@ -67,6 +68,15 @@ let isRunning = false;
 
 
 $("#sendEmail").on("click", function() {
+    // 이메일 유효성 체크
+    let userEmail = $("#id").val() + "@" + $("#emailDomain").val();
+    let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if($("#id").val() == "" || !emailRegex.test(userEmail)){
+        $(".idFailMsg3").removeClass("hide");
+        return;
+    }else {
+        $(".idFailMsg3").addClass("hide");
+    }
     $("#numCheck").attr("disabled", false);
     let display = $(".timer > span");
     // 유효시간 설정
