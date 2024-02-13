@@ -126,21 +126,20 @@ public class UserController {
         return "adminPage/editUser/editUser";
     }
     
-    // 관리자 - 회원정보 수정 - 비밀번호 고장남
+    // 관리자 - 회원정보 수정
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/admin/editUser")
     public @ResponseBody ResponseDTO<?> updateUser(@RequestBody UserDTO userDTO) throws IOException {
-        userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-        //userDTO.setRole(userDTO.getRole());
+        userDTO.setRole(userDTO.getRole());
         userDTO.setUserName(userDTO.getUserName());
-        userDTO.setNickName(userDTO.getNickName());
         userDTO.setPhone(userDTO.getPhone());
         System.out.println("================================회원정보 수정 : " + userDTO);
 
-
-        userService.updateUser(userDTO);
-        return new ResponseDTO<>(HttpStatus.OK.value(), "회원 정보가 수정되었습니다.");
-
+        if(userService.updateUser(userDTO)) {
+            return new ResponseDTO<>(HttpStatus.OK.value(), "회원 정보가 수정되었습니다.");
+        } else{
+            return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "닉네임이 중복되었습니다.");
+        }
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -235,7 +234,7 @@ public class UserController {
 
     // 관리자 - 선택 삭제
     @PutMapping("/members/delUsers")
-    public @ResponseBody ResponseDTO<?> membersDelete(@RequestParam(required = false)Map<String[], Object> userList) {
+    public @ResponseBody ResponseDTO<?> deleteUsers(@RequestParam(required = false)Map<String[], Object> userList) {
         String[] grpCode = userList.values().toString().split(",");
         System.out.println("================== " + grpCode.length); // 삭제할 회원 수 체크
         int successCount = 0;
@@ -243,7 +242,6 @@ public class UserController {
         for(int i=0; i<grpCode.length; i++){
             String userEmail = grpCode[i].replaceAll("[\\[\\] ]","");
             System.out.println(userEmail); // 삭제할 회원 이메일 체크
-            userService.testDelUser(userEmail);
             if(userService.testDelUser(userEmail) == true){
                 successCount++;
             }else{
