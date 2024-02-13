@@ -1,0 +1,125 @@
+main {
+    width: 1180px;
+    margin: 0 auto;
+}
+
+#customer-container {
+    padding: 30px 0;
+}
+
+#customer-container > h1 {
+    font-size: 2.4rem;
+    font-weight: 500;
+    color: #111;
+    margin-bottom : 5px;
+}
+
+#customer-container > span {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #111;
+}
+
+#customer-nav {
+    margin: 30px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+#customer-nav > ul {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+#customer-nav > ul > li {
+    text-align: center;
+    line-height: 50px;
+    margin: 0 10px;
+    width: 200px;
+    height: 50px;
+    background: #f3f3f3;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #111;
+    border-radius: 10px 10px 0 0;
+}
+
+#customer-nav > ul > li > i {
+    font-size: 1.5rem;
+    color: #111;
+    margin: 5px 5px 0 0;
+}
+
+/*.customer-best-question {*/
+/*    width: 900px;*/
+/*    margin: 0 auto;*/
+/*}*/
+
+.customer-best-question > ul > li > input {
+    display: none;
+}
+
+.customer-best-question > ul > li > label {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    padding: 15px 10px;
+    border-bottom: 1px solid #ddd;
+    box-sizing: border-box;
+}
+
+.customer-best-question > ul > li > label > span {
+    display: inline-block;
+}
+
+.customer-best-question > ul > li > label > .question-text {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color:#111;
+}
+
+.customer-best-question > ul > li > label > .icon-quest {
+    display: inline-block;
+    margin-right: 5px;
+    font-size: 2rem;
+    color: #116edb;
+    font-weight: 800;
+}
+
+.customer-best-question > ul > li > label > .icon-r {
+position: absolute;
+    right: 10px;
+}
+
+
+.customer-best-question > ul > li > label > span > i {
+    font-size: 2rem;
+    color: #aaa;
+}
+
+.customer-best-question > ul > li:first-child > label {
+    border-top: 1px solid #ddd;
+}
+
+.customer-best-question > ul > li > div {
+    max-height: 0;
+    overflow: hidden;
+    background: #f5f5f5;
+    transition: all 0.3s;
+}
+
+.customer-best-question > ul > li > div > p {
+    white-space: pre-line;
+    line-height: 1.6rem;
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: #111;
+
+}
+
+.customer-best-question > ul > li > input:checked  + div {
+    max-height: 1000px;;
+    padding: 10px;
+    transition: all 0.3s;
+}
