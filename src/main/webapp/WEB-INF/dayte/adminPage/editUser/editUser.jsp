@@ -53,11 +53,11 @@
                     <th><label for="latelyDate" class="ps-3">최근접속일</label></th>
                     <td><input type="text" name="latelyDate" id="latelyDate" value="${user.loginDate}" disabled></td>
                     <th><label for="del" class="ps-3">탈퇴여부</label></th>
-                    <td><input type="text" name="del" id="del" value="${user.del}"></td>
+                    <td><input type="text" name="del" id="del" value="${user.del}" disabled></td>
                 </tr>
                 <tr>
                     <th><label for="userImage" class="ps-3">회원이미지</label></th>
-                    <td><input type="text" name="userImage" id="userImage"></td>
+                    <td><input type="file" name="userImage" id="userImage" accept="image/gif, image/png, image/jpeg"></td>
                 </tr>
             </table>
 
@@ -71,14 +71,6 @@
     </div>
 </div>
 
-
-<script>
-    // $(document).ready(function () {
-    //     $("#role").change(function () {
-    //         let val = $("#role").find(":selected").val();
-    //     });
-    // })
-</script>
 <script src="/js/admin/editUser.js"></script>
 <%-- div.wrapper의 닫힘 태그는 푸터 안에 있음ㅇ --%>
 <%@include file="../layout/adminFooter.jsp" %>

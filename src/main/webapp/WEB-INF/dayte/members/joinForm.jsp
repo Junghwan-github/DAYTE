@@ -58,7 +58,7 @@
                 <option value="nate.com">nate.com</option>
                 <option value="yahoo.com">yahoo.com</option>
               </select>
-              <button type="button" id="sendEmail" class="EmailBttn">
+              <button type="button" id="sendEmail" class="checkBttn">
                 인증 발송
               </button>
             </div>
@@ -76,7 +76,7 @@
               </div>
               <div class="timer">
                 <span></span>
-                <button type="button" class="EmailBttn" id="numCheck">인증 확인</button>
+                <button type="button" class="checkBttn" id="numCheck">인증 확인</button>
               </div>
             </div>
 
@@ -144,9 +144,10 @@
                       id="nickName"
                       name="nickName"
                       placeholder="닉네임"
-                      class="joinInput"
+                      class="joinInputNickName"
                       autocomplete="off"
               />
+                <button type="button" class="checkBttn" id="nickCheck">중복 확인</button>
             </div>
           </div>
           <div class="errorMsg">

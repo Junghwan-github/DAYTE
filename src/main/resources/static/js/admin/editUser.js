@@ -19,7 +19,6 @@ let userObject = {
             phone : $("#phone").val(),
             role : $("#role").find(":selected").val(),
         }
-        console.log(user);
         $.ajax({
             // 회원정보 수정 요청
             type : "PUT",

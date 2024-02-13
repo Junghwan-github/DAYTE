@@ -22,7 +22,7 @@ public class UserDTO {
 
     @NotNull(message = "비밀번호를 작성하세요.")
     @NotBlank(message = "비밀번호는 필수 입력 항목입니다.")
-    @Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[~!@#$%^&*?_])$", message = "비밀번호는 숫자, 영어 대소문자, 특수기호를 각각 포함해야 합니다.")
+    @Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[~!@#$%^&*?_]).{8,20}$", message = "비밀번호는 숫자, 영어 대소문자, 특수기호를 각각 포함해야 합니다.")
     @Size(min = 8, max = 20, message = "비밀번호는 8자 이상 20자 이하로 입력해 주세요")
     private String password;
 
@@ -34,7 +34,7 @@ public class UserDTO {
     @NotNull(message = "닉네임을 작성하세요.")
     @NotBlank(message = "닉네임은 필수 입력 항목입니다.")
     @Size(min = 2, max = 10, message = "닉네임은 2자 이상 10자 이하로 입력해 주세요.")
-    @Pattern(regexp = "^[가-힣a-zA-Z0-9]$", message = "닉네임은 한글, 숫자, 영어 대소문자로만 입력해 주세요.")
+    @Pattern(regexp = "^[가-힣a-zA-Z0-9]{2,10}$", message = "닉네임은 한글, 숫자, 영어 대소문자로만 입력해 주세요.")
     private String nickName;
 
     @NotNull(message = "휴대전화번호를 작성하세요.")

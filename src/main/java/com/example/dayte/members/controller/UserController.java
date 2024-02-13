@@ -69,7 +69,7 @@ public class UserController {
             }else {
                 System.out.println("user : " + user);
                 userService.insertUser(user);
-                return new ResponseDTO<>(HttpStatus.OK.value(), user.getUserName() + "님 회원가입을 축하드립니다.");
+                return new ResponseDTO<>(HttpStatus.OK.value(), user.getUserName() + "님 회원가입을 축하드립니다. 로그인을 해주세요.");
             }
 
         } else {
