@@ -39,11 +39,11 @@ header {
 
 .naviHide {
     position: fixed;
-    z-index: 999;
+    z-index: 9999;
     top: 0;
     left: 0;
     background: #fff;
-    box-shadow: 0 2px 2px 0 rgba(47, 47, 47, 0.05);
+    border-bottom : 1px solid #eee;
 }
 
 header > nav {

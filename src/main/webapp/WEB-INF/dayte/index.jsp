@@ -101,36 +101,32 @@
     <!-- 카드박스 -->
     <section id="categoryCard">
         <ul class="subNav">
-            <li>
+            <li onclick="indexContentsListLink('hotels')">
                 <div>
                     <h3>숙소</h3>
-                    <p>아직도 숙소를 찾고있나요?</p>
-                    <p>모든 숙소 정보를 한눈에 확인하세요!</p>
-                    <img src="/images/hotel.png">
+                    <p>아직도 숙소를 찾고있나요?<br>모든 숙소 정보를 한눈에 확인하세요!</p>
+                    <img src="/images/bedicon.png">
                 </div>
             </li>
-            <li>
+            <li onclick="indexContentsListLink('restaurants')">
                 <div>
                     <h3>맛집</h3>
-                    <p>어디가 맛집일까?</p>
-                    <p>고민하지 않도록 제가 다 알려드릴게요!</p>
-                    <img src="/images/rest.png">
+                    <p>어디가 맛집일까?<br>고민하지 않도록 제가 다 알려드릴게요!</p>
+                    <img src="/images/foodicon.png">
                 </div>
             </li>
-            <li>
+            <li onclick="indexContentsListLink('cafes')">
                 <div>
                     <h3>카페</h3>
-                    <p>오늘의 내 기분은?</p>
-                    <p>기분따라 다른 분위기 카페 여기있어요!</p>
-                    <img src="/images/cafe.png">
+                    <p>오늘의 내 기분은?<br>기분따라 다른 분위기 카페 여기있어요!</p>
+                    <img src="/images/coffeicon1.png">
                 </div>
             </li>
-            <li>
+            <li onclick="indexContentsListLink('events')">
                 <div>
-                    <h3>공연/전시</h3>
-                    <p>무엇을 보고싶으세요?</p>
-                    <p>모든 공연/전시 일정 알려드릴께요!</p>
-                    <img src="/images/event.png">
+                    <h3>이벤트</h3>
+                    <p>무엇을 보고싶으세요?<br>모든 공연/전시 일정 알려드릴께요!</p>
+                    <img src="/images/eventicon2.png">
                 </div>
             </li>
         </ul>

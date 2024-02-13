@@ -50,6 +50,7 @@ public class AdminContents {
 
     @Column(columnDefinition = "TEXT")
     private String detailedDescription; // 상세설명
+
     @JsonIgnoreProperties("adminContents")
     @OneToMany(
 
@@ -60,6 +61,9 @@ public class AdminContents {
     private List<AdminContentsImage> adminContentsImageList;
 
     private String facilities;
+
+    @OneToMany(mappedBy = "adminContents", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    private List<ContentReply> contentReplyList;
 
 
 }

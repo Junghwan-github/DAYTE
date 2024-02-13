@@ -7,7 +7,4 @@ import java.util.Optional;
 
 public interface IndexMainSliderRepository extends JpaRepository<IndexMainSlider, Integer> {
 
-    Optional<IndexMainSlider> findByCategory(String category);
-
-
 }

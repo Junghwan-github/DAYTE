@@ -399,13 +399,11 @@ fetch(apiShort)
         weatherInfo.pop = [];
 
 
-
 //기온
         fetch(apiLong1)
             .then((response) => response.json())
             .then((json) => {
                 let data2 = json.response.body.items.item;
-
 
 
                 //날씨
@@ -496,7 +494,6 @@ fetch(apiShort)
 
                             weatherInfo.weather[i] = {};
 
-
                             ampmPty.forEach(array => {
 
 
@@ -538,28 +535,25 @@ fetch(apiShort)
                                     } else {
                                         weatherInfo.weather[i].wea2 = maxFrequency[0];
                                     }
-
-
                                     // 필요한 값은 최대 빈도수를 가지는 번호: maxFrequency
                                 } else {
                                     // console.log("배열 안에 1, 2, 3, 4 값이 포함되어 있지 않음");
 
-
                                     let skyList = array[1];
 
-                                    let valuesToCheck = [3, 4];
-                                    let includesAny = valuesToCheck.some(value => skyList.includes(value));
+                                    let valuesToCheck = [1, 3, 4];
 
-                                    if (includesAny) {
-                                        // console.log("배열 안에 3, 4 중 어떤 값이라도 포함되어 있음");
                                         let frequency = valuesToCheck.reduce((result, valueToCheck) => {
                                             result[valueToCheck] = skyList.filter(value => value === valueToCheck).length;
                                             return result;
                                         }, {});
-
                                         let maxFrequencyValues = Math.max(...Object.values(frequency));
                                         let maxFrequency = Object.keys(frequency).filter(key => frequency[key] === maxFrequencyValues).map(value => parseInt(value));
 
+                                        if (maxFrequency.length >= 2 && (maxFrequency.includes(3) && maxFrequency.includes(4))) {
+                                            maxFrequency.length = 1;
+                                            maxFrequency[0] = 4;
+                                        }
 
                                         switch (maxFrequency[0]) {
                                             case 1:
@@ -573,14 +567,12 @@ fetch(apiShort)
                                                 break;
                                         }
 
-
                                         if (weatherInfo.weather[i].wea1 == null) {
                                             weatherInfo.weather[i].wea1 = maxFrequency[0];
                                         } else {
                                             weatherInfo.weather[i].wea2 = maxFrequency[0];
                                         }
 
-                                    }
                                 }
 
 
@@ -609,18 +601,18 @@ fetch(apiShort)
 
                             let plusMorningPop = 0;
 
-                            morningPopList.forEach(k=> {
+                            morningPopList.forEach(k => {
                                 plusMorningPop += k;
                             })
 
-                            let morningPop = roundToNearestTen(Math.floor(plusMorningPop/12));
+                            let morningPop = roundToNearestTen(Math.floor(plusMorningPop / 12));
 
                             let plusAfternoonPop = 0;
                             afternoonPopList.forEach(k => {
                                 plusAfternoonPop += k;
                             })
 
-                            let afternoonPop = roundToNearestTen(Math.floor(plusAfternoonPop/12));
+                            let afternoonPop = roundToNearestTen(Math.floor(plusAfternoonPop / 12));
 
                             weatherInfo.pop[i] = {};
 
@@ -631,9 +623,7 @@ fetch(apiShort)
                             /*========= 1일, 2일 pop 추출 여기까지 ==================*/
 
 
-
                         }
-
 
 
                         let data3 = json.response.body.items.item;
@@ -703,13 +693,12 @@ fetch(apiShort)
                         }
 
 
-
                         for (let i = 0; i < 6; i++) {
 
                             const daysListId = `daysList${i + 1}`;
 
                             $(".daysWeather > ul").append(
-                                `<li class='${daysListId}'><h4>${nowDay(i+1)} 일</h4></li>`
+                                `<li class='${daysListId}'><h4>${nowDay(i + 1)} 일</h4></li>`
                             );
 
                             for (let d = 1; d < 3; d++) {
@@ -720,7 +709,6 @@ fetch(apiShort)
                             $(`.${daysListId} > div`).append(`<div class="daysListIcon"></div>`);
                             $(`.${daysListId} > div`).append(`<div class="rainPercentDiv"></div>`);
                             $(`.${daysListId}`).append(`<ul class="temperatureOfDay"></ul>`);
-
 
 
                             //오전 날씨
@@ -829,7 +817,6 @@ fetch(apiShort)
                             $(`.${daysListId} .temperatureOfDay`).append(`<li class="maxTemperature">${weatherInfo.maxTem[i]}º</li><li class="slash">/</li><li class="minTemperature">${weatherInfo.minTem[i]}º</li>`);
 
 
-
                         }
 
 
@@ -840,3 +827,10 @@ fetch(apiShort)
 
     })
     .catch((error) => console.log(error));
+
+
+function indexContentsListLink (categoryName) {
+
+    location.href = "/contents/category/" + categoryName ;
+
+}

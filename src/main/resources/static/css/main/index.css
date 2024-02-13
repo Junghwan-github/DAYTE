@@ -357,7 +357,7 @@ main {
 
 .subNav {
   display: flex;
-  flex-flow: row, nowrap;
+  flex-flow: row nowrap;
   justify-content: space-evenly;
   justify-items: center;
   align-items: center;
@@ -365,12 +365,12 @@ main {
 
 #categoryCard > ul > li > div {
   padding: 20px;
-  box-sizing: border-box;
   width: 270px;
   height: 320px;
   border-radius: 15px;
   position: relative;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 #categoryCard > ul > li > div > img {
@@ -385,18 +385,21 @@ main {
 }
 
 #categoryCard > ul > li > div > h3 {
-  font-size: 2.8rem;
+  font-size: 2.2rem;
   color: #fff;
   margin-bottom: 15px;
+  font-weight: 500;
 }
 
+
 #categoryCard > ul > li > div > p {
-  font-size: 1.35rem;
+  font-size: 1.2rem;
   margin-bottom: 3px;
   color: #fff;
+  line-height: 1.5rem;
 }
 #categoryCard > ul > li:nth-child(1) > div {
-  background: #3d828e;
+  background: #bee0cc;
   /* background: linear-gradient(
     130deg,
     rgba(88, 97, 116, 1) 0%,
@@ -405,7 +408,7 @@ main {
 }
 
 #categoryCard > ul > li:nth-child(2) > div {
-  background: #6da7b3;
+  background: #ABBCEC;
   /* background: linear-gradient(
     130deg,
     rgba(84, 127, 128, 1) 0%,
@@ -413,7 +416,7 @@ main {
   ); */
 }
 #categoryCard > ul > li:nth-child(3) > div {
-  background: #a5ceef;
+  background: #6E95B1;
   /* background: linear-gradient(
     130deg,
     rgba(100, 185, 133, 1) 0%,
@@ -421,7 +424,7 @@ main {
   ); */
 }
 #categoryCard > ul > li:nth-child(4) > div {
-  background: #fbd3c5;
+  background: #FDEBE0;
   /* background: linear-gradient(
     130deg,
     rgba(165, 206, 239, 1) 0%,
@@ -429,11 +432,11 @@ main {
   ); */
 }
 
-#categoryCard > ul > li:nth-child(3) > div > h3,
-#categoryCard > ul > li:nth-child(3) > div > p,
+/*#categoryCard > ul > li:nth-child(1) > div > h3,*/
+/*#categoryCard > ul > li:nth-child(1) > div > p,*/
 #categoryCard > ul > li:nth-child(4) > div > h3,
 #categoryCard > ul > li:nth-child(4) > div > p {
-  color: #203642;
+  color: #3a3a3a;
   /* background: linear-gradient(
     130deg,
     rgba(165, 206, 239, 1) 0%,
@@ -497,7 +500,7 @@ main {
 }
 
 .present > ul {
-  width: 100;
+  width: 100%;
 }
 
 .present > h3 {
