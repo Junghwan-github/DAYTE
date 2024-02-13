@@ -1,7 +1,7 @@
 let userObject = {
     init: function () {
         $("#delUserBtn").click(() => {
-            let check = confirm("해당 게시글을 삭제하시겠습니까?");
+            let check = confirm("회원 탈퇴를 하시겠습니까?");
             if (check) {
                 this.deleteUser();
             }
@@ -15,7 +15,7 @@ let userObject = {
         }
         $.ajax({
             type: "DELETE",
-            url: "/members/delete/" + user.userEmail,
+            url: "/members/delForm/" + user.userEmail,
             data: JSON.stringify(user),
             contentType: "application/json; charset=utf-8",
         }).done(function (response) {

@@ -8,7 +8,7 @@
         <p class="h4 fw-bold titleName" >회원 관리</p>
 
         <!-- 회원 요약 통계 -->
-        <div class="d-flex flex-row">
+        <div class="d-flex flex-row justify-content-start">
             <ul class="list-unstyled border rounded d-flex flex-row me-2">
                 <li class="border-end bg-secondary-subtle p-1 rounded-start fw-semibold ">총회원수</li>
                 <li  class=" px-2 py-1 bg-light rounded-end fw-semibold">${allList.totalElements}</li>
@@ -28,7 +28,7 @@
         </div>
 
         <!-- 회원 검색 -->
-        <div class="mb-2">
+        <div class="mb-2 d-flex flex-row align-items-center justify-content-between">
 
             <form id="uSearch" name="uSearch" method="get" action="/admin/home">
                 <div class="list-group d-flex flex-row">
@@ -44,6 +44,9 @@
                     <input type="submit" class="btn-submit btn btn-dark py-1" value="검색">
                 </div>
             </form>
+            <div>
+                <input type="button" id="delChkUserBtn" class="btn btn-dark py-1 me-1" value="선택 삭제">
+            </div>
         </div>
 
         <!-- 회원 조회 -->
@@ -51,7 +54,9 @@
             <table class="table table-striped border" >
                 <thead class="align-middle">
                 <tr >
-                    <th scope="col" class="text-center bg-secondary-subtle">No</th>
+                    <th scope="col" class="text-center bg-secondary-subtle">No
+                        <input class="form-check-input" type="checkbox" id="chkAll" >
+                    </th>
                     <th scope="col" class="text-center bg-secondary-subtle">아이디</th>
                     <th scope="col" class="text-center bg-secondary-subtle">이름</th>
                     <th scope="col" class="text-center bg-secondary-subtle">닉네임</th>
@@ -65,10 +70,11 @@
                 </thead>
                 <c:if test="${!empty ulist}">
                     <tbody class="align-middle">
+                    <form id="userList">
                     <c:forEach var="user" items="${ulist.content}">
                         <tr>
                             <td class="text-center">
-                                <input class="form-check-input" type="checkbox" value="" >
+                                <input class="form-check-input chkGrp" name="chkUsers" type="checkbox" value="<c:out value='${user.userEmail}'/>" >
                             </td>
                             <td class="text-center">${user.userEmail}</td>
                             <td class="text-center">${user.userName}</td>
@@ -85,6 +91,7 @@
                             </td>
                         </tr>
                     </c:forEach>
+                    </form>
                     </tbody>
                     <caption>회원 수 : ${ulist.totalElements}</caption>
                 </c:if>
@@ -132,6 +139,43 @@
         </c:if>
     </div>
 </div>
+
+<script>
+    $(function() {
+        $("#chkAll").click(function(){
+            $(".chkGrp").attr("checked", this.checked);
+        });
+    });
+    $("#delChkUserBtn").click(function(){
+        let formData = new FormData();
+        let lists = [];
+
+        $(".chkGrp:checked").each(function() {
+            lists.push($(this).val());
+            console.log(lists);
+        });
+        for(let i = 0; i < lists.length; i++){
+            formData.append(i,lists[i]);
+        }
+        $.ajax({
+            type: "PUT",
+            url: "/members/delUsers",
+            data: formData,
+            contentType: false,
+            processData: false,
+        }).done(function(response){
+                let message = response["data"];
+                alert(message);
+                location = "/admin/home";
+
+        }).fail(function(error){
+            alert(error);
+        })
+    })
+
+
+
+</script>
 
 <%-- div.wrapper의 닫힘 태그는 푸터 안에 있음ㅇ --%>
 <%@include file="layout/adminFooter.jsp"%>
