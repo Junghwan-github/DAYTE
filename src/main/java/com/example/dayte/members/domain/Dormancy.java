@@ -2,23 +2,22 @@ package com.example.dayte.members.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "USERS")
-@Builder
+@Table
 @Getter
-@AllArgsConstructor
-@NoArgsConstructor
+@Builder
 @ToString
-public class User {
-    @Id
-    @Column(nullable = false, length = 100)
-    private String userEmail; // 로그인 이메일 아이디
+@NoArgsConstructor
+@AllArgsConstructor
+public class Dormancy {
 
+    @Id
+    @JoinColumn(name = "user_email")
+    private String userEmail; // 로그인 이메일 아이디
 
     @Column(nullable = false, length = 100)
     private String password; // 비밀번호
@@ -26,11 +25,9 @@ public class User {
     @Column(nullable = false, length = 50)
     private String userName;
 
-    @Setter
     @Column(nullable = false, length = 50, unique = true)
     private String nickName;
 
-    @Setter
     @Column(nullable = false, length = 100)
     private String phone;
 
@@ -47,24 +44,13 @@ public class User {
 
     private boolean social;
 
-    @CreationTimestamp
     private Timestamp joinDate;
 
-    @Setter
     private String profileImageName;
 
-    @Setter
     private String profileImagePath;
 
-    @Setter
-    private LocalDate loginDate;
+    @Setter // 테스트를 위해 임시로 달아둔 어노테이션 나중에 지워야함
+    private LocalDate dormancyDate;
 
-    @Setter
-    private boolean notification; // 휴면계정 전환 예정 이메일을 보냈는지 파악하는 컬럼
-
-    // 비밀번호 변경 메서드
-    public void setPassword(String newPassword) {
-        this.password = newPassword;
-    }
 }
-

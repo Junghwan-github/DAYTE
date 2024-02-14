@@ -101,6 +101,9 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
         user = result.get();
         user.setLoginDate(LocalDate.now());
+        if (user.isNotification())
+            user.setNotification(false);
+
         userRepository.save(user);
         return new UserSecurityDTO(
                 user.getUserEmail(),
