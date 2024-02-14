@@ -33,7 +33,7 @@
                 </div>
                 <div class="content-part">
                     <div class="post-items-title">
-                        <h2>${post.title}</h2>
+                        <h2>${post.title}<img class="new-icon" src="/images/newLogo.png"></h2>
                     </div>
                     <div class="post-items-images">
                         <ul>

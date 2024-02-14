@@ -3,14 +3,15 @@ package com.example.dayte.content.controller;
 
 import com.example.dayte.admin.contents.domain.AdminContents;
 import com.example.dayte.admin.contents.service.AdminContentsService;
+import com.example.dayte.post.domin.Post;
+import com.example.dayte.post.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 
 @Controller
@@ -19,7 +20,8 @@ public class ContentController {
     @Autowired
     private AdminContentsService adminContentsService;
 
-
+    @Autowired
+    private PostService postService;
 
     @GetMapping("/contents/category/{category}")
     public String showContentsList (@PathVariable String category, Model model ) {
@@ -28,11 +30,19 @@ public class ContentController {
         return "contents/allcontents";
     }
 
+    @PostMapping("/searchContentsCategory")
+    public @ResponseBody List<AdminContents> searchContentsList (@RequestBody Map<String, String> categoryAndSearch) {
+        List<AdminContents> searchByContents = adminContentsService.searchByCategory(categoryAndSearch.get("category"),categoryAndSearch.get("search"));
+        return searchByContents;
+    }
+
 
     @GetMapping("/contents/detail/{id}")
     public String showContentsDetail (Model model, @PathVariable String id)  {
             AdminContents contents = adminContentsService.getShowContentsDetail(id);
-            model.addAttribute("showContentsDetail", contents);
+            List<Post> post = postService.postSearchToAll(contents.getBusinessName());
+            model.addAttribute("showContentsDetail", contents)
+                    .addAttribute("postList", post);
         return "contents/contentsInfo";
     }
 

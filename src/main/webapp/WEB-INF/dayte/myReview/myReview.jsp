@@ -13,7 +13,7 @@
 
 <%@include file="../layout/header.jsp" %>
 <div class=wrapper>
-<h1 class="title"> 내 리뷰 | 내 별점 </h1>
+    <h1 class="title"> <span><a href="/myReview">내 리뷰</a></span> | <span><a href="/myRating">내 별점</a> </h1>
 
 <div id="divform" class="tableContainer">
     <c:if test="${!empty myReviewPage}">
@@ -27,7 +27,7 @@
             <c:forEach var="myReview" items="${myReviewPage.content}">
                 <tr class="myReviewTrStyle listHover">
                     <td class="tdStyle">${myReview.id}</td>
-                    <td class="tdStyle"><a href="/post/${myReview.id}" class="tdTitle">${myReview.title}</a></td>
+                    <td class="tdStyle"><a href="/post/${myReview.id}" class="tdTitle">${myReview.title}<span style="color: #5F5D5C; font-weight: bold; font-size: 15px;">  [ ${myReview.replyList.size()} ]</span></a></td>
                     <td class="tdStyle"><fmt:formatDate value="${myReview.createDate}" pattern="yy-MM-dd"/></td>
                 </tr>
             </c:forEach>

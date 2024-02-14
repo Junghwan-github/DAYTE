@@ -23,6 +23,8 @@ public class MyReviewController {
 
     private final ModelMapper modelMapper;
 
+
+    // 내가 등록한 일정후기
     @GetMapping("/myReview")
     private String myReviewPage(
             Model model,
@@ -47,6 +49,13 @@ public class MyReviewController {
         }
 
             return "myReview/myReview";
+    }
+
+
+    //내가 등록한 별점리뷰
+    @GetMapping("/myRating")
+    private String myRatingpage() {
+        return "myReview/myRating";
     }
 
 }

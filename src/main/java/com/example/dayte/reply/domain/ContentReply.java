@@ -46,10 +46,4 @@ public class ContentReply {
     @Temporal(TemporalType.TIMESTAMP)
     private Timestamp createDate; // 댓글 등록일
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "uuid")
-    private AdminContents adminContents;
-
-
-
 }

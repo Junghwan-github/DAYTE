@@ -37,6 +37,9 @@ public class CustomUserDetailsService implements UserDetailsService {
         // user = DB 에서 조회해 온 회원의 엔티티
         User user = result.get();
         user.setLoginDate(LocalDate.now());
+        if (user.isNotification())
+            user.setNotification(false);
+        
         userRepository.save(user);
         // 전송 객체인 DTO 를 이용하여 회원 정보 반환
         return new UserSecurityDTO(

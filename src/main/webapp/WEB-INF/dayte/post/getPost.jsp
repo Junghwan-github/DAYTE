@@ -81,10 +81,10 @@
                             <div class="user-part-reply">
                                 <ul>
                                     <li>
-                                        <div><img src="${post.user.profileImagePath}"></div>
+                                        <div><img src="${reply.user.profileImagePath}"></div>
                                     </li>
-                                    <li><span>${post.user.nickName}</span></li>
-                                    <li><span><fmt:formatDate value="${post.createDate}"
+                                    <li><span>${reply.user.nickName}</span></li>
+                                    <li><span><fmt:formatDate value="${reply.createDate}"
                                                               pattern="yyyy.MM.dd"/></span>
                                     </li>
                                 </ul>
@@ -94,7 +94,7 @@
                             </div>
 
                             <div class="reply-sub-nav">
-                                <c:if test="${post.user.userEmail eq principal.userEmail}">
+                                <c:if test="${reply.user.userEmail eq principal.userEmail}">
                                     <span class="material-symbols-outlined post-reply-modify-delete-btn">more_vert</span>
                                     <div class="reply-sub-nav-plate">
                                         <ul>

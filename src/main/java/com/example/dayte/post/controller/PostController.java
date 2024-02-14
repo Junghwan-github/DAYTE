@@ -143,6 +143,7 @@ public class PostController {
     // ----------------------- 포스트 수정 화면 응답 -----------------------
     @GetMapping("/post/updatePost/{id}")
     public String updateForm(@PathVariable Long id, Model model) {
+        System.out.println("가나다라"+id);
         model.addAttribute("post", postService.getPost(id));
 
         return "post/updatePost";
