@@ -2,6 +2,14 @@ function getPostDetail(postId) {
     location.href = `/post/${postId}`;
 }
 
+function writingPost() {
+    location.href = "/mainPostList/in"
+}
+
+function postPostList() {
+    location.href = "/mainPostList"
+}
+
 
 // 현재 시간을 가져오는 함수
 function getCurrentDateTime() {
