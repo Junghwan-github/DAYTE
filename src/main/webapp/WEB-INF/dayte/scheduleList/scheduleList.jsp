@@ -197,8 +197,11 @@
                                     </div>
                                     <ul class="contentListItemText">
                                         <li>
-                                            <h2>${content.businessName}</h2>
-                                            <h2>${content.category}</h2>
+                                            <div class="contents-title-wrapper">
+                                                <h2>${content.businessName}</h2>
+                                                <span>${content.category}</span>
+                                                <span>${content.keyword}</span>
+                                            </div>
                                         </li>
                                         <li>
                                             <span>${content.detailedAddress}</span>
@@ -274,7 +277,8 @@
                                                 <img src="${detailedSchedule.adminContents.adminContentsImageList[0].imageURL}">
                                             </div>
                                             <span>${detailedSchedule.adminContents.businessName}</span>
-                                            <input class="detailedScheduleListId" hidden value="${detailedSchedule.adminContents.uuid}">
+                                            <input class="detailedScheduleListId" hidden
+                                                   value="${detailedSchedule.adminContents.uuid}">
                                         </li>
                                     </c:forEach>
                                 </ul>
