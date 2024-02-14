@@ -7,11 +7,19 @@ let myChart = new Chart(ctx, {
             {
                 label      : '방문자 수 집계',
                 data       : [],
-                borderWidth: 1
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderRadius: 5,
+                borderColor:'rgba(75, 192, 192, 1)',
+                borderWidth: 2,
             }
-        ]
+        ],
+
     },
     options: {
+        maxBarThickness: 100,
+        plugins: {
+          padding: 10,
+        },
         scales: {
             y: {
                 beginAtZero: true

@@ -30,4 +30,8 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query(value = "select * from Post p where REGEXP_REPLACE(p.title, '<[^>]*>', '') LIKE %:postWord% or REGEXP_REPLACE(p.content, '<[^>]*>', '') like %:postWord%", nativeQuery = true)
     List<Post> postSearchToAll(@Param("postWord")String postWord);
 
+    // --- 관리자 페이지 최근 게시글 ----
+    @Query("SELECT p FROM Post p ORDER BY p.createDate DESC LIMIT :count")
+    List<Post> findTopByOrderByCreateDateDesc(int count);
+
 }

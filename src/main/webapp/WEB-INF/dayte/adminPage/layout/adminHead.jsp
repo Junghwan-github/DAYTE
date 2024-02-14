@@ -13,11 +13,18 @@
     <%-- 제이쿼리 --%>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
-
+    <style>
+        .shadow-light {
+            box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+        }
+        .bg-title{
+            background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+        }
+    </style>
 </head>
 <body>
 
-<div class="container-fluid vh-100 wrapper">
+<div class="container-fluid wrapper" style="height: 100vh;">
     <!-- 네비 -->
 
     <nav class="navbar fixed-top navbar-expand-lg bg-success-subtle d-flex justify-content-between">
@@ -59,6 +66,12 @@
                 <ul class="list-unstyled ps-0 " id="sideVarList">
                     <li class="border-top border-secondary-subtle my-3"></li>
                     <li class="mb-1">
+                        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 fw-bold ps-3"  >
+                            <img src="/images/chevron-down.svg" style="width: 16px; height:16px; " class="me-1" alt="">
+                            <a href="/admin/home" class="link-body-emphasis d-inline-flex text-decoration-none rounded">대시 보드</a>
+                        </button>
+                    </li>
+                    <li class="mb-1">
                         <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed fw-bold ps-3" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
                             <img src="/images/chevron-down.svg" style="width: 16px; height:16px; " class="me-1" alt="">
                             환경 설정
@@ -79,7 +92,7 @@
                         </button>
                         <div class="collapse " id="user-collapse">
                             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small bg-light ps-4">
-                                <li><a href="/admin/home" class="link-body-emphasis d-inline-flex text-decoration-none rounded">회원 관리</a></li>
+                                <li><a href="/admin/user" class="link-body-emphasis d-inline-flex text-decoration-none rounded">회원 관리</a></li>
                                 <li><a href="/admin/view" class="link-body-emphasis d-inline-flex text-decoration-none rounded">접속자 집계</a></li>
                                 <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">접속자 검색</a></li>
                             </ul>

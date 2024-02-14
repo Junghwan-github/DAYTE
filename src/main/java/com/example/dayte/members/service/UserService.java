@@ -21,6 +21,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -102,11 +103,12 @@ public class UserService {
         userDTO.setUserEmail(findUser.getUserEmail());
         userDTO.setBirthDate(findUser.getBirthDate());
         userDTO.setJoinDate(findUser.getJoinDate());
-        userDTO.setProfileImageName(userDTO.getProfileImageName());
-        userDTO.setProfileImagePath(userDTO.getProfileImagePath());
-
-        // 비밀번호란이 비어있다면 그대로 입력되어있으면 변경
-        if (userDTO.getPassword() == "") {
+        if(userDTO.getProfileImagePath() == null){
+            userDTO.setProfileImageName(findUser.getProfileImageName());
+            userDTO.setProfileImagePath(findUser.getProfileImagePath());
+        }
+        // 비밀번호란이 비어있다면 그대로, 입력되어있으면 변경
+        if ("".equals(userDTO.getPassword())) {
             userDTO.setPassword(findUser.getPassword());
             System.out.println("============= 기존 비번 : " + userDTO.getPassword());
         } else {
@@ -129,6 +131,8 @@ public class UserService {
             userRepository.save(modelMapper.map(userDTO, User.class));
             return true;
         }
+
+
     }
 
 
@@ -167,7 +171,6 @@ public class UserService {
             String fileName = uuid + "_" + encodedFileName;
 
             Path targetPath = Path.of(path + "/" + (uuid + "_" + userDTO.getImage().getOriginalFilename()));
-            System.out.println(targetPath);
             Files.copy(userDTO.getImage().getInputStream(), targetPath, StandardCopyOption.REPLACE_EXISTING);
 
             // UserDTO에 파일명과 경로 설정
@@ -190,7 +193,7 @@ public class UserService {
         String phone = userDTO.getPhone() != null ? userDTO.getPhone() : userSecurityDTO.getPhone();
 
         findUser.setPhone(phone);
-        if (userDTO.getImage() != null && !userDTO.getImage().isEmpty()) {
+        if (userDTO.getImage() != null) {
             findUser.setProfileImagePath(userDTO.getProfileImagePath());
             findUser.setProfileImageName(userDTO.getProfileImageName());
         }
@@ -234,5 +237,10 @@ public class UserService {
         userRepository.save(modelMapper.map(userDTO, User.class));
         return true;
 
+    }
+
+    @Transactional
+    public List<User> getRecentUsers(int count) {
+        return userRepository.findTopByOrderByJoinDateDesc(count);
     }
 }
