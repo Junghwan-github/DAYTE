@@ -155,18 +155,6 @@ $(document).ready(function () {
                 }
                 if (isMaxSize) { // 사이즈 제한에 걸렸을 때
                     alert('이미지 파일이 업로드 용량(10MB)을 초과하였습니다.');
-                } else {
-                    /** upload end */
-                    // 이미지 업로드시 크기
-                    for (let i = 0; i < files.length; i++) {
-                        let reader = new FileReader();
-                        reader.onloadend = function () {
-                            var image = $('<img>').attr('src', reader.result);
-                            image.attr('width', '50%');
-                            $('#summernote').summernote("insertNode", image[0]);
-                        }
-                        reader.readAsDataURL(files[i]);
-                    }
                 }
             },
         },
@@ -176,8 +164,7 @@ $(document).ready(function () {
 // 이미지를 임시저장합니다.
 function sendFile(files) {
     const formData = new FormData();
-    formData.append('files', files[0]); // 'files'는 서버에서 받을 때의 파라미터 이름입니다.
-    console.log(files[0])
+    formData.append('files', files); // 'files'는 서버에서 받을 때의 파라미터 이름입니다.
     $.ajax({
         type       : 'POST',
         url        : '/uploadSummernoteImageFile',
