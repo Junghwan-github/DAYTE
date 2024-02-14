@@ -6,6 +6,7 @@ import com.example.dayte.admin.contents.dto.AdminContentsDTO;
 import com.example.dayte.admin.contents.dto.AdminContentsImageDTO;
 import com.example.dayte.admin.contents.persistence.AdminContentsImageRepository;
 import com.example.dayte.admin.contents.persistence.AdminContentsRepository;
+import com.example.dayte.post.domin.Post;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;

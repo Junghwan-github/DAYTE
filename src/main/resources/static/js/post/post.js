@@ -12,7 +12,8 @@ let postObject = {
             }
         });
 
-        $("#post-delete").on("click", () => {
+        $("#post-delete").on("click", (e) => {
+            e.preventDefault();
             let check = confirm("해당 게시글을 삭제하시겠습니까?");
             if (check) {
                 this.deletePost();
@@ -93,21 +94,18 @@ let postObject = {
     deletePost: function () {
         // console.log('삭제 요청');
         let id = $("#post-id").val();
-
         fetch("/post/" + id, {
             method : "DELETE",
             headers: {
                 "Content-Type": "application/json; charset=utf-8",
             },
-        })
-            .then(res => {
-                return res.json();
-            })
-            .then(data => {
-                alert(data.data);
-                location = "/mainPostList";
-            })
-            .catch(err => {
+        }).then(res => {
+            // Promise 객체 안의 응답 결과(json)를 담은 데이터만 뽑아내어 객체로 만든 후 반환
+            return res.json();
+        }).then(data => {
+            alert(data.data);
+            location = "/mainPostList";
+        }).catch(err => {
                 alert(`에러 발생 : ${err.message}`);
             });
     },

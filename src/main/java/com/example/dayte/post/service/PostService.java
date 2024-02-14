@@ -97,6 +97,13 @@ public class PostService {
         return postRepository.postSearchToPostAll(pageable, postWord);
     }
 
+    // 메인에서 검색 했을 경우
+    @Transactional
+    public List<Post> postSearchToAll(String postWord) {
+
+        return postRepository.postSearchToAll(postWord);
+    }
+
     // --------------------------------------------------------------------------------------
 
     public ResponseEntity<Map<String, String>> uploadImage(MultipartFile multipartFile) {

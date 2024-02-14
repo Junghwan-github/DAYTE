@@ -1,5 +1,6 @@
 package com.example.dayte.admin.contents.domain;
 
+import com.example.dayte.post.domin.Post;
 import com.example.dayte.reply.domain.ContentReply;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -65,5 +66,10 @@ public class AdminContents {
     @OneToMany(mappedBy = "adminContents", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private List<ContentReply> contentReplyList;
 
+//    @OneToMany(
+//        mappedBy = "contents",
+//        fetch = FetchType.EAGER,
+//        cascade = )
+//    private List<Post> postList;
 
 }
