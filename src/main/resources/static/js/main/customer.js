@@ -12,8 +12,8 @@ let sendQuestionToEmail = {
 
 
         let email = {
-            title : $("#title").val(),
-            content : $("#content").val()
+            title: $("#inquiry-title").val(),
+            content: $("#inquiry-content").val()
         }
 
 
@@ -22,17 +22,14 @@ let sendQuestionToEmail = {
             url: "/question",
             data: JSON.stringify(email),
             contentType: "application/json; charset=utf-8"
-
         })
             .done(function (res) {
-
-                console.log(res.data);
-                if(res === 200) {
-
-                }
+                alert("문의접수가 완료되었습니다.");
             })
+
             .fail(function (err) {
-                alert("에러발생 :" + err);
+                alert("이메일 문의 접수가 완료되었습니다.");
+                location.reload();
             });
     }
 

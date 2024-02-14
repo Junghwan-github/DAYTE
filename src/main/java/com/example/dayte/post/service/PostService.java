@@ -65,6 +65,11 @@ public class PostService {
         postRepository.deleteById(id);
     }
 
+    @Transactional
+    public void deletePostImage(Post post) {
+        postImagesRepository.deleteAllByPost(post);
+    }
+
 
     // 페이지네이션
     @Transactional(readOnly = true)

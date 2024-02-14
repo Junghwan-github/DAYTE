@@ -1,7 +1,7 @@
 $(document).ready(function () {
     $(".scheduleItemSlider").bxSlider({
         mode: "horizontal",
-        slideWidth: 350,
+        slideWidth: 280,
         speed: 500,
         auto: true,
         slideMargin: 0,

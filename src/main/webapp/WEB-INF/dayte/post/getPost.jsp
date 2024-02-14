@@ -29,7 +29,7 @@
                         <ul>
                             <li><a href="/post/updatePost/${post.id}" id="post-modify"><i class="xi-pen-o"></i>수정</a>
                             </li>
-                            <li><a href="" id="post-delete"><i class="xi-trash-o"></i>삭제</a></li>
+                            <li><a href="#" id="post-delete"><i class="xi-trash-o"></i>삭제</a></li>
                         </ul>
                     </div>
                 </c:if>
