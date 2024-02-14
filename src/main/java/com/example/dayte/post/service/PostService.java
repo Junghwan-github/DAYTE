@@ -65,6 +65,11 @@ public class PostService {
         postRepository.deleteById(id);
     }
 
+    @Transactional
+    public void deletePostImage(Post post) {
+        postImagesRepository.deleteAllByPost(post);
+    }
+
 
     // 페이지네이션
     @Transactional(readOnly = true)
@@ -95,6 +100,13 @@ public class PostService {
     public Page<Post> getPostSearchToAllList(Pageable pageable, String postWord) {
 
         return postRepository.postSearchToPostAll(pageable, postWord);
+    }
+
+    // 메인에서 검색 했을 경우
+    @Transactional
+    public List<Post> postSearchToAll(String postWord) {
+
+        return postRepository.postSearchToAll(postWord);
     }
 
     // --------------------------------------------------------------------------------------

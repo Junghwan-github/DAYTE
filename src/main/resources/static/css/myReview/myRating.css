@@ -1,96 +1,60 @@
 .wrapper{
     width: 1180px;
-    /*height: 100vh;*/
     margin: 0 auto;
     background: white;
 }
+
 .title{
     font-size: 2.8rem;
     color: #333;
     padding: 20px 0;
 }
-
 .title > span > a {
     font-size: 2.8rem;
     color: #333;
 }
 
-.wrapper > form {
-    padding: 0;
-}
 
-.myReviewTable {
-    border-bottom: 1px solid #ddd;
-    display: flex;
-    justify-content: space-between;
+
+
+
+.reviewRatingBox {
+    border: 1px solid black;
+    border-radius: 10px;
+    margin: 50px;
+    width: 900px;
+    height: 300px;
     align-items: center;
-    height: 50px;
+    /*justify-content: center;*/
+    display: flex;
 }
 
-/*==================================== 테이블 */
-.tableContainer{
+.contents {
+    float: left;
+    width: auto;
+    height: 100%;
+}
+
+/*이 부분엔 나중에 컨텐츠의 사진이 올라올 것*/
+.contents > img {
     width: 100%;
-    margin: 0 auto;
-}
-#myReviewTable {
-    width: 100%;
-    border-collapse: collapse;
-    margin : 0 auto;
-    box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+    height: 100%;
+    float: left;
+    border-radius: 10px;
+
 }
 
+/*컨텐츠에 등록한 리뷰 끌고옴*/
+.ratings {
+    float: left;
+    margin-left: 50px;
+}
 
-.myReviewTable {
-    border-bottom: 1px solid #ddd;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 50px;
+.ratings > p {
+    padding-bottom: 10px;
 }
 
 
-.myReviewTrStyle {
-    border-bottom: 1px solid #ddd;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 50px;
-}
-#myReviewTable > tbody > tr:first-child {
-    border-top: #333 solid 2px;
-}
-.thStyle, .tdStyle {
-    padding-left: 30px;
-    padding-right: 30px;
-
-    font-size: 1.8rem;
-    color: #333;
-}
-.thTitle {
-    padding-left: 10px;
-}
-.thDate {
-    padding-right: 40px;
-}
-.tdTitle {
-    text-decoration: none; /* 기본 링크 텍스트에 있는 밑줄 제거 */
-    display : block;
-    width: 700px;
-    padding: 5px 0;
-
-    font-size: 1.8rem;
-    color: #333;
-}
-
-.listHover:hover {
-    background-color: #e6e8ea;
-    transition: 0.2s;
-}
-
-
-
-
-/* ====================================== 페이지네이션*/
 .pagination{
     margin: 30px 0 0 0;
     padding: 0;

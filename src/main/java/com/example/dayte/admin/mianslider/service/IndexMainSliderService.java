@@ -81,6 +81,6 @@ public class IndexMainSliderService {
     @Transactional
     public List<IndexMainSlider> sliderList() {
         return indexMainSliderRepository.findAll();
-
     }
+
 }
