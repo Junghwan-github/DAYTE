@@ -28,5 +28,4 @@ public class DAYTEWebMvcConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/temp/**")
                 .addResourceLocations("file://192.168.10.75/temp/");
     }
-
 }
