@@ -18,7 +18,7 @@ public class EmailQuestionController {
 
     @GetMapping("/customerService")
     public String goToEmailQuestion(){
-        return "emailQuestion/emailQuestion";
+        return "customer/customer";
     }
 
 
@@ -30,9 +30,6 @@ public class EmailQuestionController {
 
      emailQuestionService.sendQuestion(emailQuestion, principal);
 
-    /*System.out.println(principal.getUserEmail());*/
-    System.out.println("^^^^^^^^^^^^^");
-    System.out.println(HttpStatus.OK.value());
 
 return HttpStatus.OK.value();
 }

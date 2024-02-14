@@ -58,7 +58,7 @@
                 <option value="nate.com">nate.com</option>
                 <option value="yahoo.com">yahoo.com</option>
               </select>
-              <button type="button" id="sendEmail" class="EmailBttn">
+              <button type="button" id="sendEmail" class="checkBttn">
                 인증 발송
               </button>
             </div>
@@ -76,7 +76,7 @@
               </div>
               <div class="timer">
                 <span></span>
-                <button type="button" class="EmailBttn" id="numCheck">인증 확인</button>
+                <button type="button" class="checkBttn" id="numCheck">인증 확인</button>
               </div>
             </div>
 
@@ -84,11 +84,11 @@
 
 
           <div class="errorMsg">
-            <div class="idFailMsg hide">
-              아이디는 영어 또는 숫자만 입력 가능합니다.
-            </div>
-            <div class="idFailMsg2 hide">아이디는 6~18글자이어야 합니다.</div>
-            <div class="idFailMsg3 hide">도메인을 올바르게 입력해주세요.</div>
+<%--            <div class="idFailMsg hide">--%>
+<%--              아이디는 영어 또는 숫자만 입력 가능합니다.--%>
+<%--            </div>--%>
+<%--            <div class="idFailMsg2 hide">아이디는 6~18글자이어야 합니다.</div>--%>
+            <div class="idFailMsg3 hide">이메일을 올바르게 입력해주세요.</div>
           </div>
 
           <!-- 비밀번호,비밀번호 입력 -->
@@ -144,9 +144,10 @@
                       id="nickName"
                       name="nickName"
                       placeholder="닉네임"
-                      class="joinInput"
+                      class="joinInputNickName"
                       autocomplete="off"
               />
+                <button type="button" class="checkBttn" id="nickCheck">중복 확인</button>
             </div>
           </div>
           <div class="errorMsg">
@@ -187,11 +188,11 @@
           </div>
           <div class="errorMsg">
             <div class="phoneFailMsg hide">
-              휴대전화번호는 10~11자의 숫자만 사용하여야 합니다. (예 :
+              휴대전화번호는 10~11자의 숫자만 사용해 주세요. (예 :
               01012345678)
             </div>
             <div class="birthFailMsg hide">
-              생년월일은 8자의 숫자만 사용하여야 합니다. (예 : 19990101)
+              생년월일은 8자의 숫자만 사용해 주세요. (예 : 19990101)
             </div>
           </div>
           <!-- 성별 -->
