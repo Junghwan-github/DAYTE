@@ -184,31 +184,31 @@
             </div>
             <div id="tab2" class="tab-content">
                 <div class="reply-content-review-list">
+                    <c:forEach var="post" items="${postList}">
                     <div class="reply-content-review-item">
                         <div class="user-info-post">
                             <ul>
                                 <li>
-                                    <div class="user-profile-image"></div>
+                                    <img src="${post.user.profileImagePath}" class="user-profile-image"></img>
                                 </li>
                                 <li>
-                                    <span>닉네임</span>
+                                    <span>${post.user.nickName}</span>
                                 </li>
                             </ul>
                         </div>
 
                         <div class="reply-content">
+                            <p>${post.title}</p>
                             <div class="images-wrapper">
                                 <div></div>
                                 <div></div>
                                 <div></div>
                                 <div></div>
                             </div>
-                            <p>최고로 좋았어요! 가나다라마바사 아자차카 테스트
-                                다음에 또 갈꺼에요 테스트입니다
-                                꼭 추천드립니다.! 이것저것궁시렁궁시렁
-                            </p>
+                            ${post.content}
                         </div>
                     </div>
+                    </c:forEach>
                 </div>
             </div>
         </div>

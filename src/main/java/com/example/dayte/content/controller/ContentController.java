@@ -36,7 +36,8 @@ public class ContentController {
     public String showContentsDetail (Model model, @PathVariable String id)  {
             AdminContents contents = adminContentsService.getShowContentsDetail(id);
             List<Post> post = postService.postSearchToAll(contents.getBusinessName());
-            model.addAttribute("showContentsDetail", contents);
+            model.addAttribute("showContentsDetail", contents)
+                    .addAttribute("postList", post);
         return "contents/contentsInfo";
     }
 
