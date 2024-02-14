@@ -25,4 +25,7 @@ List<VisitorStatisticsDTO> findAllByDateAfter(LocalDate date);
                 "GROUP BY YEAR(date), MONTH(date) " +
                 "ORDER BY year, month", nativeQuery = true)
         List<Object[]> good(LocalDate date);
+
+        Optional<VisitorStatistics> findByDate(LocalDate date);
+
 }

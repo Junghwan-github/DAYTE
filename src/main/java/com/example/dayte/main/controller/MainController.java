@@ -39,7 +39,6 @@ public class MainController {
         HttpSession session = request.getSession();
         // 세션에 "visitedMain" 속성이 없으면 방문자 수 증가
         if (session.getAttribute("visitedMain") == null) {
-            int visitorsCount = MySessionListener.getActiveSessions();
             session.setAttribute("visitedMain", true);
         }
 
