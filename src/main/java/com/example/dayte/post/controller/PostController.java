@@ -145,6 +145,7 @@ public class PostController {
     @GetMapping("/post/updatePost/{id}")
     public String updateForm(@PathVariable Long id, Model model) {
         model.addAttribute("post", postService.getPost(id));
+
         return "post/updatePost";
     }
 
@@ -152,6 +153,7 @@ public class PostController {
     @PutMapping("/post")
     public @ResponseBody ResponseDTO<?> updatePost(@RequestBody Post post) {
         postService.updatePost(post);
+        postService.extractPostContentImages(post);
         return new ResponseDTO<>(HttpStatus.OK.value(), post.getId() + "번 포스트가 수정되었습니다.");
     }
 

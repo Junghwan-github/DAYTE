@@ -155,17 +155,6 @@ $(document).ready(function () {
                 }
                 if (isMaxSize) { // 사이즈 제한에 걸렸을 때
                     alert('이미지 파일이 업로드 용량(10MB)을 초과하였습니다.');
-                } else {
-                    /** upload end */
-                    // 이미지 업로드시 크기
-                    for (let i = 0; i < files.length; i++) {
-                        let reader = new FileReader();
-                        reader.onloadend = function () {
-                            var image = $('<img>').attr('src', reader.result);
-                            image.attr('width', '50%');
-                            $('#summernote').summernote("insertNode", image[0]);
-                        }
-                    }
                 }
             },
         },
