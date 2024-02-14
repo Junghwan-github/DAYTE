@@ -40,4 +40,7 @@ public interface UserRepository extends JpaRepository<User, String> {
 
     List<User> findByLoginDateLessThanEqualAndRole(LocalDate oneYearAgo, RoleType role);
 
+    @Query("SELECT u FROM User u ORDER BY u.joinDate DESC LIMIT :count")
+    List<User> findTopByOrderByJoinDateDesc(int count);
+
 }

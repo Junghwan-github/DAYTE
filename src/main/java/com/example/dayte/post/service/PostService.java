@@ -173,5 +173,10 @@ public class PostService {
 
         return contentTextList;
     }
+
+    // --- 관리자 페이지 최근 게시글 ----
+    public List<Post> getRecentPosts(int count) {
+        return postRepository.findTopByOrderByCreateDateDesc(count);
+    }
 }
 

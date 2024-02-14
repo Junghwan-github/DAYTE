@@ -2,7 +2,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="layout/adminHead.jsp"%>
-<div class="row">
+<div class="w-50 row">
     <div class="col">
         <canvas id="myChart"></canvas>
     </div>

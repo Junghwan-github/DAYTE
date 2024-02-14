@@ -21,6 +21,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -236,5 +237,10 @@ public class UserService {
         userRepository.save(modelMapper.map(userDTO, User.class));
         return true;
 
+    }
+
+    @Transactional
+    public List<User> getRecentUsers(int count) {
+        return userRepository.findTopByOrderByJoinDateDesc(count);
     }
 }
