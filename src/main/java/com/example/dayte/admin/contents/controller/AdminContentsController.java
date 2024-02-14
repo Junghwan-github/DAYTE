@@ -53,4 +53,9 @@ public class AdminContentsController {
         return searchByContents;
     }
 
+    @GetMapping("/admin/view")
+    public String view() {
+        return "adminPage/index";
+    }
+
 }

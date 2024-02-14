@@ -43,6 +43,7 @@
                             type="text"
                             name="indexSearch"
                             placeholder="검색어를 입력하세요" autocomplete="off"/>
+                    <h1>${visited.visitors}</h1>
                 </li>
                 <li class="searchContents">
                     <div class="cityList">

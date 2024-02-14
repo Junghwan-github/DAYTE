@@ -1,5 +1,8 @@
 package com.example.dayte.members.controller;
 
+import com.example.dayte.admin.mianslider.domain.VisitorStatistics;
+import com.example.dayte.admin.mianslider.dto.VisitorStatisticsDTO;
+import com.example.dayte.admin.mianslider.service.VisitorStatisticsService;
 import com.example.dayte.members.domain.RoleType;
 import com.example.dayte.members.domain.User;
 import com.example.dayte.members.dto.ResponseDTO;
@@ -26,7 +29,9 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -44,6 +49,8 @@ public class UserController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private VisitorStatisticsService visitorStatisticsService;
 
     @PostMapping("/members/joinForm")
     public @ResponseBody ResponseDTO<?> insertUser(@Valid @RequestBody UserDTO userDTO, BindingResult bindingResult) {
@@ -116,7 +123,6 @@ public class UserController {
         model.addAttribute("ulist", ulist);
         model.addAttribute("allList", allList);
         model.addAttribute("dList", dList);
-
         return "adminPage/adminHome";
     }
 
@@ -232,5 +238,29 @@ public class UserController {
             //기존 비밀번호 불일치
             return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "현재 비밀번호를 확인해주세요.");
         }
+    }
+    @PostMapping("/admin/visitors")
+    public @ResponseBody List<VisitorStatisticsDTO> view (@RequestBody Map<String, String> value) {
+        LocalDate date = LocalDate.now();
+        boolean flag = false;
+        switch(value.get("num")){
+            case "1" -> {
+                date = date.minusWeeks(1);
+                flag = true;
+            }
+            case "2" -> {
+                date = date.minusMonths(1);
+                flag = true;
+            }
+            case "3" -> {
+                date = date.minusMonths(5);
+                flag = false;
+            }
+            case "4" -> {
+                date = date.minusMonths(11);
+                flag = false;
+            }
+        }
+        return visitorStatisticsService.getVisitorsCountList(date, flag);
     }
 }
