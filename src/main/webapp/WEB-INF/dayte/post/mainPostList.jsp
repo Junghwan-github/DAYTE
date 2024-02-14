@@ -107,10 +107,10 @@
 
             <c:if test="${!postList.last}">
                 <li>  <%-- 다음 페이지로 이동하는 버튼 --%>
-                    <a class="nextPageBtn" href="?page=${postList.number +1}">다음</a>
+                    <a class="nextPageBtn" href="?page=${postList.number +1}"><i class="fa-solid fa-angle-right"></i></a>
                 </li>
                 <li>  <%-- 마지막 페이지로 이동하는 버튼 --%>
-                    <a class="lastPageBtn" href="?page=${postList.totalPages -1}">마지막</a>
+                    <a class="lastPageBtn" href="?page=${postList.totalPages -1}"><i class="fa-solid fa-angles-right"></i></a>
                 </li>
             </c:if>
         </ul>

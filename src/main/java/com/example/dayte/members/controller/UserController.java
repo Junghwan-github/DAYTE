@@ -33,6 +33,7 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.*;
 
 @Controller
 public class UserController {
@@ -69,7 +70,7 @@ public class UserController {
         User user = modelMapper.map(userDTO, User.class);
         System.out.println("user : " + user);
 
-        User findUser = userService.getUser(user.getUserEmail());
+        User findUser = userService.newUser(user.getUserEmail());
         System.out.println("user.getUserEmail() : " + user.getUserEmail());
         if (findUser.getUserEmail() == null && findUser.getNickName() == null) {
             if(user.getNickName().equals(findUser.getNickName())){
@@ -77,7 +78,7 @@ public class UserController {
             }else {
                 System.out.println("user : " + user);
                 userService.insertUser(user);
-                return new ResponseDTO<>(HttpStatus.OK.value(), user.getUserName() + "님 회원가입을 축하드립니다.");
+                return new ResponseDTO<>(HttpStatus.OK.value(), user.getUserName() + "님 회원가입을 축하드립니다. 로그인을 해주세요.");
             }
 
         } else {
@@ -123,6 +124,7 @@ public class UserController {
         model.addAttribute("ulist", ulist);
         model.addAttribute("allList", allList);
         model.addAttribute("dList", dList);
+
         return "adminPage/adminHome";
     }
 
@@ -133,21 +135,20 @@ public class UserController {
         return "adminPage/editUser/editUser";
     }
     
-    // 관리자 - 회원정보 수정 - 비밀번호 고장남
+    // 관리자 - 회원정보 수정
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/admin/editUser")
     public @ResponseBody ResponseDTO<?> updateUser(@RequestBody UserDTO userDTO) throws IOException {
-        userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-        //userDTO.setRole(userDTO.getRole());
+        userDTO.setRole(userDTO.getRole());
         userDTO.setUserName(userDTO.getUserName());
-        userDTO.setNickName(userDTO.getNickName());
         userDTO.setPhone(userDTO.getPhone());
         System.out.println("================================회원정보 수정 : " + userDTO);
 
-
-        userService.updateUser(userDTO);
-        return new ResponseDTO<>(HttpStatus.OK.value(), "회원 정보가 수정되었습니다.");
-
+        if(userService.updateUser(userDTO)) {
+            return new ResponseDTO<>(HttpStatus.OK.value(), "회원 정보가 수정되었습니다.");
+        } else{
+            return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "닉네임이 중복되었습니다.");
+        }
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -184,13 +185,13 @@ public class UserController {
 
     // 사용자 - 회원 탈퇴
     @PreAuthorize("isAuthenticated()")
-    @GetMapping("/members/delete")
+    @GetMapping("/members/delForm")
     public String deletePage() {
         return "members/delForm";
     }
 
     @PreAuthorize("isAuthenticated()")
-    @DeleteMapping("/members/delete/{userEmail}")
+    @PutMapping("/members/delForm/{userEmail}")
     public @ResponseBody ResponseDTO<?> deleteUser(@PathVariable String userEmail,
                                                    @RequestBody Map<String, Object> map) {
 
@@ -198,10 +199,10 @@ public class UserController {
         String rawPassword = (String) map.get("password");
 
         if (passwordEncoder.matches(rawPassword, encodedPassword)) {
-            userService.deleteUser(userEmail);
+            userService.testDelUser(userEmail);
             return new ResponseDTO<>(HttpStatus.OK.value(), "회원 탈퇴가 완료되었습니다.");
         } else {
-            return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "회원 탈퇴를 실패했습니다.");
+            return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "비밀번호를 다시 확인해주세요.");
         }
     }
 
@@ -220,7 +221,7 @@ public class UserController {
 
     // 사용자 - 비밀번호 변경
     @PreAuthorize("isAuthenticated()")
-    @PutMapping("/members/updatePwd")
+    @PutMapping("/members/pwdForm")
     public @ResponseBody ResponseDTO<?> checkPwd(@AuthenticationPrincipal UserSecurityDTO principal,
                                                  @RequestBody Map<String, Object> map){
 
@@ -239,6 +240,35 @@ public class UserController {
             return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "현재 비밀번호를 확인해주세요.");
         }
     }
+
+    // 관리자 - 선택 삭제
+    @PutMapping("/members/delUsers")
+    public @ResponseBody ResponseDTO<?> deleteUsers(@RequestParam(required = false)Map<String[], Object> userList) {
+        String[] grpCode = userList.values().toString().split(",");
+        System.out.println("================== " + grpCode.length); // 삭제할 회원 수 체크
+        int successCount = 0;
+        int failCount = 0;
+        for(int i=0; i<grpCode.length; i++){
+            String userEmail = grpCode[i].replaceAll("[\\[\\] ]","");
+            System.out.println(userEmail); // 삭제할 회원 이메일 체크
+            if(userService.testDelUser(userEmail) == true){
+                successCount++;
+            }else{
+                failCount++;
+            }
+        }
+        System.out.println("===================== 성공 : " + successCount + " 실패 : " + failCount );
+        if(successCount > 0 && failCount == 0) {
+            return new ResponseDTO<>(HttpStatus.OK.value(), successCount + " 건 탈퇴가 완료되었습니다.");
+        }else if(successCount > 0 && failCount > 0) {
+            return new ResponseDTO<>(HttpStatus.OK.value(), successCount + " 건 탈퇴 완료, " + failCount + " 건 탈퇴 실패");
+        }else {
+            return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), failCount +"건 탈퇴를 실패하였습니다.");
+        }
+
+
+    }
+
     @PostMapping("/admin/visitors")
     public @ResponseBody List<VisitorStatisticsDTO> view (@RequestBody Map<String, String> value) {
         LocalDate date = LocalDate.now();

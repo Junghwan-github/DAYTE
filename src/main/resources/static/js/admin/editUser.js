@@ -1,3 +1,4 @@
+
 let userObject = {
     init: function (){
         $("#editUserBtn").on("click", () => {
@@ -16,9 +17,8 @@ let userObject = {
             password : $("#password").val(),
             gender : $("#gender").val(),
             phone : $("#phone").val(),
-            // role : $("#role").val()
+            role : $("#role").find(":selected").val(),
         }
-        console.log(user);
         $.ajax({
             // 회원정보 수정 요청
             type : "PUT",

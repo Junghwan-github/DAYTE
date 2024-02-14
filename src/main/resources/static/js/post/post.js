@@ -167,7 +167,6 @@ $(document).ready(function () {
 function sendFile(files) {
     const formData = new FormData();
     formData.append('files', files); // 'files'는 서버에서 받을 때의 파라미터 이름입니다.
-    console.log(files)
     $.ajax({
         type       : 'POST',
         url        : '/uploadSummernoteImageFile',
