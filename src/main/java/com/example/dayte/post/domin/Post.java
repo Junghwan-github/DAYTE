@@ -40,7 +40,7 @@ public class Post {
     @OrderBy("num desc")
     private List<PostReply> replyList;
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private List<PostImages> postImages;
     
 }

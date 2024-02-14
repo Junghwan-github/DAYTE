@@ -161,6 +161,7 @@ public class PostController {
     @DeleteMapping("/post/{id}")
     public @ResponseBody ResponseDTO<?> deletePost(@PathVariable Long id) {
         postService.deletePost(id);
+        System.out.println("삭제한다" + id);
 
         return new ResponseDTO<>(HttpStatus.OK.value(), id + "번 포스트가 삭제되었습니다.");
     }
