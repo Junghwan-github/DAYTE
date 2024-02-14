@@ -8,11 +8,10 @@ import com.example.dayte.post.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 
 @Controller
@@ -29,6 +28,12 @@ public class ContentController {
         List<AdminContents> contentsCategoryList = adminContentsService.getContentsCategoryList(category);
         model.addAttribute("contentsListCategory", contentsCategoryList);
         return "contents/allcontents";
+    }
+
+    @PostMapping("/searchContentsCategory")
+    public @ResponseBody List<AdminContents> searchContentsList (@RequestBody Map<String, String> categoryAndSearch) {
+        List<AdminContents> searchByContents = adminContentsService.searchByCategory(categoryAndSearch.get("category"),categoryAndSearch.get("search"));
+        return searchByContents;
     }
 
 

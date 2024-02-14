@@ -23,7 +23,7 @@
             <div class="leftModalLayout">
                 <div><input type="text" id="leftModalSearchBar" placeholder="검색어를 입력하세요">
                     <button type="button" id="leftModalSearchBarBtn"
-                            onclick="searchContents(leftModalSearchBar.value)">검색
+                            onclick="searchContentsCategory(leftModalSearchBar.value)">검색
                     </button>
                 </div>
                 <div>

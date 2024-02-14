@@ -121,6 +121,21 @@ public class AdminContentsService {
         return adminContentsRepository.findAllBySearch(searchContents);
     }
 
+    @Transactional//(readOnly = true)
+    public List<AdminContents> searchByCategory(String category ,String search) {
+        String categoryNames = "";
+        if(search == null) search = "";
+
+        switch (category) {
+            case "hotels" -> categoryNames = "숙박";
+            case "restaurants" -> categoryNames = "맛집";
+            case "cafes" -> categoryNames = "카페";
+            case "events" -> categoryNames = "이벤트";
+        }
+
+        return adminContentsRepository.findAllByCategorySearch(categoryNames, search);
+    }
+
     @Transactional(readOnly = true)
     public List<AdminContents> getContentsCategoryList (String category) {
         String categoryNames = "";
@@ -131,8 +146,6 @@ public class AdminContentsService {
             case "cafes" -> categoryNames = "카페";
             case "events" -> categoryNames = "이벤트";
         }
-
-
 
         return adminContentsRepository.findAllByCategory(categoryNames);
     }
