@@ -146,6 +146,12 @@ main {
     overflow-y: auto;
 }
 
+.centerModalLayout > ul > li > p {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #111;
+}
+
 .contentListItems {
     position: relative;
     overflow-y: auto;

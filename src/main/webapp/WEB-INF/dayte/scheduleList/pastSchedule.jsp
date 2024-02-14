@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="../layout/head.jsp" %>
 <link rel="stylesheet" href="/css/schedule/pastSchedule.css">
+<link rel="stylesheet" href="/css/schedule/pastScheduleModal.css">
 <link rel="stylesheet" href="/css/schedule/scheduleSlider.css">
 
 <title>DAYTE | 내 리얼리뷰</title>
@@ -57,7 +58,7 @@
                                     </ul>
                                 </div>
                                 <div class="open-list-button">
-                                    <button class="btn-open-modal" onclick="openModal(this)">자세히</button>
+                                    <button class="btn-open-modal">자세히</button>
                                 </div>
                             </div>
                         </div>
@@ -73,42 +74,49 @@
             <c:set var="startDate" value="${scheduleModal.startDate.toEpochDay()}"/>
             <c:set var="endDate" value="${scheduleModal.endDate.toEpochDay()}"/>
             <div class="modal_body scheduleCard${loop.index+1}">
-                <button id="close-modal" onclick="closeModal(this)">모달 창 닫기</button>
-                <ul id="tabMenu">
-                    <c:forEach var="i" begin="0" end="${endDate - startDate}">
-                        <c:set var="tab" value="tab${i+1}"/>
-                        <li class="${tab} closeTab">${i+1}일차</li>
-                    </c:forEach>
-                </ul>
-                <div id="tabPage">
-                    <c:forEach var="scheduleDates" items="${scheduleModal.scheduleDates}" varStatus="loop">
-                        <div class="tab${loop.index + 1} closeTabPage">
-                            <ul>
-                                <c:forEach var="detailedSchedule" items="${scheduleDates.detailedScheduleList}">
-                                    <li class="contents">
-                                        <div class="contentsImg">
-                                            <img src="${detailedSchedule.adminContents.adminContentsImageList[0].imageURL}">
-                                        </div>
-                                        <ul class="contentsInfo">
-                                            <c:set var="contentUuid"
-                                                   value="${detailedSchedule.adminContents.uuid}"/>
-                                            <a href="/contents/detail/${contentUuid}">
-                                                <li class="businessName">${detailedSchedule.adminContents.businessName}</li>
-                                            </a>
-                                            <li class="address">${detailedSchedule.adminContents.detailedAddress}</li>
-                                            <li class="category">${detailedSchedule.adminContents.category}</li>
-                                            <li>
-                                                <button type="button" value="${contentUuid}"
-                                                        onclick="goToReview(this.value)">리뷰 쓰기
-                                                </button>
+                <div class="close-modal-btn">
+                    <span class="material-symbols-outlined detail-schedule-modal">close</span>
+                </div>
+                <div class="modal-layout-container">
+                    <div class="left-modal-wrapper">
+                        <ul id="tabMenu">
+                            <c:forEach var="i" begin="0" end="${endDate - startDate}">
+                                <c:set var="tab" value="tab${i+1}"/>
+                                <li class="${tab} closeTab">${i+1}일 차<i class="xi-angle-right-min"></i></li>
+                            </c:forEach>
+                        </ul>
+                    </div>
+                    <div class="right-modal-wrapper">
+                        <div id="tabPage">
+                            <c:forEach var="scheduleDates" items="${scheduleModal.scheduleDates}" varStatus="loop">
+                                <div class="tab${loop.index + 1} closeTabPage">
+                                    <ul>
+                                        <c:forEach var="detailedSchedule" items="${scheduleDates.detailedScheduleList}">
+                                            <li class="contents">
+                                                <div class="contentsImg">
+                                                    <img src="${detailedSchedule.adminContents.adminContentsImageList[0].imageURL}">
+                                                </div>
+                                                <ul class="contentsInfo">
+                                                    <c:set var="contentUuid"
+                                                           value="${detailedSchedule.adminContents.uuid}"/>
+                                                    <a href="/contents/detail/${contentUuid}">
+                                                        <li class="businessName">${detailedSchedule.adminContents.businessName}</li>
+                                                    </a>
+                                                    <li class="address">${detailedSchedule.adminContents.detailedAddress}</li>
+                                                    <li class="category">${detailedSchedule.adminContents.category}</li>
+                                                    <li>
+                                                        <button type="button" value="${contentUuid}"
+                                                                onclick="goToReview(this.value)">리뷰 쓰기
+                                                        </button>
+                                                    </li>
+                                                </ul>
                                             </li>
-                                        </ul>
-                                    </li>
-                                </c:forEach>
-                            </ul>
+                                        </c:forEach>
+                                    </ul>
+                                </div>
+                            </c:forEach>
                         </div>
-                    </c:forEach>
-
+                    </div>
                 </div>
             </div>
         </c:forEach>
