@@ -155,8 +155,6 @@ $(document).ready(function () {
                 }
                 if (isMaxSize) { // 사이즈 제한에 걸렸을 때
                     alert('이미지 파일이 업로드 용량(10MB)을 초과하였습니다.');
-                } else {
-                    /** upload end */
                 }
             },
         },
