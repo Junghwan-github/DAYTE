@@ -97,10 +97,10 @@
                         <div class="daysPrint">
                             <ul class="daysPrintList">
                                 <c:set var="day" value="0"/>
-                                <c:forEach begin="${startDate}" end="${endDate}">
+                                <c:forEach begin="${startDate}" end="${endDate}" >
                                     <c:set var="nextDays" value="${day + 1 }"/>
                                     <li>
-                                        <button class="nextDayBtn" value="${scheduleList.uuid}"
+                                        <button class="nextDayBtn" <c:if test="${!empty scheduleList.scheduleDates[day].detailedScheduleList}">disabled</c:if> value="${scheduleList.uuid}"
                                                 data-now-days="${scheduleList.scheduleDates[day].scheduleDateId.nowDate}">${nextDays}일차
                                         </button>
                                     </li>
