@@ -14,7 +14,7 @@
 <script>
   $(document).ready(function(){
     alert("${errorMessage}");
-    location.href="/member/login";
+    location.href="/members/login";
   });
 </script>
 </c:if>
