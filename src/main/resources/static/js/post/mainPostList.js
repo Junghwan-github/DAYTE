@@ -26,6 +26,6 @@ postCreateDates.forEach(function(dateElement) {
     let twentyFourHoursLaterDateTime = new Date(postDateTime.getTime() + 24 * 60 * 60 * 1000); // 게시글의 작성 날짜 + 24시간
     console.log(twentyFourHoursLaterDateTime);
     if (new Date() < twentyFourHoursLaterDateTime) { // 24시간 이내인 경우
-        dateElement.parentElement.parentElement.parentElement.parentElement.querySelector('.content-part > .post-items-title > h2 > .new-icon').style.display = 'inline-block'; // "new-icon"을 보이게 함
+        dateElement.parentElement.parentElement.parentElement.parentElement.querySelector('.content-part > .post-items-title > h2 > .xi-new').style.display = 'inline-block'; // "new-icon"을 보이게 함
     }
 });
