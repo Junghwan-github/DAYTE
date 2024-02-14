@@ -212,7 +212,7 @@
             </ul>
         </div>
         <div id="customer-n-inquiry" class="customer-n-inquiry tab-content">
-            <form action="/question" method="POST">
+            <form>
                 <ul>
                     <li>
                         <label for="inquiry-title">제목</label>

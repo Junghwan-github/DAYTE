@@ -137,7 +137,6 @@ public class PostController {
         model.addAttribute("postList", postListPage);
 
         model.addAttribute("postListText",postService.extractPostContentText());
-        System.out.println("포스트텍스트"+postService.extractPostContentText());
         return "post/mainPostList";
     }
 
@@ -153,17 +152,19 @@ public class PostController {
     // ----------------------- 포스트 수정 로직 수행 -----------------------
     @PutMapping("/post")
     public @ResponseBody ResponseDTO<?> updatePost(@RequestBody Post post) {
+
         postService.updatePost(post);
+        postService.deletePostImage(post);
         postService.extractPostContentImages(post);
         return new ResponseDTO<>(HttpStatus.OK.value(), post.getId() + "번 포스트가 수정되었습니다.");
     }
+
+
 
     // ----------------------- 포스트 삭제 로직 수행 -----------------------
     @DeleteMapping("/post/{id}")
     public @ResponseBody ResponseDTO<?> deletePost(@PathVariable Long id) {
         postService.deletePost(id);
-        System.out.println("삭제한다" + id);
-
         return new ResponseDTO<>(HttpStatus.OK.value(), id + "번 포스트가 삭제되었습니다.");
     }
 

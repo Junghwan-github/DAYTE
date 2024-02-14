@@ -13,7 +13,7 @@ let postObject = {
         });
 
         $("#post-delete").on("click", (e) => {
-            e.preventDefault();
+            e.preventDefault()
             let check = confirm("해당 게시글을 삭제하시겠습니까?");
             if (check) {
                 this.deletePost();
@@ -94,6 +94,7 @@ let postObject = {
     deletePost: function () {
         // console.log('삭제 요청');
         let id = $("#post-id").val();
+
         fetch("/post/" + id, {
             method : "DELETE",
             headers: {
