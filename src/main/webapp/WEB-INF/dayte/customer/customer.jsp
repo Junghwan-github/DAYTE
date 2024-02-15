@@ -215,6 +215,17 @@
             <form>
                 <ul>
                     <li>
+                        <label for="inquiry-email">이메일</label>
+                        <input type="text" id="inquiry-email" placeholder="dayte@dayte.com">
+                    </li>
+                    <li>
+                        <label for="firstCategory">문의 분류</label>
+                        <select id="firstCategory">
+                        </select>
+                        <select id="secondCategory">
+                        </select>
+                    </li>
+                    <li>
                         <label for="inquiry-title">제목</label>
                         <input type="text" id="inquiry-title" placeholder="문의 하실 항목과 함께 제목을 적어주세요">
                     </li>
@@ -232,6 +243,7 @@
 
 
 <script src="/js/main/customer.js"></script>
+<script src="/js/main/emailQuestion.js"></script>
 <script src="/js/schedule/contentInfo.js"></script>
 
 
