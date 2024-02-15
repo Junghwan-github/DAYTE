@@ -5,8 +5,6 @@ import com.example.dayte.admin.mianslider.persistence.VisitorStatisticsRepositor
 import com.example.dayte.security.dto.UserSecurityDTO;
 import jakarta.servlet.http.HttpSessionEvent;
 import jakarta.servlet.http.HttpSessionListener;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.core.Authentication;
@@ -56,12 +54,5 @@ public class MySessionListener implements HttpSessionListener {
     }
     public List<String> getActiveUsers() {
         return activeUsers;
-    }
-
-    @Override
-    public String toString() {
-        return "MySessionListener{" +
-                "activeUsers=" + activeUsers +
-                '}';
     }
 }

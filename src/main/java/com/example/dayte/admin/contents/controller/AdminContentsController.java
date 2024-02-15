@@ -243,7 +243,6 @@ public class AdminContentsController {
     @GetMapping("/admin/loginUser")
     public String loginUser(Model model) {
         model.addAttribute("userList", mySessionListener.getActiveUsers());
-        System.out.println("하와와" + mySessionListener.getActiveUsers().toString());
         return "adminPage/loginUser";
     }
 }
