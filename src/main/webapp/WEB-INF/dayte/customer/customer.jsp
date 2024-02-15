@@ -216,7 +216,7 @@
                 <ul>
                     <li>
                         <label for="inquiry-email">이메일</label>
-                        <input type="text" id="inquiry-email" placeholder="dayte@dayte.com">
+                        <input type="text" id="inquiry-email" value="" placeholder="dayte@dayte.com">
                     </li>
                     <li>
                         <label for="firstCategory">문의 분류</label>

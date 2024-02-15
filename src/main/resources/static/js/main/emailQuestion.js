@@ -8,8 +8,6 @@ const firstCtg = {
 let firstCategory = document.querySelector("#firstCategory");
 let secondCategory = document.querySelector('#secondCategory');
 
-
-
 init();
 
 function init() {
@@ -31,8 +29,6 @@ function init() {
     firstCategory.innerHTML = firstHtml;
     secondCategory.innerHTML = secondHtml;
 
-
-
     let secondOption = secondCategory.querySelectorAll('option');
 
     secondOption.forEach(e => {
@@ -42,6 +38,8 @@ function init() {
 }
 
 firstCategory.addEventListener("change", function (element){
+
+
 
     secondCategory.querySelectorAll('option').forEach(e => {
 

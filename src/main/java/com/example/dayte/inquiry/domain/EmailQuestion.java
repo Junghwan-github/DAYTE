@@ -25,6 +25,9 @@ public class EmailQuestion {
     private String content;
 
     @Column
+    private String emailAdress;
+
+    @Column
     private boolean answerCheck;
 
 
