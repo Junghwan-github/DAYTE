@@ -5,6 +5,7 @@ import com.example.dayte.admin.contents.dto.AdminContentsDTO;
 import com.example.dayte.admin.contents.dto.AdminContentsImageDTO;
 import com.example.dayte.admin.contents.service.AdminContentsService;
 import com.example.dayte.admin.mianslider.dto.VisitorStatisticsDTO;
+import com.example.dayte.admin.mianslider.listener.MySessionListener;
 import com.example.dayte.admin.mianslider.service.VisitorStatisticsService;
 import com.example.dayte.members.domain.User;
 import com.example.dayte.members.dto.UserDTO;
@@ -54,6 +55,9 @@ public class AdminContentsController {
 
     @Autowired
     private VisitorStatisticsService visitorStatisticsService;
+
+    @Autowired
+    private MySessionListener mySessionListener;
 
     // 관리자페이지 메인
     @PreAuthorize("hasRole('ADMIN')")
@@ -236,4 +240,10 @@ public class AdminContentsController {
         return "adminPage/index";
     }
 
+    @GetMapping("/admin/loginUser")
+    public String loginUser(Model model) {
+        model.addAttribute("userList", mySessionListener.getActiveUsers());
+        System.out.println("하와와" + mySessionListener.getActiveUsers().toString());
+        return "adminPage/loginUser";
+    }
 }

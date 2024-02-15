@@ -94,7 +94,7 @@
                             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small bg-light ps-4">
                                 <li><a href="/admin/user" class="link-body-emphasis d-inline-flex text-decoration-none rounded">회원 관리</a></li>
                                 <li><a href="/admin/view" class="link-body-emphasis d-inline-flex text-decoration-none rounded">접속자 집계</a></li>
-                                <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">접속자 검색</a></li>
+                                <li><a href="/admin/loginUser" class="link-body-emphasis d-inline-flex text-decoration-none rounded">접속자 현황</a></li>
                             </ul>
                         </div>
                     </li>
