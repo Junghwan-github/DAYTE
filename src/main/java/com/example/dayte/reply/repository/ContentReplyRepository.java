@@ -17,4 +17,6 @@ public interface ContentReplyRepository extends JpaRepository<ContentReply, Inte
     @Query("select cr FROM ContentReply cr where cr.adminContents.uuid = :uuid")
     List<ContentReply> findByContentUuid(@Param("uuid") String uuid);
 
+    @Query("select cr From ContentReply cr where cr.adminContents.uuid = :uuid and cr.user.userEmail = :userEmail")
+    ContentReply findUserContentReply(@Param("userEmail") String userEmail, @Param("uuid") String uuid);
 }

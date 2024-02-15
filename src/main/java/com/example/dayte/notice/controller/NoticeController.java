@@ -189,7 +189,7 @@ public class NoticeController {
 
     //공지사항 상세보기
     @Transactional(readOnly = true)
-    @GetMapping("/notice/{id}")
+    @GetMapping("/viewNotice/{id}")
     public String getNotice(@PathVariable int id, Model model, Pageable pageable,
                             @RequestParam(value="page", required=false) String currentPage,
                             HttpSession session) {

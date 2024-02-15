@@ -98,7 +98,29 @@
                                             <li class="address">${detailedSchedule.adminContents.detailedAddress}</li>
                                             <li class="category">${detailedSchedule.adminContents.category}</li>
                                             <li>
-                                                    <button type="button" value="${contentUuid}" onclick="goToReview(this.value)">리뷰 쓰기</button>
+                                                <c:choose>
+                                                <c:when test="${!empty detailedSchedule.adminContents.contentReplyList}">
+                                                    <c:set var="loop_point" value="false" />
+                                                    <c:forEach var="user" items="${detailedSchedule.adminContents.contentReplyList}">
+                                                        <c:if test="${user.user.userEmail eq principal.userEmail}">
+                                                            <c:set var="loop_point" value="true" />
+                                                        </c:if>
+                                                    </c:forEach>
+                                                        <c:choose>
+                                                            <c:when test="${loop_point}">
+                                                                <a href="/modReview/${contentUuid}">
+                                                                <button type="button">리뷰 수정</button>
+                                                                </a>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <button type="button" value="${contentUuid}" onclick="goToReview(this.value)">리뷰 쓰기</button>
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                </c:when>
+                                                    <c:otherwise>
+                                                        <button type="button" value="${contentUuid}" onclick="goToReview(this.value)">리뷰 쓰기</button>
+                                                    </c:otherwise>
+                                                </c:choose>
                                             </li>
                                         </ul>
                                     </li>
