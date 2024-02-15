@@ -56,7 +56,7 @@ public class IndexMainSliderService {
 
 
 
-            Path targetPath = Path.of("\\\\192.168.10.75" + imageUploadPath + fileName);
+            Path targetPath = Path.of("\\\\192.168.10.203" + imageUploadPath + fileName);
 
             Files.copy(image.getInputStream(), targetPath, StandardCopyOption.REPLACE_EXISTING);
 

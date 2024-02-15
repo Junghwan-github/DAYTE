@@ -172,6 +172,7 @@ function sendFile(files) {
         contentType: false,
         processData: false,
         success    : function (response) {
+            console.log(response);
             $('#summernote').summernote('insertImage', response.url);
         },
         error      : function (error) {

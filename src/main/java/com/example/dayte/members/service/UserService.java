@@ -162,7 +162,7 @@ public class UserService {
         try {
             String uuid = UUID.randomUUID().toString();
             // 이미지 파일을 저장할 디렉토리 경로 설정
-            Path path = Path.of("\\\\192.168.10.75" + contentsImageUploadPath);
+            Path path = Path.of("\\\\192.168.10.203" + contentsImageUploadPath);
             // 디렉토리가 존재하지 않으면 생성
             if (!Files.exists(path)) {
                 Files.createDirectories(path);
