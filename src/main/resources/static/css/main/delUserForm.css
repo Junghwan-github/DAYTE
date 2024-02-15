@@ -75,10 +75,9 @@ main {
     font-size: 1.4rem;
     padding: 10px;
 }
-.delInfo > p:first-child {
-}
+
 .delInfo > div > ul > li {
-    display: inline-block;
+    display: block;
     height : 15px;
     font-size: 1.3rem;
 }

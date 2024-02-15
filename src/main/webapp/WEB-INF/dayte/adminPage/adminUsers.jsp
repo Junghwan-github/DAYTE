@@ -5,7 +5,7 @@
 <!-- 콘텐츠 -->
 <div class="h-100 bg-body-tertiary px-3" style="padding-top: 70px; min-width:375px;">
     <div class="px-5">
-        <p class="h4 fw-bold titleName" >회원 관리</p>
+        <p class="h4 titleName border-bottom pb-2" >회원 관리</p>
 
         <!-- 회원 요약 통계 -->
         <div class="d-flex flex-row justify-content-start">

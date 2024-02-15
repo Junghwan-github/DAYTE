@@ -48,9 +48,6 @@ public class AdminContentsController {
     private UserService userService;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Autowired
     private final PostService postService;
 
     @Autowired
@@ -64,7 +61,7 @@ public class AdminContentsController {
     @GetMapping("/admin/home")
     public String adminHome(Model model){
         int recentUserCount = 8;
-        int recentPostCount = 5;
+        int recentPostCount = 8;
 
         List<User> recentUsers = userService.getRecentUsers(recentUserCount);
         List<Post> recentPosts = postService.getRecentPosts(recentPostCount);
@@ -235,10 +232,11 @@ public class AdminContentsController {
         return searchByContents;
     }
 
-    @GetMapping("/admin/view")
+    @GetMapping("/admin/totalVisitor")
     public String view() {
-        return "adminPage/index";
+        return "adminPage/adminTotalVisitor";
     }
+
 
     @GetMapping("/admin/loginUser")
     public String loginUser(Model model) {
