@@ -2,9 +2,11 @@ package com.example.dayte.reply.controller;
 
 
 import com.example.dayte.members.domain.User;
+import com.example.dayte.members.dto.UserDTO;
 import com.example.dayte.reply.domain.ContentReply;
 import com.example.dayte.reply.dto.ContentReplyDTO;
 import com.example.dayte.reply.dto.ResponseDTO;
+import com.example.dayte.reply.dto.UpdateContentReplyDTO;
 import com.example.dayte.reply.service.ContentReplyService;
 import com.example.dayte.security.dto.UserSecurityDTO;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +25,17 @@ public class ContentReplyController {
     private final ContentReplyService contentReplyService;
 
     private final ModelMapper modelMapper;
+
+
+
+    @GetMapping("/contentReply")
+    public String index(Model model) {
+        model.addAttribute("contentReplyList", contentReplyService.contentReplyList());
+        return "reply/contentReply";
+        // replyService.replyList()를 사용하여 댓글 목록을 가져와서 모델에 추가한 후 "ContentReply" view 를 띄움
+    }
+
+
 
     //댓글 등록창 가기전 이 유저가 해당 컨텐츠에 댓글을 썼는지 안 썼는지 체크
     @PreAuthorize("hasRole('ADMIN')")
@@ -46,6 +59,7 @@ public class ContentReplyController {
     @GetMapping("/contentsReview/{uuid}")
     public String contentsReview(Model model, @PathVariable String uuid){
 
+            model.addAttribute("msg", "insertReply");
             model.addAttribute("uuid", uuid);
             System.out.println("^^^^^^^^^");
             System.out.println(uuid);
@@ -53,6 +67,32 @@ public class ContentReplyController {
         return "reply/contentReply";
 
     }
+
+    //댓글 수정창으로 이동
+    @GetMapping("/modReview/{uuid}")
+    public String goToModReviewPage(Model model, @PathVariable String uuid, @AuthenticationPrincipal UserSecurityDTO principal){
+
+        ContentReply contentReply = contentReplyService.findUserContentReply(principal.getUserEmail(), uuid);
+
+        model.addAttribute("msg", "updateReply");
+        model.addAttribute("contentReply", contentReply);
+
+        return "reply/contentReply";
+    }
+
+    //댓글 수정창에서 수정 로직
+    @PutMapping("/modReview")
+    public @ResponseBody ResponseDTO<?> updateReview(@RequestBody UpdateContentReplyDTO updateContentReplyDTO, @AuthenticationPrincipal UserSecurityDTO principal){
+
+
+        String userEmail = principal.getUserEmail();
+
+        contentReplyService.updateReply(userEmail, updateContentReplyDTO);
+
+        return new ResponseDTO<>(HttpStatus.OK.value(), "댓글 수정이 완료되었습니다.");
+    }
+
+
 
 
     @PostMapping("/contentReply")
@@ -67,13 +107,6 @@ public class ContentReplyController {
         return new ResponseDTO<>(HttpStatus.OK.value(), "댓글이 등록됐습니다.");
     }
 
-    //아래 로직 필요없으면 삭제 바랍니다!
-    @GetMapping("/contentReply")
-    public String index(Model model) {
-        model.addAttribute("contentReplyList", contentReplyService.contentReplyList());
-        return "reply/contentReply";
-        // replyService.replyList()를 사용하여 댓글 목록을 가져와서 모델에 추가한 후 "ContentReply" view 를 띄움
-    }
 
     //    delete 부분
     @DeleteMapping("/contentReply/{num}")

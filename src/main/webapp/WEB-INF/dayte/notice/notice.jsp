@@ -56,7 +56,7 @@
                 <c:forEach var="notice" items="${noticeList.content}">
                     <tr class="noticeTrStyle listHover <c:if test='${notice.priority > 0}'>priorityNotZero</c:if>">
                         <td class="tdStyle">${notice.no}</td>
-                        <td class="tdStyle"><a href="/notice/${notice.no}?page=${currentPage}" class="tdTitle">${notice.title}</a></td>
+                        <td class="tdStyle"><a href="/viewNotice/${notice.no}?page=${currentPage}" class="tdTitle">${notice.title}</a></td>
                         <td class="tdStyle"><fmt:formatDate value="${notice.createDate}" pattern="yy-MM-dd"/></td>
                     </tr>
                 </c:forEach>
