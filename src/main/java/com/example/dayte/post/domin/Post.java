@@ -1,5 +1,6 @@
 package com.example.dayte.post.domin;
 
+import com.example.dayte.admin.contents.domain.AdminContents;
 import com.example.dayte.members.domain.User;
 import com.example.dayte.reply.domain.PostReply;
 import jakarta.persistence.*;
@@ -40,7 +41,11 @@ public class Post {
     @OrderBy("num desc")
     private List<PostReply> replyList;
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private List<PostImages> postImages;
+
+//    @ManyToOne
+//    @JoinColumn(name = "contents")
+//    private AdminContents contents;
     
 }

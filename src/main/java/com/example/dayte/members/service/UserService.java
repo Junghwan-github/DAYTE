@@ -5,6 +5,7 @@ import com.example.dayte.members.domain.User;
 import com.example.dayte.members.dto.UserDTO;
 import com.example.dayte.members.persistence.UserRepository;
 import com.example.dayte.security.dto.UserSecurityDTO;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,6 +21,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -41,8 +43,16 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
+    public User newUser(String userEmail) {
+        // 회원가입 시 회원이 없으면 새로 등록하게
+        User findUser = userRepository.findByUserEmail(userEmail).orElseGet(User::new);
+        return findUser;
+    }
+
+    @Transactional(readOnly = true)
     public User getUser(String userEmail) {
-        User findUser = userRepository.findByUserEmail(userEmail).orElseThrow(()->
+        // 회원 불러올 때 없으면 에러메시지
+        User findUser = userRepository.findByUserEmail(userEmail).orElseThrow(() ->
                 new IllegalArgumentException("해당 회원이 존재하지 않습니다."));
         return findUser;
     }
@@ -87,18 +97,42 @@ public class UserService {
 
     //    회원 수정
     @Transactional
-    public void updateUser(UserDTO userDTO) {
+    public boolean updateUser(UserDTO userDTO) {
         User findUser = userRepository.findByUserEmail(userDTO.getUserEmail()).get();
 
         userDTO.setUserEmail(findUser.getUserEmail());
-        userDTO.setRole(findUser.getRole());
-        userDTO.setBirthDate(findUser.getBirthDate());
         userDTO.setBirthDate(findUser.getBirthDate());
         userDTO.setJoinDate(findUser.getJoinDate());
+        if(userDTO.getProfileImagePath() == null){
+            userDTO.setProfileImageName(findUser.getProfileImageName());
+            userDTO.setProfileImagePath(findUser.getProfileImagePath());
+        }
+        // 비밀번호란이 비어있다면 그대로, 입력되어있으면 변경
+        if ("".equals(userDTO.getPassword())) {
+            userDTO.setPassword(findUser.getPassword());
+            System.out.println("============= 기존 비번 : " + userDTO.getPassword());
+        } else {
+            System.out.println("============= 새 비번 : " + userDTO.getPassword());
+            userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+            System.out.println("============= 새 비번 : " + userDTO.getPassword());
+        }
 
-        User user = modelMapper.map(userDTO, User.class);
+        if (!userDTO.getNickName().equals(findUser.getNickName())) {
+            // 새 닉네임 입력시
+            if (!userDTO.getNickName().isEmpty() && !nickNameChk(userDTO.getNickName())) {
+                userDTO.setNickName(userDTO.getNickName());
+                userRepository.save(modelMapper.map(userDTO, User.class));
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            userDTO.setNickName(userDTO.getNickName());
+            userRepository.save(modelMapper.map(userDTO, User.class));
+            return true;
+        }
 
-        userRepository.save(user);
+
     }
 
 
@@ -137,7 +171,6 @@ public class UserService {
             String fileName = uuid + "_" + encodedFileName;
 
             Path targetPath = Path.of(path + "/" + (uuid + "_" + userDTO.getImage().getOriginalFilename()));
-            System.out.println(targetPath);
             Files.copy(userDTO.getImage().getInputStream(), targetPath, StandardCopyOption.REPLACE_EXISTING);
 
             // UserDTO에 파일명과 경로 설정
@@ -160,17 +193,12 @@ public class UserService {
         String phone = userDTO.getPhone() != null ? userDTO.getPhone() : userSecurityDTO.getPhone();
 
         findUser.setPhone(phone);
-        if (userDTO.getImage() != null && !userDTO.getImage().isEmpty()) {
+        if (userDTO.getImage() != null) {
             findUser.setProfileImagePath(userDTO.getProfileImagePath());
             findUser.setProfileImageName(userDTO.getProfileImageName());
         }
 
         return findUser;
-    }
-
-    @Transactional
-    public void deleteUser(String userEmail) {
-        userRepository.deleteById(userEmail);
     }
 
     public boolean nickNameChk(String nickName) {
@@ -187,5 +215,32 @@ public class UserService {
         findUser.setPassword(passwordEncoder.encode(rawNewPwd));
 
         return findUser;
+    }
+
+    // 회원 정보 삭제 ( 이메일, 탈퇴여부 외 정보 삭제)
+    @Transactional
+    public boolean testDelUser(String userEmail) {
+        User findUser = userRepository.findByUserEmail(userEmail).orElseThrow(() -> {
+            return new IllegalArgumentException("회원 찾기 실패");
+        });
+        System.out.println("=============" + findUser);
+        UserDTO userDTO = new UserDTO();
+        userDTO.setUserEmail(findUser.getUserEmail());
+        userDTO.setPassword(passwordEncoder.encode("1111"));
+        userDTO.setUserName(RandomStringUtils.random(5, true, true));
+        userDTO.setNickName(RandomStringUtils.random(10, true, true));
+        userDTO.setPhone("010-9999-9999");
+        userDTO.setBirthDate("00000000");
+        userDTO.setRole(RoleType.USER);
+        userDTO.setGender("other");
+        userDTO.setDel(true);
+        userRepository.save(modelMapper.map(userDTO, User.class));
+        return true;
+
+    }
+
+    @Transactional
+    public List<User> getRecentUsers(int count) {
+        return userRepository.findTopByOrderByJoinDateDesc(count);
     }
 }

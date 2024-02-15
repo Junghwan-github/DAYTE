@@ -1,12 +1,16 @@
+let pwd1Chk = false;
+let pwd2Chk = false;
+let uNameChk = false;
+let nickNameChk = false;
+let phoneChk = false;
+let birthChk = false;
+
 const id = document.getElementById("id");
 const emailDomain = document.getElementById("emailDomain");
 const domainSelect = document.getElementById("domainSelect");
 const password1 = document.getElementById("password1");
 const password2 = document.getElementById("password2");
 
-const idFailMsg = document.querySelector(".idFailMsg");
-const idFailMsg2 = document.querySelector(".idFailMsg2");
-const idFailMsg3 = document.querySelector(".idFailMsg3");
 const pwdFailMsg = document.querySelector(".pwdFailMsg");
 const pwdFailMsg2 = document.querySelector(".pwdFailMsg2");
 
@@ -22,20 +26,20 @@ const nickNameFailMsg = document.querySelector(".nickNameFailMsg");
 const phoneFailMsg = document.querySelector(".phoneFailMsg");
 const birthFailMsg = document.querySelector(".birthFailMsg");
 
-// 아이디 6자 이상 18자 이하
-function idLength(value) {
-    return value.length >= 6 && value.length <= 18;
-}
-
-// 아이디 영어 또는 숫자만
-function onlyNumberAndEnglish(str) {
-    return /^[A-Za-z0-9.]+$/.test(str);
-}
-
-// 이메일 형식 확인
-function emailRegex(value) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-}
+// // 아이디 6자 이상 18자 이하
+// function idLength(value) {
+//     return value.length >= 6 && value.length <= 18;
+// }
+//
+// // 아이디 영어, 숫자만
+// function onlyNumberAndEnglish(str) {
+//     return /^[A-Za-z0-9.]+$/.test(str);
+// }
+//
+// // 이메일 형식 확인
+// function emailRegex(value) {
+//     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+// }
 
 /* 도메인 선택값 */
 function updateDomain() {
@@ -81,25 +85,25 @@ function validateBirth(value) {
 
 
 // 아이디
-    id.onkeyup = function () {
-        if (id.value.length !== 0) {
-            if (onlyNumberAndEnglish(id.value) === false) {
-                idFailMsg.classList.remove("hide");
-            } else if (idLength(id.value) === false) {
-                idFailMsg.classList.add("hide");
-                idFailMsg2.classList.remove("hide");
-                idFailMsg3.classList.add("hide");
-            } else {
-                idFailMsg.classList.add("hide");
-                idFailMsg2.classList.add("hide");
-                idFailMsg3.classList.add("hide");
-            }
-        } else {
-            idFailMsg.classList.add("hide");
-            idFailMsg2.classList.add("hide");
-            idFailMsg3.classList.add("hide");
-        }
-    };
+//     id.onkeyup = function () {
+//         if (id.value.length !== 0) {
+//             if (onlyNumberAndEnglish(id.value) === false) {
+//                 idFailMsg.classList.remove("hide");
+//             } else if (idLength(id.value) === false) {
+//                 idFailMsg.classList.add("hide");
+//                 idFailMsg2.classList.remove("hide");
+//                 idFailMsg3.classList.add("hide");
+//             } else {
+//                 idFailMsg.classList.add("hide");
+//                 idFailMsg2.classList.add("hide");
+//                 idFailMsg3.classList.add("hide");
+//             }
+//         } else {
+//             idFailMsg.classList.add("hide");
+//             idFailMsg2.classList.add("hide");
+//             idFailMsg3.classList.add("hide");
+//         }
+//     };
 
 
 // 비밀번호 유효성 검사
@@ -108,9 +112,11 @@ function validateBirth(value) {
             if (strongPassword(password1.value)) {
                 pwdFailMsg.classList.add("hide");
                 pwdFailMsg2.classList.add("hide");
+                pwd1Chk = true;
             } else {
                 pwdFailMsg.classList.remove("hide");
                 pwdFailMsg2.classList.add("hide");
+                pwd1Chk = false;
             }
         } else {
             pwdFailMsg.classList.add("hide");
@@ -124,9 +130,11 @@ function validateBirth(value) {
             if (isMatch(password1.value, password2.value)) {
                 pwdFailMsg.classList.add("hide");
                 pwdFailMsg2.classList.add("hide");
+                pwd2Chk = true;
             } else {
                 pwdFailMsg2.classList.remove("hide");
                 pwdFailMsg.classList.add("hide");
+                pwd2Chk = false;
             }
         } else {
             pwdFailMsg.classList.add("hide");
@@ -135,33 +143,35 @@ function validateBirth(value) {
     };
 
 // 이메일 형식 검사
-    emailDomain.onkeyup = function () {
-        let uEmail = id.value + "@" + emailDomain.value;
-        if (emailDomain.value.length !== 0) {
-            if (emailRegex(uEmail)) {
-                console.log(emailRegex(uEmail));
-                idFailMsg.classList.add("hide");
-                idFailMsg2.classList.add("hide");
-                idFailMsg3.classList.add("hide");
-            } else {
-                idFailMsg.classList.add("hide");
-                idFailMsg2.classList.add("hide");
-                idFailMsg3.classList.remove("hide");
-            }
-        } else {
-            idFailMsg.classList.add("hide");
-            idFailMsg2.classList.add("hide");
-            idFailMsg3.classList.add("hide");
-        }
-    };
+//     emailDomain.onkeyup = function () {
+//         let uEmail = id.value + "@" + emailDomain.value;
+//         if (emailDomain.value.length !== 0) {
+//             if (emailRegex(uEmail)) {
+//                 console.log(emailRegex(uEmail));
+//                 idFailMsg.classList.add("hide");
+//                 idFailMsg2.classList.add("hide");
+//                 idFailMsg3.classList.add("hide");
+//             } else {
+//                 idFailMsg.classList.add("hide");
+//                 idFailMsg2.classList.add("hide");
+//                 idFailMsg3.classList.remove("hide");
+//             }
+//         } else {
+//             idFailMsg.classList.add("hide");
+//             idFailMsg2.classList.add("hide");
+//             idFailMsg3.classList.add("hide");
+//         }
+//     };
 
 // 이름  유효성 검사
 uName.onkeyup = function () {
     if (uName.value.length !== 0) {
         if (validateUName(uName.value)) {
             uNameFailMsg.classList.add("hide");
+            uNameChk = true;
         } else {
             uNameFailMsg.classList.remove("hide");
+            uNameChk = false;
         }
     } else {
         uNameFailMsg.classList.add("hide");
@@ -173,8 +183,10 @@ nickName.onkeyup = function () {
     if (nickName.value.length !== 0) {
         if (validateNickName(nickName.value)) {
             nickNameFailMsg.classList.add("hide");
+            nickNameChk = true;
         } else {
             nickNameFailMsg.classList.remove("hide");
+            nickNameChk = false;
         }
     } else {
         nickNameFailMsg.classList.add("hide");
@@ -186,8 +198,10 @@ phone.onkeyup = function () {
     if (phone.value.length !== 0) {
         if (validatePhone(phone.value)) {
             phoneFailMsg.classList.add("hide");
+            phoneChk = true;
         } else {
             phoneFailMsg.classList.remove("hide");
+            phoneChk = false;
         }
     } else {
         phoneFailMsg.classList.add("hide");
@@ -199,8 +213,10 @@ birthDate.onkeyup = function () {
     if (birthDate.value.length !== 0) {
         if (validateBirth(birthDate.value)) {
             birthFailMsg.classList.add("hide");
+            birthChk = true;
         } else {
             birthFailMsg.classList.remove("hide");
+            birthChk = false;
         }
     } else {
         birthFailMsg.classList.add("hide");

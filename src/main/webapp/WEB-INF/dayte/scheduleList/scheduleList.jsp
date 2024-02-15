@@ -97,10 +97,10 @@
                         <div class="daysPrint">
                             <ul class="daysPrintList">
                                 <c:set var="day" value="0"/>
-                                <c:forEach begin="${startDate}" end="${endDate}">
+                                <c:forEach begin="${startDate}" end="${endDate}" >
                                     <c:set var="nextDays" value="${day + 1 }"/>
                                     <li>
-                                        <button class="nextDayBtn" value="${scheduleList.uuid}"
+                                        <button class="nextDayBtn" <c:if test="${!empty scheduleList.scheduleDates[day].detailedScheduleList}">disabled</c:if> value="${scheduleList.uuid}"
                                                 data-now-days="${scheduleList.scheduleDates[day].scheduleDateId.nowDate}">${nextDays}일차
                                         </button>
                                     </li>
@@ -197,8 +197,11 @@
                                     </div>
                                     <ul class="contentListItemText">
                                         <li>
-                                            <h2>${content.businessName}</h2>
-                                            <h2>${content.category}</h2>
+                                            <div class="contents-title-wrapper">
+                                                <h2>${content.businessName}</h2>
+                                                <span>${content.category}</span>
+                                                <span>${content.keyword}</span>
+                                            </div>
                                         </li>
                                         <li>
                                             <span>${content.detailedAddress}</span>
@@ -274,7 +277,8 @@
                                                 <img src="${detailedSchedule.adminContents.adminContentsImageList[0].imageURL}">
                                             </div>
                                             <span>${detailedSchedule.adminContents.businessName}</span>
-                                            <input class="detailedScheduleListId" hidden value="${detailedSchedule.adminContents.uuid}">
+                                            <input class="detailedScheduleListId" hidden
+                                                   value="${detailedSchedule.adminContents.uuid}">
                                         </li>
                                     </c:forEach>
                                 </ul>

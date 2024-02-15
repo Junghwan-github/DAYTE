@@ -59,7 +59,7 @@ public class ContentReplyService {
         } else {}*/
 
             AdminContents adminContents = adminContentsRepository.findById(contentUuid).get();
-            contentReply.setAdminContents(adminContents);
+            contentReply.setContents(adminContents);
             contentReplyRepository.save(contentReply);
 
     }
@@ -82,13 +82,13 @@ public class ContentReplyService {
 
     // 댓글 삭제
     @Transactional
-    public void contentReplydelete(int num) {
+    public void contentReplydelete(long num) {
         contentReplyRepository.deleteById(num);
     }
 
     // 댓글 업데이트
     @Transactional
-    public void contentReplyUpdate(int num, String newContent) {
+    public void contentReplyUpdate(long num, String newContent) {
         // 주어진 댓글 번호에 해당하는 댓글을 찾음
 
         ContentReply contentReply = contentReplyRepository.findById(num)

@@ -1,0 +1,130 @@
+.wrapper{
+    width: 1180px;
+    margin: 0 auto;
+    background: white;
+}
+
+.title{
+    font-size: 2.8rem;
+    color: #333;
+    padding: 20px 0;
+}
+.title > span > a {
+    font-size: 2.8rem;
+    color: #333;
+}
+
+
+
+
+
+.reviewRatingBox {
+    border: 1px solid black;
+    border-radius: 10px;
+    margin: 50px;
+    width: 900px;
+    height: 300px;
+    align-items: center;
+    /*justify-content: center;*/
+    display: flex;
+}
+
+.contents {
+    float: left;
+    width: auto;
+    height: 100%;
+}
+
+/*이 부분엔 나중에 컨텐츠의 사진이 올라올 것*/
+.contents > img {
+    width: 100%;
+    height: 100%;
+    float: left;
+    border-radius: 10px;
+
+}
+
+/*컨텐츠에 등록한 리뷰 끌고옴*/
+.ratings {
+    float: left;
+    margin-left: 50px;
+}
+
+.ratings > p {
+    padding-bottom: 10px;
+}
+
+
+.pagination{
+    margin: 30px 0 0 0;
+    padding: 0;
+}
+
+
+.pagination > ul {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.pagination > ul > li:hover {
+    background-color: #eee;
+    transition: 0.4s;
+}
+.paginationNum {
+    width: 30px;
+    height: 30px;
+    border-collapse: collapse;
+    margin: 0;
+
+    border: 1px solid #e6e6e6;
+}
+.paginationNum > a {
+    display: inline-block;
+    color: #333;
+    text-decoration: none;
+    padding: 5px 10px 8px 11px;
+    vertical-align: center;
+    text-align: center;
+
+    font-size: 1.7rem;
+}
+
+.pageMoveBtn > img{
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    object-fit: cover;
+
+}
+.pageDoubleMoveBtn > img {
+    width: 30px;
+    height: 30px;
+}
+
+.pageMoveBtn,
+.pageDoubleMoveBtn
+{
+    display: inline-block;
+    font-size: 0;
+    width: 30px;
+    height: 30px;
+    border: 1px solid #e6e6e6;
+}
+
+a.active {
+    background-color: #f6f7f8;
+}
+
+.priorityNotZero{
+    background-color: #f6f7f8;
+}
+
+

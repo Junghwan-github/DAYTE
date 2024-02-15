@@ -1,5 +1,7 @@
 package com.example.dayte.members.persistence;
 
+import com.example.dayte.admin.mianslider.domain.VisitorStatistics;
+import com.example.dayte.admin.mianslider.persistence.VisitorStatisticsRepository;
 import com.example.dayte.members.domain.RoleType;
 import com.example.dayte.members.domain.User;
 import com.example.dayte.post.domin.Post;
@@ -9,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.time.LocalDate;
+import java.util.Random;
 import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -24,6 +28,26 @@ class UserRepositoryTest {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private VisitorStatisticsRepository visitorStatisticsRepository;
+
+    @Test
+    public void insertDate(){
+        LocalDate date = LocalDate.now().minusYears(1);
+
+        IntStream.rangeClosed(0, 365).forEach(i -> {
+            double random = Math.random();
+            int intValue = (int)(random * 1000) + 1000;
+            VisitorStatistics visitorStatistics = VisitorStatistics.builder()
+                    .id(i)
+                    .date(date.plusDays(i))
+                    .visitors(intValue)
+                    .build();
+            visitorStatisticsRepository.save(visitorStatistics);
+        });
+
+    }
 
     @Test
     public void insertTenUser() {

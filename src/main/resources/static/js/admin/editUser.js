@@ -1,3 +1,4 @@
+
 let userObject = {
     init: function (){
         $("#editUserBtn").on("click", () => {
@@ -12,21 +13,35 @@ let userObject = {
             userName : $("#userName").val(),
             nickName : $("#nickName").val(),
             birthDate : $("#birthDate").val(),
-            // joinDate : $("#joinDate").val(),
             password : $("#password").val(),
             gender : $("#gender").val(),
             phone : $("#phone").val(),
-            // role : $("#role").val()
+            role : $("#role").find(":selected").val(),
         }
-        console.log(user);
+
+        let formData = new FormData();
+        formData.append("userEmail", $("#userEmail").val()); // 변경된 부분
+        formData.append("userName", $("#userName").val());
+        formData.append("nickName", $("#nickName").val());
+        formData.append("birthDate", $("#birthDate").val());
+        formData.append("password", $("#password").val());
+        formData.append("gender", $("#gender").val());
+        formData.append("phone", $("#phone").val());
+        formData.append("role",$("#role").find(":selected").val());
+        // 이미지 파일이 선택되었을 때만 추가
+        let my_photo = $("#userImage")[0];
+        if (my_photo.files.length > 0) {
+            formData.append("image", my_photo.files[0]);
+        }
         $.ajax({
             // 회원정보 수정 요청
             type : "PUT",
             url : "/admin/editUser",
-            data : JSON.stringify(user),
-            contentType : "application/json; charset=utf-8",
+            data : formData,
+            processData: false,
+            contentType: false,
         }).done(function (response) {
-            if(response === 200) {
+            if(response.status === 200) {
                 alert("회원정보 수정이 완료되었습니다.");
                 location = "/admin/home";
             } else {

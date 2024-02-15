@@ -8,10 +8,12 @@ import java.util.List;
 
 public interface AdminContentsRepository extends JpaRepository<AdminContents, String> {
 
-    @Query("SELECT c FROM AdminContents c WHERE c.businessName LIKE %:search% OR c.category LIKE %:search% OR c.gu LIKE %:search%")
+    @Query("SELECT c FROM AdminContents c WHERE c.businessName LIKE %:search% OR c.gu LIKE %:search% OR c.detailedAddress LIKE %:search% OR c.keyword LIKE %:search%")
     List<AdminContents> findAllBySearch(String search);
 
     List<AdminContents> findAllByCategory(String category);
 
-
+    @Query("SELECT c FROM AdminContents c WHERE c.category = :category AND " +
+            "(c.businessName LIKE %:search% OR c.gu LIKE %:search% OR c.detailedAddress LIKE %:search% OR c.keyword LIKE %:search%)")
+    List<AdminContents> findAllByCategorySearch(String category, String search);
 }

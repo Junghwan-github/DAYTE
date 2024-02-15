@@ -1,5 +1,5 @@
-
 /* main */
+
 main {
   width: 1180px;
   margin: 70px auto;
@@ -24,6 +24,7 @@ main {
   box-sizing: border-box;
 
 }
+
 
 .joinForm > div > h1 {
   font-size: 2.4rem;
@@ -62,18 +63,37 @@ main {
   margin: 0 auto;
 }
 
-.privacyInfo > div >iframe {
+.privacyInfo > div > .termsBox {
   width: 100%;
   height: 420px;
   margin-bottom: 5px;
-  background-color: #ffffff;
+  background-color: #fff;
+  overflow-y: scroll;
 
   border: 3px solid #dce6d7;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset;
 }
 
-.privacyInfo div > div {
+.termsBox > div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+/* 이용약관 세부 내용 */
+.articleTitle {
+  font-size: 1.4rem;
+  color: #333;
+}
+
+.articleText {
+  font-size: 1.2rem;
+  white-space: pre-line;
+}
+
+.privacyInfo div > div:nth-of-type(2),
+.privacyInfo div > div:nth-of-type(3){
   float: right;
   display: flex;
   align-items: center;

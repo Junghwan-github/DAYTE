@@ -129,6 +129,18 @@ input::placeholder {
   cursor: pointer;
 }
 
+.joinInputNickName {
+  width: 77%;
+  background-color: transparent;
+  display: inline-block;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 10px;
+  padding-left: 10px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
 .formItem img:nth-child(n)
 ,.validateCk img{
   width: 15px;
@@ -194,7 +206,7 @@ input {
 
 /* 인증번호 발송 버튼 */
 
-.EmailBttn {
+.checkBttn {
   padding: 0 10px 0 10px;
   border-radius: 5px;
   border: none;
@@ -209,6 +221,7 @@ input {
   letter-spacing: 1px;
   cursor: pointer;
 }
+
 
 #numCheck {
   margin-right: 12px;
@@ -237,6 +250,11 @@ input {
   letter-spacing: 1px;
   word-spacing: 0.6rem;
   cursor: pointer;
+}
+.submitBttn button:hover,
+.checkBttn:hover {
+  background-color: #366984;
+  transition : 0.2s;
 }
 
 /* error Msg */
