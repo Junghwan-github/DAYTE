@@ -34,7 +34,7 @@
 </head>
 <body>
 
-<div class="container-fluid wrapper" style="height: 100vh;">
+<div class="container-fluid wrapper" >
     <!-- 네비 -->
 
     <nav class="navbar fixed-top navbar-expand-lg bg-success-subtle d-flex justify-content-between">
