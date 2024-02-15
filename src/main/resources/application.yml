@@ -7,7 +7,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mysql://192.168.10.75:3306/project?useUnicode=ture&characterEncoding=utf8&serverTimezone=Asia/Seoul
+    url: jdbc:mysql://docs.yi.or.kr:23306/project?useUnicode=ture&characterEncoding=utf8&serverTimezone=Asia/Seoul
     username: admin
     password: 3785*
 
