@@ -82,14 +82,14 @@
                         <ul id="tabMenu">
                             <c:forEach var="i" begin="0" end="${endDate - startDate}">
                                 <c:set var="tab" value="tab${i+1}"/>
-                                <li class="${tab} closeTab">${i+1}일 차<i class="xi-angle-right-min"></i></li>
+                                <li class="${tab}">${i+1}일 차<i class="xi-angle-right-min"></i></li>
                             </c:forEach>
                         </ul>
                     </div>
                     <div class="right-modal-wrapper">
                         <div id="tabPage">
                             <c:forEach var="scheduleDates" items="${scheduleModal.scheduleDates}" varStatus="loop">
-                                <div class="tab${loop.index + 1} closeTabPage">
+                                <div class="tab${loop.index + 1}">
                                     <ul>
                                         <c:forEach var="detailedSchedule" items="${scheduleDates.detailedScheduleList}">
                                             <li class="contents">
@@ -97,14 +97,12 @@
                                                     <img src="${detailedSchedule.adminContents.adminContentsImageList[0].imageURL}">
                                                 </div>
                                                 <ul class="contentsInfo">
-                                                    <c:set var="contentUuid"
-                                                           value="${detailedSchedule.adminContents.uuid}"/>
-                                                    <a href="/contents/detail/${contentUuid}">
-                                                        <li class="businessName">${detailedSchedule.adminContents.businessName}</li>
-                                                    </a>
+                                                    <li class="category-keyword"><span>${detailedSchedule.adminContents.category}</span><span>${detailedSchedule.adminContents.keyword}</span></li>
+                                                    <li class="businessName"
+                                                        data-uuid="${detailedSchedule.adminContents.uuid}">${detailedSchedule.adminContents.businessName}</li>
                                                     <li class="address">${detailedSchedule.adminContents.detailedAddress}</li>
-                                                    <li class="category">${detailedSchedule.adminContents.category}</li>
-                                                    <li>
+
+                                                    <li class="write-review">
                                                         <button type="button" value="${contentUuid}"
                                                                 onclick="goToReview(this.value)">리뷰 쓰기
                                                         </button>
