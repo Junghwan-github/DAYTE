@@ -5,11 +5,15 @@ import com.example.dayte.admin.contents.domain.AdminContents;
 import com.example.dayte.admin.contents.persistence.AdminContentsRepository;
 import com.example.dayte.members.domain.User;
 import com.example.dayte.reply.domain.ContentReply;
+import com.example.dayte.reply.dto.UpdateContentReplyDTO;
 import com.example.dayte.reply.repository.ContentReplyRepository;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.*;
 
 
@@ -60,6 +64,16 @@ public class ContentReplyService {
 
     }
 
+    //댓글 수정창에서 수정 로직
+    public void updateReply(String userEmail, UpdateContentReplyDTO updateContentReplyDTO) {
+        ContentReply findContentReply = contentReplyRepository.findUserContentReply(userEmail, updateContentReplyDTO.getUuid());
+        findContentReply.setContent(updateContentReplyDTO.getNewReply());
+        findContentReply.setRating(updateContentReplyDTO.getRating());
+
+        contentReplyRepository.save(findContentReply);
+    }
+
+
     // 모든 댓글 목록 조회
     public List<ContentReply> contentReplyList() {
 
@@ -87,6 +101,14 @@ public class ContentReplyService {
 
 
     }
+
+    //컨텐츠에 해당 유저가 작성한 댓글 불러오기
+    public ContentReply findUserContentReply(String userEmail, String uuid) {
+        ContentReply contentReply = contentReplyRepository.findUserContentReply(userEmail, uuid);
+
+        return contentReply;
+    }
+
 
 
 }

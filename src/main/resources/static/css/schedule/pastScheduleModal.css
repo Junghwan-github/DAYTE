@@ -47,15 +47,17 @@
 }
 
 .left-modal-wrapper {
+    align-self: flex-start;
     width: 180px;
     height: 778px;
     overflow-y: auto;
     overflow-x: hidden;
     padding: 2px;
+    margin-right: 15px;
+    box-sizing: border-box;
 }
 
 .left-modal-wrapper > ul {
-
     width: 100%;
     border: 1px solid #ddd;
     border-radius: 7px;
@@ -88,6 +90,123 @@
     color: #ddd;
     line-height: 50px;
 }
+
+.right-modal-wrapper {
+    width: 675px;
+    height: 778px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 2px 2px 2px 15px;
+    border-left: 1px solid #ddd;
+    box-sizing: border-box;
+}
+
+.right-modal-wrapper::-webkit-scrollbar {
+    width: 10px;
+}
+.right-modal-wrapper::-webkit-scrollbar-thumb {
+    background: #eee;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+}
+
+.left-modal-wrapper::-webkit-scrollbar {
+    width: 10px;
+}
+.left-modal-wrapper::-webkit-scrollbar-thumb {
+    background: #eee;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+}
+
+
+#tabPage > div > ul > .contents {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    padding: 20px 0;
+    box-sizing: border-box;
+    border-bottom: 1px solid #ddd;
+}
+
+#tabPage > div > ul > .contents > .contentsImg {
+    width: 200px;
+    height: 100px;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+#tabPage > div > ul > .contents > .contentsImg > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.contentsInfo {
+    width: 430px;
+    margin-left: 10px;
+}
+
+.contentsInfo > .businessName {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: #111;
+    line-height: 3rem;
+    cursor: pointer;
+}
+
+.contentsInfo > .businessName:hover {
+    color: #116edb;
+}
+
+
+.contentsInfo > .category-keyword > span{
+    display: inline-block;
+    margin: 0 2px;
+    padding: 5px 10px;
+    background: #eee;
+    border-radius: 3px;
+    font-size: 1.2rem;
+    color: #111;
+
+}
+
+.contentsInfo > .category-keyword > span:first-child {
+    margin: 0 2px 0 0;
+}
+
+.contentsInfo > .address {
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: #888;
+}
+
+.contentsInfo > .write-review {
+   display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.contentsInfo > .write-review > button {
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 1.35rem;
+    border: none;
+    color: #fff;
+    background: #116edb;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    margin-top: 5px;
+}
+
+
+
 
 
 /*#tabMenu{*/

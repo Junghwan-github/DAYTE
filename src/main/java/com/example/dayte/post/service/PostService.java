@@ -113,7 +113,7 @@ public class PostService {
 
     public ResponseEntity<Map<String, String>> uploadImage(MultipartFile multipartFile) {
         Map<String, String> resultMap = new HashMap<>();
-        String fileRoot = "\\\\192.168.10.75/temp/images/post/";
+        String fileRoot = "\\\\192.168.10.203/temp/images/post/";
         // 저장될 경로 학원에서 서버로 수정해야되고
         try {
             String originalFileName = multipartFile.getOriginalFilename();
