@@ -93,7 +93,7 @@ public class UserController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @GetMapping("/members/editPwdForm")
+    @GetMapping("/members/pwdForm")
     public String modifyPasswordForm(Model model,
                                      @AuthenticationPrincipal UserSecurityDTO userSecurityDTO) {
         model.addAttribute("userInfo", userService.getUser(userSecurityDTO.getUserEmail()));
