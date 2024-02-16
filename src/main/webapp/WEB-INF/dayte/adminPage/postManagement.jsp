@@ -1,6 +1,7 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@include file="layout/adminHead.jsp" %>
 <!-- 콘텐츠 -->
 <div class="h-100 bg-body-tertiary px-3" style="padding-top: 70px; min-width:375px;">
@@ -40,9 +41,10 @@
             <table class="table table-striped border" >
                 <thead class="align-middle">
                 <tr >
-                    <th scope="col" class="text-center bg-secondary-subtle">No
-                        <input class="form-check-input" type="checkbox" id="chkAll" >
+                    <th  scope="col" class="text-center bg-secondary-subtle">
+                    <input class="form-check-input" type="checkbox" id="chkAll" >
                     </th>
+                    <th scope="col" class="text-center bg-secondary-subtle">No</th>
                     <th scope="col" class="text-center bg-secondary-subtle">제목</th>
                     <th scope="col" class="text-center bg-secondary-subtle">닉네임</th>
                     <th scope="col" class="text-center bg-secondary-subtle">등록일</th>
@@ -55,12 +57,15 @@
                     <c:forEach var="post" items="${postList.content}">
                             <tr>
                                 <td class="text-center">
-                                    <input class="form-check-input chkGrp" name="chkUsers" type="checkbox" value="<c:out value='${post.id}'/>" >
+                                <input class="form-check-input chkGrp" name="chkPost" type="checkbox" value="<c:out value='${post.id}'/>">
+                                </td>
+                                <td class="text-center">
                                     <span>${post.id}</span>
                                 </td>
                                 <td class="text-center"><a class="text-decoration-none text-dark" href="/post/${post.id}">${post.title} [${post.replyList.size()}]</a></td>
                                 <td class="text-center">${post.user.nickName}</td>
-                                <td class="text-center">${post.createDate}</td>
+                                <td class="text-center"><fmt:formatDate value="${post.createDate}"
+                                                                        pattern="yyyy.MM.dd HH:mm:ss"/></td>
                                 <td class="text-center">
                                     <div class="d-flex justify-content-center">
                                         <a href="/post/${post.id}" class="btn btn-dark ms-1 d-block">삭제</a>
@@ -119,7 +124,7 @@
 <script>
     $(function() {
         $("#chkAll").click(function(){
-            $(".chkGrp").attr("checked", this.checked);
+            $(".chkGrp").prop("checked", this.checked);
         });
     });
     $("#delChkPostBtn").click(function(){

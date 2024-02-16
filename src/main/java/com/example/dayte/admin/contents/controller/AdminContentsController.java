@@ -130,19 +130,12 @@ public class AdminContentsController {
     // 관리자 - 회원정보 수정
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/admin/editUser")
-    public @ResponseBody com.example.dayte.members.dto.ResponseDTO<?> updateUser(@ModelAttribute UserDTO userDTO,
-                                                                                 @AuthenticationPrincipal UserSecurityDTO principal) throws IOException {
-        userDTO.setRole(userDTO.getRole());
-        userDTO.setUserName(userDTO.getUserName());
-        userDTO.setPhone(userDTO.getPhone());
-
-        System.out.println("================================회원정보 수정 : " + userDTO);
+    public @ResponseBody com.example.dayte.members.dto.ResponseDTO<?> updateUser(@ModelAttribute UserDTO userDTO) throws IOException {
         if (userDTO.getImage() != null) {
             userService.profileImage(userDTO);
         }
         if(userService.updateUser(userDTO)) {
             log.info("관리자 사용자 정보 수정 - 사용자 ID : {}", userDTO.getUserEmail());
-            principal.setProfileImagePath(userDTO.getProfileImagePath());
             return new com.example.dayte.members.dto.ResponseDTO<>(HttpStatus.OK.value(), "회원 정보가 수정되었습니다.");
         } else{
             log.info("사용자 정보 수정 실패 - 중복된 닉네임. 사용자 ID : {}",userDTO.getUserEmail());
