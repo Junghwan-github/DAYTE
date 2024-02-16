@@ -21,7 +21,7 @@
                 <input type="text" id="title" value="${notice.title}" readonly>
             </div>
             <div class="noticeContent">
-                  <div id="content">
+                  <div class="content">
                       ${notice.content}
                   </div>
             </div>
@@ -51,11 +51,11 @@
 
     <div class="moveContents">
         <c:if test="${!empty prevId}">
-            <div><a href="/notice/${prevId}">이전 글로 가기 | <span>${prevTitle}</span> </a></div>
+            <div><a href="/viewNotice/${prevId}">이전 글로 가기 | <span>${prevTitle}</span> </a></div>
             <div class="divine"></div>
         </c:if>
         <c:if test="${!empty nextId}">
-            <div><a href="/notice/${nextId}">다음 글로 가기 | <span>${nextTitle}</span> </a></div>
+            <div><a href="/viewNotice/${nextId}">다음 글로 가기 | <span>${nextTitle}</span> </a></div>
         </c:if>
     </div>
 

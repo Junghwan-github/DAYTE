@@ -2,7 +2,7 @@
 <section id="searchContainer">
     <div class="searchArea">
         <form action="/indexSearch" method="get">
-            <input type="text" name="searchArea" placeholder="검색어를 입력하세요" />
+            <input type="text" name="indexSearch" placeholder="검색어를 입력하세요" />
             <button type="submit"><i class="xi-search"></i></button>
         </form>
         <ul class="subNavIcon">

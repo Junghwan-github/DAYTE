@@ -30,6 +30,8 @@ public class Post {
     private String content;
 
     @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(columnDefinition = "Timestamp")
     private Timestamp createDate;
 
     @Setter

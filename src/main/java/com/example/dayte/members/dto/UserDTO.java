@@ -1,6 +1,8 @@
 package com.example.dayte.members.dto;
 
 import com.example.dayte.members.domain.RoleType;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,6 +10,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 @Data
@@ -53,11 +57,22 @@ public class UserDTO {
 
     private RoleType role;
 
-    private Timestamp joinDate; //
+    private boolean social;
+
+    private Timestamp joinDate;
 
     private MultipartFile image;
 
     private String profileImageName; // 프로필 이미지 이름
     
     private String profileImagePath; // 프로필 이미지 경로
+
+    private LocalDate loginDate;
+
+    private boolean notification;
+
+    private String black;
+
+    private Timestamp blockDate;
+
 }

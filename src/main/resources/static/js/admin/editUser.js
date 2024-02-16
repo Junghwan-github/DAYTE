@@ -17,6 +17,7 @@ let userObject = {
             gender : $("#gender").val(),
             phone : $("#phone").val(),
             role : $("#role").find(":selected").val(),
+            black : $("#black").find(":selected").val(),
         }
 
         let formData = new FormData();
@@ -28,6 +29,7 @@ let userObject = {
         formData.append("gender", $("#gender").val());
         formData.append("phone", $("#phone").val());
         formData.append("role",$("#role").find(":selected").val());
+        formData.append("black", $("#black").find(":selected").val());
         // 이미지 파일이 선택되었을 때만 추가
         let my_photo = $("#userImage")[0];
         if (my_photo.files.length > 0) {

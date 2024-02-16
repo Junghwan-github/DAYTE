@@ -15,7 +15,6 @@
                     <td><input type="password" name="password" id="password" value=""></td>
                 </tr>
                 <tr>
-
                     <th><label for="userName" class="ps-3">이름</label></th>
                     <td><input type="text" name="userName" id="userName" value="${user.userName}" disabled></td>
                     <th><label for="nickName" class="ps-3">닉네임</label></th>
@@ -41,9 +40,6 @@
                         <select name="role" id="role" class="list-item" style="padding-right: 70px;">
                             <option value="USER" <c:if test="${user.role == 'USER'}">selected</c:if>> USER</option>
                             <option value="ADMIN" <c:if test="${user.role == 'ADMIN'}">selected</c:if>>ADMIN</option>
-                            <option value="DORMANCY" <c:if test="${user.role == 'DORMANCY'}">selected</c:if>>DORMANCY
-                            </option>
-                            <option value="BLOCK" <c:if test="${user.role == 'BLOCK'}">selected</c:if>>BLOCK</option>
                         </select>
                     </td>
                     <!-- <th><label for="userIP" class="ps-3">IP</label></th>
@@ -58,6 +54,21 @@
                 <tr>
                     <th><label for="userImage" class="ps-3">회원이미지</label></th>
                     <td><input type="file" name="userImage" id="userImage" accept="image/gif, image/png, image/jpeg"></td>
+                    <th><label for="black" class="ps-3">제제</label></th>
+                    <td>
+                        <select name="black" id="black" class="list-item" style="padding-right: 70px;">
+                            <option value="없음" selected>없음</option>
+                            <option value="1일" >1일</option>
+                            <option value="2일" >2일</option>
+                            <option value="1주" >1주</option>
+                            <option value="2주" >2주</option>
+                            <option value="1달" >1달</option>
+                            <option value="2달" >2달</option>
+                            <option value="6개월" >6개월</option>
+                            <option value="1년" >1년</option>
+                            <option value="영구" >영구</option>
+                        </select>
+                    </td>
                 </tr>
             </table>
 
