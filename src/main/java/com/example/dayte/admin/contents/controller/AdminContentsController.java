@@ -61,8 +61,8 @@ public class AdminContentsController {
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/admin/home")
     public String adminHome(Model model){
-        int recentUserCount = 8;
-        int recentPostCount = 8;
+        int recentUserCount = 10;
+        int recentPostCount = 10;
 
         List<User> recentUsers = userService.getRecentUsers(recentUserCount);
         List<Post> recentPosts = postService.getRecentPosts(recentPostCount);

@@ -21,12 +21,12 @@
                 </div>
 
             </div>
-            <div class="col bg-body mx-3 mb-2 p-0 border rounded border-2 border-light-subtle  shadow-light">
+            <div class="col bg-body h-100 mx-3 mb-2 p-0 border rounded border-2 border-light-subtle  shadow-light">
                 <a href="/admin/user"class="d-block text-decoration-none w-100 mb-0 border-bottom px-4 py-3 h5 bg-success-subtle" >
                     새 회원
                 </a>
-                <div class="py-0">
-                    <div class="table-responsive">
+                <div class="py-0" style="height:85%">
+                    <div class="table-responsive h-100 overflow-y-scroll" >
                         <table class="mb-0 table table-striped">
                             <tbody>
                             <c:forEach var="user" items="${recentUsers}">
@@ -43,12 +43,12 @@
             </div>
         </div>
         <div class="row mt-3 p-0" style="height: 45%;">
-            <div class="w-100 col bg-body mx-3 mb-2 p-0 border rounded border-2 border-light-subtle shadow-light">
+            <div class="w-100 h-100 col bg-body mx-3 mb-2 p-0 border rounded border-2 border-light-subtle shadow-light">
                 <a href="/mainPostList"class="d-block text-decoration-none w-100 mb-0 border-bottom px-4 py-3 h5 bg-success-subtle" >
                     새 게시글
                 </a>
-                <div class="py-0">
-                    <div class="table-responsive">
+                <div class="py-0" style="height:85%">
+                    <div class="table-responsive h-100 overflow-y-scroll">
                         <table class="mb-0 table table-striped">
                                 <tbody>
                                 <c:forEach var="post" items="${recentPosts}">
