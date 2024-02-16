@@ -2,6 +2,8 @@ package com.example.dayte.security.service;
 
 import com.example.dayte.members.domain.RoleType;
 import com.example.dayte.members.domain.User;
+import com.example.dayte.members.persistence.DeleteUserRepository;
+import com.example.dayte.members.persistence.DormancyRepository;
 import com.example.dayte.members.persistence.UserRepository;
 import com.example.dayte.security.dto.UserSecurityDTO;
 import com.example.dayte.security.handler.LoginFailHandler;
@@ -28,8 +30,9 @@ import java.util.*;
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
     private final UserRepository userRepository;
+    private final DormancyRepository dormancyRepository;
+    private final DeleteUserRepository deleteUserRepository;
     private final PasswordEncoder passwordEncoder;
-    private final LoginFailHandler loginFailHandler;
 
     // 소셜 로그인 서비스
     @Override
@@ -111,11 +114,15 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         user = result.get();
 
             if (user.getRole() == RoleType.DORMANCY)
-                throw new DisabledException("귀하의 계정은 휴면계정입니다."); // 계정 비활성화
+                throw new DisabledException("귀하의 계정은 " +
+                        dormancyRepository.findById(user.getUserEmail()).get().getDormancyDate() +
+                        " 부로 휴면 상태로 전환된 계정입니다."); // 계정 비활성화
             else if (user.getRole() == RoleType.BLOCK)
-                throw new LockedException("귀하의 계정은 정지된 계정입니다."); // 계정 잠김
+                throw new LockedException("귀하의 계정은 " + " 정지된 계정입니다."); // 계정 잠김
             else if (user.isDel())
-                throw new AccountExpiredException("귀하의 계정의 삭제된 계정입니다."); // 계정 만료
+                throw new AccountExpiredException("귀하의 계정은 " +
+                        deleteUserRepository.findByUserEmail(user.getUserEmail()).get().getDeleteDate() +
+                        " 부로 삭제된 계정입니다."); // 계정 만료
 
 
         user.setLoginDate(LocalDate.now());

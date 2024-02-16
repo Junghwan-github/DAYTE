@@ -85,6 +85,9 @@ public class UserController {
             }
 
         } else {
+            if (user.isDel())
+                return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), user.getUserName() + "님은 이미 회원입니다.");
+
             return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), user.getUserName() + "님은 이미 회원입니다.");
         }
     }
