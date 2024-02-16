@@ -7,6 +7,7 @@ import com.example.dayte.members.domain.User;
 import com.example.dayte.members.dto.ResponseDTO;
 import com.example.dayte.members.dto.SocialResponseDTO;
 import com.example.dayte.members.dto.UserDTO;
+import com.example.dayte.members.persistence.DeleteUserRepository;
 import com.example.dayte.members.service.UserService;
 import com.example.dayte.schedule.service.ScheduleService;
 import com.example.dayte.security.dto.UserSecurityDTO;
@@ -51,7 +52,7 @@ public class UserController {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private VisitorStatisticsService visitorStatisticsService;
+    private DeleteUserRepository deleteUserRepository;
 
     @Autowired
     private OAuth2AuthorizedClientService authorizedClientService;
@@ -85,8 +86,11 @@ public class UserController {
             }
 
         } else {
-            if (user.isDel())
-                return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), user.getUserName() + "님은 이미 회원입니다.");
+            if (findUser.isDel())
+                return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(),
+                        user.getUserName() + "님은 " +
+                                deleteUserRepository.findByUserEmail(user.getUserEmail()).get().getDeleteDate() +
+                                " 부로 탈퇴한 회원입니다.");
 
             return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), user.getUserName() + "님은 이미 회원입니다.");
         }
