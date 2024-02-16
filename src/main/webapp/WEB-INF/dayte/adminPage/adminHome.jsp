@@ -5,10 +5,10 @@
 <!-- 콘텐츠 -->
 <div class="h-100 bg-body-tertiary px-3" style="padding-top: 70px; min-width:375px;">
     <div class="h-100 px-5">
-        <p class="h4 titleName border-bottom pb-2">대시 보드</p>
+        <p class="h2 ps-2 titleName border-bottom pb-2">대시 보드</p>
         <div class="row mt-3 p-0" style="height: 45%;">
             <div class="w-100 col bg-body mx-3 mb-2 p-0 border rounded border-2 border-light-subtle shadow-light">
-                <a href="/admin/view" class="d-block text-decoration-none w-100 border-bottom px-4 py-3 h5 bg-success-subtle" >
+                <a href="/admin/view" class="d-block text-decoration-none w-100 border-bottom px-4 py-3 h3 bg-success-subtle" >
                     방문자 현황
                 </a>
                 <div class="d-flex justify-content-center">
@@ -22,7 +22,7 @@
 
             </div>
             <div class="col bg-body h-100 mx-3 mb-2 p-0 border rounded border-2 border-light-subtle  shadow-light">
-                <a href="/admin/user"class="d-block text-decoration-none w-100 mb-0 border-bottom px-4 py-3 h5 bg-success-subtle" >
+                <a href="/admin/user"class="d-block text-decoration-none w-100 mb-0 border-bottom px-4 py-3 h3 bg-success-subtle" >
                     새 회원
                 </a>
                 <div class="py-0" style="height:85%">
@@ -31,9 +31,9 @@
                             <tbody>
                             <c:forEach var="user" items="${recentUsers}">
                                 <tr>
-                                    <td class="text-center col-4">${user.userEmail}</td>
-                                    <td class="text-center col-4">${user.nickName}</td>
-                                    <td class="text-center col-4">${user.joinDate}</td>
+                                    <td class="text-center col-4 h4 py-4">${user.userEmail}</td>
+                                    <td class="text-center col-4 h4 py-4">${user.nickName}</td>
+                                    <td class="text-center col-4 h4 py-4">${user.joinDate}</td>
                                 </tr>
                             </c:forEach>
                             </tbody>
@@ -44,7 +44,7 @@
         </div>
         <div class="row mt-3 p-0" style="height: 45%;">
             <div class="w-100 h-100 col bg-body mx-3 mb-2 p-0 border rounded border-2 border-light-subtle shadow-light">
-                <a href="/mainPostList"class="d-block text-decoration-none w-100 mb-0 border-bottom px-4 py-3 h5 bg-success-subtle" >
+                <a href="/mainPostList"class="d-block text-decoration-none w-100 mb-0 border-bottom px-4 py-3 h3 bg-success-subtle" >
                     새 게시글
                 </a>
                 <div class="py-0" style="height:85%">
@@ -53,9 +53,9 @@
                                 <tbody>
                                 <c:forEach var="post" items="${recentPosts}">
                                     <tr>
-                                        <td class="text-center col-4">${post.title}</td>
-                                        <td class="text-center col-4">${post.user.nickName}</td>
-                                        <td class="text-center col-4">${post.createDate}</td>
+                                        <td class="text-center col-4 h4 py-4">${post.title}</td>
+                                        <td class="text-center col-4 h4 py-4">${post.user.nickName}</td>
+                                        <td class="text-center col-4 h4 py-4">${post.createDate}</td>
                                     </tr>
                                 </c:forEach>
                                 </tbody>
