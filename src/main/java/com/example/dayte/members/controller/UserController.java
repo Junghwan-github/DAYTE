@@ -5,7 +5,9 @@ import com.example.dayte.admin.mianslider.service.VisitorStatisticsService;
 import com.example.dayte.members.domain.RoleType;
 import com.example.dayte.members.domain.User;
 import com.example.dayte.members.dto.ResponseDTO;
+import com.example.dayte.members.dto.SocialResponseDTO;
 import com.example.dayte.members.dto.UserDTO;
+import com.example.dayte.members.persistence.DeleteUserRepository;
 import com.example.dayte.members.service.UserService;
 import com.example.dayte.schedule.service.ScheduleService;
 import com.example.dayte.security.dto.UserSecurityDTO;
@@ -20,6 +22,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -48,7 +52,10 @@ public class UserController {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private VisitorStatisticsService visitorStatisticsService;
+    private DeleteUserRepository deleteUserRepository;
+
+    @Autowired
+    private OAuth2AuthorizedClientService authorizedClientService;
 
     @PostMapping("/members/joinForm")
     public @ResponseBody ResponseDTO<?> insertUser(@Valid @RequestBody UserDTO userDTO, BindingResult bindingResult) {
@@ -79,6 +86,12 @@ public class UserController {
             }
 
         } else {
+            if (findUser.isDel())
+                return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(),
+                        user.getUserName() + "님은 " +
+                                deleteUserRepository.findByUserEmail(user.getUserEmail()).get().getDeleteDate() +
+                                " 부로 탈퇴한 회원입니다.");
+
             return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), user.getUserName() + "님은 이미 회원입니다.");
         }
     }
@@ -136,6 +149,39 @@ public class UserController {
         } else {
             return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "비밀번호를 다시 확인해주세요.");
         }
+    }
+
+    // 소셜 회원의 회원탈퇴
+    @PreAuthorize("isAuthenticated()")
+    @PutMapping("/members/delForm/")
+    public @ResponseBody SocialResponseDTO<?> deleteSocialUser(
+            @AuthenticationPrincipal UserSecurityDTO principal) {
+
+        userService.testDelUser(principal.getUserEmail());
+
+        System.out.println("principal.getSocialName() : " + principal.getSocialName());
+        System.out.println("principal.getUserEmail() : " + principal.getUserEmail());
+
+        OAuth2AuthorizedClient client = null;
+        switch (principal.getSocialName()) {
+            case "Naver" -> client = authorizedClientService.loadAuthorizedClient(
+                    "naver", principal.getUserEmail());
+            case "Google" -> client = authorizedClientService.loadAuthorizedClient(
+                    "google", principal.getUserEmail());
+            case "kakao" -> client = authorizedClientService.loadAuthorizedClient(
+                    "kakao", principal.getUserEmail());
+        }
+        System.out.println(
+                "-------------------- client --------------------\n"
+                        + "client.getClientRegistration() : " + client.getClientRegistration() + "\n"
+                        + "client.getPrincipalName() : " + client.getPrincipalName() + "\n"
+                        + "client.getAccessToken() : " + client.getAccessToken() + "\n"
+                        + "client.getRefreshToken() : " + client.getRefreshToken() + "\n"
+        );
+
+        return new SocialResponseDTO<>(
+                HttpStatus.OK.value(), "회원 탈퇴가 완료되었습니다.",
+                principal.getSocialName(), client.getAccessToken(), client.getClientRegistration());
     }
 
     @PostMapping("/members/nickNameCheck/{nickName}")

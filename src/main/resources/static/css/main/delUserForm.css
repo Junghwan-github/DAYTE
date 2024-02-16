@@ -118,3 +118,20 @@ main {
     padding-left: 10px;
     border: 1px solid #333;
 }
+
+/* ---------------------------------------------------------- */
+
+.socialDelInfo > div > ul > li {
+    margin-top: 1.5rem;
+}
+
+.socialDelUserBtn {
+    background-color: #555;
+    transition: 0.2s;
+    padding: 10px 40px;
+    font-size: 1.6rem;
+    border: transparent 1px solid;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+}
