@@ -1,8 +1,8 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <section id="searchContainer">
     <div class="searchArea">
-        <form action="#" method="get">
-            <input type="text" name="searchArea" placeholder="검색어를 입력하세요" />
+        <form action="/indexSearch" method="get">
+            <input type="text" name="indexSearch" placeholder="검색어를 입력하세요" />
             <button type="submit"><i class="xi-search"></i></button>
         </form>
         <ul class="subNavIcon">

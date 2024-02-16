@@ -5,7 +5,7 @@
 <!-- 콘텐츠 -->
 <div class="h-100 bg-body-tertiary px-3" style="padding-top: 70px; min-width:375px;">
     <div class="px-5">
-        <p class="h4 fw-bold titleName" >회원 관리</p>
+        <p class="h4 titleName border-bottom pb-2" >회원 관리</p>
 
         <!-- 회원 요약 통계 -->
         <div class="d-flex flex-row justify-content-start">
@@ -30,7 +30,7 @@
         <!-- 회원 검색 -->
         <div class="mb-2 d-flex flex-row align-items-center justify-content-between">
 
-            <form id="uSearch" name="uSearch" method="get" action="/admin/home">
+            <form id="uSearch" name="uSearch" method="get" action="/admin/user">
                 <div class="list-group d-flex flex-row">
                     <a href="/admin/home" class="btn btn-dark py-1 me-1">전체 목록</a>
                     <select name="field" id="field" class="list-item me-1">
@@ -143,7 +143,7 @@
 <script>
     $(function() {
         $("#chkAll").click(function(){
-            $(".chkGrp").attr("checked", this.checked);
+            $(".chkGrp").prop("checked", this.checked);
         });
     });
     $("#delChkUserBtn").click(function(){

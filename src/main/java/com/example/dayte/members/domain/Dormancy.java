@@ -50,7 +50,6 @@ public class Dormancy {
 
     private String profileImagePath;
 
-    @Setter // 테스트를 위해 임시로 달아둔 어노테이션 나중에 지워야함
     private LocalDate dormancyDate;
 
 }

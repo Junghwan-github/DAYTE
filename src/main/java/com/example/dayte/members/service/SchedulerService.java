@@ -1,10 +1,12 @@
 
 package com.example.dayte.members.service;
 
+import com.example.dayte.members.domain.DeleteUser;
 import com.example.dayte.members.domain.Dormancy;
 import com.example.dayte.members.domain.RoleType;
 import com.example.dayte.members.domain.User;
 import com.example.dayte.members.dto.UserDTO;
+import com.example.dayte.members.persistence.DeleteUserRepository;
 import com.example.dayte.members.persistence.DormancyRepository;
 import com.example.dayte.members.persistence.UserRepository;
 import jakarta.mail.MessagingException;
@@ -23,15 +25,16 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class DormancyService {
+public class SchedulerService {
 
     private final UserRepository userRepository;
     private final DormancyRepository dormancyRepository;
+    private final DeleteUserRepository deleteUserRepository;
     private final JavaMailSender javaMailSender;
     private final ModelMapper modelMapper;
     private LocalDate now = LocalDate.now();
 
-    @Scheduled(cron = "0 0 0 * * *")
+    @Scheduled(cron = "0 0 0 * * *", zone="Asia/Seoul")
     public void dormancyTest() {
 
         LocalDate oneYearAgo = this.now.minusYears(1L); // 일년 뒤 날짜와 마지막 로그인 날짜가 같으면 이메일 발송하는 메서드를 위한 값
@@ -53,6 +56,17 @@ public class DormancyService {
         if (!deleteDormancyUserList.isEmpty())
             deleteDormancyUser(deleteDormancyUserList);
 
+        // 계정 삭제 이후 6개월 지나면 DeleteUser, User 테이블에서 삭제
+        List<DeleteUser> deleteUserList = deleteUserRepository.findAllByDeleteDateLessThanEqual(this.now.minusMonths(6));
+        if (deleteUserList.isEmpty())
+            deleteUser(deleteUserList);
+    }
+
+    // 계정 삭제 이후 6개월 지나면 DeleteUser, User 테이블에서 삭제하는 메서드
+    private void deleteUser(List<DeleteUser> deleteUserList) {
+        deleteUserList.forEach(deleteUser -> userRepository.deleteById(deleteUser.getUserEmail()));
+        deleteUserRepository.deleteAll(deleteUserList);
+
     }
 
     // 휴면계정 전환 후 1년이상 지난 User 데이터 삭제
@@ -60,7 +74,7 @@ public class DormancyService {
     public void deleteDormancyUser(List<Dormancy> deleteDormancyUserList) {
 
         deleteDormancyUserList.forEach(deleteDormancyUser ->
-            userRepository.deleteById(deleteDormancyUser.getUserEmail())
+                userRepository.deleteById(deleteDormancyUser.getUserEmail())
         );
         dormancyRepository.deleteAll(deleteDormancyUserList);
 
@@ -78,35 +92,35 @@ public class DormancyService {
         dormancyUserSendEmail(dormancyUserEmailList);
 
         // 휴면계정 전환
-            dormancyUserList.forEach(dormancyUser -> {
-                Dormancy dormancy = Dormancy.builder()
-                        .userEmail(dormancyUser.getUserEmail())
-                        .password(dormancyUser.getPassword())
-                        .userName(dormancyUser.getUserName())
-                        .nickName(dormancyUser.getNickName())
-                        .phone(dormancyUser.getPhone())
-                        .birthDate(dormancyUser.getBirthDate())
-                        .gender(dormancyUser.getGender())
-                        .role(RoleType.DORMANCY)
-                        .del(dormancyUser.isDel())
-                        .social(dormancyUser.isSocial())
-                        .joinDate(dormancyUser.getJoinDate())
-                        .profileImageName(dormancyUser.getProfileImageName())
-                        .profileImagePath(dormancyUser.getProfileImagePath())
-                        .dormancyDate(this.now)
-                        .build();
-                dormancyRepository.save(dormancy);
+        dormancyUserList.forEach(dormancyUser -> {
+            Dormancy dormancy = Dormancy.builder()
+                    .userEmail(dormancyUser.getUserEmail())
+                    .password(dormancyUser.getPassword())
+                    .userName(dormancyUser.getUserName())
+                    .nickName(dormancyUser.getNickName())
+                    .phone(dormancyUser.getPhone())
+                    .birthDate(dormancyUser.getBirthDate())
+                    .gender(dormancyUser.getGender())
+                    .role(RoleType.DORMANCY)
+                    .del(dormancyUser.isDel())
+                    .social(dormancyUser.isSocial())
+                    .joinDate(dormancyUser.getJoinDate())
+                    .profileImageName(dormancyUser.getProfileImageName())
+                    .profileImagePath(dormancyUser.getProfileImagePath())
+                    .dormancyDate(this.now)
+                    .build();
+            dormancyRepository.save(dormancy);
 
-                UserDTO userDTO = new UserDTO();
-                userDTO.setUserEmail(dormancyUser.getUserEmail());
-                userDTO.setPassword(dormancyUser.getPassword());
-                userDTO.setUserName("Dormancy User");
-                userDTO.setNickName(RandomStringUtils.random(10, true, true));
-                userDTO.setPhone("010-9999-9999");
-                userDTO.setBirthDate("0000.00.00");
-                userDTO.setRole(RoleType.DORMANCY);
-                userRepository.save(modelMapper.map(userDTO, User.class));
-            });
+            UserDTO userDTO = new UserDTO();
+            userDTO.setUserEmail(dormancyUser.getUserEmail());
+            userDTO.setPassword(dormancyUser.getPassword());
+            userDTO.setUserName("Dormancy User");
+            userDTO.setNickName(RandomStringUtils.random(10, true, true));
+            userDTO.setPhone("010-9999-9999");
+            userDTO.setBirthDate("0000.00.00");
+            userDTO.setRole(RoleType.DORMANCY);
+            userRepository.save(modelMapper.map(userDTO, User.class));
+        });
     }
 
     // 휴면계정 전환 예정 이메일 발송
@@ -150,8 +164,8 @@ public class DormancyService {
     // 휴면계정 전환 이메일 발송
     private void dormancyUserSendEmail(List<String> userEmailList) {
         MimeMessage message = javaMailSender.createMimeMessage();
-            userEmailList.forEach(userEmail -> {
-                try {
+        userEmailList.forEach(userEmail -> {
+            try {
                 message.setRecipients(MimeMessage.RecipientType.TO, userEmail);
                 message.setSubject("휴면계정 전환 안내");
                 String sendDormancyMail =
@@ -167,10 +181,10 @@ public class DormancyService {
                                 "1년간 별도 저장, 관리 되고 1년 이후 분리된 고객님의 데이터는 폐기될 예정입니다.";
                 message.setText(sendDormancyMail, "UTF-8", "html");
                 javaMailSender.send(message);
-                } catch (MessagingException e) {
-                    ;;
-                }
-            });
+            } catch (MessagingException e) {
+                ;;
+            }
+        });
     }
 
 }

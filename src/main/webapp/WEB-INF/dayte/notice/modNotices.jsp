@@ -61,7 +61,7 @@
                             <input type="text" name="truetdNo" value="${notice.no}">
                         </td>
                         <td class="truetdTitle">
-                            <a href="/notice/${notice.no}">${notice.title}</a>
+                            <a href="/viewNotice/${notice.no}">${notice.title}</a>
                         </td>
                         <td class="truetdDate">
                             <fmt:formatDate value="${notice.createDate}" pattern="yy-MM-dd"/>
@@ -113,7 +113,7 @@
                 <c:forEach var="notice" items="${defaultNotices.content}">
                     <tr>
                         <td class="tdNum">${notice.no}</td>
-                        <td class="truetdTitle"><a href="/notice/${notice.no}">${notice.title}</a></td>
+                        <td class="truetdTitle"><a href="/viewNotice/${notice.no}">${notice.title}</a></td>
                         <td class="tdDate"><fmt:formatDate value="${notice.createDate}" pattern="yy-MM-dd"/></td>
                         <td>
                             <input type="checkbox"

@@ -17,12 +17,21 @@ public class EmailQuestion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int no;
 
+    @Column
+    private String emailAdress;
+
     @Column(nullable = false, length = 100)
     private String title;
 
     @Lob // db에 varchar를 넘어서 더 큰 값을 넣기 위한 작업
     @Column(nullable = false)
     private String content;
+
+    @Column
+    private String mainCategory;
+
+    @Column
+    private String subCategory;
 
     @Column
     private boolean answerCheck;

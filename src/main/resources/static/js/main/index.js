@@ -744,6 +744,7 @@ fetch(apiShort)
                                     );
                                     break;
                                 case "비눈":
+                                case "흐리고 비/눈":
                                     console.log(i + 2 + "번 째날 오전 비눈");
                                     $(`.${daysListId} .am .daysListIcon`).css(
                                         "background-image",
@@ -794,6 +795,7 @@ fetch(apiShort)
                                     );
                                     break;
                                 case "비눈":
+                                case "흐리고 비/눈":
                                     console.log(i + 2 + "번 째날 오후 비눈");
                                     $(`.${daysListId} .pm .daysListIcon`).css(
                                         "background-image",

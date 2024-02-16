@@ -75,10 +75,9 @@ main {
     font-size: 1.4rem;
     padding: 10px;
 }
-.delInfo > p:first-child {
-}
+
 .delInfo > div > ul > li {
-    display: inline-block;
+    display: block;
     height : 15px;
     font-size: 1.3rem;
 }
@@ -118,4 +117,21 @@ main {
     width: 50%;
     padding-left: 10px;
     border: 1px solid #333;
+}
+
+/* ---------------------------------------------------------- */
+
+.socialDelInfo > div > ul > li {
+    margin-top: 1.5rem;
+}
+
+.socialDelUserBtn {
+    background-color: #555;
+    transition: 0.2s;
+    padding: 10px 40px;
+    font-size: 1.6rem;
+    border: transparent 1px solid;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
 }
