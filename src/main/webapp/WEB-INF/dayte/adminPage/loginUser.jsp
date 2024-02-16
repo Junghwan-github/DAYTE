@@ -4,7 +4,7 @@
 <%@include file="layout/adminHead.jsp" %>
 <div class="h-100 bg-body-tertiary px-3" style="padding-top: 70px; min-width:375px;">
     <div class="px-5">
-        <p class="h4 fw-bold titleName">로그인한 회원</p>
+        <p class="h4 fw-bold titleName">접속자 현황</p>
         <div>
             <ul>
                 <c:forEach var="user" items="${userList}">

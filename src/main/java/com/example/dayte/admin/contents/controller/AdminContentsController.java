@@ -34,6 +34,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+
 @Log4j2
 @RequiredArgsConstructor
 @Controller
@@ -62,7 +63,7 @@ public class AdminContentsController {
     // 관리자페이지 메인
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/admin/home")
-    public String adminHome(Model model){
+    public String adminHome(Model model) {
         int recentUserCount = 8;
         int recentPostCount = 5;
 
@@ -142,12 +143,12 @@ public class AdminContentsController {
         if (userDTO.getImage() != null) {
             userService.profileImage(userDTO);
         }
-        if(userService.updateUser(userDTO)) {
+        if (userService.updateUser(userDTO)) {
             log.info("관리자 사용자 정보 수정 - 사용자 ID : {}", userDTO.getUserEmail());
             principal.setProfileImagePath(userDTO.getProfileImagePath());
             return new com.example.dayte.members.dto.ResponseDTO<>(HttpStatus.OK.value(), "회원 정보가 수정되었습니다.");
-        } else{
-            log.info("사용자 정보 수정 실패 - 중복된 닉네임. 사용자 ID : {}",userDTO.getUserEmail());
+        } else {
+            log.info("사용자 정보 수정 실패 - 중복된 닉네임. 사용자 ID : {}", userDTO.getUserEmail());
             return new com.example.dayte.members.dto.ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "닉네임이 중복되었습니다.");
 
         }
@@ -155,35 +156,36 @@ public class AdminContentsController {
 
     // 관리자 - 선택 삭제
     @PutMapping("/members/delUsers")
-    public @ResponseBody com.example.dayte.members.dto.ResponseDTO<?> deleteUsers(@RequestParam(required = false)Map<String[], Object> userList) {
+    public @ResponseBody ResponseDTO<?> deleteUsers(@RequestParam(required = false) Map<String[], Object> userList) {
         String[] grpCode = userList.values().toString().split(",");
         int successCount = 0;
         int failCount = 0;
-        for(int i=0; i<grpCode.length; i++){
-            String userEmail = grpCode[i].replaceAll("[\\[\\] ]","");
-            if(userService.testDelUser(userEmail) == true){
-                log.info("사용자 탈퇴 - 사용자 ID : {}",userEmail);
+        for (int i = 0; i < grpCode.length; i++) {
+            String userEmail = grpCode[i].replaceAll("[\\[\\] ]", "");
+            if (userService.testDelUser(userEmail) == true) {
+                log.info("사용자 탈퇴 - 사용자 ID : {}", userEmail);
                 successCount++;
-            }else{
-                log.info("사용자 탈퇴 실패 - 사용자 ID : {}",userEmail);
+            } else {
+                log.info("사용자 탈퇴 실패 - 사용자 ID : {}", userEmail);
                 failCount++;
             }
         }
         log.info("사용자 탈퇴 - 성공 : {}, 실패 : {}", successCount, failCount);
-        if(successCount > 0 && failCount == 0) {
-            return new com.example.dayte.members.dto.ResponseDTO<>(HttpStatus.OK.value(), successCount + " 건 탈퇴가 완료되었습니다.");
-        }else if(successCount > 0 && failCount > 0) {
-            return new com.example.dayte.members.dto.ResponseDTO<>(HttpStatus.OK.value(), successCount + " 건 탈퇴 완료, " + failCount + " 건 탈퇴 실패");
-        }else {
-            return new com.example.dayte.members.dto.ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), failCount +"건 탈퇴를 실패하였습니다.");
+        if (successCount > 0 && failCount == 0) {
+            return new ResponseDTO<>(HttpStatus.OK.value(), successCount + " 건 탈퇴가 완료되었습니다.");
+        } else if (successCount > 0 && failCount > 0) {
+            return new ResponseDTO<>(HttpStatus.OK.value(), successCount + " 건 탈퇴 완료, " + failCount + " 건 탈퇴 실패");
+        } else {
+            return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), failCount + "건 탈퇴를 실패하였습니다.");
         }
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/admin/visitors")
-    public @ResponseBody List<VisitorStatisticsDTO> view (@RequestBody Map<String, String> value) {
+    public @ResponseBody List<VisitorStatisticsDTO> view(@RequestBody Map<String, String> value) {
         LocalDate date = LocalDate.now();
         boolean flag = false;
-        switch(value.get("num")){
+        switch (value.get("num")) {
             case "1" -> {
                 date = date.minusWeeks(1);
                 flag = true;
@@ -204,15 +206,16 @@ public class AdminContentsController {
         return visitorStatisticsService.getVisitorsCountList(date, flag);
     }
 
-
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/admin/home/settings/contents")
-    public String IndexContentsSliderView () {
+    public String IndexContentsSliderView() {
         return "adminPage/settings/scheduleContentsList";
     }
 
     // 컨텐츠 등록 로직
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/admin/home/registration/contents")
-    public @ResponseBody ResponseDTO<?> insertIndexMainSlider (
+    public @ResponseBody ResponseDTO<?> insertIndexMainSlider(
             @ModelAttribute AdminContentsDTO adminContentsDTO
     ) {
 
@@ -235,14 +238,75 @@ public class AdminContentsController {
         return searchByContents;
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/admin/view")
     public String view() {
         return "adminPage/index";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/admin/loginUser")
     public String loginUser(Model model) {
         model.addAttribute("userList", mySessionListener.getActiveUsers());
         return "adminPage/loginUser";
     }
-}
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/admin/post")
+    public String adminPost(Model model,
+                            @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
+                            @RequestParam(required = false, defaultValue = "") String postField,
+                            @RequestParam(required = false, defaultValue = "") String postWord) {
+        int postTotalPage;
+        Page<Post> postListPage;
+
+        // 인풋창에 공백인 상태로 검색버튼을 눌렀을때 postListPage 을 담아 넘겨주고
+        // 검색 키워드가 있을시 postSearchList 을 남아 넘겨줌
+
+        if ("".equals(postWord) || postWord == null) { // 검색키워드가 없거나 검색하지 않았을 때
+            postListPage = postService.getPostList(pageable);
+            postTotalPage = postListPage.getTotalPages();
+        } else { // 무언가를 검색했을 때
+            switch (postField) {
+                case "postTitle" -> postListPage = postService.getPostSearchToTitleList(pageable, postWord);
+                case "postContent" -> postListPage = postService.getPostSearchToContentList(pageable, postWord);
+                case "postAll" -> postListPage = postService.getPostSearchToAllList(pageable, postWord);
+                default -> postListPage = postService.getPostList(pageable);
+            }
+            postTotalPage = postListPage.getTotalPages();
+        }
+        // postListPage 필드에 담긴 페이지네이션화된 전체 데이터를 postTotalPage 필드에 대입
+        int postNowPage = postListPage.getNumber(); // 현재 게시판 페이지
+
+        int pageSize = 5;
+        // 한 페이지에 표시될 게시물 수를 정함
+
+        int postStartPage = ((postNowPage) / pageSize) * pageSize + 1;
+        // 현재 페이지를 기준으로 페이징된 시작 페이지를 계산
+
+        int postEndPage = postStartPage + pageSize - 1;
+        int totalPages = postListPage.getTotalPages();
+        postEndPage = totalPages < postEndPage ? totalPages : postEndPage;
+        // 현재 페이지를 기준으로 페이징된 끝 페이지를 계산
+
+        model.addAttribute("postStartPage", postStartPage);
+        model.addAttribute("postEndPage", postEndPage);
+        model.addAttribute("postNowPage", postNowPage);
+        model.addAttribute("postList", postListPage);
+
+        model.addAttribute("postListText", postService.extractPostContentText());
+        return "adminPage/postManagement";
+    }
+
+    // 관리자 - 게시글 선택 삭제
+    @DeleteMapping("/admin/delPosts")
+    public @ResponseBody ResponseDTO<?> deletePosts(@RequestParam(required = false) Map<String[], Object> postList) {
+        String[] grpCode = postList.values().toString().split(",");
+        int i = 0;
+        for (i = 0; i < grpCode.length; i++) {
+            Long postId = Long.parseLong(grpCode[i].replaceAll("[\\[\\] ]", ""));
+            postService.deletePost(postId);
+        }
+            return new ResponseDTO<>(HttpStatus.OK.value(), i + "건 삭제 하셨습니다.");
+        }
+    }
