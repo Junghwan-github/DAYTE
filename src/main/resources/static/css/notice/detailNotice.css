@@ -28,6 +28,7 @@
 }
 
 .noticeTitle > input {
+    width: 100%;
     box-sizing: border-box;
     margin-left: 15px;
     border: transparent;
@@ -43,23 +44,10 @@
 }
 
 .noticeContent {
+    text-align: start;
+    padding: 30px 10px 30px 20px;
     width: 100%;
-    vertical-align: middle;
 
-}
-
-.noticeContent > div{
-    box-sizing: border-box;
-    width: 100%;
-    height: 600px;
-
-    /*margin: 0 auto;*/
-    padding : 10px 10px;
-
-    border: none;
-    resize: none;
-
-    font-size: 1.8rem;
 }
 
 .wrapper > form > fieldset {

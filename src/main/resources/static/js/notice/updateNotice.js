@@ -67,17 +67,16 @@ let confirmed = confirm("수정 하시겠습니까?")
 
         const no = document.getElementById("id").value;
         const title = document.getElementById("title").value;
-        const content = document.getElementById("content").value;
+        const content = document.getElementById("summernote").value;
 
-        /*const hiddenFileVHTMLCollection = document.getElementsByClassName("hiddenFileValue");
-        const hiddenFileValue = Array.from(hiddenFileVHTMLCollection);*/
+
 
         const savedFileHTMLCollection = document.getElementsByName("savedFile");
         const savedFile = Array.from(savedFileHTMLCollection).map(fileInput => fileInput.value);
 
-        /*console.log(title);
-        console.log(content);
-        console.log(hiddenFileValue);*/
+        // console.log(title);
+        // console.log(content);
+        // console.log(hiddenFileValue);
 
         formData.append("no", no);
         formData.append("title", title);
@@ -102,7 +101,7 @@ let confirmed = confirm("수정 하시겠습니까?")
             }).then(data => {
             console.log(data);
             alert("수정이 완료되었습니다.")
-            location = "/notice/" + no;
+            location = "/viewNotice/" + no;
         })
             .catch(error => {
                 alert(`에러발생 : ${error.message}`);

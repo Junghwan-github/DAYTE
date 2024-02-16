@@ -71,25 +71,28 @@
 <script>
     $(document).ready(function() {
         $('#summernote').summernote({
-            height: 500,
+            tabSize: 2,
+            height: 600,
+            minHeight: 600,             // 최소 높이
             focus: true,
             lang: "ko-KR",
-            focus: true,
             placeholder: '내용',
             disableResizeEditor: true,
             toolbar: [
-                ['fontsize', ['fontsize']],
-                ['color', ['color']],
                 ['style', ['style']],
-                ['font', ['bold', 'underline', 'clear']],
+                ['font', ['bold', 'italic', 'underline', 'clear']],
+                ['fontsize', ['fontsize']],
+                ['fontname', ['fontname']],
+                ['color', ['color']],
                 ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']],
                 ['table', ['table']],
                 ['insert', ['link', 'picture', 'video']],
-                ['view', ['codeview']]
+                ['view', ['fullscreen', 'codeview']],
             ],
             fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
             fontSizeUnit : "pt",
-            fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
+            fontSizes: ['15', '16', '18', '20', '24', '36', '58', '72'],
             callbacks: {
                 onImageUpload: function(files){
                     const [imageFile] = files;
