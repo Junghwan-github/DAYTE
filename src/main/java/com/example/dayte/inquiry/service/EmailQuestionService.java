@@ -1,6 +1,7 @@
 package com.example.dayte.inquiry.service;
 
 import com.example.dayte.inquiry.domain.EmailQuestion;
+import com.example.dayte.inquiry.dto.EmailQuestionDTO;
 import com.example.dayte.security.dto.UserSecurityDTO;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.InternetAddress;
@@ -20,7 +21,7 @@ public class EmailQuestionService {
     private String adminEmail;
 
 
-    public void sendQuestion(EmailQuestion emailQuestion, String emailAdress) {
+    public void sendQuestion(EmailQuestionDTO emailQuestionDTO, String emailAdress) {
 
         MimeMessage message = javaMailSender.createMimeMessage();
 
@@ -28,8 +29,8 @@ public class EmailQuestionService {
             message.setRecipients(MimeMessage.RecipientType.TO, emailAdress);
             message.setSubject("문의하신 답변이 접수되었습니다.");
             String content = "";
-            content += "<h2>" + emailQuestion.getTitle() + "</h2>";
-            content += "<h1>" + emailQuestion.getContent() + "</h1>";
+            content += "<h2>" + emailQuestionDTO.getTitle() + "</h2>";
+            content += "<h1>" + emailQuestionDTO.getContent() + "</h1>";
             content += "<h2>에 대한 문의가 접수되었습니다. 감사합니다.</h2>";
             message.setText(content, "UTF-8", "html");
             javaMailSender.send(message);
@@ -44,8 +45,17 @@ public class EmailQuestionService {
             message.setRecipients(MimeMessage.RecipientType.TO, adminEmail);
             InternetAddress[] replyTo = {new InternetAddress(emailAdress)};
             message.setReplyTo(replyTo);
-            message.setSubject(emailQuestion.getTitle());
-            message.setText(emailQuestion.getContent());
+            message.setSubject(emailAdress + "님의 문의 내용");
+
+            String emailContent =
+                    "제목 : " + emailQuestionDTO.getTitle() + "\n"
+                    + "메인 분류 : " + emailQuestionDTO.getMainCategory() + "\n"
+                    + "서브 분류 : " + emailQuestionDTO.getSubCategory() + "\n"
+                    + "내용 : " + emailQuestionDTO.getContent() + "\n"
+                    +"=======================================" +"\n"
+                    +"담당자는 위 내용 빠르게 답변 부탁드립니다. 답장 버튼을 누르면 해당 유저에게 바로 답장 가능합니다.";
+
+            message.setText(emailContent);
             javaMailSender.send(message);
 
         } catch (MessagingException e) {

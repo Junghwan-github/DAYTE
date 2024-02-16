@@ -5,8 +5,8 @@ const firstCtg = {
     '뭐있지': ['이거', '나오면', '되는데', '드롭박스', '메뉴']
 }
 
-let firstCategory = document.querySelector("#firstCategory");
-let secondCategory = document.querySelector('#secondCategory');
+let mainCategory = document.querySelector("#mainCategory");
+let subCategory = document.querySelector('#subCategory');
 
 init();
 
@@ -26,22 +26,22 @@ function init() {
         });
     }
 
-    firstCategory.innerHTML = firstHtml;
-    secondCategory.innerHTML = secondHtml;
+    mainCategory.innerHTML = firstHtml;
+    subCategory.innerHTML = secondHtml;
 
-    let secondOption = secondCategory.querySelectorAll('option');
+    let subOption = subCategory.querySelectorAll('option');
 
-    secondOption.forEach(e => {
+    subOption.forEach(e => {
         e.style.display = 'none';
     })
 
 }
 
-firstCategory.addEventListener("change", function (element){
+mainCategory.addEventListener("change", function (element){
 
 
 
-    secondCategory.querySelectorAll('option').forEach(e => {
+    subCategory.querySelectorAll('option').forEach(e => {
 
         if(element.target.value == e.className){
             e.style.display = 'block';
@@ -52,5 +52,37 @@ firstCategory.addEventListener("change", function (element){
 
 
 })
+
+
+
+$("#inquiry-email").on('change', function () {
+
+    const pattern = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+$/;
+    let email = $("#inquiry-email");
+
+    if(!pattern.test(email.val())) {
+        if(!$("#invalidEmail").length){
+            email.after(`<span class="invalid" id="invalidEmail" style="color: red">유효하지 않은 이메일 형식입니다</span>`);
+            email.focus();
+        }
+    } else{
+        $("#invalidEmail").remove();
+    }
+})
+
+$("#inquiry-title").on('input', function () {
+    if($("#inquiry-title").val() !== ""){
+        $("#invalidTitle").remove();
+    }
+})
+
+$("#inquiry-content").on('input', function () {
+    if($("#inquiry-content").val() !== ""){
+        $("#invalidContent").remove();
+    }
+})
+
+
+
 
 

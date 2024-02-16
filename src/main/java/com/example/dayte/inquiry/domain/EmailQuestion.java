@@ -17,6 +17,9 @@ public class EmailQuestion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int no;
 
+    @Column
+    private String emailAdress;
+
     @Column(nullable = false, length = 100)
     private String title;
 
@@ -25,7 +28,10 @@ public class EmailQuestion {
     private String content;
 
     @Column
-    private String emailAdress;
+    private String mainCategory;
+
+    @Column
+    private String subCategory;
 
     @Column
     private boolean answerCheck;
