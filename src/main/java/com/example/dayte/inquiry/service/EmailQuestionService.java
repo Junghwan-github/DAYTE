@@ -20,12 +20,12 @@ public class EmailQuestionService {
     private String adminEmail;
 
 
-    public void sendQuestion(EmailQuestion emailQuestion, UserSecurityDTO principal) {
+    public void sendQuestion(EmailQuestion emailQuestion, String emailAdress) {
 
         MimeMessage message = javaMailSender.createMimeMessage();
 
-        try {
-            message.setRecipients(MimeMessage.RecipientType.TO, principal.getUserEmail());
+        try { //유저에게 메일 보냄
+            message.setRecipients(MimeMessage.RecipientType.TO, emailAdress);
             message.setSubject("문의하신 답변이 접수되었습니다.");
             String content = "";
             content += "<h2>" + emailQuestion.getTitle() + "</h2>";
@@ -40,9 +40,9 @@ public class EmailQuestionService {
         }
 
 
-        try {
+        try { //관리자한테 메일 보냄
             message.setRecipients(MimeMessage.RecipientType.TO, adminEmail);
-            InternetAddress[] replyTo = {new InternetAddress(principal.getUserEmail())};
+            InternetAddress[] replyTo = {new InternetAddress(emailAdress)};
             message.setReplyTo(replyTo);
             message.setSubject(emailQuestion.getTitle());
             message.setText(emailQuestion.getContent());

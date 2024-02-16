@@ -22,6 +22,7 @@
         <form id="myForm">
             <div id="myModal" class="modal">
                 <div class="modal-content">
+                    <input hidden="hidden" />
                     <input type="text" id="scheduleSubjectTitle" placeholder="일정 제목을 입력해주세요" maxlength="19"/>
                     <div class="modalCalContainer">
                         <div class="calendar-box">

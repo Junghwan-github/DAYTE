@@ -1,6 +1,6 @@
 const ctx = $("#myChart");
 let myChart = new Chart(ctx, {
-    type   : 'bar',
+    type   : 'line',
     data   : {
         labels  : [],
         datasets: [
@@ -8,15 +8,15 @@ let myChart = new Chart(ctx, {
                 label      : '방문자 수 집계',
                 data       : [],
                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderRadius: 5,
                 borderColor:'rgba(75, 192, 192, 1)',
                 borderWidth: 2,
+                fill: true,
+
             }
         ],
 
     },
     options: {
-        maxBarThickness: 100,
         plugins: {
           padding: 10,
         },

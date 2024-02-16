@@ -49,9 +49,6 @@ public class AdminContentsController {
     private UserService userService;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Autowired
     private final PostService postService;
 
     @Autowired
@@ -63,9 +60,9 @@ public class AdminContentsController {
     // 관리자페이지 메인
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/admin/home")
-    public String adminHome(Model model) {
+    public String adminHome(Model model){
         int recentUserCount = 8;
-        int recentPostCount = 5;
+        int recentPostCount = 8;
 
         List<User> recentUsers = userService.getRecentUsers(recentUserCount);
         List<Post> recentPosts = postService.getRecentPosts(recentPostCount);
@@ -143,12 +140,12 @@ public class AdminContentsController {
         if (userDTO.getImage() != null) {
             userService.profileImage(userDTO);
         }
-        if (userService.updateUser(userDTO)) {
+        if(userService.updateUser(userDTO)) {
             log.info("관리자 사용자 정보 수정 - 사용자 ID : {}", userDTO.getUserEmail());
             principal.setProfileImagePath(userDTO.getProfileImagePath());
             return new com.example.dayte.members.dto.ResponseDTO<>(HttpStatus.OK.value(), "회원 정보가 수정되었습니다.");
-        } else {
-            log.info("사용자 정보 수정 실패 - 중복된 닉네임. 사용자 ID : {}", userDTO.getUserEmail());
+        } else{
+            log.info("사용자 정보 수정 실패 - 중복된 닉네임. 사용자 ID : {}",userDTO.getUserEmail());
             return new com.example.dayte.members.dto.ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "닉네임이 중복되었습니다.");
 
         }
@@ -241,8 +238,9 @@ public class AdminContentsController {
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/admin/view")
     public String view() {
-        return "adminPage/index";
+        return "adminPage/adminTotalVisitor";
     }
+
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/admin/loginUser")

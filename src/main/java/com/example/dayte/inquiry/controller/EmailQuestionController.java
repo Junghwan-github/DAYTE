@@ -28,8 +28,18 @@ public class EmailQuestionController {
     public void goToEmailQuestion(@RequestBody EmailQuestion emailQuestion,
                                                           @AuthenticationPrincipal UserSecurityDTO principal) {
 
+        if(emailQuestion.getEmailAdress() == null){
+            System.out.println("@@@@@@@@@@@@@@@");
+            emailQuestionService.sendQuestion(emailQuestion, principal.getUserEmail());
+        } else{
+            emailQuestionService.sendQuestion(emailQuestion, emailQuestion.getEmailAdress());
+        }
+
+
+
         //   js에서 이 사람 아이디랑 닉네임도 받아서 보내기
-        emailQuestionService.sendQuestion(emailQuestion, principal);
+
+
     }
 
 }

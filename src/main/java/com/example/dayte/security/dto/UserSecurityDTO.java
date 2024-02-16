@@ -26,6 +26,7 @@ public class UserSecurityDTO extends User implements OAuth2User {
     private String profileImagePath;
     private boolean del;
     private boolean social;
+    private String socialName;
 
     // 소셜 로그인 시 넘어오는 정보들이 담겨있는 맵 객체
     private Map<String, Object> props;
