@@ -53,7 +53,7 @@
     }
 </style>
 
-<div class="upload h-100 bg-body-tertiary px-3">
+<div class="upload bg-body-tertiary px-3">
     <p class="h4 titleName mx-5 border-bottom pb-2" >컨텐츠 관리</p>
 
     <form id="scheduleMainListUploadForm" class="pb-3 px-5" enctype="multipart/form-data">

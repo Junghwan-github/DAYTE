@@ -34,7 +34,7 @@
 </head>
 <body>
 
-<div class="container-fluid wrapper" >
+
     <!-- 네비 -->
 
     <nav class="navbar fixed-top navbar-expand-lg bg-success-subtle d-flex justify-content-between">
@@ -131,4 +131,5 @@
         </div>
     <!-- 사이드바 닫는 태그-->
     </div>
+    <div class="container-fluid bg-body-tertiary wrapper" style="height: 100vh; overflow-y:scroll;" >
     <!-- wrapper 닫는 태그는 footer에 있음-->

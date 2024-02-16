@@ -28,11 +28,11 @@
     }
 
 </style>
-<div class="upload h-100 bg-body-tertiary px-3" >
+<div class="upload px-3" >
     <p class="h4 titleName  mx-5 border-bottom pb-2" >메인 설정</p>
     <form id="indexMainSliderUploadForm" class="pb-3 px-5">
 
-        <ul class="m-0 p-0 list-unstyled">
+        <ul class="h-100 m-0 p-0 list-unstyled">
             <li class="mb-3 p-0">
                 <input type="hidden" name="article"/>
             </li>
