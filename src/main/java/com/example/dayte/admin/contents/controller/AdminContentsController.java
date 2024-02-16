@@ -236,7 +236,7 @@ public class AdminContentsController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping("/admin/view")
+    @GetMapping("/admin/totalVisitor")
     public String view() {
         return "adminPage/adminTotalVisitor";
     }
@@ -257,7 +257,6 @@ public class AdminContentsController {
                             @RequestParam(required = false, defaultValue = "") String postWord) {
         int postTotalPage;
         Page<Post> postListPage;
-
         // 인풋창에 공백인 상태로 검색버튼을 눌렀을때 postListPage 을 담아 넘겨주고
         // 검색 키워드가 있을시 postSearchList 을 남아 넘겨줌
 

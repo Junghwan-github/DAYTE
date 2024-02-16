@@ -30,7 +30,7 @@
         <!-- 회원 검색 -->
         <div class="mb-2 d-flex flex-row align-items-center justify-content-between">
 
-            <form id="uSearch" name="uSearch" method="get" action="/admin/home">
+            <form id="uSearch" name="uSearch" method="get" action="/admin/user">
                 <div class="list-group d-flex flex-row">
                     <a href="/admin/home" class="btn btn-dark py-1 me-1">전체 목록</a>
                     <select name="field" id="field" class="list-item me-1">

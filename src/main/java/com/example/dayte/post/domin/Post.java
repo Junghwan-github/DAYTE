@@ -31,6 +31,7 @@ public class Post {
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(columnDefinition = "Timestamp")
     private Timestamp createDate;
 
     @Setter

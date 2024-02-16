@@ -21,12 +21,12 @@
             <form id="uSearch" name="uSearch" method="get" action="/admin/post">
                 <div class="list-group d-flex flex-row">
                     <a href="/admin/post" class="btn btn-dark py-1 me-1">전체 목록</a>
-                    <select name="field" id="field" class="list-item me-1">
+                    <select name="postField" id="field" class="list-item me-1">
                         <option value="postAll">전체</option>
                         <option value="postTitle">제목</option>
                         <option value="postContent">내용</option>
                     </select>
-                    <input type="text" name="word" id="word" class="list-item me-1">
+                    <input type="text" name="postWord" id="word" class="list-item me-1">
                     <input type="submit" class="btn-submit btn btn-dark py-1" value="검색">
                 </div>
             </form>

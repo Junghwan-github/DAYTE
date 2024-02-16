@@ -118,7 +118,7 @@
                         </button>
                         <div class="collapse " id="board-collapse">
                             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small bg-light ps-5 ">
-                                <li><a href="/mainPostList" class="link-body-emphasis d-inline-flex text-decoration-none rounded ">게시판 관리</a></li>
+                                <li><a href="/admin/post" class="link-body-emphasis d-inline-flex text-decoration-none rounded ">게시물 관리</a></li>
                                 <li><a href="/notice/modAll" class="link-body-emphasis d-inline-flex text-decoration-none rounded ">공지사항 관리</a></li>
                                 <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded ">인기검색어관리</a></li>
                                 <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded ">인기검색어순위</a></li>

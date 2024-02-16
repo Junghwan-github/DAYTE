@@ -24,7 +24,7 @@ public class Notice {
     private String title;
 
     @Lob // db에 varchar를 넘어서 더 큰 값을 넣기 위한 작업
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
 
     @CreationTimestamp
