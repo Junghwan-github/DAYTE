@@ -116,7 +116,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
         // 1회 이상 로그인 경험이 있는 경우
         user = result.get();
-
+        UserDTO userDTO = modelMapper.map(user, UserDTO.class);
         if (user.getRole() == RoleType.DORMANCY)
             throw new DisabledException("귀하의 계정은 " +
                     dormancyRepository.findById(user.getUserEmail()).get().getDormancyDate() +
@@ -132,7 +132,6 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                         user.getBlockDate().toLocalDateTime().getMinute() + "분" +
                         " 이후부터 사용 가능한 계정입니다."); // 계정 잠김
             } else {
-                UserDTO userDTO = modelMapper.map(user, UserDTO.class);
                 userDTO.setRole(RoleType.USER);
                 userRepository.save(modelMapper.map(userDTO, User.class));
             }
@@ -143,11 +142,11 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                     " 부로 삭제된 계정입니다."); // 계정 만료
 
 
-        user.setLoginDate(LocalDate.now());
+        userDTO.setLoginDate(LocalDate.now());
         if (user.isNotification())
-            user.setNotification(false);
+            userDTO.setNotification(false);
 
-        userRepository.save(user);
+        userRepository.save(modelMapper.map(userDTO, User.class));
         userSecurityDTO = new UserSecurityDTO(
                 user.getUserEmail(),
                 user.getPassword(),
