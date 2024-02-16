@@ -7,6 +7,7 @@ import com.example.dayte.admin.contents.service.AdminContentsService;
 import com.example.dayte.admin.mianslider.dto.VisitorStatisticsDTO;
 import com.example.dayte.admin.mianslider.listener.MySessionListener;
 import com.example.dayte.admin.mianslider.service.VisitorStatisticsService;
+import com.example.dayte.members.domain.RoleType;
 import com.example.dayte.members.domain.User;
 import com.example.dayte.members.dto.UserDTO;
 import com.example.dayte.members.service.UserService;
@@ -31,7 +32,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 @Log4j2
@@ -135,7 +138,31 @@ public class AdminContentsController {
         userDTO.setUserName(userDTO.getUserName());
         userDTO.setPhone(userDTO.getPhone());
 
+        System.out.println("userDTO.getBlack() : " + userDTO.getBlack());
+        System.out.println("LocalDate.MAX : " + LocalDateTime.MAX.withNano(0));
+
         System.out.println("================================회원정보 수정 : " + userDTO);
+
+        LocalDateTime now = LocalDateTime.now().withNano(0);
+        LocalDateTime blackDate =
+                switch (userDTO.getBlack()) {
+                case "1일" -> now.plusDays(1);
+                case "2일" -> now.plusDays(2);
+                case "1주" -> now.plusWeeks(1);
+                case "2주" -> now.plusWeeks(2);
+                case "1달" -> now.plusMonths(1);
+                case "2달" -> now.plusMonths(2);
+                case "6개월" -> now.plusMonths(6);
+                case "1년" -> now.plusYears(1);
+                case "영구" -> LocalDateTime.MAX;
+                default -> null;
+            };
+        if (blackDate != null)
+            userDTO.setRole(RoleType.BLOCK);
+
+        userDTO.setBlockDate(Timestamp.valueOf(blackDate));
+        System.out.println("blackDate : " + blackDate);
+
         if (userDTO.getImage() != null) {
             userService.profileImage(userDTO);
         }
@@ -146,7 +173,6 @@ public class AdminContentsController {
         } else{
             log.info("사용자 정보 수정 실패 - 중복된 닉네임. 사용자 ID : {}",userDTO.getUserEmail());
             return new com.example.dayte.members.dto.ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "닉네임이 중복되었습니다.");
-
         }
     }
 
