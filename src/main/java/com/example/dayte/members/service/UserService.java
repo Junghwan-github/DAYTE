@@ -1,8 +1,10 @@
 package com.example.dayte.members.service;
 
+import com.example.dayte.members.domain.DeleteUser;
 import com.example.dayte.members.domain.RoleType;
 import com.example.dayte.members.domain.User;
 import com.example.dayte.members.dto.UserDTO;
+import com.example.dayte.members.persistence.DeleteUserRepository;
 import com.example.dayte.members.persistence.UserRepository;
 import com.example.dayte.security.dto.UserSecurityDTO;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -21,6 +23,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -36,6 +39,9 @@ public class UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private DeleteUserRepository deleteUserRepository;
 
     @Transactional
     public void insertUser(User user) {
@@ -235,6 +241,13 @@ public class UserService {
         userDTO.setGender("other");
         userDTO.setDel(true);
         userRepository.save(modelMapper.map(userDTO, User.class));
+
+        DeleteUser deleteUser = DeleteUser.builder()
+                .userEmail(userEmail)
+                .deleteDate(LocalDate.now())
+                .build();
+        deleteUserRepository.save(deleteUser);
+
         return true;
 
     }

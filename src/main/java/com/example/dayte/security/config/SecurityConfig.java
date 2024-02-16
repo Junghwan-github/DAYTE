@@ -64,7 +64,8 @@ public class SecurityConfig {
                 })
                 .oauth2Login(oauth -> { // OAuth2 로그인을 위한 설정
                     oauth.loginPage("/members/login")
-                            .successHandler(authenticationSuccessHandler());
+                            .successHandler(authenticationSuccessHandler())
+                            .failureHandler(new LoginFailHandler());
                 })
         ;
 

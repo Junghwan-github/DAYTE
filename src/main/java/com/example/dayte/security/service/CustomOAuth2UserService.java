@@ -4,8 +4,13 @@ import com.example.dayte.members.domain.RoleType;
 import com.example.dayte.members.domain.User;
 import com.example.dayte.members.persistence.UserRepository;
 import com.example.dayte.security.dto.UserSecurityDTO;
+import com.example.dayte.security.handler.LoginFailHandler;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.security.authentication.AccountExpiredException;
+import org.springframework.security.authentication.AccountStatusException;
+import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
@@ -24,6 +29,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final LoginFailHandler loginFailHandler;
 
     // 소셜 로그인 서비스
     @Override
@@ -45,10 +51,10 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             case "Naver" -> email = getNaverEmail(paramMap);
         }
 
-        return generatedDTO(email, paramMap);
+        return generatedDTO(email, paramMap, clientName);
     }
 
-    private UserSecurityDTO generatedDTO(String email, Map<String, Object> paramMap) {
+    private UserSecurityDTO generatedDTO(String email, Map<String, Object> paramMap, String clientName) {
         Optional<User> result = userRepository.findById(email);
 
         char[] arr = {'@', '$', '!', '%', '*', '#', '?', '&'};
@@ -62,6 +68,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         }
 
         User user;
+        UserSecurityDTO userSecurityDTO;
         if (result.isEmpty()) { // API 로그인이 처음인 사람일 경우
 
             user = User.builder()
@@ -78,9 +85,10 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                     .profileImageName("default_icon_profile.png")
                     .build();
             user.setLoginDate(LocalDate.now());
+
             userRepository.save(user);
 
-            UserSecurityDTO userSecurityDTO = new UserSecurityDTO(
+            userSecurityDTO = new UserSecurityDTO(
                     email, // userEmail
                     passwordEncoder.encode(randomStr), // password
                     email.substring(0, email.lastIndexOf("@")), // userName
@@ -95,17 +103,27 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             );
 
             userSecurityDTO.setProps(paramMap); // paramMap : 엑세스 토큰 발급받으면서 넘어온 객체
-
+            userSecurityDTO.setSocialName(clientName);
             return userSecurityDTO;
         }
 
+        // 1회 이상 로그인 경험이 있는 경우
         user = result.get();
+
+            if (user.getRole() == RoleType.DORMANCY)
+                throw new DisabledException("귀하의 계정은 휴면계정입니다."); // 계정 비활성화
+            else if (user.getRole() == RoleType.BLOCK)
+                throw new LockedException("귀하의 계정은 정지된 계정입니다."); // 계정 잠김
+            else if (user.isDel())
+                throw new AccountExpiredException("귀하의 계정의 삭제된 계정입니다."); // 계정 만료
+
+
         user.setLoginDate(LocalDate.now());
         if (user.isNotification())
             user.setNotification(false);
 
         userRepository.save(user);
-        return new UserSecurityDTO(
+        userSecurityDTO = new UserSecurityDTO(
                 user.getUserEmail(),
                 user.getPassword(),
                 user.getUserName(),
@@ -119,6 +137,9 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                 Arrays.asList(
                         new SimpleGrantedAuthority("ROLE_" + user.getRole().name())
                 ));
+
+        userSecurityDTO.setSocialName(clientName);
+        return userSecurityDTO;
 
     }
 
