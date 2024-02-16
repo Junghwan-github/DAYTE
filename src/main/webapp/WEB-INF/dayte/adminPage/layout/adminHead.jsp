@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>관리자 페이지</title>
+    <link href="/css/layout/reset.css" rel="stylesheet">
     <!-- 부트스트랩 css cdn -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
@@ -18,7 +19,8 @@
         .shadow-light {
             box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
         }
-        .bg-title{
+
+        .bg-title {
             background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
         }
         .select-style{
@@ -31,10 +33,11 @@
             cursor: pointer;
         }
     </style>
+
 </head>
 <body>
 
-<div class="container-fluid wrapper" >
+
     <!-- 네비 -->
 
     <nav class="navbar fixed-top navbar-expand-lg bg-success-subtle d-flex justify-content-between">
@@ -115,7 +118,7 @@
                         </button>
                         <div class="collapse " id="board-collapse">
                             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small bg-light ps-5 ">
-                                <li><a href="/mainPostList" class="link-body-emphasis d-inline-flex text-decoration-none rounded ">게시판 관리</a></li>
+                                <li><a href="/admin/post" class="link-body-emphasis d-inline-flex text-decoration-none rounded ">게시물 관리</a></li>
                                 <li><a href="/notice/modAll" class="link-body-emphasis d-inline-flex text-decoration-none rounded ">공지사항 관리</a></li>
                                 <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded ">인기검색어관리</a></li>
                                 <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded ">인기검색어순위</a></li>
@@ -131,4 +134,5 @@
         </div>
     <!-- 사이드바 닫는 태그-->
     </div>
+    <div class="container-fluid bg-body-tertiary wrapper" style="height: 100vh; overflow-y:scroll;" >
     <!-- wrapper 닫는 태그는 footer에 있음-->

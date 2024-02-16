@@ -1,4 +1,7 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<footer class="w-100 mt-3 d-flex align-items-center justify-content-center" >
+  <p>Copyright ⓒ 2024 RIRI-Child Team. All rights reserved.</p>
+</footer>
 </div>
 <%--wrapper 닫힘--%>
 
