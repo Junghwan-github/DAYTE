@@ -85,7 +85,7 @@
                                     </li>
                                     <li><span>${reply.user.nickName}</span></li>
                                     <li><span><fmt:formatDate value="${reply.createDate}"
-                                                              pattern="yyyy.MM.dd"/></span>
+                                                              pattern="yyyy.MM.dd HH:mm:ss"/></span>
                                     </li>
                                 </ul>
                             </div>

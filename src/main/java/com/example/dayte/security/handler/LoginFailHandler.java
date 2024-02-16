@@ -24,7 +24,7 @@ public class LoginFailHandler extends SimpleUrlAuthenticationFailureHandler {
         System.out.println(e.getMessage());
         String errorMessage;
         if (e instanceof BadCredentialsException || e instanceof InternalAuthenticationServiceException) {
-            errorMessage = "아이디 또는 비밀번호가 맞지 않습니다.";
+            errorMessage = e.getMessage();
         } else if (e instanceof UsernameNotFoundException){
             errorMessage = "존재하지 않는 아이디 입니다.";
         } else if (e instanceof DisabledException

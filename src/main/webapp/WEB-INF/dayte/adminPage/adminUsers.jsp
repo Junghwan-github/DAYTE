@@ -144,7 +144,7 @@
 <script>
     $(function() {
         $("#chkAll").click(function(){
-            $(".chkGrp").attr("checked", this.checked);
+            $(".chkGrp").prop("checked", this.checked);
         });
     });
     $("#delChkUserBtn").click(function(){
