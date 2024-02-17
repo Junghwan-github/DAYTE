@@ -1,8 +1,57 @@
-.wrapper{
+main {
     width: 1180px;
     margin: 0 auto;
-    background: white;
 }
+
+#past-schedule-container {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+
+#past-schedule-side-nav {
+    width: 260px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin-right: 20px;
+    align-self: flex-start;
+}
+
+#past-schedule-side-nav > ul > li {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    width: 100%;
+    height: 60px;
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+
+#past-schedule-side-nav > ul > li > a > i {
+    font-size: 2rem;
+    color: #aaa;
+}
+
+#past-schedule-side-nav > ul > li:nth-child(2) {
+    border-bottom: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+}
+
+
+#past-schedule-side-nav > ul > li > a {
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #111;
+}
+
+#past-schedule-side-nav > ul > li > .past-schedule-side-nav-active {
+    color: #116edb;
+}
+
 
 .title{
     font-size: 2.8rem;
@@ -19,28 +68,28 @@
 
 
 .reviewRatingBox {
-    border: 1px solid black;
-    border-radius: 10px;
-    margin: 50px;
-    width: 900px;
-    height: 300px;
-    align-items: center;
-    /*justify-content: center;*/
     display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    border-bottom: 1px solid #ddd;
+    width: 900px;
+    align-items: center;
+    padding: 30px 0;
 }
 
-.contents {
-    float: left;
-    width: auto;
-    height: 100%;
+.reviewRatingBox > .contents {
+    width: 300px;
+    height: 150px;
+    overflow: hidden;
+    border-radius: 7px;
+
 }
 
 /*이 부분엔 나중에 컨텐츠의 사진이 올라올 것*/
 .contents > img {
     width: 100%;
     height: 100%;
-    float: left;
-    border-radius: 10px;
+    object-fit: cover;
 
 }
 

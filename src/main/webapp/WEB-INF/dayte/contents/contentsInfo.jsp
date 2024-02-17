@@ -116,7 +116,7 @@
         <div class="amenities-container">
             <h2>편의시설</h2>
             <div class="amenities-content">
-                <span>상세정보없음</span>
+                <span>${showContentsDetail.facilities}</span>
             </div>
         </div>
     </section>
