@@ -22,7 +22,8 @@ let sendQuestionToEmail = {
                 mainCategory : $("#mainCategory"),
                 subCategory : $("#subCategory")
             }
-            let email = {};
+
+            let formData = new FormData();
 
 
             for (let arg in validCheck) {
@@ -50,8 +51,20 @@ let sendQuestionToEmail = {
                     }
 
                 }else{
-                    email[arg] = validCheck[arg].val();
+                    formData.append(arg, validCheck[arg].val());
                 }
+            }
+
+            let filesInput = $("#file-input")[0].files; // jQuery 객체를 통해 DOM 요소에 접근
+
+            if (filesInput.length > 0) {
+                for (let i = 0; i < filesInput.length; i++) {
+                    formData.append('files', filesInput[i]);
+                }
+            }
+
+            for (var pair of formData.entries()) {
+                console.log(pair[0] + ', ' + pair[1]);
             }
 
             $("#sendEmail").prop("disabled", true);
@@ -62,23 +75,22 @@ let sendQuestionToEmail = {
             $("#inquiry-content").prop("disabled", true);
 
 
-
-
-            /*$.ajax({
+            $.ajax({
                  type: "POST",
                  url: "/question",
-                 data: JSON.stringify(email),
-                 contentType: "application/json; charset=utf-8"
+                data: formData,
+                contentType: false,
+                processData: false
              })
-                 .done(function (res) {
-                     alert("문의접수가 완료되었습니다.");
-                     location = "/customerService";
-                 })
+             .done(function (res) {
+                 alert("문의접수가 완료되었습니다.");
+                 location = "/customerService";
+             })
 
-                 .fail(function (err) {
-                     alert("이메일 접수를 실패하셨습니다.");
-                     location.reload();
-                 });*/
+             .fail(function (err) {
+                 alert("이메일 접수를 실패하셨습니다.");
+                 location.reload();
+             });
 
 
         } else{
