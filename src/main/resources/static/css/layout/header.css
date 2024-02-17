@@ -1,4 +1,9 @@
+
 #logo a {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
     font-size: 2.2rem;
     font-weight: 700;
     color: #28536a;
@@ -8,6 +13,13 @@
     transform: translate(0%, -50%);
     /* transition: all 0.3s; */
 }
+
+#logo > a > img {
+    width: 40px;
+    margin-right: 10px;
+}
+
+
 
 #header-nav-hide {
     position: absolute;

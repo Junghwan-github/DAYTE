@@ -38,6 +38,9 @@ public class FileController {
     @Autowired
     private FileUtil fileUtils;
 
+    private static final String noticeImageUploadPath = "/temp/files/images/";
+
+
     @GetMapping("/notice/{noticeNo}/files/{fileId}")
     public ResponseEntity<Resource> downloadFile(@PathVariable int noticeNo, @PathVariable int fileId){
 //        System.out.println(noticeNo);
@@ -62,30 +65,7 @@ public class FileController {
     @ResponseBody
     public Map<String, String> uploadSummernoteImageFile(@RequestPart("file") MultipartFile multipartFile) {
 
-        Map<String, String> fileObject = new HashMap<>();
-
-
-        String fileRoot = "C:\\summernote_image\\";	//저장될 외부 파일 경로
-        String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
-        String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
-
-        String savedFileName = UUID.randomUUID() + extension;	//저장될 파일명
-        File targetFile = new File(fileRoot + savedFileName);
-
-        try {
-            InputStream fileStream = multipartFile.getInputStream();
-            FileUtils.copyInputStreamToFile(fileStream, targetFile);	//파일 저장
-            fileObject.put("url", "/summernoteImage/"+savedFileName);
-            fileObject.put("responseCode", "success");
-
-
-
-        } catch (IOException e) {
-            FileUtils.deleteQuietly(targetFile);	//저장된 파일 삭제
-            e.printStackTrace();
-        }
-        
-        return fileObject;
+        return fileService.uploadSummernoteImageFile(multipartFile);
     }
 
     @RequestMapping(value = "/deleteSummernoteImageFile", produces = "application/json; charset=utf8")

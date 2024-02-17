@@ -30,7 +30,7 @@ public class FileUtil {
 
     private final String uploadPath = Paths.get("C:", "upload-files").toString();
 
-    private static final String noticeImageUploadPath = "/temp/files/notice/";
+    private static final String noticeFileUploadPath = "/temp/files/notice/";
 
     private String originPath;
 
@@ -46,7 +46,7 @@ public class FileUtil {
                 try {
                     String encodedFileName = UriUtils.encode(Objects.requireNonNull(multipartFile.getOriginalFilename()), StandardCharsets.UTF_8);
 
-                    Path targetPath = Path.of("\\\\192.168.10.203" +this.noticeImageUploadPath + ( upFile.getSaveName()  + "_"+ multipartFile.getOriginalFilename()));
+                    Path targetPath = Path.of("\\\\192.168.10.203" +this.noticeFileUploadPath + ( upFile.getSaveName()  + "_"+ multipartFile.getOriginalFilename()));
 
                     Path sourcePath = Paths.get(originPath);
 
@@ -58,7 +58,7 @@ public class FileUtil {
                 }
 
             }
-            
+
         }
         return files;
     }
