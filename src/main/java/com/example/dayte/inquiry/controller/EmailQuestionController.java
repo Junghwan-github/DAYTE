@@ -8,11 +8,10 @@ import com.example.dayte.security.dto.UserSecurityDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
 import java.util.Objects;
 
 @org.springframework.stereotype.Controller
@@ -28,7 +27,8 @@ public class EmailQuestionController {
 
 
     @PostMapping("/question")
-    public @ResponseBody ResponseDTO<?> goToEmailQuestion(@RequestBody EmailQuestionDTO emailQuestionDTO) {
+    public @ResponseBody ResponseDTO<?> goToEmailQuestion(@ModelAttribute EmailQuestionDTO emailQuestionDTO) {
+
 
         String receivedEmail = emailQuestionDTO.getEmailAdress();
 

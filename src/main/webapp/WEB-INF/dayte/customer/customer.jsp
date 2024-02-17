@@ -200,7 +200,7 @@
             </ul>
         </div>
         <div id="customer-n-inquiry" class="customer-n-inquiry tab-content">
-            <form>
+            <form enctype="multipart/form-data">
                 <ul>
                     <li>
                         <sec:authorize access="isAuthenticated()">
@@ -228,6 +228,17 @@
                         <textarea id="inquiry-content" class="inquiry-content" placeholder="문의하실 내용을 적어주세요"></textarea>
                     </li>
                 </ul>
+                <div class="fileList">
+                    <div id="file-input-Div-parentNode">
+                        <input type="file" accept=".pdf, .hwp, .docx, .xlsx, .xls, .jpg, .png, .jpeg, .zip "
+                               class="fileInput"
+                               name="inputFiles" id="file-input" multiple="multiple" onchange="selectFile(this);"/>
+                    </div>
+                    <div>
+                        <div id="preview"></div>
+                    </div>
+                </div>
+
             </form>
             <button type="button" id="sendEmail" class="sendEmail">문의하기</button>
         </div>
@@ -238,6 +249,7 @@
 <script src="/js/main/customer.js"></script>
 <script src="/js/main/emailQuestion.js"></script>
 <script src="/js/schedule/contentInfo.js"></script>
+<script src="/js/notice/fileFunction.js"></script>
 
 
 <%@include file="../layout/footer.jsp" %>
