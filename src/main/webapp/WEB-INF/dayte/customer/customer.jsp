@@ -214,10 +214,16 @@
                     </li>
                     <li>
                         <label for="mainCategory">문의 분류</label>
-                        <select id="mainCategory">
-                        </select>
-                        <select id="subCategory">
-                        </select>
+                        <div id="mainSelectBox">
+                            <select id="mainCategory">
+                            </select>
+                            <span class="icoArrow" id="mainIcoArrow"><img src="/images/icoArrow.png"></span>
+                        </div>
+                        <div id="subSelectBox">
+                            <select id="subCategory">
+                            </select>
+                            <span class="icoArrow" id="subIcoArrow"><img src="/images/icoArrow.png"></span>
+                        </div>
                     </li>
                     <li>
                         <label for="inquiry-title">제목</label>
