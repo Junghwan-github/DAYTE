@@ -110,5 +110,9 @@ public class ContentReplyService {
     }
 
 
+    @Transactional
+    public List<ContentReply> findContentsReplyList (String uuid) {
+        return contentReplyRepository.findByContentUuid(uuid);
+    }
 
 }

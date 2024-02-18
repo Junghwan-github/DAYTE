@@ -141,7 +141,7 @@ public class AdminContentsService {
         String categoryNames = "";
 
         switch (category) {
-            case "hotels" -> categoryNames = "숙박";
+            case "hotels" -> categoryNames = "숙소";
             case "restaurants" -> categoryNames = "맛집";
             case "cafes" -> categoryNames = "카페";
             case "events" -> categoryNames = "이벤트";

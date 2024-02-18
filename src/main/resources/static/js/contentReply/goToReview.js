@@ -14,7 +14,7 @@ function goToReview(value){
     })
         .then(data => {
             if (data.status == 200) {
-               location = "/contentsReview/"+uuid;
+               window.open("/contentsReview/"+uuid , "black");
             } else if (data.status == 400) {
                 alert("이미 해당 컨텐츠에 댓글을 등록하셨습니다.");
             }

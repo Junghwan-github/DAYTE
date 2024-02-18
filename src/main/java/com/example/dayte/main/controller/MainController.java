@@ -73,6 +73,7 @@ public class MainController {
     public String allSearches(@RequestParam("indexSearch") String searchWord, Model model) {
         model.addAttribute("contentsList", adminContentsService.searchByContents(searchWord))
                 .addAttribute("postList", postService.postSearchToAll(searchWord));
+        model.addAttribute("postListText",postService.extractPostContentText());
         return "contents/allSearches";
     }
 
