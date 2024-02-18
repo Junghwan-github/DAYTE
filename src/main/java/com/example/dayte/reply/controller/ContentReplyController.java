@@ -38,12 +38,12 @@ public class ContentReplyController {
 
 
 
-    @GetMapping("/contentReply")
-    public String index(Model model) {
-        model.addAttribute("contentReplyList", contentReplyService.contentReplyList());
-        return "reply/contentReply";
-        // replyService.replyList()를 사용하여 댓글 목록을 가져와서 모델에 추가한 후 "ContentReply" view 를 띄움
-    }
+//    @GetMapping("/contentReply")
+//    public String index(Model model) {
+//        model.addAttribute("contentReplyList", contentReplyService.contentReplyList());
+//        return "reply/contentReply";
+//        // replyService.replyList()를 사용하여 댓글 목록을 가져와서 모델에 추가한 후 "ContentReply" view 를 띄움
+//    }
 
 
 
