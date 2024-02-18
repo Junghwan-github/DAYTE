@@ -105,6 +105,7 @@ public class PostController {
         Page<Post> postListPage;
         // 인풋창에 공백인 상태로 검색버튼을 눌렀을때 postListPage 을 담아 넘겨주고
         // 검색 키워드가 있을시 postSearchList 을 남아 넘겨줌
+        String msg = "default";
 
         if ("".equals(postWord) || postWord == null) { // 검색키워드가 없거나 검색하지 않았을 때
             postListPage = postService.getPostList(pageable);
@@ -117,6 +118,7 @@ public class PostController {
                 default -> postListPage = postService.getPostList(pageable);
             }
             postTotalPage = postListPage.getTotalPages();
+            msg = "searched";
         }
 
         // postListPage 필드에 담긴 페이지네이션화된 전체 데이터를 postTotalPage 필드에 대입
@@ -135,6 +137,7 @@ public class PostController {
         model.addAttribute("postEndPage", postEndPage);
         model.addAttribute("postNowPage", postNowPage);
         model.addAttribute("postList", postListPage);
+        model.addAttribute("msg", msg);
 
         model.addAttribute("postListText",postService.extractPostContentText());
         return "post/mainPostList";

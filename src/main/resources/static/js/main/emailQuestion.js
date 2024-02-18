@@ -12,16 +12,16 @@ init();
 
 function init() {
 
-    let firstHtml = `<option value="" selected disabled hidden>카테고리 선택</option>`;
-    let secondHtml = `<option value="" selected disabled hidden>카테고리 선택</option>`;
+    let firstHtml = `<option value="" selected disabled hidden><span class="selectCategory" style="font-size: 14px">카테고리 선택</span></option>`;
+    let secondHtml = `<option value="" selected disabled hidden><span class="selectCategory" style="font-size: 14px">카테고리 선택</span></option>`;
 
 
     for (const key in firstCtg) {
-        firstHtml += `<option value="${key}">${key}</option>`;
+        firstHtml += `<option value="${key}"><span>${key}</span></option>`;
 
 
         firstCtg[key].forEach(second => {
-            secondHtml += `<option value="${second}" class="${key}">${second}</option>`
+            secondHtml += `<option value="${second}" class="${key}"><span>${second}</span></option>`
 
         });
     }
@@ -82,6 +82,29 @@ $("#inquiry-content").on('input', function () {
     }
 })
 
+console.log($('#mainCategory').val());
+
+let mainSelectElement = document.getElementById('mainCategory');
+let mainIcoArrow = document.getElementById('mainIcoArrow');
+
+mainSelectElement.addEventListener('click', function (){
+    mainIcoArrow.classList.toggle('openState');
+})
+
+mainSelectElement.addEventListener('blur', function () {
+    mainIcoArrow.classList.remove('openState');
+});
+
+let subSelectElement = document.getElementById('subCategory');
+let subIcoArrow = document.getElementById('subIcoArrow');
+
+subSelectElement.addEventListener('click', function (){
+    subIcoArrow.classList.toggle('openState');
+})
+
+subSelectElement.addEventListener('blur', function () {
+    subIcoArrow.classList.remove('openState');
+});
 
 
 

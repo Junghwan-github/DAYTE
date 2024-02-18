@@ -1,5 +1,6 @@
 package com.example.dayte.main.controller;
 
+import com.example.dayte.admin.contents.domain.AdminContents;
 import com.example.dayte.admin.contents.service.AdminContentsService;
 import com.example.dayte.admin.mianslider.domain.IndexMainSlider;
 import com.example.dayte.admin.mianslider.domain.VisitorStatistics;
@@ -42,7 +43,11 @@ public class MainController {
             mySessionListener.addActiveUsers(mySessionListener.getCurrentUsername());
             session.setAttribute("flag", mySessionListener.getCurrentUsername());
         }
-        model.addAttribute("sliderList", sliderList);
+
+        List<AdminContents> adminContents = adminContentsService.getContentsList();
+
+        model.addAttribute("sliderList", sliderList)
+                .addAttribute("contentList", adminContents);
         return "index";
     }
 

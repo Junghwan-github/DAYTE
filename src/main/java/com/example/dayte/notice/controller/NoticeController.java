@@ -54,16 +54,21 @@ public class NoticeController {
                                 @RequestParam(required = false, defaultValue = "") String searchWord) {
 
         Page<Notice> noticeList = noticeService.noticeList(pageable);
+        String msg = "default";
 
         if(searchOption.equals("all")){
             noticeList = noticeService.AllBySearchWord(searchWord, pageable);
+            msg = "searched";
         } else if(searchOption.equals("title")){
             noticeList = noticeService.TitleBySearchWord(searchWord, pageable);
+            msg = "searched";
         } else if(searchOption.equals("content")){
             noticeList = noticeService.ContentBySearchWord(searchWord, pageable);
+            msg = "searched";
         }
 
         model.addAttribute("noticeList", noticeList);
+        model.addAttribute("msg", msg);
 
         int currentPage = noticeList.getPageable().getPageNumber();
         int totalPages = noticeList.getTotalPages();
@@ -92,17 +97,22 @@ public class NoticeController {
 
         // 일반 공지사항들
         Page<Notice> defaultNotices = noticeService.findDefaultNotice(pageable);
+        String msg = "default";
 
         // 일반 공지사항 검색
         if(searchOption.equals("all")){
             defaultNotices = noticeService.AllBySearchWord(searchWord, pageable);
+            msg = "searched";
         } else if(searchOption.equals("title")){
             defaultNotices = noticeService.TitleBySearchWord(searchWord, pageable);
+            msg = "searched";
         } else if(searchOption.equals("content")){
             defaultNotices = noticeService.ContentBySearchWord(searchWord, pageable);
+            msg = "searched";
         }
 
         model.addAttribute("defaultNotices", defaultNotices);
+        model.addAttribute("msg", msg);
 
 
         // 페이지네이션

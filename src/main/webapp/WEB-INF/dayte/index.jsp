@@ -1,6 +1,7 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="layout/head.jsp" %>
+
 <%--여기 각자 쓸 css--%>
 <link rel="stylesheet" href="/css/main/index.css">
 <link rel="stylesheet" href="/css/main/slider.css">
@@ -60,35 +61,23 @@
                         </ul>
                     </div>
                     <div class="previewImage">
-                        <h3>지금 핫한 장소
-                        </h3>
+                        <h3>지금 핫한 장소</h3>
                         <ul class="c-jg">
-                            <li class="isl-1">
-                                <div class="isl-img-area"></div>
-                                <div class="isl-text-area">
-                                    <h3>랑데자뷰</h3>
-                                    <p>대구광역시 북구 구암로 15길 38</p>
-                                    <p>카페 자리 좋고 물좋고 커피좋고 어디부터어디까지</p>
-                                    <a href="#">자세히 보기</a>
-                                </div>
-                            </li>
-                            <li class="isl-2">
-                                <div class="isl-img-area"></div>
-                                <div class="isl-text-area">
-                                    <h3>스파크 랜드</h3>
-                                    <p>대구광역시 북구 구암로 15길 38</p>
-                                    <p>카페 자리 좋고 물좋고 커피좋고 그렇게 살아라</p>
-                                    <a href="#">자세히 보기</a>
-                                </div>
-                            </li>
-                            <li class="isl-3">
-                                <div class="isl-img-area"></div>
-                                <div class="isl-text-area">
-                                    <h3>맛있는 스파게티</h3>
-                                    <p>대구광역시 북구 구암로 15길 38</p>
-                                    <p>카페 자리 좋고 물좋고 커피좋고 동해물과백두산이...</p>
-                                    <a href="#">자세히 보기</a>
-                                </div>
+                            <c:forEach var="contentList" items="${contentList}" varStatus="loop">
+                                <c:if test="${loop.index lt 5}">
+                                    <li class="isl-items">
+                                        <div class="isl-img-area">
+                                            <img src="${contentList. adminContentsImageList[0].imageURL}">
+                                        </div>
+                                        <div class="isl-text-area">
+                                            <h3>${contentList.businessName}</h3>
+                                            <p>${contentList.detailedAddress}</p>
+                                            <p class="description">${contentList.detailedDescription}</p>
+                                            <a href="/contents/detail/${contentList.uuid}" target="_blank">자세히 보기</a>
+                                        </div>
+                                    </li>
+                                </c:if>
+                            </c:forEach>
                         </ul>
                     </div>
                 </li>
