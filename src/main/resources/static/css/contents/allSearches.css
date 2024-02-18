@@ -35,6 +35,7 @@ main {
     font-size: 1.5rem;
     font-weight: 500;
     color: #111;
+    cursor: pointer;
 }
 
 .top-wrapper > span >i  {

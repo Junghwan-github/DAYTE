@@ -226,19 +226,18 @@ main {
 
 .searchContents {
   position: absolute;
-  visibility: hidden;
+  display: none;
   top: 90px;
   width: 1000px;
   background: #fff;
   box-shadow: 0 5px 10px -10px #000000a7;
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: center;
   z-index: 5;
 }
 
 .selected {
-  visibility: visible;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
 }
 
 .searchContents > div > h3 {
@@ -280,35 +279,37 @@ main {
 
 .previewImage {
   width: 700px;
-  height: 0px;
-  box-sizing: border-box;
 }
 
-.previewImage > div > div > ul {
-  padding: 30px;
-}
 
 .previewImage > div > div > ul > li {
   width: 100%;
-  height: 345px;
-  overflow: hidden;
-  margin: 10px;
-  position: relative;
+  height: 325px;
+}
+
+.isl-items {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 
 .isl-img-area {
   width: 300px;
-  height: 345px;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
+  height: 305px;
+overflow: hidden;
+
+}
+
+.isl-img-area img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .isl-text-area {
-  position: absolute;
-  top: 0;
-  left: 315px;
-  width: 380px;
+  width: 385px;
+  margin-left: 15px;
 }
 
 .isl-text-area > h3 {
@@ -319,10 +320,19 @@ main {
 }
 
 .isl-text-area > p {
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   font-weight: 400;
   color: #111;
   margin-bottom: 28px;
+}
+
+.description {
+  line-height: 20px;
+  max-height: 40px;
+  overflow: hidden;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #111;
 }
 
 .isl-text-area > a {
@@ -334,15 +344,7 @@ main {
   border-radius: 5px;
 }
 
-.c-jg > .isl-1 > .isl-img-area {
-  background-image: url("../../images/isl-1.jpg");
-}
-.c-jg > .isl-2 > .isl-img-area {
-  background-image: url("../../images/isl-2.jpg");
-}
-.c-jg > .isl-3 > .isl-img-area {
-  background-image: url("../../images/isl-3.PNG");
-}
+
 
 .xi-search {
   font-size: 2.6rem;
