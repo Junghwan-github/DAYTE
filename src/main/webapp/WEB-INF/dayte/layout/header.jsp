@@ -3,7 +3,7 @@
 <header>
     <!-- 네비게이션 -->
     <nav>
-        <h1 id="logo"><a href="/"><img src="/images/logoimages.png">DAYTE</a></h1>
+        <h1 id="logo"><a href="/"><img src="/images/logo_dayte.png">DAYTE</a></h1>
         <ul>
             <li><a href="/notice">공지사항</a></li>
             <li><a href="/mainPostList">일정후기</a></li>

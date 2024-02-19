@@ -2,12 +2,12 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="layout/adminHead.jsp"%>
-<div class="h-100 bg-body-tertiary px-3" style="padding-top: 70px; min-width:375px;">
-    <div class="h-100 px-5">
-        <p class="h4 titleName border-bottom pb-2">접속자 집계</p>
+<div class="h-100 px-3" style="padding-top: 70px; min-width:375px;">
+    <div class=" px-5">
+        <p class="h2 ps-2 titleName border-bottom pb-2 mb-4">접속자 집계</p>
         <div class="d-flex flex-row justify-content-end align-items-center">
-            <label for="selectVisit" class="d-block m-0 pe-2 h6"> <i class="bi bi-calendar4-week"></i> 기간 선택 | </label>
-        <select id="selectVisit" class="p-1 select col-1 text-center rounded-1 select-style">
+            <label for="selectVisit" class="d-block m-0 pe-2 adminUserFS"> <i class="bi bi-calendar4-week adminUserFS"></i> 기간 선택 | </label>
+        <select id="selectVisit" class="p-1 select col-1 text-center rounded-1 select-style adminUserFS">
             <option value="1" selected>1주일</option>
             <option value="2">1달</option>
             <option value="3">6개월</option>
