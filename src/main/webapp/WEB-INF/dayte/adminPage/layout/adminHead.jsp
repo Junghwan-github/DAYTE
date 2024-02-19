@@ -32,6 +32,16 @@
             transition: 0.2s;
             cursor: pointer;
         }
+        .form-check-input{
+            width: 1.6rem;
+            height: 1.6rem;
+            border: var(--bs-border-width) solid #777;
+        }
+        .adminUserFS{
+            font-size: 1.4rem;
+        }
+
+
     </style>
 
 </head>
@@ -44,15 +54,16 @@
 
         <div class="container-fluid">
             <div class=" d-flex align-items-center">
-                <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
+                <button class="btn ms-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
                     <img src="/images/icon-hamburger.png" style="width: 32px;height:32px;" alt="">
                 </button>
-                <span class="navbar-brand mb-0 h1 fw-bold">DAYTE</span>
+                <p class="navbar-brand mb-0 ms-3 fw-bold" style="font-size:2.3rem;">DAYTE</p>
             </div>
-            <div class="me-2"aria-label="breadcrumb">
-                <ul class="breadcrumb mb-0 " >
-                    <li class="breadcrumb-item "><a href="/admin/home" class="text-decoration-none text-reset fw-semibold">관리자 메인</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"><span class="h6 fw-bold" id="nowPageTitle"></span></li>
+            <div class="me-2">
+                <ul class="d-flex flex-row mb-0 me-3" >
+                    <li ><a href="/admin/home" class="text-decoration-none text-reset fw-semibold" style="font-size:1.8rem;">관리자 메인</a></li>
+                    <li class="text-reset fw-semibold mx-2" style="font-size:1.8rem;"> / </li>
+                    <li ><span class="fw-bold text-body-tertiary" style="font-size:1.8rem;" id="nowPageTitle"></span></li>
                 </ul>
             </div>
         </div>
@@ -65,66 +76,66 @@
                 <button type="button" class="btn-close mt-2 me-2" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class= "offcanvas-header d-flex justify-content-center" >
-                <a href="/admin/home" class="d-flex align-items-center pb-3 mb-3 link-body-emphasis text-decoration-none border-bottom">
-                    <h4 class="offcanvas-title" id="offcanvasScrollingLabel">DAYTE</h4>
+                <a href="/admin/home" class="d-flex flex-column align-items-center pb-3 mb-3 link-body-emphasis text-decoration-none border-bottom">
+                    <img src="/images/logo_dayte.png"  style="width:100px; border:transparent; border-radius:10px;">
+                    <p class="offcanvas-title h1" id="offcanvasScrollingLabel">DAYTE</p>
                 </a>
             </div>
 
             <div class="offcanvas-body p-0">
                 <div class="text-center pb-3">
-                    <span><a href="/members/logout" class="text-reset text-decoration-none">로그아웃</a></span>
-                    <div class="vr"></div>
-                    <span><a href="/" class="text-reset text-decoration-none">사이트</a></span>
+                    <span><a href="/members/logout" class="text-reset text-decoration-none h3 pe-2">로그아웃</a></span>
+                    <div class="vr "></div>
+                    <span><a href="/" class="text-reset text-decoration-none h3 ps-2">사이트</a></span>
                 </div>
                 <ul class="list-unstyled ps-0 " id="sideVarList">
                     <li class="border-top border-secondary-subtle my-3"></li>
-                    <li class="mb-1">
+                    <li class="mb-2">
                         <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 fw-bold ps-3"  >
-                            <i class="bi bi-kanban-fill ms-2"></i>
-                            <a href="/admin/home" class="link-body-emphasis d-inline-flex text-decoration-none rounded ms-2">대시 보드</a>
+                            <i class="bi bi-kanban-fill ms-4 h3"></i>
+                            <a href="/admin/home" class="link-body-emphasis d-inline-flex text-decoration-none rounded ms-4 h3">대시 보드</a>
                         </button>
                     </li>
-                    <li class="mb-1">
+                    <li class="mb-2">
                         <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed ps-3" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
-                            <i class="bi bi-gear-fill ms-2"></i>
-                            <span class="fw-bold d-inline-block ms-2">환경 설정</span>
+                            <i class="bi bi-gear-fill ms-4 h3"></i>
+                            <span class="fw-bold d-inline-block ms-4 h3">환경 설정</span>
                         </button>
                         <div class="collapse" id="orders-collapse">
                             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small bg-light ps-5">
-                                <li><a href="/admin/home/settings/index" class="link-body-emphasis d-inline-flex text-decoration-none rounded">메인 설정</a></li>
-                                <li><a href="/admin/home/settings/contents" class="link-body-emphasis d-inline-flex text-decoration-none rounded">컨텐츠 관리</a></li>
-                                <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">설정</a></li>
-                                <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded">설정</a></li>
+                                <li><a href="/admin/home/settings/index" class="link-body-emphasis d-inline-flex text-decoration-none rounded h4 py-1">메인 설정</a></li>
+                                <li><a href="/admin/home/settings/contents" class="link-body-emphasis d-inline-flex text-decoration-none rounded h4 py-1">컨텐츠 관리</a></li>
                             </ul>
                         </div>
                     </li>
-                    <li class="mb-1">
+                    <li class="mb-2">
                         <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed fw-bold ps-3" data-bs-toggle="collapse" data-bs-target="#user-collapse" aria-expanded="true">
-                            <i class="bi bi-person-fill ms-2"></i>
-                            <span class="fw-bold d-inline-block ms-2">회원 관리</span>
+                            <i class="bi bi-person-fill ms-4 h3"></i>
+                            <span class="fw-bold d-inline-block ms-4 h3">회원 관리</span>
                         </button>
                         <div class="collapse " id="user-collapse">
                             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small bg-light ps-5">
-                                <li><a href="/admin/user" class="link-body-emphasis d-inline-flex text-decoration-none rounded">회원 관리</a></li>
-                                <li><a href="/admin/totalVisitor" class="link-body-emphasis d-inline-flex text-decoration-none rounded">접속자 집계</a></li>
-                                <li><a href="/admin/loginUser" class="link-body-emphasis d-inline-flex text-decoration-none rounded">접속자 현황</a></li>
+                                <li><a href="/admin/user" class="link-body-emphasis d-inline-flex text-decoration-none rounded h4 py-1">회원 관리</a></li>
+                                <li><a href="/admin/totalVisitor" class="link-body-emphasis d-inline-flex text-decoration-none rounded h4 py-1">접속자 집계</a></li>
+                                <li><a href="/admin/loginUser" class="link-body-emphasis d-inline-flex text-decoration-none rounded h4 py-1">접속자 현황</a></li>
                             </ul>
                         </div>
                     </li>
-                    <li class="mb-1">
+                    <li class="mb-2">
                         <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed fw-bold ps-3" data-bs-toggle="collapse" data-bs-target="#board-collapse" aria-expanded="false">
-                            <i class="bi bi-clipboard2-data-fill ms-2"></i>
-                            <span class="fw-bold d-inline-block ms-2">게시판 관리</span>
+                            <i class="bi bi-clipboard2-data-fill ms-4 h3"></i>
+                            <span class="fw-bold d-inline-block ms-4 h3">게시판 관리</span>
                         </button>
                         <div class="collapse " id="board-collapse">
                             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small bg-light ps-5 ">
-                                <li><a href="/admin/post" class="link-body-emphasis d-inline-flex text-decoration-none rounded ">게시물 관리</a></li>
-                                <li><a href="/notice/modAll" class="link-body-emphasis d-inline-flex text-decoration-none rounded ">공지사항 관리</a></li>
-                                <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded ">인기검색어관리</a></li>
-                                <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded ">인기검색어순위</a></li>
-                                <li><a href="/customerService" class="link-body-emphasis d-inline-flex text-decoration-none rounded ">1:1 문의설정</a></li>
-                                <li><a href="/customerService" class="link-body-emphasis d-inline-flex text-decoration-none rounded ">FAQ관리</a></li>
-                                <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded ">글,댓글 현황</a></li>
+                                <li><a href="/admin/post" class="link-body-emphasis d-inline-flex text-decoration-none rounded h4 py-1">게시물 관리</a></li>
+                                <li><a href="/notice/modAll" class="link-body-emphasis d-inline-flex text-decoration-none rounded h4 py-1">공지사항 관리</a></li>
+                                <li><a href="/customerService" class="link-body-emphasis d-inline-flex text-decoration-none rounded h4 py-1">1:1 문의설정</a></li>
+                                <li><a href="/customerService" class="link-body-emphasis d-inline-flex text-decoration-none rounded h4 py-1">FAQ관리</a></li>
+
+                                <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded h4 py-1 d-none">인기검색어관리</a></li>
+                                <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded h4 py-1 d-none">인기검색어순위</a></li>
+                                <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded h4 py-1 d-none">글,댓글 현황</a></li>
                             </ul>
                         </div>
                     </li>
