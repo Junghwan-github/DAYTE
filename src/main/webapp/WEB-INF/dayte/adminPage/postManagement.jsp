@@ -4,15 +4,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@include file="layout/adminHead.jsp" %>
 <!-- 콘텐츠 -->
-<div class="h-100 bg-body-tertiary px-3" style="padding-top: 70px; min-width:375px;">
+<div class="h-100 px-3" style="padding-top: 70px; min-width:375px;">
     <div class="px-5">
-        <p class="h4 fw-bold titleName" >게시물 관리</p>
+        <p class="h2 ps-2 fw-bold titleName border-bottom pb-2 mb-4" >게시물 관리</p>
 
         <!-- 게시물 요약 통계 -->
         <div class="d-flex flex-row justify-content-start">
             <ul class="list-unstyled border rounded d-flex flex-row me-2">
-                <li class="border-end bg-secondary-subtle p-1 rounded-start fw-semibold ">총 게시글</li>
-                <li  class=" px-2 py-1 bg-light rounded-end fw-semibold">${postList.content.size()}</li>
+                <li class="border-end bg-secondary-subtle m-0 p-2 rounded-start fw-semibold  h4">총 게시글</li>
+                <li  class="m-0 py-2 px-3 bg-light rounded-end fw-semibold h4">${postList.content.size()}</li>
             </ul>
         </div>
 
@@ -21,18 +21,18 @@
 
             <form id="uSearch" name="uSearch" method="get" action="/admin/post">
                 <div class="list-group d-flex flex-row">
-                    <a href="/admin/post" class="btn btn-dark py-1 me-1">전체 목록</a>
-                    <select name="postField" id="field" class="list-item me-1">
+                    <a href="/admin/post" class="btn btn-dark px-3 py-2 m-0 me-2 adminUserFS">전체 목록</a>
+                    <select name="postField" id="field" class="list-item me-1 adminUserFS">
                         <option value="postAll">전체</option>
                         <option value="postTitle">제목</option>
                         <option value="postContent">내용</option>
                     </select>
-                    <input type="text" name="postWord" id="word" class="list-item me-1">
-                    <input type="submit" class="btn-submit btn btn-dark py-1" value="검색">
+                    <input type="text" name="postWord" id="word" class="list-item me-1 adminUserFS">
+                    <input type="submit" class="btn-submit btn btn-dark px-3 py-2 m-0 me-2 adminUserFS" value="검색">
                 </div>
             </form>
             <div>
-                <input type="button" id="delChkPostBtn" class="btn btn-dark py-1 me-1" value="선택 삭제">
+                <input type="button" id="delChkPostBtn" class="btn btn-dark px-3 py-2 m-0 me-2 adminUserFS" value="선택 삭제">
             </div>
         </div>
 
@@ -40,23 +40,23 @@
         <div class="table-responsive">
             <table class="table table-striped border" >
                 <thead class="align-middle">
-                <tr >
+                <tr style="height: 50px;">
                     <th  scope="col" class="text-center bg-secondary-subtle">
                     <input class="form-check-input" type="checkbox" id="chkAll" >
                     </th>
-                    <th scope="col" class="text-center bg-secondary-subtle">No</th>
-                    <th scope="col" class="text-center bg-secondary-subtle">제목</th>
-                    <th scope="col" class="text-center bg-secondary-subtle">닉네임</th>
-                    <th scope="col" class="text-center bg-secondary-subtle">등록일</th>
-                    <th scope="col" class="text-center bg-secondary-subtle">관리</th>
+                    <th scope="col" class="text-center align-middle h4 bg-secondary-subtle">No</th>
+                    <th scope="col" class="text-center align-middle h4 bg-secondary-subtle">제목</th>
+                    <th scope="col" class="text-center align-middle h4 bg-secondary-subtle">닉네임</th>
+                    <th scope="col" class="text-center align-middle h4 bg-secondary-subtle">등록일</th>
+                    <th scope="col" class="text-center align-middle h4 bg-secondary-subtle">관리</th>
                 </tr>
                 </thead>
                 <c:if test="${!empty postList.content}">
                         <tbody class="align-middle">
                         <form id="postList">
                     <c:forEach var="post" items="${postList.content}">
-                            <tr>
-                                <td class="text-center">
+                            <tr style="height: 50px;">
+                                <td class="text-center align-middle">
                                 <input class="form-check-input chkGrp" name="chkPost" type="checkbox" value="<c:out value='${post.id}'/>">
                                 </td>
                                 <td class="text-center">
