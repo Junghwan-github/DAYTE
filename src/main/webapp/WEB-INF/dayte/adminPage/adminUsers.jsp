@@ -32,7 +32,7 @@
 
             <form id="uSearch" name="uSearch" method="get" action="/admin/user">
                 <div class="list-group d-flex flex-row">
-                    <a href="/admin/home" class="btn btn-dark px-3 py-2 m-0 me-2 adminUserFS">전체 목록</a>
+                    <a href="/admin/user" class="btn btn-dark px-3 py-2 m-0 me-2 adminUserFS">전체 목록</a>
                     <select name="field" id="field" class="list-item me-1 adminUserFS">
                         <option value="userEmail">아이디</option>
                         <option value="nickName">닉네임</option>
