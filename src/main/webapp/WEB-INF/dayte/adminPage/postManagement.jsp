@@ -41,8 +41,8 @@
             <table class="table table-striped border" >
                 <thead class="align-middle">
                 <tr style="height: 50px;">
-                    <th  scope="col" class="text-center bg-secondary-subtle">
-                    <input class="form-check-input" type="checkbox" id="chkAll" >
+                    <th  scope="col" class="text-center align-middle bg-secondary-subtle">
+                        <input class="form-check-input" type="checkbox" id="chkAll" >
                     </th>
                     <th scope="col" class="text-center align-middle h4 bg-secondary-subtle">No</th>
                     <th scope="col" class="text-center align-middle h4 bg-secondary-subtle">제목</th>
@@ -59,17 +59,17 @@
                                 <td class="text-center align-middle">
                                 <input class="form-check-input chkGrp" name="chkPost" type="checkbox" value="<c:out value='${post.id}'/>">
                                 </td>
-                                <td class="text-center">
+                                <td class="text-center align-middle h4 fw-normal">
                                     <span>${post.id}</span>
                                 </td>
-                                <td class="text-center"><a class="text-decoration-none text-dark" href="/post/${post.id}">${post.title} [${post.replyList.size()}]</a></td>
-                                <td class="text-center">${post.user.nickName}</td>
-                                <td class="text-center"><fmt:formatDate value="${post.createDate}"
+                                <td class="text-center align-middle h4 fw-normal">
+                                    <a class="d-block  h-100 w-100 mb-0 text-decoration-none text-dark h4 fw-normal" href="/post/${post.id}">${post.title} [${post.replyList.size()}]</a>
+                                </td>
+                                <td class="text-center align-middle h4 fw-normal">${post.user.nickName}</td>
+                                <td class="text-center align-middle h4 fw-normal"><fmt:formatDate value="${post.createDate}"
                                                                         pattern="yyyy.MM.dd HH:mm:ss"/></td>
-                                <td class="text-center">
-                                    <div class="d-flex justify-content-center">
-                                        <a href="/post/${post.id}" class="btn btn-dark ms-1 d-block">삭제</a>
-                                    </div>
+                                <td class="text-center align-middle">
+                                        <a href="/post/${post.id}" class="btn btn-dark px-0 ms-1 d-block adminUserFS">삭제</a>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -88,8 +88,8 @@
                         <c:choose>
                             <c:when test="${postList.first}"></c:when>
                             <c:otherwise>
-                                <li class="page-item"><a class="page-link text-dark" href="?page=0&field=${param.field}&word=${param.word}">처음</a></li>
-                                <li class="page-item"><a class="page-link text-dark" href="?page=${postList.number-1}&field=${param.field}&word=${param.word}">&larr;</a></li>
+                                <li class="page-item"><a class="page-link text-dark adminUserFS" href="?page=0&field=${param.field}&word=${param.word}">처음</a></li>
+                                <li class="page-item"><a class="page-link text-dark adminUserFS" href="?page=${postList.number-1}&field=${param.field}&word=${param.word}">&larr;</a></li>
                             </c:otherwise>
                         </c:choose>
 
@@ -97,10 +97,10 @@
                         <c:forEach begin="${postStartPage}" end="${postEndPage}" var="i">
                             <c:choose>
                                 <c:when test="${postList.pageable.pageNumber+1 == i}">
-                                    <li class="page-item disabled"><a class="page-link text-dark" href="?page=${i-1}&field=${param.field}&word=${param.word}">${i}</a></li>
+                                    <li class="page-item disabled"><a class="page-link px-3 text-dark adminUserFS" href="?page=${i-1}&field=${param.field}&word=${param.word}">${i}</a></li>
                                 </c:when>
                                 <c:otherwise>
-                                    <li class="page-item"><a class="page-link text-dark" href="?page=${i-1}&field=${param.field}&word=${param.word}">${i}</a></li>
+                                    <li class="page-item"><a class="page-link px-3 text-dark adminUserFS" href="?page=${i-1}&field=${param.field}&word=${param.word}">${i}</a></li>
                                 </c:otherwise>
                             </c:choose>
                         </c:forEach>
@@ -109,8 +109,8 @@
                         <c:choose>
                             <c:when test="${postList.last}"></c:when>
                             <c:otherwise>
-                                <li class="page-item "><a class="page-link text-dark" href="?page=${postList.number+1}&field=${param.field}&word=${param.word}">&rarr;</a></li>
-                                <li class="page-item "><a class="page-link text-dark" href="?page=${postList.totalPages-1}&field=${param.field}&word=${param.word}">마지막</a></li>
+                                <li class="page-item "><a class="page-link text-dark adminUserFS" href="?page=${postList.number+1}&field=${param.field}&word=${param.word}">&rarr;</a></li>
+                                <li class="page-item "><a class="page-link text-dark adminUserFS" href="?page=${postList.totalPages-1}&field=${param.field}&word=${param.word}">마지막</a></li>
                             </c:otherwise>
                         </c:choose>
                     </ul>
