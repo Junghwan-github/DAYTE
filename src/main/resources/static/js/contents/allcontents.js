@@ -24,7 +24,7 @@ function searchContentsCategory(search) {
         category: value
     }
     $.ajax({
-        url        : "/searchContentsCategory",
+        url        : "/contents/category/searchContentsCategory",
         method     : "POST",
         contentType: "application/json; charset=utf-8",
         data       : JSON.stringify(categoryAndSearch),
