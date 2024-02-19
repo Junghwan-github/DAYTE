@@ -1,10 +1,10 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="../layout/head.jsp" %>
 
 <link rel="stylesheet" href="/css/schedule/contentInfo.css">
-<link rel="stylesheet" href="/css/schedule/contentSlider.css">
 
 <title>DAYTE | ${showContentsDetail.businessName} </title>
 
@@ -35,41 +35,19 @@
             <div><img src="${showContentsDetail.adminContentsImageList[2].imageURL}"></div>
         </div>
     </section>
-    <!-- 이미지 슬라이드 -->
-    <%--        <div class="slider">--%>
-    <%--            <div class="bxslider" name="bxslider">--%>
-    <%--                <div></div>--%>
-    <%--                <div></div>--%>
-
-    <%--            </div>--%>
-
-    <%--            <div class="contentFigCaption">--%>
-    <%--                <figcaption>--%>
-    <%--                    <span id="nowImg">1</span>--%>
-    <%--                    <span> / </span>--%>
-    <%--                    <span id="allImg"></span>--%>
-    <%--                </figcaption>--%>
-    <%--            </div>--%>
-    <%--        </div>--%>
     <section id="contentInfo">
 
         <!-- 콘텐츠 정보 -->
         <span>${showContentsDetail.gu}</span> <span>${showContentsDetail.category}</span>
         <span>${showContentsDetail.keyword}</span>
-        <h1>${showContentsDetail.businessName}<span>★ 4.8</span></h1>
+        <h1>${showContentsDetail.businessName}<span class="star">★${star.starAVG}</span></h1>
         <div class="content-wrapper">
             <div class="left-content">
                 <h2>${showContentsDetail.businessName} 소개</h2>
                 <p>
                     ${showContentsDetail.detailedDescription}
                 </p>
-
             </div>
-            <!-- 지도 -->
-            <%--            <div class="contentMap">--%>
-            <%--                <img src="/images/exMapImg.png" alt="지도예시"/>--%>
-            <%--            </div>--%>
-
             <div class="summaryDesc">
                 <span class="pointer-x">${showContentsDetail.positionX}</span> <span
                     class="pointer-y">${showContentsDetail.positionY}</span>
@@ -106,17 +84,13 @@
                     </div>
                 </div>
             </div>
-
-            <%--            <div class="bookingLink">--%>
-            <%--                <a href="#">예약페이지로 이동</a>--%>
-            <%--            </div>--%>
         </div>
     </section>
     <section id="amenities">
         <div class="amenities-container">
             <h2>편의시설</h2>
             <div class="amenities-content">
-                <span>상세정보없음</span>
+                <span>${showContentsDetail.facilities}</span>
             </div>
         </div>
     </section>
@@ -138,81 +112,86 @@
             </div>
             <div id="tab1" class="tab-content active">
                 <div class="reply-content-review-list">
-                    <div class="reply-content-review-item">
-                        <div class="user-info">
-                            <ul>
-                                <li>
-                                    <div class="user-profile-image"></div>
-                                </li>
-                                <li>
-                                    <span>닉네임</span>
-                                </li>
-                            </ul>
-                            <div>
-                                <span>★★★★★</span>
+                    <c:forEach var="reply" items="${contentReply}">
+                        <div class="reply-content-review-item">
+                            <div class="user-info">
+                                <ul>
+                                    <li>
+                                        <div class="user-profile-image">
+                                            <img src="${reply.user.profileImagePath}">
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="nick-name">${reply.user.nickName}</span><span class="create-date"><fmt:formatDate value="${reply.createDate}" pattern="yyyy.MM.dd"/></span>
+                                    </li>
+                                </ul>
+                                <div>
+                                    <span class="star-point">${reply.rating}</span>
+                                </div>
+                            </div>
+                            <div class="reply-content">
+                                <p>${reply.content}
+                                </p>
                             </div>
                         </div>
-                        <div class="reply-content">
-                            <p>최고로 좋았어요! 가나다라마바사 아자차카 테스트
-                                다음에 또 갈꺼에요 테스트입니다
-                                꼭 추천드립니다.! 이것저것궁시렁궁시렁
-                            </p>
-                        </div>
-                    </div>
-                    <div class="reply-content-review-item">
-                        <div class="user-info">
-                            <ul>
-                                <li>
-                                    <div class="user-profile-image"></div>
-                                </li>
-                                <li>
-                                    <span>닉네임</span>
-                                </li>
-                            </ul>
-                            <div>
-                                <span>★★★★★</span>
-                            </div>
-                        </div>
-                        <div class="reply-content">
-                            <p>최고로 좋았어요! 가나다라마바사 아자차카 테스트
-                                다음에 또 갈꺼에요 테스트입니다
-                                꼭 추천드립니다.! 이것저것궁시렁궁시렁
-                            </p>
-                        </div>
-                    </div>
+                    </c:forEach>
                 </div>
             </div>
             <div id="tab2" class="tab-content">
                 <div class="reply-content-review-list">
-                    <div class="reply-content-review-item">
-                        <div class="user-info-post">
-                            <ul>
-                                <li>
-                                    <div class="user-profile-image"></div>
-                                </li>
-                                <li>
-                                    <span>닉네임</span>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="reply-content">
-                            <div class="images-wrapper">
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                                <div></div>
+                    <c:forEach var="post" items="${postList}">
+                        <div class="reply-content-review-item">
+                            <div class="user-info-post">
+                                <ul>
+                                    <li>
+                                        <div class="user-profile-image">
+                                            <img src="${post.user.profileImagePath}">
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="nick-name">${post.user.nickName}</span><span class="create-date"><fmt:formatDate value="${post.createDate}" pattern="yyyy.MM.dd"/>
+                                    </li>
+                                </ul>
                             </div>
-                            <p>최고로 좋았어요! 가나다라마바사 아자차카 테스트
-                                다음에 또 갈꺼에요 테스트입니다
-                                꼭 추천드립니다.! 이것저것궁시렁궁시렁
-                            </p>
+
+                            <div class="reply-content-post">
+                                <h3>${post.title}</h3>
+                                <div class="images-wrapper">
+                                    <c:forEach var="images" items="${post.postImages}" varStatus="loop">
+                                        <c:if test="${loop.index lt 4}">
+                                        <div>
+                                            <img src="${images.imageUrl}"/>
+                                        </div>
+                                        </c:if>
+                                    </c:forEach>
+                                </div>
+                                <div class="post-items-content">
+                                    <c:set var="postId" value="${post.id}"></c:set>
+                                    <p><c:forEach var="text" items="${postListText}">
+                                            <!-- postListText 를 순회하여 text 변수에 대입 -->
+                                            <c:if test="${text.getLeft() eq postId}">
+                                                ${text.getRight()}
+                                            </c:if>
+                                        </c:forEach>
+                                    </p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    </c:forEach>
                 </div>
             </div>
         </div>
     </section>
 </main>
+<div class="images-detail-modal">
+    <div class="images-detail-wrapper">
+        <h3><i class="xi-close"></i></h3>
+        <ul class="images-detail-slider">
+            <c:forEach var="images" items="${showContentsDetail.adminContentsImageList}">
+                <li><img src="${images.imageURL}"/></li>
+            </c:forEach>
+        </ul>
+    </div>
+</div>
 <script defer src="/js/schedule/contentInfo.js"></script>
 <%@include file="../layout/footer.jsp" %>

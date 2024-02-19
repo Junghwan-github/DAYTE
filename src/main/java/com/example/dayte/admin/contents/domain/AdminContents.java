@@ -1,15 +1,11 @@
 package com.example.dayte.admin.contents.domain;
 
 import com.example.dayte.reply.domain.ContentReply;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
-import net.minidev.json.annotate.JsonIgnore;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -19,7 +15,6 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 public class AdminContents {
 
     // 일정추가 시 보일 리스트에서 보여질 부분
@@ -50,9 +45,9 @@ public class AdminContents {
 
     @Column(columnDefinition = "TEXT")
     private String detailedDescription; // 상세설명
+
     @JsonIgnoreProperties("adminContents")
     @OneToMany(
-
             mappedBy = "adminContents",
             fetch = FetchType.EAGER,
             cascade = CascadeType.REMOVE
@@ -61,5 +56,13 @@ public class AdminContents {
 
     private String facilities;
 
+    @OneToMany(mappedBy = "contents", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @JsonIgnoreProperties("adminContents")
+    private List<ContentReply> contentReplyList;
 
+//    @OneToMany(
+//        mappedBy = "contents",
+//        fetch = FetchType.EAGER,
+//        cascade = )
+//    private List<Post> postList;
 }

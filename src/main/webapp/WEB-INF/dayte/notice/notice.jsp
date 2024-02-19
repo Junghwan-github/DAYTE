@@ -56,7 +56,7 @@
                 <c:forEach var="notice" items="${noticeList.content}">
                     <tr class="noticeTrStyle listHover <c:if test='${notice.priority > 0}'>priorityNotZero</c:if>">
                         <td class="tdStyle">${notice.no}</td>
-                        <td class="tdStyle"><a href="/notice/${notice.no}?page=${currentPage}" class="tdTitle">${notice.title}</a></td>
+                        <td class="tdStyle"><a href="/viewNotice/${notice.no}?page=${currentPage}" class="tdTitle">${notice.title}</a></td>
                         <td class="tdStyle"><fmt:formatDate value="${notice.createDate}" pattern="yy-MM-dd"/></td>
                     </tr>
                 </c:forEach>
@@ -65,6 +65,8 @@
             </table>
 
             <div class="pagination">
+
+                <c:if test="${msg == 'default'}">
                 <ul>
                     <c:if test="${!noticeList.first}">
                         <li>
@@ -105,6 +107,52 @@
                         </li>
                     </c:if>
                 </ul>
+                </c:if>
+
+            <c:if test="${msg == 'searched'}">
+                <ul>
+                    <c:if test="${!noticeList.first}">
+                        <li>
+                            <a class="pageDoubleMoveBtn" href="?page=0&amp;searchOption=${param.searchOption}&amp;searchWord=${param.searchWord}">
+                                <img src="/images/doublePrevious.png"/>
+                                처음으로
+                            </a>
+                        </li>
+                        <li>
+                            <a class="pageMoveBtn" href="?page=${noticeList.number - 1}&amp;searchOption=${param.searchOption}&amp;searchWord=${param.searchWord}">
+                                <img src="/images/previous.png"/>
+                                이전
+                            </a>
+                        </li>
+                    </c:if>
+
+                    <c:if test="${endPage >= 0}">
+                        <c:forEach var="i" begin="${startPage}" end="${endPage}">
+                            <li class="paginationNum">
+                                <a class="<c:if  test='${currentPage == i}'>active</c:if>"
+                                   href="?page=${i}&amp;searchOption=${param.searchOption}&amp;searchWord=${param.searchWord}">${i + 1}</a>
+                            </li>
+                        </c:forEach>
+                    </c:if>
+
+                    <c:if test="${!noticeList.last}">
+                        <li>
+                            <a class="pageMoveBtn" href="?page=${noticeList.number + 1}&amp;searchOption=${param.searchOption}&amp;searchWord=${param.searchWord}">
+                                <img src="/images/next.png"/>
+                                다음
+                            </a>
+                        </li>
+                        <li>
+                            <a class="pageDoubleMoveBtn" href="?page=${noticeList.totalPages-1}&amp;searchOption=${param.searchOption}&amp;searchWord=${param.searchWord}">
+                                <img src="/images/doubleNext.png"/>
+                                마지막으로
+                            </a>
+                        </li>
+                    </c:if>
+                </ul>
+            </c:if>
+
+
 
             </div>
 

@@ -2,12 +2,16 @@ package com.example.dayte.reply.domain;
 
 import com.example.dayte.admin.contents.domain.AdminContents;
 import com.example.dayte.members.domain.User;
+import com.example.dayte.schedule.domain.Schedule;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
 
@@ -23,11 +27,11 @@ public class ContentReply {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long num; // 댓글 번호
 
-    @JoinColumn(name = "user")
+    @JoinColumn(name = "userEmail")
     @ManyToOne(fetch = FetchType.EAGER)
     private User user; // 사용자 이름
 
-
+    @JsonIgnore
     @JoinColumn (name = "contents")
     @ManyToOne
     private AdminContents contents;
@@ -41,10 +45,8 @@ public class ContentReply {
 
     private boolean deleted; // 댓글의 삭제 여부
 
-    @CreationTimestamp
+    @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Timestamp createDate; // 댓글 등록일
-
-
 
 }

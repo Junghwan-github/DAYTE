@@ -1,4 +1,9 @@
+
 #logo a {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
     font-size: 2.2rem;
     font-weight: 700;
     color: #28536a;
@@ -8,6 +13,15 @@
     transform: translate(0%, -50%);
     /* transition: all 0.3s; */
 }
+
+#logo > a > img {
+    width: 40px;
+    margin-right: 10px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+}
+
+
 
 #header-nav-hide {
     position: absolute;
@@ -39,11 +53,11 @@ header {
 
 .naviHide {
     position: fixed;
-    z-index: 999;
+    z-index: 9999;
     top: 0;
     left: 0;
     background: #fff;
-    box-shadow: 0 2px 2px 0 rgba(47, 47, 47, 0.05);
+    border-bottom : 1px solid #eee;
 }
 
 header > nav {

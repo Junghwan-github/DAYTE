@@ -1,0 +1,158 @@
+main {
+    width: 1180px;
+    margin: 0 auto;
+}
+main > .reply-title {
+    font-size: 2rem;
+    font-weight: 500;
+    color: #111;
+    margin-bottom: 30px;
+}
+
+
+.content-star-reply-container {
+    width: 850px;
+    margin: 0 auto;
+}
+
+.past-schedule-reply-contents {
+    padding: 30px 0;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+
+.past-schedule-reply-contents > ul > li {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.past-schedule-reply-contents > ul > li > .contentsImg {
+    width: 300px;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.past-schedule-reply-contents > ul > li > .contentsImg > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.contentsInfo {
+    margin-left: 20px;
+}
+
+.contentsInfo > .businessName {
+    font-size: 2rem;
+    font-weight: 500;
+    color: #111;
+    line-height: 3rem;
+    margin: 5px 0;
+}
+
+.contentsInfo > .businessName:hover {
+    color: #116edb;
+}
+
+
+.contentsInfo > .category-keyword > span{
+    display: inline-block;
+    margin: 0 2px;
+    padding: 5px 10px;
+    background: #eee;
+    border-radius: 3px;
+    font-size: 1.2rem;
+    color: #111;
+
+}
+
+.contentsInfo > .category-keyword > span:first-child {
+    margin: 0 2px 0 0;
+}
+
+.contentsInfo > .address {
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: #888;
+}
+
+.contents-content {
+    width: 530px;
+    margin-top: 50px;
+    max-height: 60px;
+}
+
+.contents-content > p {
+    font-size: 1.5rem;
+    color: #111;
+}
+
+.star-rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: left;
+    align-items: center;
+    text-align: center;
+    margin: 30px 0 10px 0;
+}
+
+.star-rating > h2 {
+
+    font-size: 1.3rem;
+    font-weight: 400;
+    color :#111;
+    margin-right: 5px;
+}
+
+.star-rating input {
+    display: none;
+}
+
+.star-rating label {
+    -webkit-text-fill-color: #eee;
+    cursor: pointer;
+}
+
+.star-rating :checked ~ label {
+    -webkit-text-fill-color: #ffae00;
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+    -webkit-text-fill-color: #ffae00;
+}
+
+.star{
+    font-size: 20px;
+}
+
+
+#reply-content {
+    width: 100%;
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    height: 300px;
+    border: 1px solid #ddd;
+    background: #fff;
+    padding: 5px;
+    resize: none;
+    box-sizing: border-box;
+}
+
+#btn-update,
+#btn-save-reply {
+    float: right;
+    text-align: right;
+    border: none;
+    background: #116edb;
+    color: #fff;
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-top: 15px;
+    padding: 5px 10px;
+}

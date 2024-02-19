@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 public interface PostRepository extends JpaRepository<Post, Long> {
 
     // 제목으로 검색했을 경우
@@ -24,4 +26,12 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     Page<Post> postSearchToPostAll(Pageable pageable, @Param("postWord")String postWord);
 
     Page<Post> findAllByUser(User user, Pageable pageable);
+
+    @Query(value = "select * from Post p where REGEXP_REPLACE(p.title, '<[^>]*>', '') LIKE %:postWord% or REGEXP_REPLACE(p.content, '<[^>]*>', '') like %:postWord%", nativeQuery = true)
+    List<Post> postSearchToAll(@Param("postWord")String postWord);
+
+    // --- 관리자 페이지 최근 게시글 ----
+    @Query("SELECT p FROM Post p ORDER BY p.createDate DESC LIMIT :count")
+    List<Post> findTopByOrderByCreateDateDesc(int count);
+
 }

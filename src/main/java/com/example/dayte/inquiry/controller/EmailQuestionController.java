@@ -1,14 +1,18 @@
 package com.example.dayte.inquiry.controller;
 
 import com.example.dayte.inquiry.domain.EmailQuestion;
+import com.example.dayte.inquiry.dto.EmailQuestionDTO;
 import com.example.dayte.inquiry.service.EmailQuestionService;
+import com.example.dayte.members.dto.ResponseDTO;
 import com.example.dayte.security.dto.UserSecurityDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
+import java.util.Objects;
 
 @org.springframework.stereotype.Controller
 public class EmailQuestionController {
@@ -17,24 +21,24 @@ public class EmailQuestionController {
     private EmailQuestionService emailQuestionService;
 
     @GetMapping("/customerService")
-    public String goToEmailQuestion(){
-        return "emailQuestion/emailQuestion";
+    public String goToEmailQuestion() {
+        return "customer/customer";
     }
 
 
-@PostMapping("/question")
-    public Integer goToEmailQuestion(@RequestBody EmailQuestion emailQuestion,
-                                @AuthenticationPrincipal UserSecurityDTO principal){
+    @PostMapping("/question")
+    public @ResponseBody ResponseDTO<?> goToEmailQuestion(@ModelAttribute EmailQuestionDTO emailQuestionDTO) {
 
-     //   js에서 이 사람 아이디랑 닉네임도 받아서 보내기
 
-     emailQuestionService.sendQuestion(emailQuestion, principal);
+        String receivedEmail = emailQuestionDTO.getEmailAdress();
 
-    /*System.out.println(principal.getUserEmail());*/
-    System.out.println("^^^^^^^^^^^^^");
-    System.out.println(HttpStatus.OK.value());
+        emailQuestionService.sendQuestion(emailQuestionDTO, receivedEmail);
 
-return HttpStatus.OK.value();
-}
+
+return new ResponseDTO<>(HttpStatus.OK.value(), "문의하신 내용이 메일로 정상 전송 되었습니다.");
+
+
+
+    }
 
 }

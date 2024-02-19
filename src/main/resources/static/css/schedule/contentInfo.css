@@ -57,6 +57,7 @@ main {
 
 #mainContentsImages {
   margin-bottom: 50px;
+  cursor: pointer;
 }
 
 .mainContentsImagesWrapper {
@@ -341,7 +342,7 @@ main {
 }
 
 .reply-content-review-item {
-  padding: 50px 0;
+  padding: 20px 0;
   width: 100%;
   display: flex;
   flex-flow: row nowrap;
@@ -351,7 +352,7 @@ main {
 
 .user-info,
 .user-info-post{
-  width: 300px;
+  width: 400px;
 }
 
 .user-info > div,
@@ -382,30 +383,54 @@ main {
   margin-left: 7px;
 }
 
-.user-info > ul > li:nth-child(2) > span,
-.user-info-post > ul > li:nth-child(2) > span{
+.nick-name {
   font-size: 1.5rem;
   font-weight: 400;
   color: #111;
 }
 
+.create-date {
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: #bbb;
+  display: inline-block;
+  margin-left: 10px;
+}
+
 .user-profile-image {
   width: 35px;
   height: 35px;
+  overflow: hidden;
   border-radius: 30px;
   background: #0dcaf0;
 }
 
-.reply-content {
-  width: 880px;
+.user-profile-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
+
+.reply-content,
+.reply-content-post {
+  width: 780px;
+}
+
 .reply-content > p {
   white-space: pre-line;
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   font-weight: 400;
-  color: #555;
+  color: #111;
   line-height: 25px;
 }
+
+.reply-content-post > h3 {
+  font-size: 1.8rem;
+  font-weight: 500;
+  margin-bottom: 15px;
+  color: #111;
+}
+
 
 .images-wrapper {
   display: flex;
@@ -415,28 +440,114 @@ main {
 }
 
 .images-wrapper > div {
-  width: 200px;
-  height: 200px;
-  margin: 0 10px 10px 10px;
-  background: #6ea8fe;
-  border-radius: 15px;
+  width: 150px;
+  height: 150px;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-right: 10px;
+}
+
+.images-wrapper > div img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.post-items-content {
+  margin-top: 10px;
+  max-height: 50px;
   overflow: hidden;
 }
 
-.bxslider > div:nth-child(1) {
-  width: 100%;
-  height: 600px;
-  background-image: url("../../images/mapTest1.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center center;
+.post-items-content > p {
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #111;
+  line-height: 25px;
 }
 
-.bxslider > div:nth-child(2) {
+
+/*이미지 슬라이드 */
+
+.images-detail-modal {
+  position: fixed;
   width: 100%;
-  height: 600px;
-  background-image: url("../../images/mapTest2.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center center;
+  height: 100%;
+ top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.80);
+  z-index: 9999;
+  display: none;
+}
+
+.images-detail-wrapper {
+  position: relative;
+  width: 1300px;
+  height: 850px;
+  top: 50%;
+  left: 50%;
+  overflow: hidden;
+  transform: translate(-50%, -50%);
+  box-sizing: border-box;
+}
+
+.images-detail-wrapper > h3 {
+  text-align: right;
+  margin-bottom: 20px;
+}
+
+.images-detail-wrapper > h3 > i {
+  font-size: 3rem;
+  color: #fff;
+  cursor: pointer;
+}
+
+.images-detail-slider {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+}
+.images-detail-slider > li  {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  width: 1180px;
+  height: 800px;
+}
+
+.images-detail-slider > li img {
+  max-width: 1180px;
+  max-height: 750px;
+  object-fit: cover;
+}
+.bx-next,
+.bx-prev {
+  display: inline-block;
+  width: 0;
+  height: 0;
+}
+
+.bx-prev:before {
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  content: '\e93d';
+  transform: translate(0, -50%);
+  font-family: 'xeicon', serif;
+  color: #fff;
+  font-size: 5rem;
+
+}
+
+.bx-next:before {
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  transform: translate(0, -50%);
+  content: '\e940';
+  font-family: 'xeicon', serif;
+  color: #fff;
+  font-size: 5rem;
 }

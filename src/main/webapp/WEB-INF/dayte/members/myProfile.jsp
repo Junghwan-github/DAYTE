@@ -5,7 +5,10 @@
 <title>내 정보 | 나의 프로필</title>
 <link rel="stylesheet" href="/css/main/myProfile.css">
 <link rel="stylesheet" href="/css/layout/myProfileSideBar.css">
+<style>
 
+
+</style>
 </head>
 <body>
 <%@include file="../layout/header.jsp" %>
@@ -14,7 +17,11 @@
     <%@include file="./layout/profileSideBar.jsp" %>
     <main>
         <c:set var="nowDate" value="${java.time.LocalDate.now()}"/>
-        <span>등록된 일정의 수 ${mySchedule.size()}</span>
+        <div class="myScheduleList">
+            <div>
+                <span>등록된 일정 | ${mySchedule.size()}</span>
+                <a href="/schedule/scheduleList">일정 보기</a>
+            </div>
         <c:if test="${!empty mySchedule[0].scheduleDates}">
             <c:forEach var="scheduleDates" items="${mySchedule[0].scheduleDates}">
                 <c:choose>
@@ -23,8 +30,8 @@
                                 <ul>
                         <c:forEach var="content" items="${scheduleDates.detailedScheduleList}">
                                     <li>
+                                            <img src="${content.adminContents.adminContentsImageList[0].imageURL}">
                                         <span>${content.adminContents.businessName}</span>
-                                        <img src="${content.adminContents.adminContentsImageList[0].imageURL}">
                                     </li>
                         </c:forEach>
                                 </ul>
@@ -46,7 +53,7 @@
             </c:forEach>
         </c:if>
         <c:if test="${empty mySchedule[0].scheduleDates[0].detailedScheduleList}">
-            <div>
+            <div class="noDayContent">
                 <ul>
                     <li>
                         <span>일정이 없습니다.</span>
@@ -54,6 +61,7 @@
                 </ul>
             </div>
         </c:if>
+        </div>
         <div class="profileStyle">
             <form>
                 <div class="profileImg">
@@ -93,4 +101,6 @@
     </main>
 </div>
     <script defer src="/js/main/editForm.js"></script>
+
+
 <%@include file="../layout/footer.jsp" %>

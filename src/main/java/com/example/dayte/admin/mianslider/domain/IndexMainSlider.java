@@ -36,8 +36,11 @@ public class IndexMainSlider {
     @Column(nullable = false, length = 200)
     private String address;
 
-    @Column(nullable = false, length = 200)
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String summary;
+
+    @Column(nullable = false, columnDefinition = "TEXT")
+    private String content;
 
     @Column(nullable = false, length = 200)
     private String href;

@@ -3,6 +3,7 @@ package com.example.dayte.schedule.controller;
 
 import com.example.dayte.admin.contents.service.AdminContentsService;
 import com.example.dayte.members.dto.ResponseDTO;
+import com.example.dayte.reply.service.ContentReplyService;
 import com.example.dayte.schedule.domain.Schedule;
 import com.example.dayte.schedule.dto.CheckScheduleDTO;
 import com.example.dayte.schedule.dto.ScheduleDTO;
@@ -32,6 +33,8 @@ public class ScheduleController {
 
     private final AdminContentsService adminContentsService;
 
+    private final ContentReplyService contentReplyService;
+
     // 사용자가 계획한 일정 전체를 보여주는 로직
     @GetMapping("/schedule/scheduleList")
     public String moveScheduleList(Model model,
@@ -39,7 +42,8 @@ public class ScheduleController {
         model.addAttribute("userScheduleList",
                         scheduleService.selectScheduleByUser(userSecurityDTO))
                 .addAttribute("contentsList", adminContentsService.getContentsList())
-                .addAttribute("dDay", LocalDate.now().toEpochDay());
+                .addAttribute("dDay", LocalDate.now().toEpochDay())
+                .addAttribute("starList", contentReplyService.avgStarList());
         return "scheduleList/scheduleList";
     }
 

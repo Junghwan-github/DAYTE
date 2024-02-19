@@ -65,6 +65,11 @@ public class PostService {
         postRepository.deleteById(id);
     }
 
+    @Transactional
+    public void deletePostImage(Post post) {
+        postImagesRepository.deleteAllByPost(post);
+    }
+
 
     // 페이지네이션
     @Transactional(readOnly = true)
@@ -97,11 +102,18 @@ public class PostService {
         return postRepository.postSearchToPostAll(pageable, postWord);
     }
 
+    // 메인에서 검색 했을 경우
+    @Transactional
+    public List<Post> postSearchToAll(String postWord) {
+
+        return postRepository.postSearchToAll(postWord);
+    }
+
     // --------------------------------------------------------------------------------------
 
     public ResponseEntity<Map<String, String>> uploadImage(MultipartFile multipartFile) {
         Map<String, String> resultMap = new HashMap<>();
-        String fileRoot = "\\\\192.168.10.75/temp/images/post/";
+        String fileRoot = "\\\\192.168.10.203/temp/images/post/";
         // 저장될 경로 학원에서 서버로 수정해야되고
         try {
             String originalFileName = multipartFile.getOriginalFilename();
@@ -160,6 +172,11 @@ public class PostService {
         }
 
         return contentTextList;
+    }
+
+    // --- 관리자 페이지 최근 게시글 ----
+    public List<Post> getRecentPosts(int count) {
+        return postRepository.findTopByOrderByCreateDateDesc(count);
     }
 }
 

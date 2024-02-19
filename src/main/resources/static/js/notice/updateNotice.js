@@ -26,7 +26,7 @@ let updateNoticeObject = {
             }
         }
 
-        if(checkFileSize){
+        if (checkFileSize) {
             checkFileSize = false;
 
             let dataTransfer = new DataTransfer();
@@ -55,58 +55,58 @@ let updateNoticeObject = {
         }
 
 
+        let confirmed = confirm("수정 하시겠습니까?")
 
-let confirmed = confirm("수정 하시겠습니까?")
-
-        if(confirmed){
-
+        if (confirmed) {
 
 
-        const form = document.getElementById("saveForm");
-        const formData = new FormData(form);
+            const form = document.getElementById("saveForm");
+            const formData = new FormData(form);
 
-        const no = document.getElementById("id").value;
-        const title = document.getElementById("title").value;
-        const content = document.getElementById("content").value;
+            const no = document.getElementById("id").value;
+            const title = document.getElementById("title").value;
+            let content = $(".summernote").summernote('code');
 
-        /*const hiddenFileVHTMLCollection = document.getElementsByClassName("hiddenFileValue");
-        const hiddenFileValue = Array.from(hiddenFileVHTMLCollection);*/
 
-        const savedFileHTMLCollection = document.getElementsByName("savedFile");
-        const savedFile = Array.from(savedFileHTMLCollection).map(fileInput => fileInput.value);
+            /*const hiddenFileVHTMLCollection = document.getElementsByClassName("hiddenFileValue");
+            const hiddenFileValue = Array.from(hiddenFileVHTMLCollection);*/
 
-        /*console.log(title);
-        console.log(content);
-        console.log(hiddenFileValue);*/
+            const savedFileHTMLCollection = document.getElementsByName("savedFile");
+            const savedFile = Array.from(savedFileHTMLCollection).map(fileInput => fileInput.value);
 
-        formData.append("no", no);
-        formData.append("title", title);
-        formData.append("content", content);
-        savedFile.forEach(saveFile => {
-            formData.append("savedFile", saveFile);
-        });
-        /*formData.append("newFiles", hiddenFileValue);*/
+            console.log(title);
+            console.log(content);
 
-        formData.forEach((value, key) => {
-              console.log(key, value);
-          });
 
-        fetch("/update/all", {
-            method: "POST",
-            body: formData
-        })
-            .then(response => {
+            formData.append("no", no);
+            formData.append("title", title);
+            formData.append("content", content);
+            savedFile.forEach(saveFile => {
+                console.log(saveFile);
+                formData.append("savedFile", saveFile);
+            });
+            /*formData.append("newFiles", hiddenFileValue);*/
 
-                return response.json();
+            formData.forEach((value, key) => {
+                console.log(key, value);
+            });
 
-            }).then(data => {
-            console.log(data);
-            alert("수정이 완료되었습니다.")
-            location = "/notice/" + no;
-        })
-            .catch(error => {
-                alert(`에러발생 : ${error.message}`);
+            fetch("/update/all", {
+                method: "POST",
+                body: formData
             })
+                .then(response => {
+
+                    return response.json();
+
+                }).then(data => {
+                console.log(data);
+                alert("수정이 완료되었습니다.")
+                location = "/viewNotice/" + no;
+            })
+                .catch(error => {
+                    alert(`에러발생 : ${error.message}`);
+                })
 
         }
     }

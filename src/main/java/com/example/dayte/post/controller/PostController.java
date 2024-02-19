@@ -105,6 +105,7 @@ public class PostController {
         Page<Post> postListPage;
         // 인풋창에 공백인 상태로 검색버튼을 눌렀을때 postListPage 을 담아 넘겨주고
         // 검색 키워드가 있을시 postSearchList 을 남아 넘겨줌
+        String msg = "default";
 
         if ("".equals(postWord) || postWord == null) { // 검색키워드가 없거나 검색하지 않았을 때
             postListPage = postService.getPostList(pageable);
@@ -117,6 +118,7 @@ public class PostController {
                 default -> postListPage = postService.getPostList(pageable);
             }
             postTotalPage = postListPage.getTotalPages();
+            msg = "searched";
         }
 
         // postListPage 필드에 담긴 페이지네이션화된 전체 데이터를 postTotalPage 필드에 대입
@@ -135,31 +137,37 @@ public class PostController {
         model.addAttribute("postEndPage", postEndPage);
         model.addAttribute("postNowPage", postNowPage);
         model.addAttribute("postList", postListPage);
+        model.addAttribute("msg", msg);
 
         model.addAttribute("postListText",postService.extractPostContentText());
-        System.out.println("포스트텍스트"+postService.extractPostContentText());
         return "post/mainPostList";
     }
 
     // ----------------------- 포스트 수정 화면 응답 -----------------------
     @GetMapping("/post/updatePost/{id}")
     public String updateForm(@PathVariable Long id, Model model) {
+        System.out.println("가나다라"+id);
         model.addAttribute("post", postService.getPost(id));
+
         return "post/updatePost";
     }
 
     // ----------------------- 포스트 수정 로직 수행 -----------------------
     @PutMapping("/post")
     public @ResponseBody ResponseDTO<?> updatePost(@RequestBody Post post) {
+
         postService.updatePost(post);
+        postService.deletePostImage(post);
+        postService.extractPostContentImages(post);
         return new ResponseDTO<>(HttpStatus.OK.value(), post.getId() + "번 포스트가 수정되었습니다.");
     }
+
+
 
     // ----------------------- 포스트 삭제 로직 수행 -----------------------
     @DeleteMapping("/post/{id}")
     public @ResponseBody ResponseDTO<?> deletePost(@PathVariable Long id) {
         postService.deletePost(id);
-
         return new ResponseDTO<>(HttpStatus.OK.value(), id + "번 포스트가 삭제되었습니다.");
     }
 

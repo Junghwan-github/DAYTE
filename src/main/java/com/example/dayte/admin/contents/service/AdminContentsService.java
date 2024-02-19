@@ -6,6 +6,7 @@ import com.example.dayte.admin.contents.dto.AdminContentsDTO;
 import com.example.dayte.admin.contents.dto.AdminContentsImageDTO;
 import com.example.dayte.admin.contents.persistence.AdminContentsImageRepository;
 import com.example.dayte.admin.contents.persistence.AdminContentsRepository;
+import com.example.dayte.post.domin.Post;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -68,7 +69,7 @@ public class AdminContentsService {
             String encodedFileName = UriUtils.encode(Objects.requireNonNull(image.getOriginalFilename()), StandardCharsets.UTF_8);
             String fileName = this.uuid + "_" + encodedFileName;
 
-            Path targetPath = Path.of("\\\\192.168.10.75" +this.contentsImageUploadPath + ( this.uuid  + "_"+ image.getOriginalFilename()));
+            Path targetPath = Path.of("\\\\192.168.10.203" +this.contentsImageUploadPath + ( this.uuid  + "_"+ image.getOriginalFilename()));
 
             Files.copy(image.getInputStream(), targetPath, StandardCopyOption.REPLACE_EXISTING);
 
@@ -120,18 +121,37 @@ public class AdminContentsService {
         return adminContentsRepository.findAllBySearch(searchContents);
     }
 
+    @Transactional//(readOnly = true)
+    public List<AdminContents> findAllBySearch(String category ,String search) {
+        String categoryNames = "";
+        if(search == null)
+            search = "";
+
+        switch (category) {
+            case "hotels" -> categoryNames = "숙소";
+            case "restaurants" -> categoryNames = "맛집";
+            case "cafes" -> categoryNames = "카페";
+            case "events" -> categoryNames = "이벤트";
+        }
+        if (search.contains("#")) {
+            return adminContentsRepository.findAllByKeyWordSearch(categoryNames, search);
+        } else if (List.of("중구", "수성구", "북구", "동구", "남구", "서구", "달서구", "달성군", "군위군").contains(search)) {
+            return adminContentsRepository.findAllByGugunSearch(categoryNames, search);
+        } else {
+            return adminContentsRepository.findAllBySearch(categoryNames, search);
+        }
+    }
+
     @Transactional(readOnly = true)
     public List<AdminContents> getContentsCategoryList (String category) {
         String categoryNames = "";
 
         switch (category) {
-            case "hotels" -> categoryNames = "숙박";
+            case "hotels" -> categoryNames = "숙소";
             case "restaurants" -> categoryNames = "맛집";
             case "cafes" -> categoryNames = "카페";
             case "events" -> categoryNames = "이벤트";
         }
-
-
 
         return adminContentsRepository.findAllByCategory(categoryNames);
     }

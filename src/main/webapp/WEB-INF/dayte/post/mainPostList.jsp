@@ -33,14 +33,16 @@
                 </div>
                 <div class="content-part">
                     <div class="post-items-title">
-                        <h2>${post.title}</h2>
+                        <h2>${post.title}<i class="xi-new"></i></h2>
                     </div>
                     <div class="post-items-images">
                         <ul>
-                            <c:forEach var="images" items="${post.postImages}">
+                            <c:forEach var="images" items="${post.postImages}" varStatus="loop">
+                                <c:if test="${loop.index lt 4}">
                                 <li>
                                     <div><img src="${images.imageUrl}"/></div>
                                 </li>
+                                </c:if>
                             </c:forEach>
                         </ul>
                     </div>
@@ -82,39 +84,83 @@
         <button type="button" onclick="writingPost()">글 작성</button>
     </div>
 
-    <%------------------------------------ 검색 조건이 없을 경우의 페이지네이션  ------------------------------------%>
+    <%----------------------------------------- 페이지네이션  -----------------------------------------%>
+
     <div class="pagination">
-        <ul class="paginationList">
-            <c:if test="${!postList.first}">
-                <li>  <%-- 첫번째 페이지로 이동하는 버튼 --%>
-                    <a class="firstPageOpenBtn" href="?page=0"><i class="fa-solid fa-angles-left"></i></a>
-                </li>
-
-                <li>  <%-- 이전 페이지로 이동하는 버튼 --%>
-                    <a class="pastPageBtn" href="?page=${postList.number -1}"><i class="fa-solid fa-angle-left"></i></a>
-                </li>
-            </c:if>
-
-            <%-- 페이지 생성  --%>
-
-            <c:if test="${postEndPage >= 0}">
-                <c:forEach var="i" begin="${postStartPage}" end="${postEndPage}">
-                    <li class="paginationNum">
-                        <a class="<c:if test='${postNowPage == i}'>active</c:if>" href="?page=${i}">${i + 1}</a>
+        <%------------------------------------ 검색 조건이 없을 경우의 페이지네이션  ------------------------------------%>
+        <c:if test="${msg == 'default'}">
+            <ul class="paginationList">
+                <c:if test="${!postList.first}">
+                    <li>  <%-- 첫번째 페이지로 이동하는 버튼 --%>
+                        <a class="firstPageOpenBtn" href="?page=0"><i class="fa-solid fa-angles-left"></i></a>
                     </li>
-                </c:forEach>
-            </c:if>
 
-            <c:if test="${!postList.last}">
-                <li>  <%-- 다음 페이지로 이동하는 버튼 --%>
-                    <a class="nextPageBtn" href="?page=${postList.number +1}">다음</a>
-                </li>
-                <li>  <%-- 마지막 페이지로 이동하는 버튼 --%>
-                    <a class="lastPageBtn" href="?page=${postList.totalPages -1}">마지막</a>
-                </li>
-            </c:if>
-        </ul>
+                    <li>  <%-- 이전 페이지로 이동하는 버튼 --%>
+                        <a class="pastPageBtn" href="?page=${postList.number -1}"><i class="fa-solid fa-angle-left"></i></a>
+                    </li>
+                </c:if>
+
+                    <%-- 페이지 생성  --%>
+
+                <c:if test="${postEndPage >= 0}">
+                    <c:forEach var="i" begin="${postStartPage}" end="${postEndPage}">
+                        <li class="paginationNum">
+                            <a class="<c:if test='${postNowPage == i}'>active</c:if>" href="?page=${i}">${i + 1}</a>
+                        </li>
+                    </c:forEach>
+                </c:if>
+
+                <c:if test="${!postList.last}">
+                    <li>  <%-- 다음 페이지로 이동하는 버튼 --%>
+                        <a class="nextPageBtn" href="?page=${postList.number +1}"><i
+                                class="fa-solid fa-angle-right"></i></a>
+                    </li>
+                    <li>  <%-- 마지막 페이지로 이동하는 버튼 --%>
+                        <a class="lastPageBtn" href="?page=${postList.totalPages -1}"><i
+                                class="fa-solid fa-angles-right"></i></a>
+                    </li>
+                </c:if>
+            </ul>
+        </c:if>
+
+        <%------------------------------------ 검색 조건이 있는 경우의 페이지네이션  ------------------------------------%>
+        <c:if test="${msg == 'searched'}">
+            <ul class="paginationList">
+                <c:if test="${!postList.first}">
+                    <li>  <%-- 첫번째 페이지로 이동하는 버튼 --%>
+                        <a class="firstPageOpenBtn" href="?page=0&amp;postField=${param.postField}&amp;postWord=${param.postWord}"><i class="fa-solid fa-angles-left"></i></a>
+                    </li>
+
+                    <li>  <%-- 이전 페이지로 이동하는 버튼 --%>
+                        <a class="pastPageBtn" href="?page=${postList.number -1}&amp;postField=${param.postField}&amp;postWord=${param.postWord}"><i class="fa-solid fa-angle-left"></i></a>
+                    </li>
+                </c:if>
+
+                    <%-- 페이지 생성  --%>
+
+                <c:if test="${postEndPage >= 0}">
+                    <c:forEach var="i" begin="${postStartPage}" end="${postEndPage}">
+                        <li class="paginationNum">
+                            <a class="<c:if test='${postNowPage == i}'>active</c:if>" href="?page=${i}&amp;postField=${param.postField}&amp;postWord=${param.postWord}">${i + 1}</a>
+                        </li>
+                    </c:forEach>
+                </c:if>
+
+                <c:if test="${!postList.last}">
+                    <li>  <%-- 다음 페이지로 이동하는 버튼 --%>
+                        <a class="nextPageBtn" href="?page=${postList.number +1}&amp;postField=${param.postField}&amp;postWord=${param.postWord}"><i
+                                class="fa-solid fa-angle-right"></i></a>
+                    </li>
+                    <li>  <%-- 마지막 페이지로 이동하는 버튼 --%>
+                        <a class="lastPageBtn" href="?page=${postList.totalPages -1}&amp;postField=${param.postField}&amp;postWord=${param.postWord}"><i
+                                class="fa-solid fa-angles-right"></i></a>
+                    </li>
+                </c:if>
+            </ul>
+        </c:if>
     </div>
+
+
 </main>
 <script src="/js/post/mainPostList.js"></script>
 <jsp:include page="../layout/footer.jsp"/>

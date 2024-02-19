@@ -13,61 +13,37 @@ $(document).ready(function () {
 });
 
 // 검색바 슬라이더
+
 $(document).ready(function () {
-    $(".previewImage > ul").bxSlider({
-        mode: "horizontal",
-        speed: 500,
-        slideWidth: 660,
-        auto: true,
-        slideMargin: 0,
-        autoHover: true,
-    });
-});
+    $("input[name='indexSearch']").on("click",function (e) {
+        $(".searchContents").addClass("selected");
 
-// 상세 검색 히든
-let toggleSelected = document.querySelector(".searchContents");
-let bottonSearch = document.querySelector("input[name='indexSearch']");
-let cityList = document.querySelector(".cityList");
+        $(".previewImage > ul").bxSlider({
+            mode: "horizontal",
+            speed: 500,
+            slideWidth: 700,
+            auto: true,
+            slideMargin: 0,
+            autoHover: true,
+            touchEnabled: navigator.maxTouchPoints > 0,
+        });
 
-bottonSearch.addEventListener("click", function (e) {
-    toggleSelected.classList.add("selected");
-    e.stopPropagation();
-});
+        e.stopPropagation();
+    })
 
-document.addEventListener("click", () => {
-    toggleSelected.classList.remove("selected");
-});
-
-let selectText = cityList.querySelectorAll("ul > li");
-selectText.forEach(function (t) {
-    t.addEventListener("click", () => {
-        bottonSearch.value = t.innerText;
-    });
-});
-
-selectText.forEach(function (t) {
-    t.addEventListener("mouseenter", () => {
-        if (t.innerText === "중구") {
-            gugoon = "c-jg";
-        } else if (t.innerText === "수성구") {
-            gugoon = "c-ssg";
-        } else if (t.innerText === "북구") {
-            gugoon = "c-bg";
-        } else if (t.innerText === "서구") {
-            gugoon = "c-sg";
-        } else if (t.innerText === "동구") {
-            gugoon = "c-dg";
-        } else if (t.innerText === "달서구") {
-            gugoon = "c-dsg";
-        } else if (t.innerText === "달성군") {
-            gugoon = "c-dsgn";
-        } else if (t.innerText === "군의군") {
-            gugoon = "c-geg";
+    $(document).on("click",function (e) {
+        if(!$(e.target).closest(".searchContents").length) {
+            $(".searchContents").removeClass("selected");
         }
+    })
 
-        document.querySelector(".previewImage > div > div > ul").className = gugoon;
-    });
-});
+    $(".cityList > ul > li").on("click", function () {
+        console.log($(this).text());
+        $("input[name='indexSearch']").val($(this).text());
+    })
+})
+
+
 
 // 날씨 api
 
@@ -78,6 +54,7 @@ function getUpdatedDate(t) {
 
     const nextUpdateDate = new Date(currentDate);
     nextUpdateDate.setHours(t, 0, 0, 0);
+
 
     if (currentDate < nextUpdateDate) {
         const year = currentDate.getFullYear();
@@ -136,7 +113,6 @@ function halfTime(d) {
         return "am";
     }
 }
-
 // 단기 api 불러오기
 let apiShort =
     "https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=coQyCyc75MfuQqHbbxJydRKCCUcqGUPYrhfREOFKrPf6DaV%2FvpQrWaDPAP%2B7fOxTTae5KgaO4Et0Jy1pQb7Opg%3D%3D&pageNo=1&numOfRows=1000&DataType=JSON&base_date=" +
@@ -167,14 +143,12 @@ fetch(apiShort)
         apiData.tmx = [];
         let data = json.response.body.items.item;
 
-
         for (let i = 0; i < data.length; i++) {
             const fcstDate = data[i].fcstDate;
             const fcstTime = data[i].fcstTime;
             const fcstValue = data[i].fcstValue;
-
             if (
-                fcstDate == getUpdatedDate() ||
+                fcstDate == getUpdatedDatePlus(0) ||
                 fcstDate == getUpdatedDatePlus(1) ||
                 fcstDate == getUpdatedDatePlus(2)
             ) {
@@ -542,9 +516,7 @@ fetch(apiShort)
                                     let skyList = array[1];
 
                                     let valuesToCheck = [1, 3, 4];
-                                    let includesAny = valuesToCheck.some(value => skyList.includes(value));
-                                    if (includesAny) {
-                                        // console.log("배열 안에 3, 4 중 어떤 값이라도 포함되어 있음");
+
                                         let frequency = valuesToCheck.reduce((result, valueToCheck) => {
                                             result[valueToCheck] = skyList.filter(value => value === valueToCheck).length;
                                             return result;
@@ -552,6 +524,10 @@ fetch(apiShort)
                                         let maxFrequencyValues = Math.max(...Object.values(frequency));
                                         let maxFrequency = Object.keys(frequency).filter(key => frequency[key] === maxFrequencyValues).map(value => parseInt(value));
 
+                                        if (maxFrequency.length >= 2 && (maxFrequency.includes(3) && maxFrequency.includes(4))) {
+                                            maxFrequency.length = 1;
+                                            maxFrequency[0] = 4;
+                                        }
 
                                         switch (maxFrequency[0]) {
                                             case 1:
@@ -570,7 +546,7 @@ fetch(apiShort)
                                         } else {
                                             weatherInfo.weather[i].wea2 = maxFrequency[0];
                                         }
-                                    }
+
                                 }
 
 
@@ -742,6 +718,7 @@ fetch(apiShort)
                                     );
                                     break;
                                 case "비눈":
+                                case "흐리고 비/눈":
                                     console.log(i + 2 + "번 째날 오전 비눈");
                                     $(`.${daysListId} .am .daysListIcon`).css(
                                         "background-image",
@@ -792,6 +769,7 @@ fetch(apiShort)
                                     );
                                     break;
                                 case "비눈":
+                                case "흐리고 비/눈":
                                     console.log(i + 2 + "번 째날 오후 비눈");
                                     $(`.${daysListId} .pm .daysListIcon`).css(
                                         "background-image",

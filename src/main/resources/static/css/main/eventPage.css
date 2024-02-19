@@ -1,0 +1,28 @@
+main {
+    width: 1180px;
+    margin: 0 auto;
+}
+
+.event-images-area > h1 {
+    font-size: 2.4rem;
+    font-weight: 500;
+    color: #111;
+    margin-bottom: 20px;
+}
+
+.event-content-area > h2 {
+    font-size: 2.2rem;
+    font-weight: 500;
+    color: #111;
+    margin-bottom: 15px;
+}
+
+.event-content-area {
+    width: 850px;
+    margin: 20px auto;
+}
+
+.event-content-area img {
+    max-width: 850px;
+
+}

@@ -1,6 +1,7 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="layout/head.jsp" %>
+
 <%--여기 각자 쓸 css--%>
 <link rel="stylesheet" href="/css/main/index.css">
 <link rel="stylesheet" href="/css/main/slider.css">
@@ -20,7 +21,7 @@
             <li class="items">
                 <!-- db단으로 들어올 내용 -->
                 <div class="indexMainSliderImages">
-                    <img src="http://localhost:9010${indexSliderItem.images}">
+                    <img src="${indexSliderItem.images}">
                 </div>
                 <span class="sticker">${indexSliderItem.category}</span>
                 <h2 class="i-1">${indexSliderItem.mainTitle}<span class="i-1">${indexSliderItem.subTitle}</span></h2>
@@ -29,14 +30,14 @@
                     <li>${indexSliderItem.address}</li>
                 </ul>
                 <p class="i-1">${indexSliderItem.summary}</p>
-                <a class="i-1" target="_blank" href="${indexSliderItem.href}">자세히 보기</a>
+                <a class="i-1" target="_blank" href="/event/${indexSliderItem.href}">자세히 보기</a>
             </li>
 </c:forEach>
         </ul>
     </section>
     <!-- 검색 -->
     <section id="searchForm">
-        <form action="#" method="get">
+        <form action="/indexSearch" method="get">
             <ul>
                 <li>
                     <input
@@ -60,35 +61,23 @@
                         </ul>
                     </div>
                     <div class="previewImage">
-                        <h3>지금 핫한 장소
-                        </h3>
+                        <h3>지금 핫한 장소</h3>
                         <ul class="c-jg">
-                            <li class="isl-1">
-                                <div class="isl-img-area"></div>
-                                <div class="isl-text-area">
-                                    <h3>랑데자뷰</h3>
-                                    <p>대구광역시 북구 구암로 15길 38</p>
-                                    <p>카페 자리 좋고 물좋고 커피좋고 어디부터어디까지</p>
-                                    <a href="#">자세히 보기</a>
-                                </div>
-                            </li>
-                            <li class="isl-2">
-                                <div class="isl-img-area"></div>
-                                <div class="isl-text-area">
-                                    <h3>스파크 랜드</h3>
-                                    <p>대구광역시 북구 구암로 15길 38</p>
-                                    <p>카페 자리 좋고 물좋고 커피좋고 그렇게 살아라</p>
-                                    <a href="#">자세히 보기</a>
-                                </div>
-                            </li>
-                            <li class="isl-3">
-                                <div class="isl-img-area"></div>
-                                <div class="isl-text-area">
-                                    <h3>맛있는 스파게티</h3>
-                                    <p>대구광역시 북구 구암로 15길 38</p>
-                                    <p>카페 자리 좋고 물좋고 커피좋고 동해물과백두산이...</p>
-                                    <a href="#">자세히 보기</a>
-                                </div>
+                            <c:forEach var="contentList" items="${contentList}" varStatus="loop">
+                                <c:if test="${loop.index lt 5}">
+                                    <li class="isl-items">
+                                        <div class="isl-img-area">
+                                            <img src="${contentList. adminContentsImageList[0].imageURL}">
+                                        </div>
+                                        <div class="isl-text-area">
+                                            <h3>${contentList.businessName}</h3>
+                                            <p>${contentList.detailedAddress}</p>
+                                            <p class="description">${contentList.detailedDescription}</p>
+                                            <a href="/contents/detail/${contentList.uuid}" target="_blank">자세히 보기</a>
+                                        </div>
+                                    </li>
+                                </c:if>
+                            </c:forEach>
                         </ul>
                     </div>
                 </li>
@@ -104,33 +93,29 @@
             <li onclick="indexContentsListLink('hotels')">
                 <div>
                     <h3>숙소</h3>
-                    <p>아직도 숙소를 찾고있나요?</p>
-                    <p>모든 숙소 정보를 한눈에 확인하세요!</p>
-                    <img src="/images/hotel.png">
+                    <p>아직도 숙소를 찾고있나요?<br>모든 숙소 정보를 한눈에 확인하세요!</p>
+                    <img src="/images/bedicon.png">
                 </div>
             </li>
             <li onclick="indexContentsListLink('restaurants')">
                 <div>
                     <h3>맛집</h3>
-                    <p>어디가 맛집일까?</p>
-                    <p>고민하지 않도록 제가 다 알려드릴게요!</p>
-                    <img src="/images/rest.png">
+                    <p>어디가 맛집일까?<br>고민하지 않도록 제가 다 알려드릴게요!</p>
+                    <img src="/images/foodicon.png">
                 </div>
             </li>
             <li onclick="indexContentsListLink('cafes')">
                 <div>
                     <h3>카페</h3>
-                    <p>오늘의 내 기분은?</p>
-                    <p>기분따라 다른 분위기 카페 여기있어요!</p>
-                    <img src="/images/cafe.png">
+                    <p>오늘의 내 기분은?<br>기분따라 다른 분위기 카페 여기있어요!</p>
+                    <img src="/images/coffeicon1.png">
                 </div>
             </li>
             <li onclick="indexContentsListLink('events')">
                 <div>
                     <h3>이벤트</h3>
-                    <p>무엇을 보고싶으세요?</p>
-                    <p>모든 공연/전시 일정 알려드릴께요!</p>
-                    <img src="/images/event.png">
+                    <p>무엇을 보고싶으세요?<br>모든 공연/전시 일정 알려드릴께요!</p>
+                    <img src="/images/eventicon2.png">
                 </div>
             </li>
         </ul>

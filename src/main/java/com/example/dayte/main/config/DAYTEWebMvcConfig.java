@@ -1,6 +1,9 @@
 package com.example.dayte.main.config;
 
+import com.example.dayte.admin.mianslider.listener.MySessionListener;
+import jakarta.servlet.http.HttpSessionListener;
 import org.modelmapper.ModelMapper;
+import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,13 +23,18 @@ public class DAYTEWebMvcConfig implements WebMvcConfigurer {
                 .setFieldMatchingEnabled(true);
 
         return modelMapper;
-
-
     }
+
+    @Bean
+    public MySessionListener sessionListener() {
+        MySessionListener listenerBean = new MySessionListener();
+        return listenerBean;
+    }
+
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/temp/**")
-                .addResourceLocations("file://192.168.10.75/temp/");
+                .addResourceLocations("http://docs.yi.or.kr:20080/temp/");
     }
-
 }
