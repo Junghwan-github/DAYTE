@@ -78,7 +78,7 @@
     color: #111;
     line-height: 50px;
     box-sizing: border-box;
-
+    cursor: pointer;
 }
 
 .left-modal-wrapper > ul > li:last-child {
