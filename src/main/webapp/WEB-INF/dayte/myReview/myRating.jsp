@@ -34,13 +34,22 @@
         <div class="reviewRatingBox">
 
             <%--내 일정관리에서 완료된 컨텐츠의 리뷰를 가지고 올 것--%>
-            <div class="contents">
-                <img src="/images/testimages1.jpg">
-            </div>
-            <div class="ratings">
-                <p class="star" style="font-size: 30px; color: #FFBF00;">★★★★★</p>
-                <p style="font-size: 20px;">따뜻하고 넓고 좋았어욤</p>
-            </div>
+
+
+                <c:forEach var="reply" items="${myReview.content}">
+                    <div class="contents">
+                        <img src="${reply.contents.adminContentsImageList[0].imageURL}">
+                        <p>${reply.contents.businessName}</p>
+                    </div>
+                    <c:if test="${reply.user.userEmail eq principal.userEmail}">
+                        <div class="ratings">
+                            <div>
+                                <span class="star-point">${reply.rating}</span>
+                            </div>
+                            <p class="myreview-content">${reply.content}</p>
+                        </div>
+                    </c:if>
+                </c:forEach>
         </div>
 
         <div class="pagination">
@@ -87,4 +96,6 @@
         </div>
     </div>
 </main>
+
+<script src="/js/myReview/myRating.js"></script>
 <%@include file="../layout/footer.jsp" %>

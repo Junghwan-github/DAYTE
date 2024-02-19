@@ -1,7 +1,11 @@
 package com.example.dayte.reply.repository;
 
 
+import com.example.dayte.members.domain.User;
+import com.example.dayte.post.domin.Post;
 import com.example.dayte.reply.domain.ContentReply;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -19,4 +23,6 @@ public interface ContentReplyRepository extends JpaRepository<ContentReply, Long
 
     @Query("select cr From ContentReply cr where cr.contents.uuid = :uuid and cr.user.userEmail = :userEmail")
     ContentReply findUserContentReply(@Param("userEmail") String userEmail, @Param("uuid") String uuid);
+
+    Page<ContentReply> findAllByUser(User user, Pageable pageable);
 }
