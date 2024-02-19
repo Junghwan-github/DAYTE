@@ -29,7 +29,7 @@
 
 </style>
 <div class="upload px-3" >
-    <p class="h4 titleName  mx-5 border-bottom pb-2" >메인 설정</p>
+    <p class="h2 ps-2 titleName  mx-5 border-bottom pb-2" >메인 설정</p>
     <form id="indexMainSliderUploadForm" class="pb-3 px-5">
 
         <ul class="h-100 m-0 p-0 list-unstyled">
@@ -37,41 +37,47 @@
                 <input type="hidden" name="article"/>
             </li>
             <li class="mb-2 p-0">
-                <label for="images" class="d-block">이미지 등록</label>
-                <input type="file" id="images" name="images" accept="image/*"/>
+                <label for="images" class="d-block h4">이미지 등록</label>
+                <input type="file" id="images" name="images" accept="image/*" class="h4"/>
             </li>
             <li class="mb-2 p-0">
-                <label for="category" class="d-block">카테고리</label>
+                <label for="category" class="d-block h4">카테고리</label>
                 <input type="text" id="category" name="category" required/>
             </li>
             <li class="mb-2 p-0">
                 <!-- Main Title -->
-                <label for="mainTitle" class="d-block">타이틀</label>
+                <label for="mainTitle" class="d-block h4">타이틀</label>
                 <input type="text" id="mainTitle" name="mainTitle" required/>
             </li>
-            <li class="mb-2 p-0">
-                <label for="subTitle" class="d-block">서브 타이틀</label>
+            <li class="mb-3 p-0">
+                <label for="subTitle" class="d-block h4">서브 타이틀</label>
                 <input type="text" id="subTitle" name="subTitle" required/>
             </li>
-            <li class="mb-2 p-0">
-                <label for="schedule" class="d-block">일정</label>
+            <li class="mb-3 p-0">
+                <label for="schedule" class="d-block h4">일정</label>
                 <input type="text" id="schedule" name="schedule"/>
             </li>
-            <li class="mb-2 p-0">
-                <label for="address" class="d-block">주소</label>
+            <li class="mb-3 p-0">
+                <label for="address" class="d-block h4">주소</label>
                 <input type="text" id="address" name="address">
             </li>
-            <li class="mb-2 p-0">
-                <label for="summary" class="d-block">요약</label>
+            <li class="mb-3 p-0">
+                <label for="summary" class="d-block h4">요약</label>
                 <textarea id="summary" name="summary" required></textarea>
             </li>
-            <li class="mb-2 p-0">
-                <label for="summary">링크</label>
+
+            <li class="mb-3 p-0">
+                <label for="content" class="d-block h4">본문내용</label>
+                <textarea id="content" name="content" required></textarea>
+            </li>
+
+            <li class="mb-3 p-0">
+                <label for="href" class="h4">링크</label>
                 <input type="text" id="href" name="href" required>
             </li>
 
             <li class=" p-0">
-                <button type="button" class="btn btn-dark px-5 d-block saveBtn" id="indexMainSliderSubmit" >저장</button>
+                <button type="button" class="btn btn-dark px-5 d-block saveBtn adminUserFS" id="indexMainSliderSubmit" >저장</button>
             </li>
 
         </ul>

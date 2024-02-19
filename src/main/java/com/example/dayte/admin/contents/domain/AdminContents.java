@@ -65,23 +65,4 @@ public class AdminContents {
 //        fetch = FetchType.EAGER,
 //        cascade = )
 //    private List<Post> postList;
-
-    @Override
-    public String toString() {
-        return "AdminContents{" +
-                "uuid='" + uuid + '\'' +
-                ", businessName='" + businessName + '\'' +
-                ", category='" + category + '\'' +
-                ", gu='" + gu + '\'' +
-                ", positionX=" + positionX +
-                ", positionY=" + positionY +
-                ", detailedAddress='" + detailedAddress + '\'' +
-                ", contactInfo='" + contactInfo + '\'' +
-                ", opening='" + opening + '\'' +
-                ", closed='" + closed + '\'' +
-                ", keyword='" + keyword + '\'' +
-                ", detailedDescription='" + detailedDescription + '\'' +
-                ", facilities='" + facilities + '\'' +
-                '}';
-    }
 }

@@ -83,4 +83,9 @@ public class IndexMainSliderService {
         return indexMainSliderRepository.findAll();
     }
 
+    @Transactional
+    public List<IndexMainSlider> eventPageList(String href) {
+        return indexMainSliderRepository.findByHref(href);
+    }
+
 }

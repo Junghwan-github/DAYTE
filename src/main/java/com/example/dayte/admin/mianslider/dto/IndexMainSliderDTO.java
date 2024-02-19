@@ -42,6 +42,10 @@ public class IndexMainSliderDTO {
 
     @NotNull(message = "필수 등록사항입니다.")
     @NotBlank(message = "필수 등록사항입니다.")
+    private String content;
+
+    @NotNull(message = "필수 등록사항입니다.")
+    @NotBlank(message = "필수 등록사항입니다.")
     private String href;
 
 

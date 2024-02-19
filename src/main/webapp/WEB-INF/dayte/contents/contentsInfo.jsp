@@ -40,7 +40,7 @@
         <!-- 콘텐츠 정보 -->
         <span>${showContentsDetail.gu}</span> <span>${showContentsDetail.category}</span>
         <span>${showContentsDetail.keyword}</span>
-        <h1>${showContentsDetail.businessName}<span>★ 4.8</span></h1>
+        <h1>${showContentsDetail.businessName}<span class="star">★${star.starAVG}</span></h1>
         <div class="content-wrapper">
             <div class="left-content">
                 <h2>${showContentsDetail.businessName} 소개</h2>

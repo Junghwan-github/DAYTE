@@ -3,6 +3,7 @@ package com.example.dayte.reply.domain;
 import com.example.dayte.admin.contents.domain.AdminContents;
 import com.example.dayte.members.domain.User;
 import com.example.dayte.schedule.domain.Schedule;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,7 +31,7 @@ public class ContentReply {
     @ManyToOne(fetch = FetchType.EAGER)
     private User user; // 사용자 이름
 
-
+    @JsonIgnore
     @JoinColumn (name = "contents")
     @ManyToOne
     private AdminContents contents;

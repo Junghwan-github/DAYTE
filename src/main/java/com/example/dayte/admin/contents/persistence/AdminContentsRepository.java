@@ -15,5 +15,13 @@ public interface AdminContentsRepository extends JpaRepository<AdminContents, St
 
     @Query("SELECT c FROM AdminContents c WHERE c.category = :category AND " +
             "(c.businessName LIKE %:search% OR c.gu LIKE %:search% OR c.detailedAddress LIKE %:search% OR c.keyword LIKE %:search%)")
-    List<AdminContents> findAllByCategorySearch(String category, String search);
+    List<AdminContents> findAllBySearch(String category, String search);
+
+    @Query("SELECT c FROM AdminContents c WHERE c.category = :category AND " +
+            "c.gu = :search")
+    List<AdminContents> findAllByGugunSearch(String category, String search);
+
+    @Query("SELECT c FROM AdminContents c WHERE c.category = :category AND " +
+            "c.keyword LIKE %:search%")
+    List<AdminContents> findAllByKeyWordSearch(String category, String search);
 }

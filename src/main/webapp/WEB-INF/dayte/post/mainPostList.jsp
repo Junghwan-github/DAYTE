@@ -37,10 +37,12 @@
                     </div>
                     <div class="post-items-images">
                         <ul>
-                            <c:forEach var="images" items="${post.postImages}">
+                            <c:forEach var="images" items="${post.postImages}" varStatus="loop">
+                                <c:if test="${loop.index lt 4}">
                                 <li>
                                     <div><img src="${images.imageUrl}"/></div>
                                 </li>
+                                </c:if>
                             </c:forEach>
                         </ul>
                     </div>

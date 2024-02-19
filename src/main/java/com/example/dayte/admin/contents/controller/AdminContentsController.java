@@ -133,7 +133,7 @@ public class AdminContentsController {
     // 관리자 - 회원정보 수정
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/admin/editUser")
-    public @ResponseBody com.example.dayte.members.dto.ResponseDTO<?> updateUser(@ModelAttribute UserDTO userDTO,
+    public @ResponseBody ResponseDTO<?> updateUser(@ModelAttribute UserDTO userDTO,
                                                                                  @AuthenticationPrincipal UserSecurityDTO principal) throws IOException {
         userDTO.setRole(userDTO.getRole());
         userDTO.setUserName(userDTO.getUserName());
@@ -158,10 +158,11 @@ public class AdminContentsController {
                 case "영구" -> LocalDateTime.MAX;
                 default -> null;
             };
-        if (blackDate != null)
+        if (blackDate != null) {
             userDTO.setRole(RoleType.BLOCK);
+            userDTO.setBlockDate(Timestamp.valueOf(blackDate));
+        }
 
-        userDTO.setBlockDate(Timestamp.valueOf(blackDate));
         System.out.println("blackDate : " + blackDate);
 
         if (userDTO.getImage() != null) {
@@ -169,10 +170,10 @@ public class AdminContentsController {
         }
         if(userService.updateUser(userDTO)) {
             log.info("관리자 사용자 정보 수정 - 사용자 ID : {}", userDTO.getUserEmail());
-            return new com.example.dayte.members.dto.ResponseDTO<>(HttpStatus.OK.value(), "회원 정보가 수정되었습니다.");
+            return new ResponseDTO<>(HttpStatus.OK.value(), "회원 정보가 수정되었습니다.");
         } else{
             log.info("사용자 정보 수정 실패 - 중복된 닉네임. 사용자 ID : {}",userDTO.getUserEmail());
-            return new com.example.dayte.members.dto.ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "닉네임이 중복되었습니다.");
+            return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "닉네임이 중복되었습니다.");
         }
     }
 
@@ -253,12 +254,7 @@ public class AdminContentsController {
         return new ResponseDTO<>(HttpStatus.OK.value(), "해당 컨텐츠가 삭제되었습니다.");
     }
 
-    // 검색 기능
-    @PostMapping("/search")
-    public @ResponseBody List<AdminContents> searchContents(@RequestBody Map<String, String> search) {
-        List<AdminContents> searchByContents = adminContentsService.searchByContents(search.get("search"));
-        return searchByContents;
-    }
+
 
     @GetMapping("/admin/totalVisitor")
     public String view() {
