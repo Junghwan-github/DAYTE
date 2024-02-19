@@ -16,7 +16,7 @@
 <%@include file="../layout/subnav.jsp" %>
 
 
-<main> <%-- main --%>
+<main id="main-max-top"> <%-- main --%>
     <h1 id="contents-list-category-name">${contentsListCategory[0].category} 250개 </h1>
     <div id ="contents-category-list-container">
         <div class="bottomModalWraper">
@@ -117,5 +117,6 @@
         </div>
     </div>
 </main>
+<a href="#main-max-top" id="max-top-bottom"><i class="xi-arrow-up"></i></a>
 <script src="/js/contents/allcontents.js"></script>
 <jsp:include page="../layout/footer.jsp"/>

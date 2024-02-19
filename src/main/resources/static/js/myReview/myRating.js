@@ -20,7 +20,14 @@ $(document).ready(function () {
                 break;
         }
     })
+
+    $(".xi-ellipsis-v").on("click", function () {
+        $(this).closest(".reviewRatingBox").find(".modify-delete-button").toggle();
+    })
+
 })
+
+
 
 $(".modify").on("click", function (e){
     if (confirm('일정을 수정 하시겠습니까?')) {

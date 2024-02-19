@@ -9,7 +9,7 @@
 <body>
 <%@include file="../layout/header.jsp" %>
 <%@include file="../layout/subnav.jsp" %>
-<main>
+<main id="main-max-top">
     <div class="all-search-container">
         <div class="all-search-contents">
             <div class="top-wrapper">
@@ -59,7 +59,7 @@
         </div>
         <div class="all-search-post">
             <div class="top-wrapper">
-                <h1>이용후기</h1>
+                <h1>일정후기</h1>
                 <span>목록 접기<i class="xi-angle-down-min"></i></span>
             </div>
             <div class="all-search-post-display">
@@ -71,10 +71,12 @@
                             </div>
                             <div class="post-items-images">
                                 <ul>
-                                    <c:forEach var="images" items="${post.postImages}">
+                                    <c:forEach var="images" items="${post.postImages}" varStatus="loop">
+                                        <c:if test="${loop.index lt 4}">
                                         <li>
                                             <div><img src="${images.imageUrl}"/></div>
                                         </li>
+                                        </c:if>
                                     </c:forEach>
                                 </ul>
                             </div>
@@ -97,6 +99,6 @@
         </div>
     </div>
 </main>
-
+<a href="#main-max-top" id="max-top-bottom"><i class="xi-arrow-up"></i></a>
 <script src="/js/contents/allSearches.js"></script>
 <%@include file="../layout/footer.jsp" %>

@@ -157,10 +157,12 @@
                             <div class="reply-content-post">
                                 <h3>${post.title}</h3>
                                 <div class="images-wrapper">
-                                    <c:forEach var="images" items="${post.postImages}">
+                                    <c:forEach var="images" items="${post.postImages}" varStatus="loop">
+                                        <c:if test="${loop.index lt 4}">
                                         <div>
                                             <img src="${images.imageUrl}"/>
                                         </div>
+                                        </c:if>
                                     </c:forEach>
                                 </div>
                                 <div class="post-items-content">

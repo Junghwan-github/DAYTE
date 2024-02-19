@@ -30,30 +30,41 @@
         </ul>
     </nav>
     <div class="container">
-<c:forEach var="reply" items="${myReview.content}">
-        <div class="reviewRatingBox">
+        <c:forEach var="reply" items="${myReview.content}">
+            <div class="reviewRatingBox">
 
-            <%--내 일정관리에서 완료된 컨텐츠의 리뷰를 가지고 올 것--%>
+                    <%--내 일정관리에서 완료된 컨텐츠의 리뷰를 가지고 올 것--%>
 
-                    <div class="contents">
-                        <img src="${reply.contents.adminContentsImageList[0].imageURL}">
-                        <p>${reply.contents.businessName}</p>
+                <div class="contents-images">
+                    <img src="${reply.contents.adminContentsImageList[0].imageURL}">
+                </div>
+                <c:if test="${reply.user.userEmail eq principal.userEmail}">
+                    <div class="contents-text">
+                        <ul>
+                            <li><h1>${reply.contents.businessName}</h1></li>
+                            <li><span class="star-point">${reply.rating}</span></li>
+                            <li>
+                                <div class="text-content-box">
+                                    <p class="myreview-content">${reply.content}</p>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
-                    <c:if test="${reply.user.userEmail eq principal.userEmail}">
-                        <div class="ratings">
-                            <div>
-                                <span class="star-point">${reply.rating}</span>
-                            </div>
-                            <p class="myreview-content">${reply.content}</p>
-                        </div>
-                        <div>
-                            <button class="delete" value="${reply.num}">삭제</button>
-                            <button class="modify" value="${reply.contents.uuid}">수정</button>
-                        </div>
-                    </c:if>
+                    <div class="modify-delete-button-wrapper">
+                        <i class="xi-ellipsis-v"></i>
+                    </div>
+                    <ul class="modify-delete-button">
+                        <li>
+                            <button class="modify" value="${reply.contents.uuid}"><i class="xi-pen-o"></i>수정</button>
+                        </li>
+                        <li>
+                            <button class="delete" value="${reply.num}"><i class="xi-trash-o"></i>삭제</button>
+                        </li>
+                    </ul>
+                </c:if>
 
-        </div>
-    </c:forEach>
+            </div>
+        </c:forEach>
         <div class="pagination">
             <ul>
                 <c:if test="${!myReviewPage.first}">
