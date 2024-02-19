@@ -152,6 +152,10 @@ $(document).ready(function () {
         $("body").css("overflow", "");
         $(".images-detail-modal").hide();
     })
+
+    if (/^[★\s]*$/.test($(".star").text())){
+    $(".star").text("★0.0")
+    }
 })
 
 

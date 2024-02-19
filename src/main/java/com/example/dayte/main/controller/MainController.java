@@ -7,6 +7,7 @@ import com.example.dayte.admin.mianslider.domain.VisitorStatistics;
 import com.example.dayte.admin.mianslider.listener.MySessionListener;
 import com.example.dayte.admin.mianslider.service.IndexMainSliderService;
 import com.example.dayte.post.service.PostService;
+import com.example.dayte.reply.service.ContentReplyService;
 import com.example.dayte.security.dto.UserSecurityDTO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -34,6 +35,9 @@ public class MainController {
 
     @Autowired
     private MySessionListener mySessionListener;
+
+    @Autowired
+    private ContentReplyService contentReplyService;
 
     @GetMapping({"/"})
     public String getIndexView(Model model, HttpServletRequest request) {
@@ -77,8 +81,9 @@ public class MainController {
     @GetMapping("/indexSearch")
     public String allSearches(@RequestParam("indexSearch") String searchWord, Model model) {
         model.addAttribute("contentsList", adminContentsService.searchByContents(searchWord))
-                .addAttribute("postList", postService.postSearchToAll(searchWord));
-        model.addAttribute("postListText",postService.extractPostContentText());
+                .addAttribute("postList", postService.postSearchToAll(searchWord))
+                .addAttribute("postListText",postService.extractPostContentText())
+                .addAttribute("starList", contentReplyService.avgStarList());
         return "contents/allSearches";
     }
 

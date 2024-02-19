@@ -1,17 +1,14 @@
 // 콘텐츠 검색 함수
 function searchContents(search) {
     $.ajax({
-        url: "/search",
+        url: "/schedule/search",
         method : "POST",
         contentType: "application/json; charset=utf-8",
         data   : JSON.stringify({search: search}),
         success: function(data) {
             // 검색 결과를 UI에 표시
-            if(!!!data){
-                alert("값 없음");
-            }
-            displaySearchResults(data);
             console.log(data);
+            displaySearchResults(data);
         },
         error: function(error) {
             console.error('검색 실패:', error);
@@ -23,11 +20,11 @@ function searchContents(search) {
 function displaySearchResults(data) {
     const contentListViewer = $('.contentListViewer');
     contentListViewer.html('');
-    if (data.length === 0) {
+    if (data.searchByContents.length === 0) {
         const listItem = $('<li>').html('<p>검색 결과가 없습니다.</p>');
         contentListViewer.append(listItem);
     } else {
-        $.each(data, function(index, content) {
+        $.each(data.searchByContents, function(index, content) {
             const listItem = $('<li>');
 
             listItem.html(`
@@ -39,35 +36,38 @@ function displaySearchResults(data) {
                     </div>
                     <ul class="contentListItemText">
                         <li>
+                        <div class="contents-title-wrapper">
                             <h2>${content.businessName}</h2>
-                            <h2>${content.category}</h2>
+                            <span>${content.category}</span>
+                            <span>${content.keyword}</span>
+                            </div>
                         </li>
                         <li>
-                            <span>대구 ${content.detailedAddress}</span>
+                            <span>${content.detailedAddress}</span>
                         </li>
                         <li>
                             <p>영업시간 : ${content.opening} ~ ${content.closed}</p>
                             <p>기간 : 없음</p>
                             <p>문의 : ${content.contactInfo}</p>
                         </li>
-                        <li>
-                            <span>★ 4.5</span>
-                        </li>
-                    </ul>
+                         <li>  
+                         <span class="rating"></span>   
+                         </li>
+                        </ul>
                     <div class="contentListItemButton">
                         <ul>
                             <li>
                                 <button class="contentListItemdetailViewBtn" value="${content.uuid}">상세보기</button>
                             </li>
-                            <li>
-                                <button class="contentListItemAddBtn" value="${content.uuid}">추가하기
-                                </button>
-                            </li>
                         </ul>
                     </div>
-                </div>
-            `);
-
+                </div>`);
+            const matchingStar = data.avgStarViewDTOList.find(star => star.uuid === content.uuid);
+            if (matchingStar) {
+                listItem.find('.rating').text('★' + matchingStar.starAVG.toFixed(1));
+            } else {
+                listItem.find('.rating').text('★0.0');
+            }
             contentListViewer.append(listItem);
         });
     }
@@ -75,6 +75,10 @@ function displaySearchResults(data) {
 
 // "#guList" 요소 안의 <li> 클릭 이벤트 핸들러 등록
 $("#guList").on("click", "li", function () {
+    searchContents($(this).text());
+});
+
+$("#keywordList").on("click", "li", function () {
     searchContents($(this).text());
 });
 

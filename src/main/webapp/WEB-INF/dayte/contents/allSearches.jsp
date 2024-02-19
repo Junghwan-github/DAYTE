@@ -40,7 +40,16 @@
                                     <p>문의 : ${contents.contactInfo}</p>
                                 </li>
                                 <li>
-                                    <span>★ 4.5</span>
+                                    <c:set var="hasMatch" value="false" />
+                                    <c:forEach var="star" items="${starList}">
+                                        <c:if test="${star.uuid eq contents.uuid}">
+                                    <span class="star">★${star.starAVG}</span>
+                                            <c:set var="hasMatch" value="true" />
+                                        </c:if>
+                                    </c:forEach>
+                                    <c:if test="${not hasMatch}">
+                                        <span class="star">★0.0</span>
+                                    </c:if>
                                 </li>
                             </ul>
                         </div>

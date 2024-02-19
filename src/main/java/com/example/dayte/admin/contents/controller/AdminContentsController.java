@@ -253,12 +253,7 @@ public class AdminContentsController {
         return new ResponseDTO<>(HttpStatus.OK.value(), "해당 컨텐츠가 삭제되었습니다.");
     }
 
-    // 검색 기능
-    @PostMapping("/search")
-    public @ResponseBody List<AdminContents> searchContents(@RequestBody Map<String, String> search) {
-        List<AdminContents> searchByContents = adminContentsService.searchByContents(search.get("search"));
-        return searchByContents;
-    }
+
 
     @GetMapping("/admin/totalVisitor")
     public String view() {
