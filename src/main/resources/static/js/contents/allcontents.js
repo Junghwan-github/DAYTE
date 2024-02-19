@@ -46,15 +46,19 @@ $("#guList").on("click", "li", function () {
     searchContentsCategory($(this).text());
 });
 
+$("#keywordList").on("click", "li", function () {
+    searchContentsCategory($(this).text());
+});
+
 // 검색 결과를 UI에 표시하는 함수
 function displaySearchResults1(data) {
     const contentListViewer = $('.contentListViewer');
     contentListViewer.html('');
-    if (data.length === 0) {
+    if (data.searchByContents.length === 0) {
         const listItem = $('<li>').html('<p>검색 결과가 없습니다.</p>');
         contentListViewer.append(listItem);
     } else {
-        $.each(data, function(index, content) {
+        $.each(data.searchByContents, function(index, content) {
             const listItem = $('<li>');
 
             listItem.html(`
@@ -80,10 +84,10 @@ function displaySearchResults1(data) {
                             <p>기간 : 없음</p>
                             <p>문의 : ${content.contactInfo}</p>
                         </li>
-                        <li>
-                            <span>★ 4.5</span>
-                        </li>
-                    </ul>
+                         <li>  
+                         <span class="rating"></span>   
+                         </li>
+                        </ul>
                     <div class="contentListItemButton">
                         <ul>
                             <li>
@@ -91,9 +95,13 @@ function displaySearchResults1(data) {
                             </li>
                         </ul>
                     </div>
-                </div>
-            `);
-
+                </div>`);
+            const matchingStar = data.avgStarViewDTOList.find(star => star.uuid === content.uuid);
+            if (matchingStar) {
+                listItem.find('.rating').text('★' + matchingStar.starAVG.toFixed(1));
+            } else {
+                listItem.find('.rating').text('★0.0');
+            }
             contentListViewer.append(listItem);
         });
     }

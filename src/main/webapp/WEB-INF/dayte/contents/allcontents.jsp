@@ -43,7 +43,7 @@
                 <div>
                     <h2>키워드</h2>
                     <ul id="keywordList">
-                        <li>#숙박</li>
+                        <li>#숙소</li>
                         <li>#맛집</li>
                         <li>#카페</li>
                         <li>#공연</li>
@@ -88,7 +88,16 @@
                                         <p>문의 : ${content.contactInfo}</p>
                                     </li>
                                     <li>
-                                        <span>★ 4.5</span>
+                                        <c:set var="hasMatch" value="false" />
+                                        <c:forEach var="star" items="${starList}">
+                                            <c:if test="${star.uuid eq contents.uuid}">
+                                                <span class="star">★${star.starAVG}</span>
+                                                <c:set var="hasMatch" value="true" />
+                                            </c:if>
+                                        </c:forEach>
+                                        <c:if test="${not hasMatch}">
+                                            <span class="star">★0.0</span>
+                                        </c:if>
                                     </li>
                                 </ul>
                                 <div class="contentListItemButton">

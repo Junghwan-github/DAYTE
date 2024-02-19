@@ -55,6 +55,7 @@ function getUpdatedDate(t) {
     const nextUpdateDate = new Date(currentDate);
     nextUpdateDate.setHours(t, 0, 0, 0);
 
+
     if (currentDate < nextUpdateDate) {
         const year = currentDate.getFullYear();
         const month = (currentDate.getMonth() + 1).toString().padStart(2, "0");
@@ -112,7 +113,6 @@ function halfTime(d) {
         return "am";
     }
 }
-
 // 단기 api 불러오기
 let apiShort =
     "https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=coQyCyc75MfuQqHbbxJydRKCCUcqGUPYrhfREOFKrPf6DaV%2FvpQrWaDPAP%2B7fOxTTae5KgaO4Et0Jy1pQb7Opg%3D%3D&pageNo=1&numOfRows=1000&DataType=JSON&base_date=" +
@@ -143,14 +143,12 @@ fetch(apiShort)
         apiData.tmx = [];
         let data = json.response.body.items.item;
 
-
         for (let i = 0; i < data.length; i++) {
             const fcstDate = data[i].fcstDate;
             const fcstTime = data[i].fcstTime;
             const fcstValue = data[i].fcstValue;
-
             if (
-                fcstDate == getUpdatedDate() ||
+                fcstDate == getUpdatedDatePlus(0) ||
                 fcstDate == getUpdatedDatePlus(1) ||
                 fcstDate == getUpdatedDatePlus(2)
             ) {

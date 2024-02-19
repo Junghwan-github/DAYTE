@@ -3,7 +3,7 @@ package com.example.dayte.reply.service;
 
 import com.example.dayte.admin.contents.domain.AdminContents;
 import com.example.dayte.admin.contents.persistence.AdminContentsRepository;
-import com.example.dayte.members.domain.User;
+import com.example.dayte.content.dto.AvgStarViewDTO;
 import com.example.dayte.reply.domain.ContentReply;
 import com.example.dayte.reply.dto.UpdateContentReplyDTO;
 import com.example.dayte.reply.repository.ContentReplyRepository;
@@ -11,10 +11,6 @@ import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.sql.Timestamp;
-import java.time.Instant;
-import java.util.*;
 
 
 import java.util.List;
@@ -115,4 +111,11 @@ public class ContentReplyService {
         return contentReplyRepository.findByContentUuid(uuid);
     }
 
+    public List<AvgStarViewDTO> avgStarList() {
+        return contentReplyRepository.avgStarList();
+    }
+
+    public AvgStarViewDTO avgStar(String uuid) {
+        return contentReplyRepository.avgStar(uuid);
+    }
 }

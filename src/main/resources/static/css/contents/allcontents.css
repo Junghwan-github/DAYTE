@@ -113,7 +113,6 @@ main {
     flex-flow: row wrap;
     justify-content: start;
     text-align: center;
-
 }
 
 .leftModalLayout > div:nth-child(3) > ul > li {
@@ -124,6 +123,7 @@ main {
     background: #f7f7f7;
     border: 1px solid #eaeaea;
     margin: 5px;
+    cursor: pointer;
 }
 
 .centerModalLayout {

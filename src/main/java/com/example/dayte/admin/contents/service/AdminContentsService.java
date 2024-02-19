@@ -122,18 +122,24 @@ public class AdminContentsService {
     }
 
     @Transactional//(readOnly = true)
-    public List<AdminContents> searchByCategory(String category ,String search) {
+    public List<AdminContents> findAllBySearch(String category ,String search) {
         String categoryNames = "";
-        if(search == null) search = "";
+        if(search == null)
+            search = "";
 
         switch (category) {
-            case "hotels" -> categoryNames = "숙박";
+            case "hotels" -> categoryNames = "숙소";
             case "restaurants" -> categoryNames = "맛집";
             case "cafes" -> categoryNames = "카페";
             case "events" -> categoryNames = "이벤트";
         }
-
-        return adminContentsRepository.findAllByCategorySearch(categoryNames, search);
+        if (search.contains("#")) {
+            return adminContentsRepository.findAllByKeyWordSearch(categoryNames, search);
+        } else if (List.of("중구", "수성구", "북구", "동구", "남구", "서구", "달서구", "달성군", "군위군").contains(search)) {
+            return adminContentsRepository.findAllByGugunSearch(categoryNames, search);
+        } else {
+            return adminContentsRepository.findAllBySearch(categoryNames, search);
+        }
     }
 
     @Transactional(readOnly = true)

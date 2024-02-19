@@ -19,14 +19,8 @@ public class AdminContentsImage {
     @Column(nullable = false, length = 500)
     private String imageURL;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name =  "adminContentsId")
     private AdminContents adminContents;
-
-    @Override
-    public String toString() {
-        return "AdminContentsImage{" +
-                "imageURL='" + imageURL + '\'' +
-                '}';
-    }
 }
