@@ -65,8 +65,14 @@
                 <label for="summary" class="d-block h4">요약</label>
                 <textarea id="summary" name="summary" required></textarea>
             </li>
+
             <li class="mb-3 p-0">
-                <label for="summary" class="h4">링크</label>
+                <label for="content" class="d-block h4">본문내용</label>
+                <textarea id="content" name="content" required></textarea>
+            </li>
+
+            <li class="mb-3 p-0">
+                <label for="href" class="h4">링크</label>
                 <input type="text" id="href" name="href" required>
             </li>
 
