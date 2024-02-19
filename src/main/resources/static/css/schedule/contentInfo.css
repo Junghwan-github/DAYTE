@@ -442,9 +442,9 @@ main {
 .images-wrapper > div {
   width: 150px;
   height: 150px;
-  background: #6ea8fe;
   border-radius: 10px;
   overflow: hidden;
+  margin-right: 10px;
 }
 
 .images-wrapper > div img {
@@ -456,6 +456,7 @@ main {
 .post-items-content {
   margin-top: 10px;
   max-height: 50px;
+  overflow: hidden;
 }
 
 .post-items-content > p {

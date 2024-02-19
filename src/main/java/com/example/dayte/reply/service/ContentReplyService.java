@@ -64,7 +64,7 @@ public class ContentReplyService {
     public void updateReply(String userEmail, UpdateContentReplyDTO updateContentReplyDTO) {
         ContentReply findContentReply = contentReplyRepository.findUserContentReply(userEmail, updateContentReplyDTO.getUuid());
         findContentReply.setContent(updateContentReplyDTO.getNewReply());
-        findContentReply.setRating(updateContentReplyDTO.getRating());
+        findContentReply.setRating(updateContentReplyDTO.getNewRating());
 
         contentReplyRepository.save(findContentReply);
     }

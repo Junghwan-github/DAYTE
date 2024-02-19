@@ -255,3 +255,19 @@ main {
     border-radius: 5px;
     color: #111;
 }
+
+#max-top-bottom {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    display: block;
+    padding: 15px;
+    background: #bee0cc;
+    border-radius: 30px;
+}
+
+#max-top-bottom > i {
+    font-size: 3rem;
+    color: #fff;
+    font-weight: 500;
+}

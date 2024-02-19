@@ -143,6 +143,7 @@ main > .reply-title {
     box-sizing: border-box;
 }
 
+#btn-update,
 #btn-save-reply {
     float: right;
     text-align: right;

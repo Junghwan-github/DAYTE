@@ -4,7 +4,7 @@ function updateReply() {
 
     let newReply = document.getElementById('reply-content').value;
 
-    let newRating = document.querySelector('input[type="radio"]:checked');
+    let newRating = document.querySelector('input[type="radio"]:checked').value;
 
     if(newRating == null){
 

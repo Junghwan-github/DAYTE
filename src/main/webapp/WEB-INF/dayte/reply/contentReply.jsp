@@ -56,9 +56,7 @@
             <c:when test="${msg == 'updateReply'}">
                             <textarea id="reply-content" rows="1"
                                       class="form-control">${contentReply.content}</textarea>
-                <button type="button" id="btn-update" class="btn btn-secondary" onclick="updateReply()">댓글
-                    수정
-                </button>
+                <button type="button" id="btn-update" class="btn btn-secondary" onclick="updateReply()">댓글 수정</button>
             </c:when>
             <c:otherwise>
                 <textarea id="reply-content" rows="1" class="form-control"></textarea>
