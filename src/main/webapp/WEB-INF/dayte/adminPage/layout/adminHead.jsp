@@ -76,7 +76,8 @@
                 <button type="button" class="btn-close mt-2 me-2" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class= "offcanvas-header d-flex justify-content-center" >
-                <a href="/admin/home" class="d-flex align-items-center pb-3 mb-3 link-body-emphasis text-decoration-none border-bottom">
+                <a href="/admin/home" class="d-flex flex-column align-items-center pb-3 mb-3 link-body-emphasis text-decoration-none border-bottom">
+                    <img src="/images/logo_dayte.png"  style="width:100px; border:transparent; border-radius:10px;">
                     <p class="offcanvas-title h1" id="offcanvasScrollingLabel">DAYTE</p>
                 </a>
             </div>
@@ -104,8 +105,6 @@
                             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small bg-light ps-5">
                                 <li><a href="/admin/home/settings/index" class="link-body-emphasis d-inline-flex text-decoration-none rounded h4 py-1">메인 설정</a></li>
                                 <li><a href="/admin/home/settings/contents" class="link-body-emphasis d-inline-flex text-decoration-none rounded h4 py-1">컨텐츠 관리</a></li>
-                                <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded h4 py-1">설정</a></li>
-                                <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded h4 py-1">설정</a></li>
                             </ul>
                         </div>
                     </li>
@@ -131,11 +130,12 @@
                             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small bg-light ps-5 ">
                                 <li><a href="/admin/post" class="link-body-emphasis d-inline-flex text-decoration-none rounded h4 py-1">게시물 관리</a></li>
                                 <li><a href="/notice/modAll" class="link-body-emphasis d-inline-flex text-decoration-none rounded h4 py-1">공지사항 관리</a></li>
-                                <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded h4 py-1">인기검색어관리</a></li>
-                                <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded h4 py-1">인기검색어순위</a></li>
                                 <li><a href="/customerService" class="link-body-emphasis d-inline-flex text-decoration-none rounded h4 py-1">1:1 문의설정</a></li>
                                 <li><a href="/customerService" class="link-body-emphasis d-inline-flex text-decoration-none rounded h4 py-1">FAQ관리</a></li>
-                                <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded h4 py-1">글,댓글 현황</a></li>
+
+                                <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded h4 py-1 d-none">인기검색어관리</a></li>
+                                <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded h4 py-1 d-none">인기검색어순위</a></li>
+                                <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded h4 py-1 d-none">글,댓글 현황</a></li>
                             </ul>
                         </div>
                     </li>

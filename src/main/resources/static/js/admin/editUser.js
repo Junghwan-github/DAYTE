@@ -19,6 +19,7 @@ let userObject = {
             role : $("#role").find(":selected").val(),
             black : $("#black").find(":selected").val(),
         }
+        console.log(user.role);
 
         let formData = new FormData();
         formData.append("userEmail", $("#userEmail").val()); // 변경된 부분

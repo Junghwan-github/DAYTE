@@ -54,7 +54,7 @@
             <table class="table table-striped border" >
                 <thead class="align-middle">
                 <tr style="height: 50px;">
-                    <th scope="col" class="text-center bg-secondary-subtle">
+                    <th scope="col" class="text-center align-middle bg-secondary-subtle">
                         <input class="form-check-input" type="checkbox" id="chkAll" >
                     </th>
                     <th scope="col" class="text-center align-middle h4 bg-secondary-subtle">아이디</th>
@@ -87,8 +87,6 @@
                             <td class="text-center align-middle ">
                                 <a href="/admin/editUser/${user.userEmail}" class="btn btn-dark px-1 ms-1 d-block adminUserFS">수정</a>
 
-<%--                                <div class="d-flex justify-content-center">--%>
-<%--                                </div>--%>
                             </td>
                         </tr>
                     </c:forEach>
@@ -117,10 +115,10 @@
                         <c:forEach begin="${startBlockPage}" end="${endBlockPage}" var="i">
                             <c:choose>
                                 <c:when test="${ulist.pageable.pageNumber+1 == i}">
-                                    <li class="page-item disabled"><a class="page-link text-dark adminUserFS" href="?page=${i-1}&field=${param.field}&word=${param.word}">${i}</a></li>
+                                    <li class="page-item disabled"><a class="page-link px-3 text-dark adminUserFS" href="?page=${i-1}&field=${param.field}&word=${param.word}">${i}</a></li>
                                 </c:when>
                                 <c:otherwise>
-                                    <li class="page-item"><a class="page-link text-dark adminUserFS" href="?page=${i-1}&field=${param.field}&word=${param.word}">${i}</a></li>
+                                    <li class="page-item"><a class="page-link px-3 text-dark adminUserFS" href="?page=${i-1}&field=${param.field}&word=${param.word}">${i}</a></li>
                                 </c:otherwise>
                             </c:choose>
                         </c:forEach>
