@@ -30,13 +30,11 @@
         </ul>
     </nav>
     <div class="container">
-
+<c:forEach var="reply" items="${myReview.content}">
         <div class="reviewRatingBox">
 
             <%--내 일정관리에서 완료된 컨텐츠의 리뷰를 가지고 올 것--%>
 
-
-                <c:forEach var="reply" items="${myReview.content}">
                     <div class="contents">
                         <img src="${reply.contents.adminContentsImageList[0].imageURL}">
                         <p>${reply.contents.businessName}</p>
@@ -48,10 +46,14 @@
                             </div>
                             <p class="myreview-content">${reply.content}</p>
                         </div>
+                        <div>
+                            <button class="delete">삭제</button>
+                            <button class="modify">수정</button>
+                        </div>
                     </c:if>
-                </c:forEach>
-        </div>
 
+        </div>
+    </c:forEach>
         <div class="pagination">
             <ul>
                 <c:if test="${!myReviewPage.first}">
@@ -98,4 +100,5 @@
 </main>
 
 <script src="/js/myReview/myRating.js"></script>
+<%--<script src="/js/contentReply/contentReply.js"></script>--%>
 <%@include file="../layout/footer.jsp" %>
