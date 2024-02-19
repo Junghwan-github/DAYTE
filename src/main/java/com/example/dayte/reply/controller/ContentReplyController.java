@@ -33,10 +33,7 @@ public class ContentReplyController {
 
     private final AdminContentsService adminContentsService;
 
-
     private final ModelMapper modelMapper;
-
-
 
 //    @GetMapping("/contentReply")
 //    public String index(Model model) {
@@ -48,7 +45,6 @@ public class ContentReplyController {
 
 
     //댓글 등록창 가기전 이 유저가 해당 컨텐츠에 댓글을 썼는지 안 썼는지 체크
-    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/checkcontentsReview/{uuid}")
     public @ResponseBody ResponseDTO<?> checkcontentsReview(@PathVariable String uuid, @AuthenticationPrincipal UserSecurityDTO principal){
 
@@ -85,17 +81,18 @@ public class ContentReplyController {
     public String goToModReviewPage(Model model, @PathVariable String uuid, @AuthenticationPrincipal UserSecurityDTO principal){
 
         ContentReply contentReply = contentReplyService.findUserContentReply(principal.getUserEmail(), uuid);
+        AdminContents contents = adminContentsService.getShowContentsDetail(uuid);
 
-        model.addAttribute("msg", "updateReply");
-        model.addAttribute("contentReply", contentReply);
-
+        model.addAttribute("msg", "updateReply")
+                   .addAttribute("contentReply", contentReply)
+                   .addAttribute("showContentsDetail", contents);
         return "reply/contentReply";
     }
 
     //댓글 수정창에서 수정 로직
     @PutMapping("/modReview")
     public @ResponseBody ResponseDTO<?> updateReview(@RequestBody UpdateContentReplyDTO updateContentReplyDTO, @AuthenticationPrincipal UserSecurityDTO principal){
-
+        System.out.println(updateContentReplyDTO);
 
         String userEmail = principal.getUserEmail();
 
@@ -103,9 +100,6 @@ public class ContentReplyController {
 
         return new ResponseDTO<>(HttpStatus.OK.value(), "댓글 수정이 완료되었습니다.");
     }
-
-
-
 
     @PostMapping("/contentReply")
     public @ResponseBody ResponseDTO<?> ContentReplyGet(@RequestBody ContentReplyDTO contentReplyDTO

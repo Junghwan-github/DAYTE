@@ -15,7 +15,7 @@ public class UpdateContentReplyDTO {
 
     private String newReply;
 
-    private int rating;
+    private int newRating;
 
     private Timestamp createDate;
 

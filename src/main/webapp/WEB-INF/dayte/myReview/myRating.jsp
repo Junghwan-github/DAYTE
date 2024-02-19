@@ -47,8 +47,8 @@
                             <p class="myreview-content">${reply.content}</p>
                         </div>
                         <div>
-                            <button class="delete">삭제</button>
-                            <button class="modify">수정</button>
+                            <button class="delete" value="${reply.num}">삭제</button>
+                            <button class="modify" value="${reply.contents.uuid}">수정</button>
                         </div>
                     </c:if>
 

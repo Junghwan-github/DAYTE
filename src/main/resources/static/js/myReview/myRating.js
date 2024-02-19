@@ -22,4 +22,26 @@ $(document).ready(function () {
     })
 })
 
-
+$(".modify").on("click", function (e){
+    if (confirm('일정을 수정 하시겠습니까?')) {
+        let uuid = $(e.target).val()
+        location.href = "/modReview/" + uuid;
+    }
+})
+$(".delete").on("click", function (e){
+    if (confirm('일정을 삭제 하시겠습니까?')) {
+        let num = $(e.target).val()
+        $.ajax({
+            url        : "/contentReply/" + num,
+            type       : "DELETE",
+            contentType: "application/json; charset=utf-8",
+            success    : function (data) {
+                alert(data.data);
+                location.reload();
+            },
+            error      : function (error) {
+                alert("error");
+            }
+        });
+    }
+});
