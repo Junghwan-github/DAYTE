@@ -30,12 +30,26 @@ ul.bxslider {
 .bx-wrapper {
   background: transparent;
 }
+.previewImage > .bx-wrapper {
+  height: 305px;
+  padding: 40px 30px;
+  margin: 0;
+}
+
 .bx-wrapper .bx-pager,
 .bx-wrapper .bx-controls-auto {
   position: absolute;
   bottom: 20px;
   width: 1180px;
   text-align: center;
+}
+
+.previewImage .bx-wrapper .bx-pager {
+  position: absolute;
+  bottom: 50px;
+  right: 30px;
+  width: 700px;
+  text-align: right;
 }
 /* LOADER */
 .bx-wrapper .bx-loading {
@@ -68,7 +82,7 @@ ul.bxslider {
 
 .previewImage .bx-wrapper .bx-pager.bx-default-pager a {
   background: #28536a;
-  text-indent: -9999px;
+  text-indent: 9999px;
   display: block;
   width: 18px;
   height: 3px;

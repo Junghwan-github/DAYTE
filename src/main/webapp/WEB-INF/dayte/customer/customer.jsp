@@ -1,5 +1,5 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@include file="../layout/head.jsp"%>
+<%@include file="../layout/head.jsp" %>
 <link rel="stylesheet" href="/css/main/customer.css">
 
 
@@ -8,7 +8,7 @@
 </head>
 
 <body>
-<%@include file="../layout/header.jsp"%>
+<%@include file="../layout/header.jsp" %>
 <main>
     <div id="customer-container">
         <h1>고객센터</h1>
@@ -36,9 +36,6 @@
                             계정을 연동하여 가입한 것으로 추정되는 서비스에서 '연동 현황'을 우선 확인해 주세요.
 
 
-
-
-
                             [ 간편로그인 - 계정 연결 서비e스 확인 방법 ]
 
                             색깔이 별로다 진짜 거지같다.. 키보드 키감은 괯낳은거 같은데
@@ -60,23 +57,14 @@
                             휴대폰 설정 > 사용자 이름 (Apple ID) > 암호 및 보안 > Apple ID를 사용하는 앱
 
 
-
-
-
-
-
-
-                            이메일로 가입 하셨거나, 간편로그인 서비스에서 데이트 '연동' 계정 확인이 어려운 경우, 아래의 내용을 고객센터로 보내주세요. 참고하여 사용 기록이 있는 계정을 확인해드리겠습니다.
-
-
-
+                            이메일로 가입 하셨거나, 간편로그인 서비스에서 데이트 '연동' 계정 확인이 어려운 경우, 아래의 내용을 고객센터로 보내주세요. 참고하여 사용 기록이 있는 계정을
+                            확인해드리겠습니다.
 
 
                             1. 사용한 것으로 예상되는 이메일 주소
                             2. 로그인 수단
                             (카카오 / 네이버 / 페이스북 / 애플 / 이메일)
                             3. 닉네임
-
 
 
                             단, 이메일 인증이 되지 않은 계정은 확인 및 안내가 어려울 수 있습니다. 참고 부탁드립니다.
@@ -212,28 +200,51 @@
             </ul>
         </div>
         <div id="customer-n-inquiry" class="customer-n-inquiry tab-content">
-            <form>
+            <form enctype="multipart/form-data">
                 <ul>
                     <li>
-                        <label for="inquiry-email">이메일</label>
-                        <input type="text" id="inquiry-email" value="" placeholder="dayte@dayte.com">
+                        <sec:authorize access="isAuthenticated()">
+                            <label for="inquiry-email">이메일</label>
+                            <input type="text" id="inquiry-email" value="${principal.userEmail}">
+                        </sec:authorize>
+                        <sec:authorize access="!isAuthenticated()">
+                            <label for="inquiry-email">이메일</label>
+                            <input type="text" id="inquiry-email" value="" placeholder="example@dayte.com">
+                        </sec:authorize>
                     </li>
                     <li>
-                        <label for="firstCategory">문의 분류</label>
-                        <select id="firstCategory">
-                        </select>
-                        <select id="secondCategory">
-                        </select>
+                        <label for="mainCategory">문의 분류</label>
+                        <div id="mainSelectBox">
+                            <select id="mainCategory">
+                            </select>
+                            <span class="icoArrow" id="mainIcoArrow"><img src="/images/icoArrow.png"></span>
+                        </div>
+                        <div id="subSelectBox">
+                            <select id="subCategory">
+                            </select>
+                            <span class="icoArrow" id="subIcoArrow"><img src="/images/icoArrow.png"></span>
+                        </div>
                     </li>
                     <li>
                         <label for="inquiry-title">제목</label>
-                        <input type="text" id="inquiry-title" placeholder="문의 하실 항목과 함께 제목을 적어주세요">
+                        <input type="text" id="inquiry-title" placeholder="제목을 적어주세요(20자 이내)">
                     </li>
                     <li>
                         <label for="inquiry-content">문의 내용</label>
-                        <textarea id="inquiry-content" class="inquiry-content"></textarea>
+                        <textarea id="inquiry-content" class="inquiry-content" placeholder="문의하실 내용을 적어주세요"></textarea>
                     </li>
                 </ul>
+                <div class="fileList">
+                    <div id="file-input-Div-parentNode">
+                        <input type="file" accept=".pdf, .hwp, .docx, .xlsx, .xls, .jpg, .png, .jpeg, .zip "
+                               class="fileInput"
+                               name="inputFiles" id="file-input" multiple="multiple" onchange="selectFile(this);"/>
+                    </div>
+                    <div>
+                        <div id="preview"></div>
+                    </div>
+                </div>
+
             </form>
             <button type="button" id="sendEmail" class="sendEmail">문의하기</button>
         </div>
@@ -241,10 +252,10 @@
 </main>
 
 
-
 <script src="/js/main/customer.js"></script>
 <script src="/js/main/emailQuestion.js"></script>
 <script src="/js/schedule/contentInfo.js"></script>
+<script src="/js/notice/fileFunction.js"></script>
 
 
-<%@include file="../layout/footer.jsp"%>
+<%@include file="../layout/footer.jsp" %>

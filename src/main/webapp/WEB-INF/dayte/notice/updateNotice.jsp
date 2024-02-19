@@ -32,7 +32,7 @@
             <div id="file-input-Div-parentNode">
                 <input type="file" accept=".pdf, .hwp, .docx, .xlsx, .xls, .jpg, .png, .jpeg, .zip "
                        class="fileInput"
-                       name="files" id="file-input" multiple="multiple" onchange="selectFile(this);"/>
+                       name="inputFiles" id="file-input" multiple="multiple" onchange="selectFile(this);"/>
                 <%-- <label for="file-add">파일 추가</label>
                  <input type="file" accept=".pdf, .hwp, .docx, .xlsx, .xls, .jpg, .png, .jpeg, .zip " name="files" id="file-add" multiple="multiple" style="display: none" onchange="addFile();" />
  --%>
@@ -69,60 +69,72 @@
 <script src="/js/notice/cancel.js"></script>
 <script src="/js/notice/modifyFile.js"></script>
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#summernote').summernote({
-            tabSize: 2,
-            height: 600,
-            minHeight: 600,             // 최소 높이
-            focus: true,
-            lang: "ko-KR",
-            placeholder: '내용',
-            disableResizeEditor: true,
-            toolbar: [
-                ['style', ['style']],
-                ['font', ['bold', 'italic', 'underline', 'clear']],
-                ['fontsize', ['fontsize']],
-                ['fontname', ['fontname']],
-                ['color', ['color']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['height', ['height']],
-                ['table', ['table']],
-                ['insert', ['link', 'picture', 'video']],
-                ['view', ['fullscreen', 'codeview']],
-            ],
-            fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
-            fontSizeUnit : "pt",
-            fontSizes: ['15', '16', '18', '20', '24', '36', '58', '72'],
-            callbacks: {
-                onImageUpload: function(files){
-                    const [imageFile] = files;
-                    sendFile(imageFile);
-                }
-            },
-        })
-    })
+            height: 300,                 // 에디터 높이
+            minHeight: null,             // 최소 높이
+            maxHeight: null,             // 최대 높이
+            focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+            lang: "ko-KR",					// 한글 설정
+            placeholder: '최대 2048자까지 쓸 수 있습니다',	//placeholder 설정
+            callbacks: {	//여기 부분이 이미지를 첨부하는 부분
+                onImageUpload: function (files) {
+                    uploadSummernoteImageFile(files[0], this);
+                },
+                onPaste: function (e) {
+                    var clipboardData = e.originalEvent.clipboardData;
+                    if (clipboardData && clipboardData.items && clipboardData.items.length) {
+                        var item = clipboardData.items[0];
+                        if (item.kind === 'file' && item.type.indexOf('image/') !== -1) {
+                            e.preventDefault();
+                        }
+                    }
+                },
+                onMediaDelete: function ($target, editor, $editable) {
+                    var deletedImageUrl = $target
+                        .attr('src')
+                        .split('/')
+                        .pop()
+                    deleteSummernoteImageFile(deletedImageUrl)
 
-    // 이미지를 임시저장합니다.
-    function sendFile(file) {
-        const formData = new FormData();
-        formData.append('file', file);
-
+                },
+            }
+        });
+    });
+    /**
+     * 이미지 파일 업로드
+     */
+    function uploadSummernoteImageFile(file, editor) {
+        data = new FormData();
+        data.append("file", file);
         $.ajax({
-            type: 'POST',
-            url: '/uploadSummernoteImageFile',
-            data: formData,
-            cache: false,
+            data: data,
+            type: "POST",
+            url: "/uploadNoticeImageFile",
             contentType: false,
             processData: false,
-            success: function(response) {
-                const imageUrl = response.url;
-                $('.summernote').summernote('insertImage', imageUrl);
-            },
-            error: function(error) {
-                console.error('이미지 업로드 실패:', error);
+            success: function (data) {
+                //항상 업로드된 파일의 url이 있어야 한다.
+                $(editor).summernote('insertImage', data.url);
+                console.log(data.url);
             }
         });
     }
+
+    function deleteSummernoteImageFile(imageName) {
+        data = new FormData()
+        data.append('file', imageName)
+        $.ajax({
+            data: data,
+            type: 'POST',
+            url: '/deleteSummernoteImageFile',
+            contentType: false,
+            enctype: 'multipart/form-data',
+            processData: false,
+        })
+    }
+
+
 </script>
 <%--</body>--%>
 

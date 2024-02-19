@@ -1,13 +1,18 @@
 package com.example.dayte.reply.controller;
 
 
+import com.example.dayte.admin.contents.domain.AdminContents;
+import com.example.dayte.admin.contents.service.AdminContentsService;
 import com.example.dayte.members.domain.User;
 import com.example.dayte.members.dto.UserDTO;
+import com.example.dayte.post.domin.Post;
 import com.example.dayte.reply.domain.ContentReply;
 import com.example.dayte.reply.dto.ContentReplyDTO;
 import com.example.dayte.reply.dto.ResponseDTO;
 import com.example.dayte.reply.dto.UpdateContentReplyDTO;
 import com.example.dayte.reply.service.ContentReplyService;
+import com.example.dayte.schedule.domain.Schedule;
+import com.example.dayte.schedule.service.PastScheduleService;
 import com.example.dayte.security.dto.UserSecurityDTO;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -18,22 +23,27 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 public class ContentReplyController {
 
     private final ContentReplyService contentReplyService;
 
+    private final AdminContentsService adminContentsService;
+
+
     private final ModelMapper modelMapper;
 
 
 
-    @GetMapping("/contentReply")
-    public String index(Model model) {
-        model.addAttribute("contentReplyList", contentReplyService.contentReplyList());
-        return "reply/contentReply";
-        // replyService.replyList()를 사용하여 댓글 목록을 가져와서 모델에 추가한 후 "ContentReply" view 를 띄움
-    }
+//    @GetMapping("/contentReply")
+//    public String index(Model model) {
+//        model.addAttribute("contentReplyList", contentReplyService.contentReplyList());
+//        return "reply/contentReply";
+//        // replyService.replyList()를 사용하여 댓글 목록을 가져와서 모델에 추가한 후 "ContentReply" view 를 띄움
+//    }
 
 
 
@@ -63,6 +73,8 @@ public class ContentReplyController {
             model.addAttribute("uuid", uuid);
             System.out.println("^^^^^^^^^");
             System.out.println(uuid);
+        AdminContents contents = adminContentsService.getShowContentsDetail(uuid);
+        model.addAttribute("showContentsDetail", contents);
 
         return "reply/contentReply";
 

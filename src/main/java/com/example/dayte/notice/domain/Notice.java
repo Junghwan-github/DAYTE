@@ -23,7 +23,6 @@ public class Notice {
     @Column(nullable = false, length = 100)
     private String title;
 
-    @Lob // db에 varchar를 넘어서 더 큰 값을 넣기 위한 작업
     @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
 

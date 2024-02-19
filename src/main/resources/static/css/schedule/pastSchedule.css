@@ -32,8 +32,9 @@ main {
     color: #aaa;
 }
 
-#past-schedule-side-nav > ul > li:first-child {
+#past-schedule-side-nav > ul > li:nth-child(2) {
     border-bottom: 1px solid #ddd;
+    border-top: 1px solid #ddd;
 }
 
 #past-schedule-side-nav > ul > li > a {

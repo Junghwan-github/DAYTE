@@ -61,7 +61,7 @@
                             <input type="text" name="truetdNo" value="${notice.no}">
                         </td>
                         <td class="truetdTitle">
-                            <a href="/notice/${notice.no}">${notice.title}</a>
+                            <a href="/viewNotice/${notice.no}">${notice.title}</a>
                         </td>
                         <td class="truetdDate">
                             <fmt:formatDate value="${notice.createDate}" pattern="yy-MM-dd"/>
@@ -113,7 +113,7 @@
                 <c:forEach var="notice" items="${defaultNotices.content}">
                     <tr>
                         <td class="tdNum">${notice.no}</td>
-                        <td class="truetdTitle"><a href="/notice/${notice.no}">${notice.title}</a></td>
+                        <td class="truetdTitle"><a href="/viewNotice/${notice.no}">${notice.title}</a></td>
                         <td class="tdDate"><fmt:formatDate value="${notice.createDate}" pattern="yy-MM-dd"/></td>
                         <td>
                             <input type="checkbox"
@@ -132,6 +132,7 @@
 
 
             <div class="pagination">
+                <c:if test="${msg == 'default'}">
                 <ul>
                     <c:if test="${!defaultNotices.first}">
                         <li>
@@ -171,7 +172,50 @@
                         </li>
                     </c:if>
                 </ul>
+                </c:if>
+                <c:if test="${msg == 'searched'}">
+                    <ul>
+                        <c:if test="${!defaultNotices.first}">
+                            <li>
+                                <a class="pageDoubleMoveBtn" href="?page=0&amp;searchOption=${param.searchOption}&amp;searchWord=${param.searchWord}">
+                                    <img src="/images/doublePrevious.png"/>
+                                    처음으로
+                                </a>
+                            </li>
+                            <li>
+                                <a class="pageMoveBtn" href="?page=${defaultNotices.number - 1}&amp;searchOption=${param.searchOption}&amp;searchWord=${param.searchWord}">
+                                    <img src="/images/previous.png"/>
+                                    이전
+                                </a>
+                            </li>
+                        </c:if>
 
+                        <c:if test="${endPage >= 0}">
+                            <c:forEach var="i" begin="${startPage}" end="${endPage}">
+                                <li class="paginationNum">
+                                    <a class="<c:if test="${defaultNotices.number == i}">active</c:if>"
+                                       href="?page=${i}&amp;searchOption=${param.searchOption}&amp;searchWord=${param.searchWord}">${i + 1}</a>
+                                </li>
+                            </c:forEach>
+                        </c:if>
+
+                        <c:if test="${!defaultNotices.last}">
+                            <li>
+                                <a class="pageMoveBtn" href="?page=${defaultNotices.number + 1}&amp;searchOption=${param.searchOption}&amp;searchWord=${param.searchWord}">
+                                    <img src="/images/next.png"/>
+                                    다음
+                                </a>
+                            </li>
+                            <li>
+                                <a class="pageDoubleMoveBtn" href="?page=${defaultNotices.totalPages-1}&amp;searchOption=${param.searchOption}&amp;searchWord=${param.searchWord}">
+                                    <img src="/images/doubleNext.png"/>
+                                    마지막으로
+                                </a>
+                            </li>
+                        </c:if>
+                    </ul>
+
+                </c:if>
             </div>
 
 

@@ -23,6 +23,9 @@
                 <li>
                     <a href="/myReview">내가 등록한 글<i class="xi-angle-right-min"></i></a>
                 </li>
+                <li>
+                    <a href="/myRating">내가 등록한 리뷰<i class="xi-angle-right-min"></i></a>
+                </li>
             </ul>
         </nav>
         <div id="past-schedulePrint-container">
@@ -58,7 +61,7 @@
                                     </ul>
                                 </div>
                                 <div class="open-list-button">
-                                    <button class="btn-open-modal">자세히</button>
+                                    <button class="btn-open-modal scheduleCard${loop.index+1}">자세히</button>
                                 </div>
                             </div>
                         </div>
@@ -89,7 +92,7 @@
                     <div class="right-modal-wrapper">
                         <div id="tabPage">
                             <c:forEach var="scheduleDates" items="${scheduleModal.scheduleDates}" varStatus="loop">
-                                <div class="tab${loop.index + 1}">
+                                <div class="tab${loop.index + 1} display-hide">
                                     <ul>
                                         <c:forEach var="detailedSchedule" items="${scheduleDates.detailedScheduleList}">
                                             <li class="contents">
@@ -103,7 +106,7 @@
                                                     <li class="address">${detailedSchedule.adminContents.detailedAddress}</li>
 
                                                     <li class="write-review">
-                                                        <button type="button" value="${contentUuid}"
+                                                        <button type="button" value="${detailedSchedule.adminContents.uuid}"
                                                                 onclick="goToReview(this.value)">리뷰 쓰기
                                                         </button>
                                                     </li>

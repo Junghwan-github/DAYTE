@@ -13,61 +13,37 @@ $(document).ready(function () {
 });
 
 // 검색바 슬라이더
+
 $(document).ready(function () {
-    $(".previewImage > ul").bxSlider({
-        mode: "horizontal",
-        speed: 500,
-        slideWidth: 660,
-        auto: true,
-        slideMargin: 0,
-        autoHover: true,
-    });
-});
+    $("input[name='indexSearch']").on("click",function (e) {
+        $(".searchContents").addClass("selected");
 
-// 상세 검색 히든
-let toggleSelected = document.querySelector(".searchContents");
-let bottonSearch = document.querySelector("input[name='indexSearch']");
-let cityList = document.querySelector(".cityList");
+        $(".previewImage > ul").bxSlider({
+            mode: "horizontal",
+            speed: 500,
+            slideWidth: 700,
+            auto: true,
+            slideMargin: 0,
+            autoHover: true,
+            touchEnabled: navigator.maxTouchPoints > 0,
+        });
 
-bottonSearch.addEventListener("click", function (e) {
-    toggleSelected.classList.add("selected");
-    e.stopPropagation();
-});
+        e.stopPropagation();
+    })
 
-document.addEventListener("click", () => {
-    toggleSelected.classList.remove("selected");
-});
-
-let selectText = cityList.querySelectorAll("ul > li");
-selectText.forEach(function (t) {
-    t.addEventListener("click", () => {
-        bottonSearch.value = t.innerText;
-    });
-});
-
-selectText.forEach(function (t) {
-    t.addEventListener("mouseenter", () => {
-        if (t.innerText === "중구") {
-            gugoon = "c-jg";
-        } else if (t.innerText === "수성구") {
-            gugoon = "c-ssg";
-        } else if (t.innerText === "북구") {
-            gugoon = "c-bg";
-        } else if (t.innerText === "서구") {
-            gugoon = "c-sg";
-        } else if (t.innerText === "동구") {
-            gugoon = "c-dg";
-        } else if (t.innerText === "달서구") {
-            gugoon = "c-dsg";
-        } else if (t.innerText === "달성군") {
-            gugoon = "c-dsgn";
-        } else if (t.innerText === "군의군") {
-            gugoon = "c-geg";
+    $(document).on("click",function (e) {
+        if(!$(e.target).closest(".searchContents").length) {
+            $(".searchContents").removeClass("selected");
         }
+    })
 
-        document.querySelector(".previewImage > div > div > ul").className = gugoon;
-    });
-});
+    $(".cityList > ul > li").on("click", function () {
+        console.log($(this).text());
+        $("input[name='indexSearch']").val($(this).text());
+    })
+})
+
+
 
 // 날씨 api
 
@@ -744,6 +720,7 @@ fetch(apiShort)
                                     );
                                     break;
                                 case "비눈":
+                                case "흐리고 비/눈":
                                     console.log(i + 2 + "번 째날 오전 비눈");
                                     $(`.${daysListId} .am .daysListIcon`).css(
                                         "background-image",
@@ -794,6 +771,7 @@ fetch(apiShort)
                                     );
                                     break;
                                 case "비눈":
+                                case "흐리고 비/눈":
                                     console.log(i + 2 + "번 째날 오후 비눈");
                                     $(`.${daysListId} .pm .daysListIcon`).css(
                                         "background-image",

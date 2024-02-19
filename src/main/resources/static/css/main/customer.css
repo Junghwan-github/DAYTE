@@ -171,7 +171,7 @@ position: absolute;
 .customer-n-inquiry > form > ul > li {
     margin-bottom: 25px;
 }
-.customer-n-inquiry > form > ul > li > label {
+.customer-n-inquiry > form > ul > li label {
     display: block;
     font-size: 1.7rem;
     font-weight: 500;
@@ -210,3 +210,60 @@ position: absolute;
     font-weight: 500;
     float: right;
 }
+
+#mainSelectBox,
+#subSelectBox{
+    display: inline-block;
+    position: relative;
+    width: 200px;
+    height: 35px;
+    border-radius: 2px;
+    border: 2px solid #ddd;
+    margin-right: 10px;
+}
+
+#customer-n-inquiry select{
+    display: inline-block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    z-index: 3;
+    border: none;
+    padding-left: 10px;
+    /*outline: 0 none;*/
+}
+
+#mainSelectBox #mainCategory option,
+#subSelectBox #subCategory option{
+    background: #EEEEEE;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+
+
+#mainSelectBox .icoArrow,
+#subSelectBox .icoArrow {
+    position: absolute;
+    top: 35%;
+    right: 5px;
+    z-index: 1;
+}
+
+#mainSelectBox .icoArrow img,
+#subSelectBox .icoArrow img{
+    width: 50%;
+    transition: .1s;
+}
+
+#mainSelectBox .openState img,
+#subSelectBox .openState img{
+    transform: rotate(180deg);
+}
+
+
