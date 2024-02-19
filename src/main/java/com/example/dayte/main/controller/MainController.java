@@ -15,6 +15,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -49,6 +51,13 @@ public class MainController {
         model.addAttribute("sliderList", sliderList)
                 .addAttribute("contentList", adminContents);
         return "index";
+    }
+
+    @GetMapping("/event/{eventName}")
+    public String getEventName(Model model, @PathVariable String eventName) {
+        List<IndexMainSlider> sliderList = indexMainSliderService.eventPageList(eventName);
+        model.addAttribute("sliderList", sliderList);
+        return "event/page";
     }
 
     @GetMapping("/members/login")

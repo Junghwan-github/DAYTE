@@ -21,7 +21,7 @@
             <li class="items">
                 <!-- db단으로 들어올 내용 -->
                 <div class="indexMainSliderImages">
-                    <img src="http://localhost:9010${indexSliderItem.images}">
+                    <img src="${indexSliderItem.images}">
                 </div>
                 <span class="sticker">${indexSliderItem.category}</span>
                 <h2 class="i-1">${indexSliderItem.mainTitle}<span class="i-1">${indexSliderItem.subTitle}</span></h2>
@@ -30,7 +30,7 @@
                     <li>${indexSliderItem.address}</li>
                 </ul>
                 <p class="i-1">${indexSliderItem.summary}</p>
-                <a class="i-1" target="_blank" href="${indexSliderItem.href}">자세히 보기</a>
+                <a class="i-1" target="_blank" href="/event/${indexSliderItem.href}">자세히 보기</a>
             </li>
 </c:forEach>
         </ul>
