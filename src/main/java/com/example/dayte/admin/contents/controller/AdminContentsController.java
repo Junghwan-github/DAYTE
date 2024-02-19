@@ -3,6 +3,7 @@ package com.example.dayte.admin.contents.controller;
 import com.example.dayte.admin.contents.domain.AdminContents;
 import com.example.dayte.admin.contents.dto.AdminContentsDTO;
 import com.example.dayte.admin.contents.dto.AdminContentsImageDTO;
+import com.example.dayte.admin.contents.dto.PageableDTO;
 import com.example.dayte.admin.contents.service.AdminContentsService;
 import com.example.dayte.admin.mianslider.dto.VisitorStatisticsDTO;
 import com.example.dayte.admin.mianslider.listener.MySessionListener;
@@ -18,7 +19,6 @@ import com.example.dayte.security.dto.UserSecurityDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -26,7 +26,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -45,20 +44,15 @@ public class AdminContentsController {
 
     private final AdminContentsService adminContentsService;
 
-    @Autowired
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
-    @Autowired
     private final PostService postService;
 
-    @Autowired
-    private VisitorStatisticsService visitorStatisticsService;
+    private final VisitorStatisticsService visitorStatisticsService;
 
-    @Autowired
-    private MySessionListener mySessionListener;
+    private final MySessionListener mySessionListener;
 
     // 관리자페이지 메인
     @PreAuthorize("hasRole('ADMIN')")
@@ -230,7 +224,7 @@ public class AdminContentsController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping("/admin/home/settings/contents")
+    @GetMapping("/admin/home/settings/contents/add")
     public String IndexContentsSliderView() {
         return "adminPage/settings/scheduleContentsList";
     }
@@ -325,4 +319,43 @@ public class AdminContentsController {
         }
             return new ResponseDTO<>(HttpStatus.OK.value(), i + "건 삭제 하셨습니다.");
         }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/admin/home/settings/contents")
+    public String removeContents(Model model,
+                                 @PageableDefault(size = 10, sort = "businessName", direction = Sort.Direction.ASC)
+                                 Pageable pageable,
+                                 @RequestParam(required = false, defaultValue = "") String field,
+                                 @RequestParam(required = false, defaultValue = "") String word) {
+
+        Page<AdminContents> contentsPage =
+                adminContentsService.getPageableContentsList(field, word, pageable);
+
+        int contentsNowPage = contentsPage.getNumber();
+
+        int contentsStartPage = (contentsNowPage / 10) * 10 + 1;
+
+        int contentsEndPage = contentsStartPage + 10 - 1;
+        int totalPages = contentsPage.getTotalPages();
+
+        contentsEndPage = totalPages < contentsEndPage ? totalPages : contentsEndPage;
+
+        PageableDTO pageableDTO = new PageableDTO();
+        pageableDTO.setContentsStartPage(contentsStartPage);
+        pageableDTO.setContentsEndPage(contentsEndPage);
+        pageableDTO.setPostNowPage(contentsNowPage);
+        pageableDTO.setField(field);
+        pageableDTO.setWord(word);
+
+        model
+                .addAttribute("arrangedList",
+                        adminContentsService.getArrangedList())
+                .addAttribute("contentsList", contentsPage)
+                .addAttribute("contentsDTO", pageableDTO)
+        ;
+
+
+        return "adminPage/settings/mainAdminContents";
+        }
+
     }
