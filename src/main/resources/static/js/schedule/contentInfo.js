@@ -1,4 +1,3 @@
-
 $(document).ready(function () {
 
 
@@ -68,7 +67,7 @@ $(".tab").click(function (e) {
     $(".tab").not(this).removeClass("atv");
 })
 
-$(document).ready(function() {
+$(document).ready(function () {
     let navLinks = $('#content-sub-nav a');
     let contentSubNav = $('#content-sub-nav');
 
@@ -76,7 +75,7 @@ $(document).ready(function() {
     let prevScrollPos = 0;
 
     // 스크롤 이벤트 감지
-    $(window).scroll(function() {
+    $(window).scroll(function () {
         let scrollPos = $(document).scrollTop();
 
         // content-sub-nav의 top 속성을 조절
@@ -100,7 +99,7 @@ $(document).ready(function() {
         prevScrollPos = scrollPos;
 
         // 각 섹션의 위치를 순회하면서 현재 보이는 섹션을 감지
-        $('section').each(function() {
+        $('section').each(function () {
             let top = $(this).offset().top - 135;
             let bottom = top + $(this).outerHeight();
 
@@ -113,24 +112,27 @@ $(document).ready(function() {
     });
 });
 $(document).ready(function () {
-    let star = $(".star-point");
-    switch (star.text()) {
-        case "1":
-           star.text("★");
-           break;
-        case "2":
-            star.text("★★");
-            break;
-        case "3":
-            star.text("★★★");
-            break;
-        case "4":
-            star.text("★★★★");
-            break;
-        case "5":
-            star.text("★★★★★");
-            break;
-    }
+
+    $(".star-point").each(function () {
+        let star = parseInt($(this).text());
+        switch (star) {
+            case 1:
+                $(this).text("★");
+                break;
+            case 2:
+                $(this).text("★★");
+                break;
+            case 3:
+                $(this).text("★★★");
+                break;
+            case 4:
+                $(this).text("★★★★");
+                break;
+            case 5:
+                $(this).text("★★★★★");
+                break;
+        }
+    })
 
     $("#mainContentsImages").on("click", function () {
         $(".images-detail-modal").show();
@@ -148,7 +150,7 @@ $(document).ready(function () {
 
     })
 
-    $(".images-detail-wrapper > h3 > i").on("click",function () {
+    $(".images-detail-wrapper > h3 > i").on("click", function () {
         $("body").css("overflow", "");
         $(".images-detail-modal").hide();
     })
