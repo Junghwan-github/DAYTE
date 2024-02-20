@@ -39,13 +39,14 @@ public class ContentController {
     }
 
     // 위의 목록 가져온것에서 검색하는것
-    @PostMapping("contents/category/searchContentsCategory")
+    @PostMapping("/contents/category/searchContentsCategory")
     public @ResponseBody Map<String, Object> searchContentsList (@RequestBody Map<String, String> categoryAndSearch) {
         Map<String, Object> result = new HashMap<>();
         List<AdminContents> searchByContents = adminContentsService.findAllBySearch(categoryAndSearch.get("category"),categoryAndSearch.get("search"));
         List<AvgStarViewDTO> avgStarViewDTOList = contentReplyService.avgStarList();
         result.put("searchByContents", searchByContents);
         result.put("avgStarViewDTOList", avgStarViewDTOList);
+        System.out.println(result+"가나다");
         return result;
     }
 

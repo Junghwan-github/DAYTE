@@ -17,7 +17,7 @@
 
 
 <main id="main-max-top"> <%-- main --%>
-    <h1 id="contents-list-category-name">${contentsListCategory[0].category} 250개 </h1>
+    <h1 id="contents-list-category-name">${contentsListCategory[0].category} ${contentsListCategory.size()}개</h1>
     <div id ="contents-category-list-container">
         <div class="bottomModalWraper">
             <div class="leftModalLayout">

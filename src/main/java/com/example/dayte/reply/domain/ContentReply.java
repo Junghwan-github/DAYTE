@@ -28,7 +28,7 @@ public class ContentReply {
     private Long num; // 댓글 번호
 
     @JoinColumn(name = "userEmail")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private User user; // 사용자 이름
 
     @JsonIgnore

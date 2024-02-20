@@ -36,7 +36,8 @@ function searchContentsCategory(search) {
             console.log(data);
             displaySearchResults1(data);
         },
-        error      : function (error) {
+        error      : function (data) {
+            console.log(data);
             console.error('검색 실패:', error);
         }
     });
