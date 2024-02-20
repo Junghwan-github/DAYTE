@@ -36,9 +36,6 @@
             <a href="/notice/modAll">
                 <input type="button" id="modAll" value="전체수정">
             </a>
-            <a href="/auth/logout">
-                <button>로그아웃</button>
-            </a>
         </div>
     </sec:authorize>
     </div>
