@@ -22,7 +22,7 @@
         <form id="myForm">
             <div id="myModal" class="modal">
                 <div class="modal-content">
-                    <input hidden="hidden" />
+                    <input hidden="hidden"/>
                     <input type="text" id="scheduleSubjectTitle" placeholder="일정 제목을 입력해주세요" maxlength="19"/>
                     <div class="modalCalContainer">
                         <div class="calendar-box">
@@ -98,10 +98,12 @@
                         <div class="daysPrint">
                             <ul class="daysPrintList">
                                 <c:set var="day" value="0"/>
-                                <c:forEach begin="${startDate}" end="${endDate}" >
+                                <c:forEach begin="${startDate}" end="${endDate}">
                                     <c:set var="nextDays" value="${day + 1 }"/>
                                     <li>
-                                        <button class="nextDayBtn" <c:if test="${!empty scheduleList.scheduleDates[day].detailedScheduleList}">disabled</c:if> value="${scheduleList.uuid}"
+                                        <button class="nextDayBtn"
+                                                <c:if test="${!empty scheduleList.scheduleDates[day].detailedScheduleList}">disabled</c:if>
+                                                value="${scheduleList.uuid}"
                                                 data-now-days="${scheduleList.scheduleDates[day].scheduleDateId.nowDate}">${nextDays}일차
                                         </button>
                                     </li>
@@ -168,25 +170,16 @@
                     <div>
                         <h2>키워드</h2>
                         <ul id="keywordList">
-                            <li>#숙소</li>
-                            <li>#맛집</li>
-                            <li>#카페</li>
-                            <li>#공연</li>
-                            <li>#전시</li>
-                            <li>#행사</li>
-                            <li>#이벤트</li>
-                            <li>#관광</li>
-                            <li>#명소</li>
-                            <li>#가족</li>
-                            <li>#연인</li>
-                            <li>#봄</li>
-                            <li>#여름</li>
-                            <li>#가을</li>
-                            <li>#겨울</li>
+                            <c:forEach var="contentKeyword" items="${contentsListKeyword}">
+                                <c:if test="${!empty contentKeyword}">
+                                    <li>${contentKeyword}</li>
+                                </c:if>
+                            </c:forEach>
                         </ul>
                     </div>
                 </div>
                 <div class="centerModalLayout">
+                    <div id="main-max-top"></div>
                     <ul class="contentListViewer">
                         <c:forEach var="content" items="${contentsList}">
                             <li>
@@ -200,8 +193,10 @@
                                         <li>
                                             <div class="contents-title-wrapper">
                                                 <h2>${content.businessName}</h2>
-                                                <span>${content.category}</span>
-                                                <span>${content.keyword}</span>
+                                                <div class="contents-category-keyword">
+                                                    <span>${content.category}</span>
+                                                    <span class="span-keyword">${content.keyword}</span>
+                                                </div>
                                             </div>
                                         </li>
                                         <li>
@@ -213,11 +208,11 @@
                                             <p>문의 : ${content.contactInfo}</p>
                                         </li>
                                         <li>
-                                            <c:set var="hasMatch" value="false" />
+                                            <c:set var="hasMatch" value="false"/>
                                             <c:forEach var="star" items="${starList}">
                                                 <c:if test="${star.uuid eq contents.uuid}">
                                                     <span class="star">★${star.starAVG}</span>
-                                                    <c:set var="hasMatch" value="true" />
+                                                    <c:set var="hasMatch" value="true"/>
                                                 </c:if>
                                             </c:forEach>
                                             <c:if test="${not hasMatch}">
@@ -242,6 +237,7 @@
                             </li>
                         </c:forEach>
                     </ul>
+                    <a href="#main-max-top" id="max-top-bottom"><i class="xi-arrow-up"></i></a>
                 </div>
                 <div class="rightModalLayout" id="rightModalLayout">
                     <button class="scheduleTotalSaveBtn" onclick="scheduleTotalSaveBtn()">저장</button>

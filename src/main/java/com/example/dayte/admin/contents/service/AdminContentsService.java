@@ -258,4 +258,9 @@ public class AdminContentsService {
         return adminContentsRepository.findDistKeyword(categoryNames);
     }
 
+    @Transactional(readOnly = true)
+    public List<String> getContentsAllKeywordList () {
+        return adminContentsRepository.findAllByKeyword();
+    }
+
 }

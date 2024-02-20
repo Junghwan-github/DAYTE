@@ -9,7 +9,7 @@
         <p class="h2 ps-2 titleName border-bottom pb-2">대시 보드</p>
         <div class="row mt-3 p-0" style="height: 45%;">
             <div class="w-100 col bg-body mx-3 mb-2 p-0 border rounded border-2 border-light-subtle shadow-light">
-                <a href="/admin/view" class="d-block text-decoration-none w-100 border-bottom px-4 py-3 h3 bg-success-subtle" >
+                <a href="/admin/totalVisitor" class="d-block text-decoration-none w-100 border-bottom px-4 py-3 h3 bg-success-subtle" >
                     주간 방문자 현황
                 </a>
                 <div class="d-flex justify-content-center">
@@ -17,7 +17,7 @@
                         <canvas id="myChart"></canvas>
                     </div>
                     <select class="select" hidden>
-                        <option value="1" selected>1주일</option>
+                        <option value="5" selected>1주일</option>
                     </select>
                 </div>
 

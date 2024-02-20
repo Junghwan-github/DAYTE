@@ -111,15 +111,15 @@ function displaySearchResults1(data) {
 
     $(document).ready(function() {
         let sidebar = $(".leftModalLayout");
-        let sticky = sidebar.offset().top;
-        console.log($(window).scrollTop());
-        console.log(sticky);
+        let contentBox = $(".centerModalLayout");
 
         $(window).scroll(function() {
-            if ($(window).scrollTop() >= sticky) {
+            if ($(window).scrollTop() >= sidebar.height()) {
                 sidebar.addClass("fixed");
+                contentBox.addClass("relative");
             } else {
                 sidebar.removeClass("fixed");
+                contentBox.removeClass("relative");
             }
         });
     });

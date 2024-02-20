@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -43,7 +44,8 @@ public class ScheduleController {
                         scheduleService.selectScheduleByUser(userSecurityDTO))
                 .addAttribute("contentsList", adminContentsService.getContentsList())
                 .addAttribute("dDay", LocalDate.now().toEpochDay())
-                .addAttribute("starList", contentReplyService.avgStarList());
+                .addAttribute("starList", contentReplyService.avgStarList())
+                .addAttribute("contentsListKeyword", adminContentsService.getContentsAllKeywordList());
         return "scheduleList/scheduleList";
     }
 

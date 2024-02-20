@@ -219,8 +219,14 @@ public class AdminContentsController {
                 date = date.minusMonths(11);
                 flag = false;
             }
+            case "5" -> {
+                date = date.minusWeeks(1);
+                flag = true;
+            }
         }
-        return visitorStatisticsService.getVisitorsCountList(date, flag);
+        List<VisitorStatisticsDTO> VisitorStatisticsDTO = visitorStatisticsService.getVisitorsCountList(date, flag);
+        VisitorStatisticsDTO.get(0).setNum(value.get("num"));
+        return VisitorStatisticsDTO;
     }
 
     @PreAuthorize("hasRole('ADMIN')")

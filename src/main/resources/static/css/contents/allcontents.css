@@ -22,6 +22,7 @@ main {
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
+    align-self: flex-start;
 }
 
 
@@ -270,4 +271,13 @@ main {
     font-size: 3rem;
     color: #fff;
     font-weight: 500;
+}
+
+.leftModalLayout.fixed {
+    position: fixed;
+    top: 65px;
+}
+
+.centerModalLayout.relative {
+    margin-left: 310px;
 }

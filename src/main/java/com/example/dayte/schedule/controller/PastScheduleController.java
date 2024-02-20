@@ -27,7 +27,7 @@ public class PastScheduleController {
     private final ScheduleService scheduleService;
     private final PastScheduleService pastScheduleService;
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("/schedule/pastSchedule")
     public String pastSchedule(Model model, @AuthenticationPrincipal UserSecurityDTO userSecurityDTO) {
         System.out.println("^^^^^^^^^^^^^^^^^^^");
