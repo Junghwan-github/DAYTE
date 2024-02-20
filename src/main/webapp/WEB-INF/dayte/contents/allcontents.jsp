@@ -43,21 +43,9 @@
                 <div>
                     <h2>키워드</h2>
                     <ul id="keywordList">
-                        <li>#숙소</li>
-                        <li>#맛집</li>
-                        <li>#카페</li>
-                        <li>#공연</li>
-                        <li>#전시</li>
-                        <li>#행사</li>
-                        <li>#이벤트</li>
-                        <li>#관광</li>
-                        <li>#명소</li>
-                        <li>#가족</li>
-                        <li>#연인</li>
-                        <li>#봄</li>
-                        <li>#여름</li>
-                        <li>#가을</li>
-                        <li>#겨울</li>
+                        <c:forEach var="content" items="${contentsListKeyword}">
+                        <li>${content}</li>
+                        </c:forEach>
                     </ul>
                 </div>
             </div>

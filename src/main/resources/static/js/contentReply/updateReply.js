@@ -4,14 +4,14 @@ function updateReply() {
 
     let newReply = document.getElementById('reply-content').value;
 
-    let newRating = document.querySelector('input[type="radio"]:checked').value;
+    let newRating = document.querySelector('input[type="radio"]:checked');
 
     if(newRating == null){
 
         alert("별점을 입력해주세요.");
         return;
 
-    } else if(newReply == null){
+    } else if(!!!newReply){
 
         alert("댓글을 입력해주세요.")
         return;
@@ -21,7 +21,7 @@ function updateReply() {
         let data = {
             uuid : uuid,
             newReply : newReply,
-            newRating : newRating
+            newRating : newRating.value
         }
 
        fetch("/modReview", {
