@@ -53,7 +53,7 @@ public class NoticeController {
                                 @RequestParam(required = false, defaultValue = "") String searchOption,
                                 @RequestParam(required = false, defaultValue = "") String searchWord) {
 
-        Page<Notice> noticeList = noticeService.noticeList(pageable);
+        Page<Notice> noticeList = noticeService.getNoticeList(pageable);
         String msg = "default";
 
         if(searchOption.equals("all")){
@@ -255,7 +255,7 @@ public class NoticeController {
                                                      @RequestPart("title") String title,
                                                      @RequestPart("content") String content,
                                                      @RequestParam("savedFile") Optional<List<String>> savedFile,
-                                                     @RequestPart("files")List<MultipartFile> files) {
+                                                     @RequestPart("inputFiles")List<MultipartFile> files) {
 
 /*log.info("^^^^^^^^^^^^매개변수 값^^^^^^^^^^^");
 

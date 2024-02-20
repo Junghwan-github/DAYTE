@@ -21,7 +21,6 @@ public class VisitorStatisticsService {
     private VisitorStatisticsRepository visitorStatisticsRepository;
 
     public List<VisitorStatisticsDTO> getVisitorsCountList(LocalDate date, boolean flag) {
-
         if(!flag){
             List<Object[]> visitorStatisticsList = visitorStatisticsRepository.good(date);
             List<VisitorStatisticsDTO> dtos = new ArrayList<>();

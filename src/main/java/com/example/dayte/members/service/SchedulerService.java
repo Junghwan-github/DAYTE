@@ -57,7 +57,7 @@ public class SchedulerService {
             deleteDormancyUser(deleteDormancyUserList);
 
         // 계정 삭제 이후 6개월 지나면 DeleteUser, User 테이블에서 삭제
-        List<DeleteUser> deleteUserList = deleteUserRepository.findAllByDeleteDateLessThanEqual(this.now.minusMonths(6));
+        List<DeleteUser> deleteUserList = deleteUserRepository.findAllByDeleteDateLessThanEqual(this.now.minusDays(7L));
         if (deleteUserList.isEmpty())
             deleteUser(deleteUserList);
     }

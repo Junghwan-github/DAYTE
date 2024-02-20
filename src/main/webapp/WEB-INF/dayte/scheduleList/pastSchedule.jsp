@@ -71,6 +71,7 @@
         </div>
     </div>
 </main>
+
 <div class="daysPrint">
     <div class="modal">
         <c:forEach var="scheduleModal" items="${pastScheduleList}" varStatus="loop">
@@ -123,6 +124,7 @@
         </c:forEach>
     </div>
 </div>
+
 
 <script src="/js/schedule/pastSchedule.js"></script>
 <script src="/js/schedule/pastScheduleModal.js"></script>
