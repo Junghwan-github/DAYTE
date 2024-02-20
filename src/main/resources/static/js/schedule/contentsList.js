@@ -106,3 +106,9 @@ $('.contentListViewer').on('click', '.contentListItemAddBtn', function (e) {
         itemArr.splice($(this).val(), 1);
     });
 });
+
+$("#leftModalSearchBar").keyup(function(event) {
+    if (event.which === 13) {
+        $("#leftModalSearchBarBtn").click();
+    }
+});

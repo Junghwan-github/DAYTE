@@ -5,7 +5,7 @@
             <li><a target="_blank" href="#">가이드</a></li>
             <li><a target="_blank" href="#">서비스이용약관</a></li>
             <li><a target="_blank" href="#">개인정보처리방침</a></li>
-            <li><a target="_blank" href="#">고객센터</a></li>
+            <li><a target="_blank" href="/customerService">고객센터</a></li>
         </ul>
         <div class="familySite">
             <ul>

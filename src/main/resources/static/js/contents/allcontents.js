@@ -3,6 +3,12 @@
         window.open("/contents/detail/" + _this, "_blank");
     })
 
+    $("#leftModalSearchBar").keyup(function(event) {
+        if (event.which === 13) {
+            $("#leftModalSearchBarBtn").click();
+        }
+    });
+
 function searchContentsCategory(search) {
     // 현재 URL 가져오기
     let currentUrl = window.location.href;
@@ -32,8 +38,7 @@ function searchContentsCategory(search) {
             console.log(data);
             displaySearchResults1(data);
         },
-        error      : function (data) {
-            console.log(data);
+        error      : function (error) {
             console.error('검색 실패:', error);
         }
     });
