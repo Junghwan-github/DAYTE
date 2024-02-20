@@ -1,11 +1,7 @@
-$(document).ready(function () {
-
-    $(".contentListItemdetailViewBtn").on("click", function () {
+    $(".contentListViewer").on("click",".contentListItemdetailViewBtn", function () {
         let _this = $(this).val();
         window.open("/contents/detail/" + _this, "_blank");
     })
-
-})
 
 function searchContentsCategory(search) {
     // 현재 URL 가져오기
@@ -36,7 +32,8 @@ function searchContentsCategory(search) {
             console.log(data);
             displaySearchResults1(data);
         },
-        error      : function (error) {
+        error      : function (data) {
+            console.log(data);
             console.error('검색 실패:', error);
         }
     });

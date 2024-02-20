@@ -59,6 +59,10 @@ function displaySearchResults(data) {
                             <li>
                                 <button class="contentListItemdetailViewBtn" value="${content.uuid}">상세보기</button>
                             </li>
+                             <li>
+                                                <button class="contentListItemAddBtn" value="${content.uuid}">추가하기
+                                                </button>
+                                            </li>
                         </ul>
                     </div>
                 </div>`);
