@@ -15,32 +15,22 @@ let myChart = new Chart(ctx, {
         ],
     },
     options: {
-        plugins: {
-            tooltip: {
-                callbacks: {
-                    label: function (context) {
-                        let label = context.dataset.label || '';
-                        if (label) {
-                            label += ': ';
-                        }
-                        if (context.parsed.y !== null) {
-                            let weekDay = data[context.dataIndex].dayOfWeek;
-                            let logDate = data[context.dataIndex].date[0] + '-' + data[context.dataIndex].date[1] + '-' + data[context.dataIndex].date[2];
-                            label += weekDay + ' (' + logDate + ')';
-                        }
-                        return label;
+        legend: {
+           display: false
+                },
+                plugins  : {
+                    padding: 10,
+                },
+                scales   : {
+                    y: {
+                        beginAtZero: true
                     }
                 }
-            },
-            padding: 10,
-        },
-        scales : {
-            y: {
-                beginAtZero: true
-            }
-        }
+
+
     }
 })
+
 
 $(document).ready(function () {
     updateChart($(".select").val());
@@ -62,22 +52,21 @@ function updateChart(values) {
         success    : function (data) {
             myChart.data.labels = [];
             myChart.data.datasets[0].data = [];
-            console.log(data)
             // 서버에서 받은 데이터를 차트에 추가
+            console.log(data);
             for (let i = 0; i < data.length; i++) {
-                if (data[0].dayOfWeek == null) {
+                if (["3", "4"].includes(data[0].num)) {
                     let logDate = data[i].year + '-' + data[i].month;
                     myChart.data.labels.push(logDate);
                     myChart.data.datasets[0].data.push(data[i].averageVisitors);
                 } else {
-                    if (data.length < 10) {
-                        let weekDay = data[i].dayOfWeek;
-                        let logDate = data[i].date[0] + '-' + data[i].date[1] + '-' + data[i].date[2];
-                        myChart.data.labels.push(weekDay);
-                        myChart.data.datasets[0].data.push(data[i].visitors);
-                    } else {
+                    if (["1", "2"].includes(data[0].num)) {
                         let logDate = data[i].date[0] + '-' + data[i].date[1] + '-' + data[i].date[2];
                         myChart.data.labels.push(logDate);
+                        myChart.data.datasets[0].data.push(data[i].visitors);
+                    } else {
+                        let weekDay = data[i].dayOfWeek;
+                        myChart.data.labels.push(weekDay);
                         myChart.data.datasets[0].data.push(data[i].visitors);
                     }
                 }

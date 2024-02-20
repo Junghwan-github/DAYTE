@@ -18,21 +18,20 @@ public class VisitorStatisticsDTO {
 
     private int averageVisitors;
 
-    private long id;
-
     private LocalDate date;
 
     private int visitors;
 
     private String dayOfWeek;
 
+    private String num;
+
     public VisitorStatisticsDTO(int year, int month, int averageVisitors) {
         this.year = year;
         this.month = month;
         this.averageVisitors = averageVisitors;
     }
-    public VisitorStatisticsDTO(long id, LocalDate date, int visitors) {
-        this.id = id;
+    public VisitorStatisticsDTO(LocalDate date, int visitors) {
         this.date = date;
         this.visitors = visitors;
         this.dayOfWeek = date.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.KOREAN);

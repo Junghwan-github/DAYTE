@@ -17,7 +17,7 @@
                         <canvas id="myChart"></canvas>
                     </div>
                     <select class="select" hidden>
-                        <option value="1" selected>1주일</option>
+                        <option value="5" selected>1주일</option>
                     </select>
                 </div>
 
