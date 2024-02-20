@@ -244,4 +244,18 @@ public class AdminContentsService {
         return contentsPage;
     }
 
+    @Transactional(readOnly = true)
+    public List<String> getContentsKeywordList (String category) {
+        String categoryNames = "";
+
+        switch (category) {
+            case "hotels" -> categoryNames = "숙소";
+            case "restaurants" -> categoryNames = "맛집";
+            case "cafes" -> categoryNames = "카페";
+            case "events" -> categoryNames = "이벤트";
+        }
+
+        return adminContentsRepository.findDistKeyword(categoryNames);
+    }
+
 }

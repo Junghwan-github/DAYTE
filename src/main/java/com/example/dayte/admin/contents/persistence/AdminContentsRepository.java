@@ -57,4 +57,7 @@ public interface AdminContentsRepository extends JpaRepository<AdminContents, St
     @Query("SELECT c FROM AdminContents c WHERE c.category = '1d53a954b6cf'")
     Page<AdminContents> getDeleteContentsList(Pageable pageable);
 
+    @Query("SELECT DISTINCT c.keyword FROM AdminContents c WHERE c.category =:category")
+    List<String> findDistKeyword(String category);
+
 }

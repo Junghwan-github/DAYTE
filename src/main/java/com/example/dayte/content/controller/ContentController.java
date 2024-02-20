@@ -34,7 +34,9 @@ public class ContentController {
     @GetMapping("/contents/category/{category}")
     public String showContentsList (@PathVariable String category, Model model ) {
         List<AdminContents> contentsCategoryList = adminContentsService.getContentsCategoryList(category);
-        model.addAttribute("contentsListCategory", contentsCategoryList);
+        List<String> contentsKeywordList = adminContentsService.getContentsKeywordList(category);
+        model.addAttribute("contentsListCategory", contentsCategoryList)
+                .addAttribute("contentsListKeyword", contentsKeywordList);
         return "contents/allcontents";
     }
 
