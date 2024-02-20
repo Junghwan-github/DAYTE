@@ -7,23 +7,25 @@ import com.example.dayte.admin.contents.dto.AdminContentsImageDTO;
 import com.example.dayte.admin.contents.persistence.AdminContentsImageRepository;
 import com.example.dayte.admin.contents.persistence.AdminContentsRepository;
 import com.example.dayte.post.domin.Post;
+import com.example.dayte.schedule.domain.DetailedSchedule;
+import com.example.dayte.schedule.persistence.DetailedScheduleRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriUtils;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -32,6 +34,7 @@ public class AdminContentsService {
     private final AdminContentsRepository adminContentsRepository;
     private final AdminContentsImageRepository adminContentsImageRepository;
     private final ModelMapper modelMapper;
+    private final DetailedScheduleRepository detailedScheduleRepository;
 
     private String uuid;
 
@@ -94,9 +97,52 @@ public class AdminContentsService {
         }
     }
 
+    // 2024.02.19 --------------------------------------------------------------------------------------------
     public void removeContent(String uuid) {
-        adminContentsRepository.delete(adminContentsRepository.findById(uuid).get());
+
+        List<DetailedSchedule> detailedSchedules =
+                detailedScheduleRepository.findAllByAdminContents(adminContentsRepository.findById(uuid).get());
+
+        detailedScheduleRepository.deleteAll(detailedSchedules);
+        adminContentsRepository.deleteById(uuid);
+
+        if (!detailedSchedules.isEmpty()) {
+            System.out.println("!detailedSchedules.isEmpty() : " + !detailedSchedules.isEmpty());
+            AdminContents adminContents = AdminContents.builder()
+                    .uuid(uuid)
+                    .businessName("관리자에 의해 삭제된 컨텐츠입니다.")
+                    .category("1d53a954b6cf")
+                    .gu(null)
+                    .positionX(BigDecimal.valueOf(99.999999))
+                    .positionY(BigDecimal.valueOf(99.999999))
+                    .detailedAddress(null)
+                    .contactInfo(null)
+                    .opening(null)
+                    .closed(null)
+                    .keyword(null)
+                    .detailedDescription(null)
+                    .adminContentsImageList(null)
+                    .facilities(null)
+                    .contentReplyList(null)
+                    .build();
+            adminContentsRepository.save(adminContents);
+
+            List<DetailedSchedule> newDetailedSchedules= new ArrayList<>();
+            for (DetailedSchedule schedule: detailedSchedules) {
+                DetailedSchedule detailedSchedule = DetailedSchedule.builder()
+                        .id(schedule.getId())
+                        .scheduleDate(schedule.getScheduleDate())
+                        .adminContents(adminContents)
+                        .build();
+                newDetailedSchedules.add(detailedSchedule);
+            }
+            detailedScheduleRepository.saveAll(newDetailedSchedules);
+        }
+
     }
+
+    // --------------------------------------------------------------------------------------------------
+
 
     @Transactional
     public AdminContents getShowContentsDetail (String id) {
@@ -159,6 +205,43 @@ public class AdminContentsService {
         }
 
         return adminContentsRepository.findAllByCategory(categoryNames);
+    }
+
+    // 2024.02.19 ---------------------------------------------------------------------------------
+
+    @Transactional(readOnly = true)
+    public Map<String, Integer> getArrangedList() {
+        Map<String, Integer> arrangedList = new HashMap<>();
+        arrangedList.put("all", adminContentsRepository.findAll().size());
+        arrangedList.put("restaurant", adminContentsRepository.findAllByCategory("맛집").size());
+        arrangedList.put("cafe", adminContentsRepository.findAllByCategory("카페").size());
+        arrangedList.put("accommodations", adminContentsRepository.findAllByCategory("숙소").size());
+        arrangedList.put("event", adminContentsRepository.findAllByCategory("이벤트").size());
+        arrangedList.put("deleted", adminContentsRepository.findAllByCategory("1d53a954b6cf").size());
+        return arrangedList;
+    }
+
+    @Transactional(readOnly = true)
+    public Page<AdminContents> getPageableContentsList(
+            String contentsField, String contentsWord, Pageable pageable) {
+
+        Page<AdminContents> contentsPage;
+
+        switch (contentsField) {
+            case "businessName"
+                    -> contentsPage = adminContentsRepository.getContentsListByBusinessName(contentsWord, pageable);
+            case "category"
+                    -> contentsPage = adminContentsRepository.getContentsListByCategory(contentsWord, pageable);
+            case "gu"
+                    -> contentsPage = adminContentsRepository.getContentsListByGu(contentsWord, pageable);
+            case "keyword"
+                    -> contentsPage = adminContentsRepository.getContentsListByKeyword(contentsWord, pageable);
+            case "deleted"
+                    -> contentsPage = adminContentsRepository.getDeleteContentsList(pageable);
+            default
+                    -> contentsPage = adminContentsRepository.findAll(contentsWord, pageable);
+        }
+        return contentsPage;
     }
 
 }

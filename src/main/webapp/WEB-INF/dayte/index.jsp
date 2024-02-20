@@ -37,7 +37,7 @@
     </section>
     <!-- 검색 -->
     <section id="searchForm">
-        <form action="/indexSearch" method="get">
+        <form action="/contents/indexSearch" method="get">
             <ul>
                 <li>
                     <input
