@@ -34,12 +34,14 @@ public class ContentController {
     @GetMapping("/contents/category/{category}")
     public String showContentsList (@PathVariable String category, Model model ) {
         List<AdminContents> contentsCategoryList = adminContentsService.getContentsCategoryList(category);
-        model.addAttribute("contentsListCategory", contentsCategoryList);
+        List<String> contentsKeywordList = adminContentsService.getContentsKeywordList(category);
+        model.addAttribute("contentsListCategory", contentsCategoryList)
+                .addAttribute("contentsListKeyword", contentsKeywordList);
         return "contents/allcontents";
     }
 
     // 위의 목록 가져온것에서 검색하는것
-    @PostMapping("contents/category/searchContentsCategory")
+    @PostMapping("/contents/category/searchContentsCategory")
     public @ResponseBody Map<String, Object> searchContentsList (@RequestBody Map<String, String> categoryAndSearch) {
         Map<String, Object> result = new HashMap<>();
         List<AdminContents> searchByContents = adminContentsService.findAllBySearch(categoryAndSearch.get("category"),categoryAndSearch.get("search"));

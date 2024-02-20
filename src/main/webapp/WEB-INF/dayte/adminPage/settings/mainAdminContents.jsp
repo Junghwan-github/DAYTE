@@ -7,33 +7,33 @@
 <main>
 <div class="h-100 bg-body-tertiary px-3" style="padding-top: 70px; min-width:375px;">
     <div class="px-5">
-        <p class="h4 titleName border-bottom pb-2" >컨텐츠 목록</p>
+        <p class="h2 ps-2 titleName border-bottom pb-2 mb-4" >콘텐츠 목록</p>
 
         <!-- 컨텐츠 요약 통계 -->
         <div class="d-flex flex-row justify-content-start">
             <ul class="list-unstyled border rounded d-flex flex-row me-2">
-                <li class="border-end bg-secondary-subtle p-1 rounded-start fw-semibold ">총컨텐츠수</li>
-                <li  class=" px-2 py-1 bg-light rounded-end fw-semibold">${arrangedList.get("all")}</li>
+                <li class="border-end bg-secondary-subtle m-0 p-2 rounded-start fw-semibold  h4 ">총콘텐츠수</li>
+                <li  class="m-0 py-2 px-3 bg-light rounded-end fw-semibold  h4">${arrangedList.get("all")}</li>
             </ul>
             <ul class="list-unstyled border rounded d-flex flex-row me-2">
-                <li class="border-end bg-secondary-subtle p-1 rounded-start fw-semibold ">숙소</li>
-                <li  class=" px-2 py-1 bg-light rounded-end fw-semibold">${arrangedList.get("accommodations")}</li>
+                <li class="border-end bg-secondary-subtle m-0 p-2 rounded-start fw-semibold  h4 ">숙소</li>
+                <li  class="m-0 py-2 px-3 bg-light rounded-end fw-semibold  h4">${arrangedList.get("accommodations")}</li>
             </ul>
             <ul class="list-unstyled border rounded d-flex flex-row me-2">
-                <li class="border-end bg-secondary-subtle p-1 rounded-start fw-semibold">맛집</li>
-                <li  class=" px-2 py-1 bg-light rounded-end fw-semibold">${arrangedList.get("restaurant")}</li>
+                <li class="border-end bg-secondary-subtle m-0 p-2 rounded-start fw-semibold  h4">맛집</li>
+                <li  class="m-0 py-2 px-3 bg-light rounded-end fw-semibold  h4">${arrangedList.get("restaurant")}</li>
             </ul>
             <ul class="list-unstyled border rounded d-flex flex-row me-2">
-                <li class="border-end bg-secondary-subtle p-1 rounded-start fw-semibold">카페</li>
-                <li  class=" px-2 py-1 bg-light rounded-end fw-semibold">${arrangedList.get("cafe")}</li>
+                <li class="border-end bg-secondary-subtle m-0 p-2 rounded-start fw-semibold  h4">카페</li>
+                <li  class="m-0 py-2 px-3 bg-light rounded-end fw-semibold  h4">${arrangedList.get("cafe")}</li>
             </ul>
             <ul class="list-unstyled border rounded d-flex flex-row me-2">
-                <li class="border-end bg-secondary-subtle p-1 rounded-start fw-semibold">이벤트</li>
-                <li  class=" px-2 py-1 bg-light rounded-end fw-semibold">${arrangedList.get("event")}</li>
+                <li class="border-end bg-secondary-subtle m-0 p-2 rounded-start fw-semibold  h4">이벤트</li>
+                <li  class="m-0 py-2 px-3 bg-light rounded-end fw-semibold  h4">${arrangedList.get("event")}</li>
             </ul>
             <ul class="list-unstyled border rounded d-flex flex-row me-2">
-                <li class="border-end bg-secondary-subtle p-1 rounded-start fw-semibold">삭제됨</li>
-                <li  class=" px-2 py-1 bg-light rounded-end fw-semibold">${arrangedList.get("deleted")}</li>
+                <li class="border-end bg-secondary-subtle m-0 p-2 rounded-start fw-semibold  h4">삭제됨</li>
+                <li  class="m-0 py-2 px-3 bg-light rounded-end fw-semibold  h4">${arrangedList.get("deleted")}</li>
             </ul>
         </div>
 
@@ -42,21 +42,21 @@
 
             <form id="uSearch" name="uSearch" method="get" action="/admin/home/settings/contents">
                 <div class="list-group d-flex flex-row">
-                    <a href="/admin/home/settings/contents" class="btn btn-dark py-1 me-1">전체 목록</a>
-                    <select name="field" id="field" class="list-item me-1">
+                    <a href="/admin/home/settings/contents" class="btn btn-dark px-3 py-2 m-0 me-2 adminUserFS">전체 목록</a>
+                    <select name="field" id="field" class="list-item me-1 adminUserFS">
                         <option value="all" <c:if test="${contentsDTO.field eq 'all'}">selected</c:if> >전체</option>
                         <option value="businessName" <c:if test="${contentsDTO.field eq 'businessName'}">selected</c:if> >이름</option>
                         <option value="category" <c:if test="${contentsDTO.field eq 'category'}">selected</c:if> >카테고리</option>
                         <option value="gu" <c:if test="${contentsDTO.field eq 'gu'}">selected</c:if> >구/군</option>
                         <option value="keyword" <c:if test="${contentsDTO.field eq 'keyword'}">selected</c:if> >키워드</option>
                     </select>
-                    <input type="text" name="word" id="word" class="list-item me-1">
-                    <input type="submit" class="btn-submit btn btn-dark py-1" value="검색">
-                    <button type="button" class="btn-submit btn btn-dark py-1 ms-1 deletedShow" value="deleted">삭제된 컨텐츠 보기</button>
+                    <input type="text" name="word" id="word" class="list-item me-1 adminUserFS">
+                    <input type="submit" class="btn-submit btn btn-dark px-3 py-2 m-0 me-2 adminUserFS" value="검색">
+                    <button type="button" class="btn-submit btn btn-dark deletedShow px-3 py-2 m-0 me-2 adminUserFS" value="deleted">삭제된 콘텐츠 보기</button>
                 </div>
             </form>
             <div>
-                <a href="/admin/home/settings/contents/add" class="btn btn-dark py-2 me-1">컨텐츠 등록</a>
+                <a href="/admin/home/settings/contents/add" class="btn btn-dark px-3 py-2 m-0 me-2 adminUserFS">콘텐츠 등록</a>
             </div>
         </div>
 
@@ -64,28 +64,28 @@
         <div class="table-responsive">
             <table class="table table-striped border" >
                 <thead class="align-middle">
-                <tr >
-                    <th scope="col" class="text-center bg-secondary-subtle">No</th>
-                    <th scope="col" class="text-center bg-secondary-subtle">아이디</th>
-                    <th scope="col" class="text-center bg-secondary-subtle">이름</th>
-                    <th scope="col" class="text-center bg-secondary-subtle">카테고리</th>
-                    <th scope="col" class="text-center bg-secondary-subtle">키워드</th>
-                    <th scope="col" class="text-center bg-secondary-subtle">관리</th>
+                <tr style="height: 50px;">
+                    <th scope="col" class="text-center align-middle bg-secondary-subtle h4">No</th>
+                    <th scope="col" class="text-center align-middle bg-secondary-subtle h4">아이디</th>
+                    <th scope="col" class="text-center align-middle bg-secondary-subtle h4">이름</th>
+                    <th scope="col" class="text-center align-middle bg-secondary-subtle h4">카테고리</th>
+                    <th scope="col" class="text-center align-middle bg-secondary-subtle h4">키워드</th>
+                    <th scope="col" class="text-center align-middle bg-secondary-subtle h4">관리</th>
                 </tr>
                 </thead>
                 <c:if test="${!empty contentsList}">
                     <tbody class="align-middle">
                     <form id="contentsList">
                         <c:forEach var="content" items="${contentsList.content}" varStatus="loop">
-                            <tr>
-                                <td class="text-center">${(loop.index+1)+(contentsList.number*10)}</td>
-                                <td class="text-center">${content.uuid}</td>
-                                <td class="text-center">${content.businessName}</td>
-                                <td class="text-center">${content.category}</td>
-                                <td class="text-center">${content.keyword}</td>
-                                <td class="text-center">
+                            <tr style="height: 50px;">
+                                <td class="text-center align-middle h4 fw-normal">${(loop.index+1)+(contentsList.number*10)}</td>
+                                <td class="text-center align-middle h4 fw-normal">${content.uuid}</td>
+                                <td class="text-center align-middle h4 fw-normal">${content.businessName}</td>
+                                <td class="text-center align-middle h4 fw-normal">${content.category}</td>
+                                <td class="text-center align-middle h4 fw-normal">${content.keyword}</td>
+                                <td class="text-center align-middle h4 fw-normal">
                                     <div class="d-flex justify-content-center">
-                                        <button value="${content.uuid}" class="btn btn-dark ms-1 d-block deleteBtn">
+                                        <button value="${content.uuid}" class="btn btn-dark ms-1 d-block deleteBtn adminUserFS">
                                             삭제
                                         </button>
                                     </div>
@@ -106,12 +106,12 @@
                         <!-- 이전 -->
                         <c:if test="${!contentsList.first}">
                             <li class="page-item">
-                                <a class="page-link text-dark" href="?page=0&field=${contentsDTO.field}&word=${contentsDTO.word}">
+                                <a class="page-link text-dark adminUserFS" href="?page=0&field=${contentsDTO.field}&word=${contentsDTO.word}">
                                     처음<%--<i class="fa-solid fa-angle-right"></i>--%>
                                 </a>
                             </li>
                             <li class="page-item">
-                                <a class="page-link text-dark" href="?page=${contentsList.number-1}&field=${contentsDTO.field}&word=${contentsDTO.word}">
+                                <a class="page-link text-dark adminUserFS" href="?page=${contentsList.number-1}&field=${contentsDTO.field}&word=${contentsDTO.word}">
                                     &larr;<%--<i class="fa-solid fa-angles-right"></i>--%>
                                 </a>
                             </li>
@@ -121,14 +121,14 @@
                             <c:choose>
                                 <c:when test="${contentsList.pageable.pageNumber+1 == i}">
                                     <li class="page-item disabled">
-                                        <a class="page-link text-dark" href="?page=${i-1}&field${contentsDTO.field}&word=${contentsDTO.word}">
+                                        <a class="page-link px-3 text-dark adminUserFS" href="?page=${i-1}&field${contentsDTO.field}&word=${contentsDTO.word}">
                                             ${i}
                                         </a>
                                     </li>
                                 </c:when>
                                 <c:otherwise>
                                     <li class="page-item">
-                                        <a class="page-link text-dark" href="?page=${i-1}&field=${contentsDTO.field}&word=${contentsDTO.word}">
+                                        <a class="page-link px-3 text-dark adminUserFS" href="?page=${i-1}&field=${contentsDTO.field}&word=${contentsDTO.word}">
                                             ${i}
                                         </a>
                                     </li>
@@ -139,12 +139,12 @@
                         <!-- 다음 -->
                         <c:if test="${!contentsList.last}">
                                 <li class="page-item ">
-                                    <a class="page-link text-dark" href="?page=${contentsList.number+1}&field=${contentsDTO.field}&word=${contentsDTO.word}">
+                                    <a class="page-link text-dark adminUserFS" href="?page=${contentsList.number+1}&field=${contentsDTO.field}&word=${contentsDTO.word}">
                                         &rarr;<%--<i class="fa-solid fa-angle-left"></i>--%>
                                     </a>
                                 </li>
                                 <li class="page-item ">
-                                    <a class="page-link text-dark" href="?page=${contentsList.totalPages-1}&field=${contentsDTO.field}&word=${contentsDTO.word}">
+                                    <a class="page-link text-dark adminUserFS" href="?page=${contentsList.totalPages-1}&field=${contentsDTO.field}&word=${contentsDTO.word}">
                                         마지막<%--<i class="fa-solid fa-angles-left"></i>--%>
                                     </a>
                                 </li>

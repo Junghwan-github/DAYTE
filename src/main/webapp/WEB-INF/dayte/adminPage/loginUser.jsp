@@ -10,10 +10,11 @@
             <table class="table table-striped border" >
                 <tbody class="align-middle">
                 <c:forEach var="user" items="${userList}">
-                    <tr style="height: 50px;">
-                        <td class="text-center align-middle h4 fw-normal">${user}</td>
-                    </tr>
+                        <tr style="height: 50px;">
+                            <td class="text-center align-middle h4 fw-normal">${user}</td>
+                        </tr>
                 </c:forEach>
+                <h1>${uniqueUsers}</h1>
                 </tbody>
                 <caption class="adminUserFS">접속자 수 : ${fn:length(userList)}</caption>
             </table>

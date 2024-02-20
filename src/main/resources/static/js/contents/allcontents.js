@@ -1,11 +1,13 @@
-$(document).ready(function () {
-
-    $(".contentListItemdetailViewBtn").on("click", function () {
+    $(".contentListViewer").on("click",".contentListItemdetailViewBtn", function () {
         let _this = $(this).val();
         window.open("/contents/detail/" + _this, "_blank");
     })
 
-})
+    $("#leftModalSearchBar").keyup(function(event) {
+        if (event.which === 13) {
+            $("#leftModalSearchBarBtn").click();
+        }
+    });
 
 function searchContentsCategory(search) {
     // 현재 URL 가져오기
@@ -106,3 +108,18 @@ function displaySearchResults1(data) {
         });
     }
 }
+
+    $(document).ready(function() {
+        let sidebar = $(".leftModalLayout");
+        let sticky = sidebar.offset().top;
+        console.log($(window).scrollTop());
+        console.log(sticky);
+
+        $(window).scroll(function() {
+            if ($(window).scrollTop() >= sticky) {
+                sidebar.addClass("fixed");
+            } else {
+                sidebar.removeClass("fixed");
+            }
+        });
+    });

@@ -4,7 +4,7 @@
 <%@include file="layout/adminHead.jsp"%>
 <div class="h-100 px-3" style="padding-top: 70px; min-width:375px;">
     <div class=" px-5">
-        <p class="h2 ps-2 titleName border-bottom pb-2 mb-4">접속자 집계</p>
+        <p class="h2 ps-2 titleName border-bottom pb-2 mb-4">방문자 집계</p>
         <div class="d-flex flex-row justify-content-end align-items-center">
             <label for="selectVisit" class="d-block m-0 pe-2 adminUserFS"> <i class="bi bi-calendar4-week adminUserFS"></i> 기간 선택 | </label>
         <select id="selectVisit" class="p-1 select col-1 text-center rounded-1 select-style adminUserFS">

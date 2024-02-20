@@ -49,7 +49,9 @@ public class MySessionListener implements HttpSessionListener {
 
     public void addActiveUsers(String userEmail) {
         if(userEmail != null && !userEmail.trim().isEmpty()) {
-            this.activeUsers.add(userEmail);
+            if(!this.activeUsers.contains(userEmail)) {
+                this.activeUsers.add(userEmail);
+            }
         }
     }
     public List<String> getActiveUsers() {
