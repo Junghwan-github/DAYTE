@@ -61,7 +61,6 @@ public class ContentReplyController {
     }
 
     //댓글 등록창 이동
-    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/contentsReview/{uuid}")
     public String contentsReview(Model model, @PathVariable String uuid){
 
@@ -112,7 +111,6 @@ public class ContentReplyController {
 
         return new ResponseDTO<>(HttpStatus.OK.value(), "댓글이 등록됐습니다.");
     }
-
 
     //    delete 부분
     @DeleteMapping("/contentReply/{num}")
