@@ -30,6 +30,9 @@ public interface AdminContentsRepository extends JpaRepository<AdminContents, St
             "c.keyword LIKE %:search%")
     List<AdminContents> findAllByKeyWordSearch(String category, String search);
 
+    @Query(value = "SELECT * FROM admin_contents order by RAND() limit 5",nativeQuery = true)
+    List<AdminContents> randomContentsList();
+
 //    @Query("SELECT c FROM AdminContents c WHERE c.category = :category AND c.category != '1d53a954b6cf' AND " +
 //            "(c.businessName LIKE %:search% OR c.gu LIKE %:search% OR c.detailedAddress LIKE %:search% OR c.keyword LIKE %:search%)")
 //    List<AdminContents> findAllByCategorySearch(String category, String search);

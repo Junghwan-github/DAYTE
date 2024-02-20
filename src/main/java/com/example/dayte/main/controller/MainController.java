@@ -50,7 +50,7 @@ public class MainController {
             session.setAttribute("flag", mySessionListener.getCurrentUsername());
         }
 
-        List<AdminContents> adminContents = adminContentsService.getContentsList();
+        List<AdminContents> adminContents = adminContentsService.randomContents();
 
         model.addAttribute("sliderList", sliderList)
                 .addAttribute("contentList", adminContents);
