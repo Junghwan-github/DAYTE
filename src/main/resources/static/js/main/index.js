@@ -54,15 +54,18 @@ function getUpdatedDate(t) {
 
     const nextUpdateDate = new Date(currentDate);
     nextUpdateDate.setHours(t, 0, 0, 0);
-
+    console.log(nextUpdateDate);
 
     if (currentDate < nextUpdateDate) {
         const year = currentDate.getFullYear();
         const month = (currentDate.getMonth() + 1).toString().padStart(2, "0");
-        const day = currentDate.getDate().toString().padStart(2, "0");
-        const formattedDate = year + month + day;
-        return formattedDate;
+        const day = (currentDate.getDate()-1).toString().padStart(2, "0");
+        return year + month + day;
     }
+
+
+
+
 
     const year = currentDate.getFullYear();
     const month = (currentDate.getMonth() + 1).toString().padStart(2, "0");
@@ -77,13 +80,21 @@ function getUpdatedDate(t) {
     return formattedDate;
 }
 
+
+
 function getUpdatedDatePlus(t) {
     const currentDate = new Date();
 
-    currentDate.setDate(currentDate.getDate() + t);
-    const formattedDate1 = currentDate.toISOString().slice(0, 10).replace(/-/g, "");
-    return formattedDate1;
+    const year = currentDate.getFullYear();
+    const month = (currentDate.getMonth() + 1).toString().padStart(2, "0");
+    const day = (currentDate.getDate()+t).toString().padStart(2, "0");
+    const formattedDate = year + month + day;
+
+    return formattedDate;
 }
+
+console.log(getUpdatedDatePlus(0));
+
 
 function thisDate(t) {
     const currentDate = new Date();
