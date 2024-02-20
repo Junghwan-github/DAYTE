@@ -4,6 +4,7 @@ import com.example.dayte.reply.domain.ContentReply;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -15,6 +16,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class AdminContents {
 
     // 일정추가 시 보일 리스트에서 보여질 부분
