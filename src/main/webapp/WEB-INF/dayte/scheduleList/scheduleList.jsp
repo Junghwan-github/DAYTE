@@ -195,7 +195,7 @@
                                                 <h2>${content.businessName}</h2>
                                                 <div class="contents-category-keyword">
                                                     <span>${content.category}</span>
-                                                    <span class="span-keyword">${content.keyword}</span>
+                                                    <span>${content.keyword}</span>
                                                 </div>
                                             </div>
                                         </li>

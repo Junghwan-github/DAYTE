@@ -35,17 +35,19 @@ function displaySearchResults(data) {
                         <img src="${content.adminContentsImageList[0].imageURL}">
                     </div>
                     <ul class="contentListItemText">
-                        <li>
+                      <li>
                         <div class="contents-title-wrapper">
-                            <h2>${content.businessName}</h2>
-                            <span>${content.category}</span>
-                            <span>${content.keyword}</span>
-                            </div>
-                        </li>
-                        <li>
+                             <h2>${content.businessName}</h2>
+                                <div class="contents-category-keyword">
+                                     <span>${content.category}</span>
+                                     <span>${content.keyword}</span>
+                                </div>
+                        </div>
+                      </li>
+                      <li>
                             <span>${content.detailedAddress}</span>
-                        </li>
-                        <li>
+                      </li>
+                      <li>
                             <p>영업시간 : ${content.opening} ~ ${content.closed}</p>
                             <p>기간 : 없음</p>
                             <p>문의 : ${content.contactInfo}</p>
