@@ -12,7 +12,7 @@ import java.util.Optional;
 
 public interface VisitorStatisticsRepository extends JpaRepository<VisitorStatistics, Long> {
 
-        @Query("SELECT new com.example.dayte.admin.mianslider.dto.VisitorStatisticsDTO(vs.id,vs.date,vs.visitors) " +
+        @Query("SELECT new com.example.dayte.admin.mianslider.dto.VisitorStatisticsDTO(vs.date,vs.visitors) " +
                 "FROM VisitorStatistics vs " +
                 "WHERE vs.date > :date")
 List<VisitorStatisticsDTO> findAllByDateAfter(LocalDate date);

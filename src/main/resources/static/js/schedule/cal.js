@@ -33,12 +33,18 @@ $(".nextBtn").on("click", function () {
             } else if (data.status === 409) {
                 let deleteSchedule = confirm("일정이 이미 있습니다 삭제 하고 다시 생성 하시겠습니까?");
                 if (deleteSchedule) {
+                    const scheduleDTO = {
+                        title    : title,
+                        startDate: startDate,
+                        endDate  : endDate,
+                        uuid : data.uuid
+                    };
                     // 다른 API 엔드포인트로의 DELETE 요청
                     $.ajax({
                         url        : "/schedule/deleteAndInsertSchedule",
                         type       : "DELETE",
                         contentType: "application/json",
-                        data       : JSON.stringify(deleteUuid)
+                        data       : JSON.stringify(scheduleDTO)
                     })
                         .done(function (deleteData) {
                             if (deleteData.status === 200) {

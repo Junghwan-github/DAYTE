@@ -75,7 +75,7 @@
 
         </form>
         <div class="position-absolute d-flex flex-row" style="top:40px; right:30px;">
-            <a href="" class="btn btn-dark px-3 ms-1 d-block adminUserFS" onclick="history.back()">목록</a>
+            <a href="/admin/user" class="btn btn-dark px-3 ms-1 d-block adminUserFS">목록</a>
             <button type="button" id="editUserBtn" class="btn btn-dark px-3 ms-1 d-block adminUserFS">확인</button>
         </div>
 
