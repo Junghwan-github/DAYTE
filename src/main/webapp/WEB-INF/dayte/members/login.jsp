@@ -64,7 +64,7 @@
 
       <ul class="subNavi">
         <li><a href="/members/join">회원가입</a></li>
-        <li><a href="#">비밀번호를 잊으셨나요?</a></li>
+        <li><a href="/members/findPwd">비밀번호를 잊으셨나요?</a></li>
       </ul>
     </div>
 

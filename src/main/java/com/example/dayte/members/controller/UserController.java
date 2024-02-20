@@ -11,7 +11,10 @@ import com.example.dayte.members.persistence.DeleteUserRepository;
 import com.example.dayte.members.service.UserService;
 import com.example.dayte.schedule.service.ScheduleService;
 import com.example.dayte.security.dto.UserSecurityDTO;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import lombok.Getter;
+import org.eclipse.tags.shaded.org.apache.xpath.operations.Mod;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -95,6 +98,54 @@ public class UserController {
             return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), user.getUserName() + "님은 이미 회원입니다.");
         }
     }
+
+    // 2024.02.20 --------------------------------------------------------------------
+    // 비밀번호 찾기
+    @GetMapping("/members/findPwd")
+    public String findPassword() {
+        return "members/findPassword";
+    }
+
+    // 해당 아이디(이메일)이 있는지 조회
+    @PostMapping("/members/findPwd/{userEmail}")
+    public @ResponseBody ResponseDTO<?> findPassword(@PathVariable String userEmail, Model model) {
+        User user;
+        System.out.println("userEmail 1 : " + userEmail);
+        model.addAttribute("userEmail", userEmail);
+        System.out.println("model.getAttr() 1 : " + model.getAttribute("userEmail"));
+        try {
+            user = userService.getUser(userEmail);
+        } catch (IllegalArgumentException e) {
+            return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "해당 이메일을 찾을 수 없습니다.");
+        }
+        return new ResponseDTO<>(HttpStatus.OK.value(), user.getUserEmail() + "으로 인증번호가 발송되었습니다.");
+    }
+
+    // 비밀번호 변경 로직
+    @PostMapping("/members/changePwd")
+    public String changePassword(@ModelAttribute("userEmail") UserDTO userDTO, Model model) {
+        System.out.println("userDTO.getUserEmail() 2 : " + userDTO.getUserEmail());
+        model.addAttribute("userEmail", userDTO.getUserEmail());
+        System.out.println("model.getAttr() 2 : " + model.getAttribute("userEmail"));
+        return "members/changePassword";
+    }
+
+    @PutMapping("/members/changePwd")
+    public @ResponseBody ResponseDTO<?> changePassword(@RequestBody UserDTO userDTO) {
+        User user;
+        System.out.println(userDTO.getPassword());
+        try {
+            user = userService.getUser(userDTO.getUserEmail());
+        } catch (IllegalArgumentException e) {
+            return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "비밀번호 변경에 실패하였습니다.");
+        }
+        UserDTO newUserDTO = modelMapper.map(user, UserDTO.class);
+        newUserDTO.setPassword(userDTO.getPassword());
+        userService.insertUser(modelMapper.map(newUserDTO, User.class));
+        return new ResponseDTO<>(HttpStatus.OK.value(), "비밀번호가 변경되었습니다.");
+    }
+
+    // -------------------------------------------------------------------------------
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/members/editForm")
