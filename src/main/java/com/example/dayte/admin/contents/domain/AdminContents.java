@@ -56,7 +56,7 @@ public class AdminContents {
 
     private String facilities;
 
-    @OneToMany(mappedBy = "contents", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "contents", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JsonIgnoreProperties("adminContents")
     private List<ContentReply> contentReplyList;
 

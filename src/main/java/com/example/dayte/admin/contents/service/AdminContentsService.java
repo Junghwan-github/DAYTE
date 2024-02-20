@@ -116,6 +116,11 @@ public class AdminContentsService {
     }
 
     @Transactional(readOnly = true)
+    public List<AdminContents> randomContents() {
+        return adminContentsRepository.randomContentsList();
+    }
+
+    @Transactional(readOnly = true)
     public List<AdminContents> searchByContents(String searchContents) {
         if(searchContents == null) searchContents = "";
         return adminContentsRepository.findAllBySearch(searchContents);
