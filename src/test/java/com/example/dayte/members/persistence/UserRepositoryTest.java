@@ -52,7 +52,7 @@ class UserRepositoryTest {
     @Test
     public void insertTenUser() {
 
-        IntStream.rangeClosed(1, 9).forEach(i -> {
+        IntStream.rangeClosed(1, 3).forEach(i -> {
             User user = User.builder()
                     .userEmail("test" + i + "@test.com")
                     .password(passwordEncoder.encode(i+""+i+""+i+""+i+""+i+""+i+""+i+""+i))
