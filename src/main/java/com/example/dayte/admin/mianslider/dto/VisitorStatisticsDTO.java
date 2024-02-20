@@ -3,6 +3,8 @@ package com.example.dayte.admin.mianslider.dto;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.time.format.TextStyle;
+import java.util.Locale;
 
 @Getter
 @Setter
@@ -22,6 +24,8 @@ public class VisitorStatisticsDTO {
 
     private int visitors;
 
+    private String dayOfWeek;
+
     public VisitorStatisticsDTO(int year, int month, int averageVisitors) {
         this.year = year;
         this.month = month;
@@ -31,5 +35,6 @@ public class VisitorStatisticsDTO {
         this.id = id;
         this.date = date;
         this.visitors = visitors;
-    }
+        this.dayOfWeek = date.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.KOREAN);
+    };
 }
