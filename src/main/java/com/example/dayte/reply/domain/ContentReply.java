@@ -31,7 +31,7 @@ public class ContentReply {
     @ManyToOne(fetch = FetchType.EAGER)
     private User user; // 사용자 이름
 
-//    @JsonIgnore
+    @JsonIgnore
     @JoinColumn (name = "contents")
     @ManyToOne
     private AdminContents contents;

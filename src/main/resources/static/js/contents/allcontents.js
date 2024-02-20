@@ -103,3 +103,18 @@ function displaySearchResults1(data) {
         });
     }
 }
+
+    $(document).ready(function() {
+        let sidebar = $(".leftModalLayout");
+        let sticky = sidebar.offset().top;
+        console.log($(window).scrollTop());
+        console.log(sticky);
+
+        $(window).scroll(function() {
+            if ($(window).scrollTop() >= sticky) {
+                sidebar.addClass("fixed");
+            } else {
+                sidebar.removeClass("fixed");
+            }
+        });
+    });
