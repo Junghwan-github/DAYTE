@@ -60,4 +60,8 @@ public interface AdminContentsRepository extends JpaRepository<AdminContents, St
     @Query("SELECT DISTINCT c.keyword FROM AdminContents c WHERE c.category =:category")
     List<String> findDistKeyword(String category);
 
+
+    @Query("SELECT DISTINCT c.keyword FROM AdminContents c")
+    List<String> findAllByKeyword();
+
 }
