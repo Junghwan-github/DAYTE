@@ -46,7 +46,6 @@ public class ContentController {
         List<AvgStarViewDTO> avgStarViewDTOList = contentReplyService.avgStarList();
         result.put("searchByContents", searchByContents);
         result.put("avgStarViewDTOList", avgStarViewDTOList);
-        System.out.println(result+"가나다");
         return result;
     }
 
