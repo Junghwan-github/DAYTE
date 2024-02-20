@@ -5,14 +5,12 @@
 
 <title>비밀번호 변경</title>
 
-<link rel="stylesheet" href="/css/main/updatePwd.css">
-<link rel="stylesheet" href="/css/layout/myProfileSideBar.css">
+<link rel="stylesheet" href="/css/main/changePassword.css">
 </head>
 
 <body>
 <%@include file="../layout/header.jsp" %>
 <div class="wrapper">
-    ${userEmail}
     <main>
         <div class="formBox">
             <div class="changePasswordBox">
