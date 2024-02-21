@@ -310,15 +310,15 @@ $('.contentListModalBtnWrap').on("click", '.scheduleTotalListMapBtn', function (
 
 
 function fetchDataFromDatabase() {
-    console.log(pageNum);
+
     $.ajax({
         url        : "/schedule/scheduleList/" + pageNum,
         method     : "POST",
         contentType: "application/json; charset=utf-8",
         success    : function (data) {
-
             console.log(data);
 
+            scrollContentData(data);
         },
         error      : function (error) {
             console.error('검색 실패:', error);
@@ -326,9 +326,73 @@ function fetchDataFromDatabase() {
     });
 
     pageNum++
-    console.log(pageNum);
+
 }
 
 
 
+function scrollContentData (data) {
+    if(data.scheduleLoadDatalist.length > 0) {
+        for (let i = 0; i < data.scheduleLoadDatalist.length; i++) {
+            $(".contentListViewer").append(`  <li>
+                                <div class="contentListItems">
+                <span class="contentListItemPoint-x">${data.scheduleLoadDatalist[i].positionX}</span>
+                <span class="contentListItemPoint-y">${data.scheduleLoadDatalist[i].positionY}</span>
+                    <div class="contentListItemsImages">
+                        <img src="${data.scheduleLoadDatalist[i].adminContentsImageList[0].imageURL}">
+                    </div>
+                    <ul class="contentListItemText">
+                      <li>
+                        <div class="contents-title-wrapper">
+                             <h2>${data.scheduleLoadDatalist[i].businessName}</h2>
+                                <div class="contents-category-keyword">
+                                     <span>${data.scheduleLoadDatalist[i].category}</span>
+                                     <span>${data.scheduleLoadDatalist[i].keyword}</span>
+                                </div>
+                        </div>
+                      </li>
+                      <li>
+                            <span>${data.scheduleLoadDatalist[i].detailedAddress}</span>
+                      </li>
+                      <li>
+                            <p>영업시간 : ${data.scheduleLoadDatalist[i].opening} ~ ${data.scheduleLoadDatalist[i].closed}</p>
+                            <p>문의 : ${data.scheduleLoadDatalist[i].contactInfo}</p>
+                        </li>
+                         <li class="star-point-find">
+                         <span class="rating"></span>   
+                         </li>
+                        </ul>
+                    <div class="contentListItemButton">
+                        <ul>
+                            <li>
+                                <button class="contentListItemdetailViewBtn" value="${data.scheduleLoadDatalist[i].uuid}">상세보기</button>
+                            </li>
+                             <li>
+                                                <button class="contentListItemAddBtn" value="${data.scheduleLoadDatalist[i].uuid}">추가하기
+                                                </button>
+                                            </li>
+                        </ul>
+                    </div>
+                </div>  
+              </li>`);
+            // const matchingStar = data.scheduleStarPoint.find(star => star.uuid === data.scheduleLoadDatalist[i].uuid);
+            // if (matchingStar) {
+            //    $(".rating").text('★' + matchingStar.starAVG.toFixed(1));
+            // } else {
+            //     $(".rating").text('★0.0');
+            // };
 
+
+
+                for(let j = 0; j<data.scheduleStarPoint.length; j++) {
+                    $(".contentListItemdetailViewBtn").each(function () {
+                    if($(this).val() === data.scheduleStarPoint[j].uuid) {
+                       $(this).closest(".contentListItems").find(".rating").text('★' + data.scheduleStarPoint[j].starAVG.toFixed(1));
+                    } else {
+                        $(this).closest(".contentListItems").find(".rating").text('★0.0');
+                    }
+                    })
+                }
+        }
+    }
+}
