@@ -21,11 +21,9 @@ public class FilesInfo {
     private int id;
 
     @Column
-
     private String originalName;
 
     @Column
-
     private String saveName;
 
     @Column
@@ -35,12 +33,10 @@ public class FilesInfo {
     private boolean deleteCheck;
 
     @CreationTimestamp
-
     private Timestamp createDate;
 
     @Column
     private LocalDateTime deletedDate;
-
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "no")
