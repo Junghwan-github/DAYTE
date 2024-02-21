@@ -28,7 +28,6 @@ public class NoticeService {
     @Autowired
     private FileRepository fileRepository;
 
-
     @Transactional
     public void createNotice(Notice notice, List<FilesInfo> filesInfos){
         noticeRepository.save(notice);
@@ -53,18 +52,13 @@ public class NoticeService {
     @Transactional(readOnly = true)
     public Page<Notice> findDefaultNotice(Pageable pageable) {
         return noticeRepository.findDefaultPriority(pageable);
-
-
     }
-
 
 //사용자에게 보여질 공지사항 데이터 불러오기
     @Transactional(readOnly = true)
     public Page<Notice> getNoticeList(Pageable pageable) {
         return noticeRepository.findAllByPriority(pageable);
-
     }
-
 
     //이전글 정보(id번호, 타이틀 뽑아내기 위해 사용)
     @Transactional(readOnly = true)
@@ -72,42 +66,33 @@ public class NoticeService {
         return noticeRepository.findPrevNotice(currentId);
     }
 
-
-
-//다음글 정보(id번호, 타이틀 뽑아내기 위해 사용)
+    //다음글 정보(id번호, 타이틀 뽑아내기 위해 사용)
     @Transactional(readOnly = true)
     public Optional<Notice> getNextNotice(int currentId) {
         return noticeRepository.findNextNotice(currentId);
     }
 
-
     @Transactional(readOnly = true)
     public Notice getNotice(int id){
         return noticeRepository.findById(id).get();
     }
-
     public void deleteNotice(int noticeId) {
-
         noticeRepository.deleteById(noticeId);
     }
 
     //기존 저장된 파일이 지워진 후(savedFile 안에 값이 존재) 업데이트
     @Transactional
     public void updateNotice(int no, Notice notice, List<String> savedFile, List<FilesInfo> filesInfos) {
-
-        log.info("기존 파일 지워짐");
         Notice findNotice = noticeRepository.findById(no).get();
         findNotice.setTitle(notice.getTitle());
         findNotice.setContent(notice.getContent());
 
         noticeRepository.save(findNotice);
 
-
         List<FilesInfo> filesNotInSavedFile = fileRepository.findFilesNotInSavedFile(savedFile ,no);
 
         if(!filesNotInSavedFile.isEmpty()){
             for (FilesInfo deletedFile : filesNotInSavedFile) {
-                log.info("^^^^^^^^^^^^^");
                 fileRepository.delete(deletedFile);
             }
 }
@@ -116,21 +101,13 @@ public class NoticeService {
         filesInfos.forEach(filesInfo -> filesInfo.setNotice(findNotice));
         originalFileList.addAll(filesInfos);
 
-        /*for(FilesInfo ffi : originalFileList){
-            log.info("저장되어야 할 리스트");
-            log.info(ffi.getOriginalName());
-        }*/
-
         fileRepository.saveAll(originalFileList);
-
 
     }
 
     // 기존 파일이 싹 다 지워지고 파일 추가 있거나 없거나 업데이트
     @Transactional
     public void updateNotice(int no, Notice notice, List<FilesInfo> filesInfos) {
-
-        log.info("기존 파일 싹다 지워짐");
 
         Notice findNotice = noticeRepository.findById(no).get();
         findNotice.setTitle(notice.getTitle());
@@ -141,20 +118,14 @@ public class NoticeService {
         //기존 파일 어차피 다 지워졌으니 해당 포스트 아이디를 가진 file들 싹다 지움
         fileRepository.deleteByPostID(no);
 
-
         //지워질거 지워진 기존의 파일 리스트 가져옴
         List<FilesInfo> originalFileList = fileRepository.findByPostNo(no);
         filesInfos.forEach(filesInfo -> filesInfo.setNotice(findNotice));
         originalFileList.addAll(filesInfos);
 
-
-
         fileRepository.saveAll(originalFileList);
 
-
-
     }
-
 
     public int modPriority(Notice notice) {
         Notice findNotice = noticeRepository.findById(notice.getNo()).get();
@@ -163,20 +134,16 @@ public class NoticeService {
         noticeRepository.save(findNotice);
 
         return HttpStatus.OK.value();
-
     }
 
     //필독 공지사항을 일반 공지사항으로 변경(priority 값을 0으로)
-
     public void resetPriority(int no) {
         Notice findNotice = noticeRepository.findById(no).get();
         findNotice.setPriority(0);
-
         noticeRepository.save(findNotice);
     }
 
     //일반 공지사항을 필독 공지사항으로 변경(priority 값이 부여된 값 중 가장 큰 값보다 +1한 값을 부여)
-
     @Transactional
     public void grantPriority(int no) {
 
@@ -186,17 +153,10 @@ public class NoticeService {
         Notice findNotice = noticeRepository.findById(no).get();
 
         findNotice.setPriority(MaxPriority+1);
-        log.info("^^^^^^^^^^^^^^^^^^");
-        log.info(findNotice.isViewCheck());
 
         if (!findNotice.isViewCheck()) { // isViewCheck()가 false일 때만 설정
             findNotice.setViewCheck(true);
-
-            log.info(findNotice.isViewCheck());
-            log.info(findNotice);
-
         }
-
 
         noticeRepository.save(findNotice);
 

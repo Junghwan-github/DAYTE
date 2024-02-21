@@ -19,7 +19,6 @@ public class Notice {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int no;
 
-
     @Column(nullable = false, length = 100)
     private String title;
 
@@ -41,9 +40,5 @@ public class Notice {
 
     @OneToMany(mappedBy = "notice", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private List<FilesInfo> files;
-
-
-
-
 
 }
