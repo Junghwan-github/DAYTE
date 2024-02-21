@@ -24,7 +24,7 @@ List<VisitorStatisticsDTO> findAllByDateAfter(LocalDate date);
                 "WHERE date BETWEEN :date AND NOW() " +
                 "GROUP BY YEAR(date), MONTH(date) " +
                 "ORDER BY year, month", nativeQuery = true)
-        List<Object[]> good(LocalDate date);
+        List<Object[]> getAvgLocalDate(LocalDate date);
 
         Optional<VisitorStatistics> findByDate(LocalDate date);
 
