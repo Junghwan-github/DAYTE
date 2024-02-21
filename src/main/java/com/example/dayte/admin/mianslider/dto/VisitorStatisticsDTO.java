@@ -34,6 +34,6 @@ public class VisitorStatisticsDTO {
     public VisitorStatisticsDTO(LocalDate date, int visitors) {
         this.date = date;
         this.visitors = visitors;
-        this.dayOfWeek = date.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.KOREAN);
+        this.dayOfWeek = date.getDayOfWeek().getDisplayName(TextStyle.NARROW, Locale.KOREAN);
     };
 }

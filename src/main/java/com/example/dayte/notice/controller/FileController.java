@@ -43,8 +43,6 @@ public class FileController {
 
     @GetMapping("/notice/{noticeNo}/files/{fileId}")
     public ResponseEntity<Resource> downloadFile(@PathVariable int noticeNo, @PathVariable int fileId){
-//        System.out.println(noticeNo);
-//        System.out.println(fileId);
         FilesInfo file = fileService.findByfileID(fileId);
         Resource resource = fileUtils.readFileAsResource(file);
 
@@ -59,7 +57,6 @@ public class FileController {
             throw new RuntimeException("filename encoding failed : " + file.getOriginalName());
         }
     }
-
 
     @PostMapping(value="/uploadNoticeImageFile", produces = "application/json")
     @ResponseBody
@@ -88,8 +85,5 @@ public class FileController {
             e.printStackTrace();
         }
     }
-
-
-
 
 }

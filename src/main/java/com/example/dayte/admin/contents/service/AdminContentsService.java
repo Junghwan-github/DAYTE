@@ -13,6 +13,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -157,8 +158,13 @@ public class AdminContentsService {
 
     }
     @Transactional(readOnly = true)
-    public List<AdminContents> getContentsList() {
-        return adminContentsRepository.findAll();
+    public List<AdminContents> getContentsList(int page) {
+        int pageSize = 10; // 페이지 당 데이터 수
+        Pageable pageable = PageRequest.of(page, pageSize);
+        Page<AdminContents> contentsPage = adminContentsRepository.findAllByCategoryNot("1d53a954b6cf", pageable);
+//        return adminContentsRepository.findAllByCategoryNot("1d53a954b6cf");
+
+        return contentsPage.getContent();
     }
 
     @Transactional(readOnly = true)

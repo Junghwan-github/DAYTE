@@ -23,29 +23,17 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PastScheduleController {
 
-
-    private final ScheduleService scheduleService;
     private final PastScheduleService pastScheduleService;
 
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/schedule/pastSchedule")
     public String pastSchedule(Model model, @AuthenticationPrincipal UserSecurityDTO userSecurityDTO) {
-        System.out.println("^^^^^^^^^^^^^^^^^^^");
-        System.out.println("스케쥴 리스트 : " + pastScheduleService.selectPastScheduleByUser(userSecurityDTO));
 
         List<Schedule> pastScheduleList = pastScheduleService.selectPastScheduleByUser(userSecurityDTO);
 
-        if (pastScheduleList.isEmpty()) {
-            System.out.println("아무것도 없음");
-        } else {
+        if (!pastScheduleList.isEmpty()) {
             model.addAttribute("pastScheduleList", pastScheduleList);
         }
-
         return "scheduleList/pastSchedule";
-
-
     }
-
-
-
 }

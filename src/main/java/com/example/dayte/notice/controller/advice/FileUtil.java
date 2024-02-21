@@ -36,7 +36,6 @@ public class FileUtil {
 
     //다중 파일 업로드
     public List<FilesInfo> uploadFiles(final List<MultipartFile> multipartFiles){
-        System.out.println(uploadPath);
         List<FilesInfo> files = new ArrayList<>();
         for (MultipartFile multipartFile : multipartFiles) {
             if (!multipartFile.isEmpty()){
@@ -44,14 +43,12 @@ public class FileUtil {
                 files.add(upFile);
 
                 try {
-                    String encodedFileName = UriUtils.encode(Objects.requireNonNull(multipartFile.getOriginalFilename()), StandardCharsets.UTF_8);
 
-                    Path targetPath = Path.of("\\\\192.168.10.203" +this.noticeFileUploadPath + ( upFile.getSaveName()  + "_"+ multipartFile.getOriginalFilename()));
+                    Path targetPath = Path.of("\\\\192.168.10.203" +this.noticeFileUploadPath + upFile.getSaveName());
 
                     Path sourcePath = Paths.get(originPath);
 
                     Files.copy(sourcePath, targetPath, StandardCopyOption.REPLACE_EXISTING);
-
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -100,10 +97,6 @@ public class FileUtil {
         return uuid + "." + extension;
     }
 
-    private String getUploadPath() {
-        return makeDirectories(uploadPath);
-    }
-
     private String getUploadPath(final String addPath) {
         return makeDirectories(uploadPath + File.separator + addPath);
     }
@@ -121,10 +114,11 @@ public class FileUtil {
     public Resource readFileAsResource(FilesInfo file) {
         String uploadedDate = file.getCreateDate().toLocalDateTime().format(DateTimeFormatter.ofPattern("yyMMdd"));
         String filename = file.getSaveName();
-        Path filePath = Paths.get(uploadPath, uploadedDate, filename);
+        Path filePath = Paths.get("\\\\192.168.10.203\\"+noticeFileUploadPath, filename);
 
         try {
             Resource resource = new UrlResource(filePath.toUri());
+
             if (!resource.exists() || !resource.isFile()) {
                 throw new RuntimeException("file not found: " + filePath.toString());
             }

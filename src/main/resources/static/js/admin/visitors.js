@@ -65,8 +65,9 @@ function updateChart(values) {
                         myChart.data.labels.push(logDate);
                         myChart.data.datasets[0].data.push(data[i].visitors);
                     } else {
+                        let logDate = data[i].date[0] + '-' + data[i].date[1] + '-' + data[i].date[2];
                         let weekDay = data[i].dayOfWeek;
-                        myChart.data.labels.push(weekDay);
+                        myChart.data.labels.push(logDate+'('+weekDay+')');
                         myChart.data.datasets[0].data.push(data[i].visitors);
                     }
                 }

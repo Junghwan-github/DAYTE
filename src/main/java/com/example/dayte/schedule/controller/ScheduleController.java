@@ -1,7 +1,9 @@
 package com.example.dayte.schedule.controller;
 
 
+import com.example.dayte.admin.contents.domain.AdminContents;
 import com.example.dayte.admin.contents.service.AdminContentsService;
+import com.example.dayte.content.dto.AvgStarViewDTO;
 import com.example.dayte.members.dto.ResponseDTO;
 import com.example.dayte.reply.service.ContentReplyService;
 import com.example.dayte.schedule.domain.Schedule;
@@ -21,7 +23,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -36,13 +40,24 @@ public class ScheduleController {
 
     private final ContentReplyService contentReplyService;
 
+
+    @PostMapping("/schedule/scheduleList/{pageNum}")
+    public @ResponseBody Map<String, Object> moveScheduleList(@PathVariable int pageNum) {
+        Map<String, Object> result = new HashMap<>();
+        List<AdminContents> adminContents = adminContentsService.getContentsList(pageNum);
+        List<AvgStarViewDTO> avgStarViewDTO = contentReplyService.avgStarList();
+        result.put("scheduleLoadDatalist",adminContents);
+        result.put("scheduleStarPoint", avgStarViewDTO);
+        return result;
+    }
+
     // 사용자가 계획한 일정 전체를 보여주는 로직
     @GetMapping("/schedule/scheduleList")
     public String moveScheduleList(Model model,
                                    @AuthenticationPrincipal UserSecurityDTO userSecurityDTO) {
         model.addAttribute("userScheduleList",
                         scheduleService.selectScheduleByUser(userSecurityDTO))
-                .addAttribute("contentsList", adminContentsService.getContentsList())
+                .addAttribute("contentsList", adminContentsService.getContentsList(0))
                 .addAttribute("dDay", LocalDate.now().toEpochDay())
                 .addAttribute("starList", contentReplyService.avgStarList())
                 .addAttribute("contentsListKeyword", adminContentsService.getContentsAllKeywordList());

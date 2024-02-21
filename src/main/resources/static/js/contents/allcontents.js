@@ -74,9 +74,10 @@ function displaySearchResults1(data) {
                         <li>
                         <div class="contents-title-wrapper">
                             <h2>${content.businessName}</h2>
-                            <span>${content.category}</span>
-                            <span>${content.keyword}</span>
-                            </div>
+                            <div class="contents-category-keyword">
+                                                    <span>${content.category}</span>
+                                                    <span>${content.keyword}</span>
+                                                </div>
                         </li>
                         <li>
                             <span>${content.detailedAddress}</span>

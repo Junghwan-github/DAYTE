@@ -44,8 +44,6 @@ public class AdminContentsController {
 
     private final AdminContentsService adminContentsService;
 
-    private final ModelMapper modelMapper;
-
     private final UserService userService;
 
     private final PostService postService;
@@ -77,8 +75,9 @@ public class AdminContentsController {
                             @RequestParam(required = false, defaultValue = "") String word
     ) {
         Page<User> allList = userService.userList(pageable); // 총 회원수
-        Page<User> dList = userService.delList(pageable); // 탈퇴 회원수
-
+        Page<User> delList = userService.delList(pageable); // 탈퇴 회원수
+        Page<User> bList = userService.userListByRole("BLOCK", pageable); // 블락 회원수
+        Page<User> dList = userService.userListByRole("DORMANCY",pageable); // 휴면 계정 수
         // 사용자 상세 검색
         Page<User> ulist = userService.userList(pageable);
         if (field.equals("userName")) {
@@ -110,6 +109,8 @@ public class AdminContentsController {
         model.addAttribute("endBlockPage", endBlockPage);
         model.addAttribute("ulist", ulist);
         model.addAttribute("allList", allList);
+        model.addAttribute("delList", delList);
+        model.addAttribute("bList", bList);
         model.addAttribute("dList", dList);
 
         return "adminPage/adminUsers";

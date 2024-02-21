@@ -140,7 +140,7 @@
             <div id="tab2" class="tab-content">
                 <div class="reply-content-review-list">
                     <c:forEach var="post" items="${postList}">
-                        <div class="reply-content-review-item">
+                        <div class="reply-content-review-item" onclick="location.href='/post/${post.id}'" >
                             <div class="user-info-post">
                                 <ul>
                                     <li>
