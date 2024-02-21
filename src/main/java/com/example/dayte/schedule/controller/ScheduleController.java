@@ -37,7 +37,7 @@ public class ScheduleController {
     private final ContentReplyService contentReplyService;
 
 
-    @GetMapping("/schedule/scheduleList/{page}")
+    @PostMapping("/schedule/scheduleList/{page}")
     public String moveScheduleList(Model model,
                                    @AuthenticationPrincipal UserSecurityDTO userSecurityDTO,
                                    @PathVariable int page) {
