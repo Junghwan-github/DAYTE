@@ -15,15 +15,15 @@
             </ul>
             <ul class="list-unstyled border rounded d-flex flex-row me-2">
                 <li class="border-end bg-secondary-subtle m-0 p-2 rounded-start fw-semibold h4">탈퇴</li>
-                <li  class="m-0 py-2 px-3 bg-light rounded-end fw-semibold h4">${dList.totalElements}</li>
+                <li  class="m-0 py-2 px-3 bg-light rounded-end fw-semibold h4">${delList.totalElements}</li>
             </ul>
             <ul class="list-unstyled border rounded d-flex flex-row me-2">
                 <li class="border-end bg-secondary-subtle m-0 p-2 rounded-start fw-semibold h4">정지</li>
-                <li  class="m-0 py-2 px-3 bg-light rounded-end fw-semibold h4">00</li>
+                <li  class="m-0 py-2 px-3 bg-light rounded-end fw-semibold h4">${bList.totalElements}</li>
             </ul>
             <ul class="list-unstyled border rounded d-flex flex-row me-2">
                 <li class="border-end bg-secondary-subtle m-0 p-2 rounded-start fw-semibold h4">휴면</li>
-                <li  class="m-0 py-2 px-3 bg-light rounded-end fw-semibold h4">00</li>
+                <li  class="m-0 py-2 px-3 bg-light rounded-end fw-semibold h4">${dList.totalElements}</li>
             </ul>
         </div>
 

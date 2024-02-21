@@ -75,6 +75,7 @@ public class UserService {
         return userRepository.findByDel(delCheck, pageable);
     }
 
+
     @Transactional
     public Page<User> userListByUserName(String userName, Pageable pageable) {
         return userRepository.findByUserName(userName, pageable);

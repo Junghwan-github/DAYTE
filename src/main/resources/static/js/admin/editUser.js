@@ -46,7 +46,7 @@ let userObject = {
         }).done(function (response) {
             if(response.status === 200) {
                 alert("회원정보 수정이 완료되었습니다.");
-                location = "/admin/home";
+                location = "/admin/user";
             } else {
                 let warn = "";
                 let errors = response["data"];
