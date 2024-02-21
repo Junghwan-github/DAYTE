@@ -175,7 +175,14 @@ public class AdminContentsService {
     @Transactional(readOnly = true)
     public List<AdminContents> searchByContents(String searchContents) {
         if(searchContents == null) searchContents = "";
-        return adminContentsRepository.findAllBySearch(searchContents);
+
+        if (searchContents.contains("#")) {
+            return adminContentsRepository.findAllByKeyWordSearch1(searchContents);
+        } else if (List.of("중구", "수성구", "북구", "동구", "남구", "서구", "달서구", "달성군", "군위군").contains(searchContents)) {
+            return adminContentsRepository.findAllByGugunSearch1(searchContents);
+        } else {
+            return adminContentsRepository.findAllBySearch1(searchContents);
+        }
     }
 
     @Transactional//(readOnly = true)

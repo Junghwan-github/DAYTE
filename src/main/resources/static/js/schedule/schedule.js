@@ -359,7 +359,7 @@ function scrollContentData (data) {
                             <p>문의 : ${data.scheduleLoadDatalist[i].contactInfo}</p>
                         </li>
                          <li class="star-point-find">
-                         <span class="rating"></span>   
+                         <span class="star"></span>   
                          </li>
                         </ul>
                     <div class="contentListItemButton">
@@ -386,10 +386,11 @@ function scrollContentData (data) {
 
                 for(let j = 0; j<data.scheduleStarPoint.length; j++) {
                     $(".contentListItemdetailViewBtn").each(function () {
+                        console.log($(this).val());
                     if($(this).val() === data.scheduleStarPoint[j].uuid) {
-                       $(this).closest(".contentListItems").find(".rating").text('★' + data.scheduleStarPoint[j].starAVG.toFixed(1));
+                       $(this).closest(".contentListItems").find(".star").text(data.scheduleStarPoint[j].starAVG);
                     } else {
-                        $(this).closest(".contentListItems").find(".rating").text('★0.0');
+                        $(this).closest(".contentListItems").find(".star").text('★0.0');
                     }
                     })
                 }
