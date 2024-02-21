@@ -29,10 +29,13 @@
                     </select>
                 </div>
                 <input type="text" id="searchWord" name="searchWord">
-                <button id="searchFunction"><img src="/images/searchIconB.png"></button>
+                <button id="searchFunction"><img class="noticeImg" src="/images/searchIconB.png"></button>
             </div>
         </form>
         <div>
+            <a href="/notice">
+                <button>목록</button>
+            </a>
             <a href="/notice/createNotice">
                 <button>글쓰기</button>
             </a>
@@ -67,15 +70,15 @@
                             <fmt:formatDate value="${notice.createDate}" pattern="yy-MM-dd"/>
                         </td>
                         <td>
-                            <button class="upbtn" onclick="moveUp(this,event)"><img src="/images/topIcon.png"></button>
+                            <button class="upbtn" onclick="moveUp(this,event)"><img class="noticeImg" src="/images/topIcon.png"></button>
                         </td>
                         <td>
-                            <button class="downbtn" onclick="moveDown(this,event)"><img src="/images/downIcon.png">
+                            <button class="downbtn" onclick="moveDown(this,event)"><img class="noticeImg" src="/images/downIcon.png">
                             </button>
                         </td>
                         <td>
                             <button class="goToDefault" value="${notice.no}" onclick="resetPriority(this.value, event)">
-                                <img src="/images/XIcon.png"></button>
+                                <img class="noticeImg" src="/images/XIcon.png"></button>
                         </td>
                     </tr>
                 </c:forEach>
@@ -122,7 +125,7 @@
                         </td>
                         <td>
                             <button class="upToSelected" value="${notice.no}" onclick="upToSelected(this.value, event)">
-                                <img src="/images/topIcon.png"></button>
+                                <img class="noticeImg" src="/images/topIcon.png"></button>
                         </td>
                     </tr>
                 </c:forEach>
@@ -137,13 +140,13 @@
                     <c:if test="${!defaultNotices.first}">
                         <li>
                             <a class="pageDoubleMoveBtn" href="?page=0">
-                                <img src="/images/doublePrevious.png"/>
+                                <img class="noticeImg" src="/images/doublePrevious.png"/>
                                 처음으로
                             </a>
                         </li>
                         <li>
                             <a class="pageMoveBtn" href="?page=${defaultNotices.number - 1}">
-                                <img src="/images/previous.png"/>
+                                <img class="noticeImg" src="/images/previous.png"/>
                                 이전
                             </a>
                         </li>
@@ -160,13 +163,13 @@
                     <c:if test="${!defaultNotices.last}">
                         <li>
                             <a class="pageMoveBtn" href="?page=${defaultNotices.number + 1}">
-                                <img src="/images/next.png"/>
+                                <img class="noticeImg" src="/images/next.png"/>
                                 다음
                             </a>
                         </li>
                         <li>
                             <a class="pageDoubleMoveBtn" href="?page=${defaultNotices.totalPages-1}">
-                                <img src="/images/doubleNext.png"/>
+                                <img class="noticeImg" src="/images/doubleNext.png"/>
                                 마지막으로
                             </a>
                         </li>
@@ -178,13 +181,13 @@
                         <c:if test="${!defaultNotices.first}">
                             <li>
                                 <a class="pageDoubleMoveBtn" href="?page=0&amp;searchOption=${param.searchOption}&amp;searchWord=${param.searchWord}">
-                                    <img src="/images/doublePrevious.png"/>
+                                    <img class="noticeImg" src="/images/doublePrevious.png"/>
                                     처음으로
                                 </a>
                             </li>
                             <li>
                                 <a class="pageMoveBtn" href="?page=${defaultNotices.number - 1}&amp;searchOption=${param.searchOption}&amp;searchWord=${param.searchWord}">
-                                    <img src="/images/previous.png"/>
+                                    <img class="noticeImg" src="/images/previous.png"/>
                                     이전
                                 </a>
                             </li>
@@ -202,13 +205,13 @@
                         <c:if test="${!defaultNotices.last}">
                             <li>
                                 <a class="pageMoveBtn" href="?page=${defaultNotices.number + 1}&amp;searchOption=${param.searchOption}&amp;searchWord=${param.searchWord}">
-                                    <img src="/images/next.png"/>
+                                    <img class="noticeImg" src="/images/next.png"/>
                                     다음
                                 </a>
                             </li>
                             <li>
                                 <a class="pageDoubleMoveBtn" href="?page=${defaultNotices.totalPages-1}&amp;searchOption=${param.searchOption}&amp;searchWord=${param.searchWord}">
-                                    <img src="/images/doubleNext.png"/>
+                                    <img class="noticeImg" src="/images/doubleNext.png"/>
                                     마지막으로
                                 </a>
                             </li>
