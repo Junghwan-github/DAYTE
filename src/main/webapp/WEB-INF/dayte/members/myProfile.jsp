@@ -19,7 +19,7 @@
         <c:set var="nowDate" value="${java.time.LocalDate.now()}"/>
         <div class="myScheduleList">
             <div>
-                <span>등록된 일정 | ${mySchedule.size()}</span>
+                <span>다가올 일정 | ${mySchedule[0].title}</span>
                 <a href="/schedule/scheduleList">일정 보기</a>
             </div>
         <c:if test="${!empty mySchedule[0].scheduleDates}">

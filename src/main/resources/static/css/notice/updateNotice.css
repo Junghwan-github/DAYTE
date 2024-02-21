@@ -49,16 +49,20 @@
 .fileInput {
     font-size: 1.4rem;
 }
-#newPreview > p {
+#newPreview > p,
+#preview > p{
     font-size: 1.4rem;
     padding-left: 10px;
 }
-#newPreview > p:hover {
+#newPreview > p:hover,
+#preview > p:hover{
     background-color: #eeeeee;
     transition: 0.2s;
 }
 
-#newPreview > p > button {
+#newPreview > p > button,
+#preview > p > button
+{
     width: 25px;
     height: 25px;
     padding: 0px;
@@ -75,7 +79,8 @@
     display: flex;
     justify-content: end;
 }
-.noticebtns > a {
+.noticebtns > a,
+.noticebtns > button {
     padding: 8px 11px;
     margin: 0 0 0 5px;
     border :transparent;
@@ -88,7 +93,8 @@
 
     cursor: pointer;
 }
-.noticebtns > a:hover {
+.noticebtns > a:hover,
+.noticebtns > button:hover {
     background-color: #111;
     color: #fff;
     transition: 0.2s;
