@@ -348,6 +348,11 @@ main {
   flex-flow: row nowrap;
   justify-content: center;
   border-bottom: 1px solid #ddd;
+  cursor: pointer;
+}
+.reply-content-review-item:hover {
+  background-color: #f3f3f3;
+  transition: 0.2ms;
 }
 
 .user-info,
