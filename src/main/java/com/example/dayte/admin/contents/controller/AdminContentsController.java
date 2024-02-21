@@ -44,8 +44,6 @@ public class AdminContentsController {
 
     private final AdminContentsService adminContentsService;
 
-    private final ModelMapper modelMapper;
-
     private final UserService userService;
 
     private final PostService postService;

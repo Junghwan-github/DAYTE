@@ -16,7 +16,7 @@ public interface AdminContentsRepository extends JpaRepository<AdminContents, St
 
     List<AdminContents> findAllByCategory(String category);
 
-//    List<AdminContents> findAllByCategoryAndCategoryNot(String category, String not);
+    List<AdminContents> findAllByCategoryNot(String not);
 
     @Query("SELECT c FROM AdminContents c WHERE c.category = :category AND " +
             "(c.businessName LIKE %:search% OR c.gu LIKE %:search% OR c.detailedAddress LIKE %:search% OR c.keyword LIKE %:search%)")
@@ -64,4 +64,5 @@ public interface AdminContentsRepository extends JpaRepository<AdminContents, St
     @Query("SELECT DISTINCT c.keyword FROM AdminContents c")
     List<String> findAllByKeyword();
 
+    Page<AdminContents> findAllByCategoryNot(String not, Pageable pageable);
 }
