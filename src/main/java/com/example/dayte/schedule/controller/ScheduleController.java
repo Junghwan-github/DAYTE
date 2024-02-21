@@ -36,13 +36,27 @@ public class ScheduleController {
 
     private final ContentReplyService contentReplyService;
 
+
+    @PostMapping("/schedule/scheduleList/{page}")
+    public String moveScheduleList(Model model,
+                                   @AuthenticationPrincipal UserSecurityDTO userSecurityDTO,
+                                   @PathVariable int page) {
+        model.addAttribute("userScheduleList",
+                        scheduleService.selectScheduleByUser(userSecurityDTO))
+                .addAttribute("contentsList", adminContentsService.getContentsList(page))
+                .addAttribute("dDay", LocalDate.now().toEpochDay())
+                .addAttribute("starList", contentReplyService.avgStarList())
+                .addAttribute("contentsListKeyword", adminContentsService.getContentsAllKeywordList());
+        return "scheduleList/scheduleList";
+    }
+
     // 사용자가 계획한 일정 전체를 보여주는 로직
     @GetMapping("/schedule/scheduleList")
     public String moveScheduleList(Model model,
                                    @AuthenticationPrincipal UserSecurityDTO userSecurityDTO) {
         model.addAttribute("userScheduleList",
                         scheduleService.selectScheduleByUser(userSecurityDTO))
-                .addAttribute("contentsList", adminContentsService.getContentsList())
+                .addAttribute("contentsList", adminContentsService.getContentsList(0))
                 .addAttribute("dDay", LocalDate.now().toEpochDay())
                 .addAttribute("starList", contentReplyService.avgStarList())
                 .addAttribute("contentsListKeyword", adminContentsService.getContentsAllKeywordList());

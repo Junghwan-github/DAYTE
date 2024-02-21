@@ -22,7 +22,7 @@ public class VisitorStatisticsService {
 
     public List<VisitorStatisticsDTO> getVisitorsCountList(LocalDate date, boolean flag) {
         if(!flag){
-            List<Object[]> visitorStatisticsList = visitorStatisticsRepository.good(date);
+            List<Object[]> visitorStatisticsList = visitorStatisticsRepository.getAvgLocalDate(date);
             List<VisitorStatisticsDTO> dtos = new ArrayList<>();
             for (Object[] row : visitorStatisticsList) {
                 int year = (int) row[0];

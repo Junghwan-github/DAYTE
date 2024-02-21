@@ -1,13 +1,13 @@
 $(document).ready(function () {
     $(".scheduleItemSlider").bxSlider({
-        mode        : "horizontal",
-        slideWidth  : 350,
-        speed       : 500,
-        auto        : true,
-        slideMargin : 0,
-        minSlides   : 1,
-        maxSlides   : 1,
-        pager       : false,
+        mode: "horizontal",
+        slideWidth: 350,
+        speed: 500,
+        auto: true,
+        slideMargin: 0,
+        minSlides: 1,
+        maxSlides: 1,
+        pager: false,
         infiniteLoop: false
     });
 });
@@ -18,6 +18,12 @@ let imageSrc = '/images/marker.png',
     imageOption = {offset: new kakao.maps.Point(13, 33)};
 let markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
 
+
+
+let pageNum = 1;
+let eventFired = false;
+
+
 $(".nextDayBtn").on("click", function (e) {
     $(".tableUuid").text($(e.target).val());
     $(".daysValue").text($(e.target).data("now-days"));
@@ -25,12 +31,24 @@ $(".nextDayBtn").on("click", function (e) {
     $(".scheduleTotalModifyBtn").hide();
 
 
+
+    $(".centerModalLayout").scroll(function () {
+        let contentHeight = $(".contentListViewer").height() -740;
+
+
+        if ($(".centerModalLayout").scrollTop() >= contentHeight) {
+            fetchDataFromDatabase();
+        }
+
+    })
+
+
     let containerEl = document.querySelector('.contentModalSlider');
     sortableInstance = new Sortable(containerEl, {
-        animation : 150,
+        animation: 150,
         ghostClass: 'active',
-        direction : "horizontal",
-        filter    : '.contentsListItemDelete'
+        direction: "horizontal",
+        filter: '.contentsListItemDelete'
     });
     sortableInstance.option("disabled", true);
 
@@ -41,7 +59,7 @@ $(".nextDayBtn").on("click", function (e) {
     let container = document.getElementById("rightModalLayout");
     let options = {
         center: new kakao.maps.LatLng(33.450701, 126.570667),
-        level : 5
+        level: 5
     };
     map = new kakao.maps.Map(container, options);
 });
@@ -102,6 +120,11 @@ function mouseDrag(select) {
         walk = x - startX;
         select.scrollLeft = scrollLeft - walk;
     }
+}
+
+
+function contentDataLoad() {
+    console.log("ddd");
 }
 
 
@@ -212,16 +235,16 @@ $(".detail-daysPrint-button").on("click", function () {
     let container = document.getElementById("rightModalLayout");
     let options = {
         center: new kakao.maps.LatLng(33.450701, 126.570667),
-        level : 5
+        level: 5
     };
     let map = new kakao.maps.Map(container, options);
 
     let containerEl = document.querySelector('.contentModalSlider');
     sortableInstance = new Sortable(containerEl, {
-        animation : 150,
+        animation: 150,
         ghostClass: 'active',
-        direction : "horizontal",
-        filter    : '.contentsListItemDelete'
+        direction: "horizontal",
+        filter: '.contentsListItemDelete'
     });
     sortableInstance.option("disabled", true);
 
@@ -250,7 +273,7 @@ $('.contentListViewer').on('click', '.contentListItems', function (e) {
         let moveLatLng = new kakao.maps.LatLng(latitude, longitude);
         marker = new kakao.maps.Marker({
             position: moveLatLng,
-            image   : markerImage
+            image: markerImage
         });
 
         marker.setMap(map);
@@ -262,7 +285,7 @@ $('.contentListModalBtnWrap').on("click", '.scheduleTotalListMapBtn', function (
     let container = document.getElementById("rightModalLayout");
     let options = {
         center: new kakao.maps.LatLng(33.450701, 126.570667),
-        level : 5
+        level: 5
     };
     map = new kakao.maps.Map(container, options);
 
@@ -270,7 +293,7 @@ $('.contentListModalBtnWrap').on("click", '.scheduleTotalListMapBtn', function (
         let moveLatLng = new kakao.maps.LatLng($(this).find(".contentListItemPoint-x").text(), $(this).find(".contentListItemPoint-y").text());
         let marker = new kakao.maps.Marker({
             position: moveLatLng,
-            image   : markerImage
+            image: markerImage
         });
 
         markers.push(marker); // 각 마커를 배열에 추가합니다.
@@ -284,3 +307,28 @@ $('.contentListModalBtnWrap').on("click", '.scheduleTotalListMapBtn', function (
     });
     map.setBounds(bounds);
 });
+
+
+function fetchDataFromDatabase() {
+    console.log(pageNum);
+    $.ajax({
+        url        : "/schedule/scheduleList/" + pageNum,
+        method     : "POST",
+        contentType: "application/json; charset=utf-8",
+        success    : function (data) {
+
+            console.log(data);
+
+        },
+        error      : function (error) {
+            console.error('검색 실패:', error);
+        }
+    });
+
+    pageNum++
+    console.log(pageNum);
+}
+
+
+
+
