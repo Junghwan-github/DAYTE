@@ -204,10 +204,9 @@
                                         </li>
                                         <li>
                                             <p>영업시간 : ${content.opening} ~ ${content.closed}</p>
-                                            <p>기간 : 없음</p>
                                             <p>문의 : ${content.contactInfo}</p>
                                         </li>
-                                        <li>
+                                        <li class="star-point-find">
                                             <c:set var="hasMatch" value="false"/>
                                             <c:forEach var="star" items="${starList}">
                                                 <c:if test="${star.uuid eq contents.uuid}">

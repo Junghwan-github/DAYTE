@@ -90,7 +90,7 @@ public class NoticeController {
     public String modAllNotice(Model model,
                                @RequestParam(required = false, defaultValue = "") String searchOption,
                                @RequestParam(required = false, defaultValue = "") String searchWord,
-                               @PageableDefault(size = 5, sort = "no", direction = Sort.Direction.DESC) Pageable pageable) {
+                               @PageableDefault(size = 10, sort = "no", direction = Sort.Direction.DESC) Pageable pageable) {
         // 필독 공지사항들
         List<Notice> trueNotices = noticeService.findTrueNotice();
         model.addAttribute("trueNotices", trueNotices);

@@ -27,6 +27,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -98,8 +99,11 @@ public class AdminContentsService {
         }
     }
 
-    // 2024.02.19 --------------------------------------------------------------------------------------------
+    // 2024.02.19 ----------------------------------------------------------------------------------------
+    @Transactional
     public void removeContent(String uuid) {
+        // 1. 삭제하려는 콘텐츠가 만약 사용자가 등록한 일정에 없을 시 바로 삭제
+        // 2. 사용자가 이미 등록한 일정에 있을 시 삭제하지 않고 값을 형식에 맞춰 덮어 씌움
 
         List<DetailedSchedule> detailedSchedules =
                 detailedScheduleRepository.findAllByAdminContents(adminContentsRepository.findById(uuid).get());
@@ -108,25 +112,14 @@ public class AdminContentsService {
         adminContentsRepository.deleteById(uuid);
 
         if (!detailedSchedules.isEmpty()) {
-            System.out.println("!detailedSchedules.isEmpty() : " + !detailedSchedules.isEmpty());
-            AdminContents adminContents = AdminContents.builder()
-                    .uuid(uuid)
-                    .businessName("관리자에 의해 삭제된 컨텐츠입니다.")
-                    .category("1d53a954b6cf")
-                    .gu(null)
-                    .positionX(BigDecimal.valueOf(99.999999))
-                    .positionY(BigDecimal.valueOf(99.999999))
-                    .detailedAddress(null)
-                    .contactInfo(null)
-                    .opening(null)
-                    .closed(null)
-                    .keyword(null)
-                    .detailedDescription(null)
-                    .adminContentsImageList(null)
-                    .facilities(null)
-                    .contentReplyList(null)
-                    .build();
-            adminContentsRepository.save(adminContents);
+            AdminContentsDTO adminContentsDTO = new AdminContentsDTO();
+            adminContentsDTO.setUuid(uuid);
+            adminContentsDTO.setBusinessName("관리자에 의해 삭제된 컨텐츠입니다.");
+            adminContentsDTO.setCategory("1d53a954b6cf");
+            adminContentsDTO.setPositionX(BigDecimal.valueOf(99.999999));
+            adminContentsDTO.setPositionY(BigDecimal.valueOf(99.999999));
+
+            AdminContents adminContents = modelMapper.map(adminContentsDTO, AdminContents.class);
 
             List<DetailedSchedule> newDetailedSchedules= new ArrayList<>();
             for (DetailedSchedule schedule: detailedSchedules) {
@@ -137,6 +130,7 @@ public class AdminContentsService {
                         .build();
                 newDetailedSchedules.add(detailedSchedule);
             }
+            adminContentsRepository.save(adminContents);
             detailedScheduleRepository.saveAll(newDetailedSchedules);
         }
 
@@ -144,6 +138,22 @@ public class AdminContentsService {
 
     // --------------------------------------------------------------------------------------------------
 
+    // 2024.02.21 ---------------------------------------------------------------------------------------
+    @Transactional
+    public List<Integer> saveScheduleNumber(List<AdminContents> deletedContents) {
+
+        List<Integer> scheduleNumberList = new ArrayList<>();
+
+        for (AdminContents adminContents : deletedContents)
+            scheduleNumberList.add(
+                    detailedScheduleRepository
+                            .findAllByAdminContents(adminContents).size()
+            );
+
+        return scheduleNumberList;
+    }
+
+    // --------------------------------------------------------------------------------------------------
 
     @Transactional
     public AdminContents getShowContentsDetail (String id) {
@@ -175,7 +185,14 @@ public class AdminContentsService {
     @Transactional(readOnly = true)
     public List<AdminContents> searchByContents(String searchContents) {
         if(searchContents == null) searchContents = "";
-        return adminContentsRepository.findAllBySearch(searchContents);
+
+        if (searchContents.contains("#")) {
+            return adminContentsRepository.findAllByKeyWordSearch1(searchContents);
+        } else if (List.of("중구", "수성구", "북구", "동구", "남구", "서구", "달서구", "달성군", "군위군").contains(searchContents)) {
+            return adminContentsRepository.findAllByGugunSearch1(searchContents);
+        } else {
+            return adminContentsRepository.findAllBySearch1(searchContents);
+        }
     }
 
     @Transactional//(readOnly = true)

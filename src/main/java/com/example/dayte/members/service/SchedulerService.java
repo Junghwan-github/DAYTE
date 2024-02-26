@@ -150,7 +150,7 @@ public class SchedulerService {
                                 this.now.getYear() + "년" +
                                 this.now.getMonthValue() + "월" +
                                 this.now.getDayOfMonth() + "일 " +
-                                "이전까지 롯데백화점 홈페이지에 로그인을 해 주시기 바랍니다.<h3> <br>" +
+                                "이전까지 DAYTE 홈페이지에 로그인을 해 주시기 바랍니다.<h3> <br>" +
                                 "<h3>또한 휴면계정 전환 후 1년이 경과될 시 "+
                                 "고객님의 계정이 삭제되니 주의하시길 바랍니다.</h3>";
                 message.setText(sendDormancyMail, "UTF-8", "html");

@@ -55,7 +55,7 @@ public class AdminContentsController {
     // 관리자페이지 메인
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/admin/home")
-    public String adminHome(Model model){
+    public String adminHome(Model model) {
         int recentUserCount = 10;
         int recentPostCount = 10;
 
@@ -77,7 +77,7 @@ public class AdminContentsController {
         Page<User> allList = userService.userList(pageable); // 총 회원수
         Page<User> delList = userService.delList(pageable); // 탈퇴 회원수
         Page<User> bList = userService.userListByRole("BLOCK", pageable); // 블락 회원수
-        Page<User> dList = userService.userListByRole("DORMANCY",pageable); // 휴면 계정 수
+        Page<User> dList = userService.userListByRole("DORMANCY", pageable); // 휴면 계정 수
         // 사용자 상세 검색
         Page<User> ulist = userService.userList(pageable);
         if (field.equals("userName")) {
@@ -129,45 +129,38 @@ public class AdminContentsController {
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/admin/editUser")
     public @ResponseBody ResponseDTO<?> updateUser(@ModelAttribute UserDTO userDTO,
-                                                                                 @AuthenticationPrincipal UserSecurityDTO principal) throws IOException {
+                                                   @AuthenticationPrincipal UserSecurityDTO principal) throws IOException {
         userDTO.setRole(userDTO.getRole());
         userDTO.setUserName(userDTO.getUserName());
         userDTO.setPhone(userDTO.getPhone());
 
-        System.out.println("userDTO.getBlack() : " + userDTO.getBlack());
-        System.out.println("LocalDate.MAX : " + LocalDateTime.MAX.withNano(0));
-
-        System.out.println("================================회원정보 수정 : " + userDTO);
-
         LocalDateTime now = LocalDateTime.now().withNano(0);
         LocalDateTime blackDate =
                 switch (userDTO.getBlack()) {
-                case "1일" -> now.plusDays(1);
-                case "2일" -> now.plusDays(2);
-                case "1주" -> now.plusWeeks(1);
-                case "2주" -> now.plusWeeks(2);
-                case "1달" -> now.plusMonths(1);
-                case "2달" -> now.plusMonths(2);
-                case "6개월" -> now.plusMonths(6);
-                case "1년" -> now.plusYears(1);
-                case "영구" -> LocalDateTime.MAX;
-                default -> null;
-            };
+                    case "1일" -> now.plusDays(1);
+                    case "2일" -> now.plusDays(2);
+                    case "1주" -> now.plusWeeks(1);
+                    case "2주" -> now.plusWeeks(2);
+                    case "1달" -> now.plusMonths(1);
+                    case "2달" -> now.plusMonths(2);
+                    case "6개월" -> now.plusMonths(6);
+                    case "1년" -> now.plusYears(1);
+                    case "영구" -> LocalDateTime.MAX;
+                    default -> null;
+                };
         if (blackDate != null) {
             userDTO.setRole(RoleType.BLOCK);
             userDTO.setBlockDate(Timestamp.valueOf(blackDate));
         }
 
-        System.out.println("blackDate : " + blackDate);
-
         if (userDTO.getImage() != null) {
             userService.profileImage(userDTO);
         }
-        if(userService.updateUser(userDTO)) {
+        if (userService.updateUser(userDTO)) {
             log.info("관리자 사용자 정보 수정 - 사용자 ID : {}", userDTO.getUserEmail());
             return new ResponseDTO<>(HttpStatus.OK.value(), "회원 정보가 수정되었습니다.");
-        } else{
-            log.info("사용자 정보 수정 실패 - 중복된 닉네임. 사용자 ID : {}",userDTO.getUserEmail());
+        } else {
+            log.info("사용자 정보 수정 실패 - 중복된 닉네임. 사용자 ID : {}", userDTO.getUserEmail());
             return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "닉네임이 중복되었습니다.");
         }
     }
@@ -204,7 +197,7 @@ public class AdminContentsController {
         LocalDate date = LocalDate.now();
         boolean flag = false;
         switch (value.get("num")) {
-            case "1" -> {
+            case "1", "5" -> {
                 date = date.minusWeeks(1);
                 flag = true;
             }
@@ -219,10 +212,6 @@ public class AdminContentsController {
             case "4" -> {
                 date = date.minusMonths(11);
                 flag = false;
-            }
-            case "5" -> {
-                date = date.minusWeeks(1);
-                flag = true;
             }
         }
         List<VisitorStatisticsDTO> VisitorStatisticsDTO = visitorStatisticsService.getVisitorsCountList(date, flag);
@@ -255,8 +244,6 @@ public class AdminContentsController {
         return new ResponseDTO<>(HttpStatus.OK.value(), "해당 컨텐츠가 삭제되었습니다.");
     }
 
-
-
     @GetMapping("/admin/totalVisitor")
     public String view() {
         return "adminPage/adminTotalVisitor";
@@ -280,18 +267,13 @@ public class AdminContentsController {
         // 인풋창에 공백인 상태로 검색버튼을 눌렀을때 postListPage 을 담아 넘겨주고
         // 검색 키워드가 있을시 postSearchList 을 남아 넘겨줌
 
-        if ("".equals(postWord) || postWord == null) { // 검색키워드가 없거나 검색하지 않았을 때
-            postListPage = postService.getPostList(pageable);
-            postTotalPage = postListPage.getTotalPages();
-        } else { // 무언가를 검색했을 때
-            switch (postField) {
-                case "postTitle" -> postListPage = postService.getPostSearchToTitleList(pageable, postWord);
-                case "postContent" -> postListPage = postService.getPostSearchToContentList(pageable, postWord);
-                case "postAll" -> postListPage = postService.getPostSearchToAllList(pageable, postWord);
-                default -> postListPage = postService.getPostList(pageable);
-            }
-            postTotalPage = postListPage.getTotalPages();
-        }
+        postListPage = switch (postField) {
+            case "postTitle" -> postService.getPostSearchToTitleList(pageable, postWord);
+            case "postContent" -> postService.getPostSearchToContentList(pageable, postWord);
+            case "postAll" -> postService.getPostSearchToAllList(pageable, postWord);
+            default -> postService.getPostList(pageable);
+        };
+        postTotalPage = postListPage.getTotalPages();
         // postListPage 필드에 담긴 페이지네이션화된 전체 데이터를 postTotalPage 필드에 대입
         int postNowPage = postListPage.getNumber(); // 현재 게시판 페이지
 
@@ -324,8 +306,8 @@ public class AdminContentsController {
             Long postId = Long.parseLong(grpCode[i].replaceAll("[\\[\\] ]", ""));
             postService.deletePost(postId);
         }
-            return new ResponseDTO<>(HttpStatus.OK.value(), i + "건 삭제 하셨습니다.");
-        }
+        return new ResponseDTO<>(HttpStatus.OK.value(), i + "건 삭제 하셨습니다.");
+    }
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/admin/home/settings/contents")
@@ -356,13 +338,14 @@ public class AdminContentsController {
 
         model
                 .addAttribute("arrangedList",
-                        adminContentsService.getArrangedList())
-                .addAttribute("contentsList", contentsPage)
-                .addAttribute("contentsDTO", pageableDTO)
+                        adminContentsService.getArrangedList()) // 콘텐츠 수 표기
+                .addAttribute("contentsList", contentsPage) // 콘텐츠 리스트들
+                .addAttribute("contentsDTO", pageableDTO) // 페이지네이션에 필요한 값들
+                .addAttribute("scheduleNumberList",
+                        adminContentsService.saveScheduleNumber(contentsPage.getContent())) // 삭제된 일정이 등록된 수
         ;
 
-
         return "adminPage/settings/mainAdminContents";
-        }
-
     }
+
+}
