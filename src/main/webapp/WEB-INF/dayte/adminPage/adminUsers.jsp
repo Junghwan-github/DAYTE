@@ -1,6 +1,7 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@include file="layout/adminHead.jsp"%>
 <!-- 콘텐츠 -->
 <div class="h-100  px-3" style="padding-top: 70px; min-width:375px;">
@@ -81,7 +82,7 @@
                             <td class="text-center align-middle h4 fw-normal">${user.nickName}</td>
                             <td class="text-center align-middle h4 fw-normal">${user.phone}</td>
                             <td class="text-center align-middle h4 fw-normal">${user.gender}</td>
-                            <td class="text-center align-middle h4 fw-normal">${user.joinDate}</td>
+                            <td class="text-center align-middle h4 fw-normal"><fmt:formatDate value="${user.joinDate}" pattern="yyyy.MM.dd HH:mm:ss"/></td>
                             <td class="text-center align-middle h4 fw-normal">${user.role}</td>
                             <td class="text-center align-middle h4 fw-normal">${user.del}</td>
                             <td class="text-center align-middle ">
