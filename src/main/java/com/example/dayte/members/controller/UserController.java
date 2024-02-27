@@ -237,11 +237,9 @@ public class UserController {
 
     @PostMapping("/members/nickNameCheck/{nickName}")
     public @ResponseBody ResponseDTO<?> nickNameChk(
-            @PathVariable String nickName,
-            @AuthenticationPrincipal UserSecurityDTO userSecurityDTO
-    ) {
+            @PathVariable String nickName) {
 
-        if (!userService.nickNameChk(nickName) || nickName.equals(userSecurityDTO.getNickName())) {
+        if (!userService.nickNameChk(nickName)) {
             return new ResponseDTO<>(HttpStatus.OK.value(), "사용 할 수 있는 닉네임 입니다.");
         } else {
             return new ResponseDTO<>(HttpStatus.CONFLICT.value(), "중복된 닉네임 입니다.");

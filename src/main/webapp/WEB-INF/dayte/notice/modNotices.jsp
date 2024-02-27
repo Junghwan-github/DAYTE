@@ -106,7 +106,7 @@
                     <th class="NoticeNum">번호</th>
                     <th class="NoticeTitle">제목</th>
                     <th class="NoticeDate">게시일</th>
-                    <th class="viewCheck">뷰 단에서 보일건가</th>
+                    <th class="viewCheck">표시 여부</th>
                     <th class="grantPriority">필독 공지사항으로 등록</th>
 
                 </tr>
