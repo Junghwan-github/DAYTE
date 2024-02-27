@@ -69,7 +69,14 @@
                     <th scope="col" class="text-center align-middle bg-secondary-subtle h4">아이디</th>
                     <th scope="col" class="text-center align-middle bg-secondary-subtle h4">이름</th>
                     <th scope="col" class="text-center align-middle bg-secondary-subtle h4">카테고리</th>
-                    <th scope="col" class="text-center align-middle bg-secondary-subtle h4">키워드</th>
+                    <c:choose>
+                        <c:when test="${contentsDTO.field eq 'deleted'}">
+                            <th scope="col" class="text-center align-middle bg-secondary-subtle h4">등록된 일정 수</th>
+                        </c:when>
+                        <c:otherwise>
+                            <th scope="col" class="text-center align-middle bg-secondary-subtle h4">키워드</th>
+                        </c:otherwise>
+                    </c:choose>
                     <th scope="col" class="text-center align-middle bg-secondary-subtle h4">관리</th>
                 </tr>
                 </thead>
@@ -82,7 +89,14 @@
                                 <td class="text-center align-middle h4 fw-normal">${content.uuid}</td>
                                 <td class="text-center align-middle h4 fw-normal">${content.businessName}</td>
                                 <td class="text-center align-middle h4 fw-normal">${content.category}</td>
-                                <td class="text-center align-middle h4 fw-normal">${content.keyword}</td>
+                                <c:choose>
+                                    <c:when test="${contentsDTO.field eq 'deleted'}">
+                                        <td class="text-center align-middle h4 fw-normal">${scheduleNumberList[loop.index]}</td>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <td class="text-center align-middle h4 fw-normal">${content.keyword}</td>
+                                    </c:otherwise>
+                                </c:choose>
                                 <td class="text-center align-middle h4 fw-normal">
                                     <div class="d-flex justify-content-center">
                                         <button value="${content.uuid}" class="btn btn-dark ms-1 d-block deleteBtn adminUserFS">
