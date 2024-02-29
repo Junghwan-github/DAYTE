@@ -317,20 +317,16 @@ function fetchDataFromDatabase() {
         contentType: "application/json; charset=utf-8",
         success    : function (data) {
             console.log(data);
-
             scrollContentData(data);
         },
         error      : function (error) {
             console.error('검색 실패:', error);
         }
     });
-
     pageNum++
-
 }
 
-
-
+let count = 10;
 function scrollContentData (data) {
     if(data.scheduleLoadDatalist.length > 0) {
         for (let i = 0; i < data.scheduleLoadDatalist.length; i++) {
@@ -359,7 +355,7 @@ function scrollContentData (data) {
                             <p>문의 : ${data.scheduleLoadDatalist[i].contactInfo}</p>
                         </li>
                          <li class="star-point-find">
-                         <span class="star"></span>   
+                         <span class="star">★0.0</span>   
                          </li>
                         </ul>
                     <div class="contentListItemButton">
@@ -375,25 +371,15 @@ function scrollContentData (data) {
                     </div>
                 </div>  
               </li>`);
-            // const matchingStar = data.scheduleStarPoint.find(star => star.uuid === data.scheduleLoadDatalist[i].uuid);
-            // if (matchingStar) {
-            //    $(".rating").text('★' + matchingStar.starAVG.toFixed(1));
-            // } else {
-            //     $(".rating").text('★0.0');
-            // };
-
-
-
-                for(let j = 0; j<data.scheduleStarPoint.length; j++) {
-                    $(".contentListItemdetailViewBtn").each(function () {
-                        console.log($(this).val());
-                    if($(this).val() === data.scheduleStarPoint[j].uuid) {
-                       $(this).closest(".contentListItems").find(".star").text(data.scheduleStarPoint[j].starAVG);
-                    } else {
-                        $(this).closest(".contentListItems").find(".star").text('★0.0');
-                    }
-                    })
-                }
+            const listItem = $(".star-point-find").eq(i+count);
+            console.log(count);
+            console.log(listItem);
+            const starElement = listItem.find(".star");
+            const matchingStar = data.scheduleStarPoint.find(star => star.uuid === data.scheduleLoadDatalist[i].uuid);
+            if (matchingStar) {
+                starElement.text('★' + matchingStar.starAVG.toFixed(1));
+            }
         }
+        count += 10;
     }
 }

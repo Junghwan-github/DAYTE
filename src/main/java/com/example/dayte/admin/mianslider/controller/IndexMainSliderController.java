@@ -16,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class IndexMainSliderController {
 
     @Autowired
-    IndexMainSliderService indexMainSliderService;
+    private IndexMainSliderService indexMainSliderService;
 
     @GetMapping("/admin/home/settings/index")
     public String IndexMainSliderView () {
@@ -45,6 +45,4 @@ public class IndexMainSliderController {
         indexMainSliderService.InsertSlider(indexMainSliderDTO);
         return new ResponseDTO<>(HttpStatus.OK.value(), "정상처리 되었습니다.");
     }
-
-
 }

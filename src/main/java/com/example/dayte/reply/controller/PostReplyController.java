@@ -6,7 +6,6 @@ import com.example.dayte.post.domin.Post;
 import com.example.dayte.post.service.PostService;
 import com.example.dayte.reply.domain.PostReply;
 import com.example.dayte.reply.dto.PostReplyDTO;
-import com.example.dayte.reply.service.FormatCreateDateService;
 import com.example.dayte.reply.service.PostReplyService;
 import com.example.dayte.security.dto.UserSecurityDTO;
 import lombok.RequiredArgsConstructor;
@@ -29,8 +28,6 @@ public class PostReplyController {
     private final PostReplyService postReplyService;
 
     private final ModelMapper modelMapper;
-
-    private final FormatCreateDateService formatCreateDateService;
 
     @PostMapping("/postReply")
     public @ResponseBody ResponseDTO<?> PostReplyGet(@RequestBody PostReplyDTO postReplyDTO,
@@ -57,8 +54,6 @@ public class PostReplyController {
     // update 부분
     @PutMapping("/postReply/{num}")
     public @ResponseBody ResponseDTO<?> postUpdateReply(@PathVariable int num, @RequestBody Map<String, String> newContent) {
-
-        System.out.println(newContent.get("content"));
         postReplyService.postReplyUpdate(num, newContent.get("content"));
         return new ResponseDTO<>(HttpStatus.OK.value(), "댓글이 수정되었습니다.");
         // "/contentReply/{num}" 경로에 대한 PUT 요청을 처리하고,

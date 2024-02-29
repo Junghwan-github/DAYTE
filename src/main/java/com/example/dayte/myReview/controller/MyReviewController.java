@@ -58,20 +58,17 @@ public class MyReviewController {
             @AuthenticationPrincipal UserSecurityDTO principal
     ) {
         User user = modelMapper.map(principal, User.class);
-        model.addAttribute("myReview", myReviewService.getMyContentsReview(user, pageable));
-
 
         Page<ContentReply> myReviewPage = myReviewService.getMyContentsReview(user, pageable);
-
-        model.addAttribute("myReviewPage", myReviewPage);
 
         int totalPages = myReviewPage.getTotalPages();
         int pageSize = 5;
         int startPage = Math.max(0, (pageable.getPageNumber() / pageSize) * pageSize);
         int endPage = Math.min(startPage + pageSize - 1, totalPages - 1);
-
-        model.addAttribute("startPage", startPage);
-        if (endPage >= 0) {
+        model
+                .addAttribute("myReview", myReviewPage)
+                .addAttribute("startPage", startPage);
+        if(endPage >=0){
             model.addAttribute("endPage", endPage);
         }
 

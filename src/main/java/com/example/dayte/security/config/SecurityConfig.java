@@ -24,14 +24,15 @@ public class SecurityConfig {
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
+        return (web) -> web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations())
+                .requestMatchers("/temp/**");
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/members/**","/contents/**", "/WEB-INF/**", "/txt/**", "/images/**", "/js/**","/css/**","/","/error" ,"/temp/**" ,"/notice", "/notice/searchNotices", "/customerService", "/question", "/viewNotice/**", "/event/**", "/mainPostList/").permitAll()
+                    auth.requestMatchers("/members/**","/contents/**", "/WEB-INF/**","/","/notice", "/notice/searchNotices", "/customerService", "/question", "/viewNotice/**", "/event/**", "/mainPostList/").permitAll()
                             .requestMatchers("/admin/**", "/notice/**", "/update/**").hasRole("ADMIN")
                             .anyRequest().authenticated();
                 })

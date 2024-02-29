@@ -32,19 +32,15 @@ public class ContentReplyService {
                     return true;
             }
         }
-
         return false;
     }
-
 
     // 새로운 댓글 추가
     @Transactional
     public void contentReplyinsert(ContentReply contentReply, String contentUuid) {
-
             AdminContents adminContents = adminContentsRepository.findById(contentUuid).get();
             contentReply.setContents(adminContents);
             contentReplyRepository.save(contentReply);
-
     }
 
     //댓글 수정창에서 수정 로직
@@ -54,11 +50,6 @@ public class ContentReplyService {
         findContentReply.setRating(updateContentReplyDTO.getNewRating());
 
         contentReplyRepository.save(findContentReply);
-    }
-
-    // 모든 댓글 목록 조회 (사용하는 곳 없음)
-    public List<ContentReply> contentReplyList() {
-        return contentReplyRepository.findAll();
     }
 
     // 댓글 삭제
@@ -76,18 +67,14 @@ public class ContentReplyService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 댓글이 존재하지 않습니다."));
 
         contentReply.setContent(newContent);
-
         contentReplyRepository.save(contentReply);
-
     }
 
     //컨텐츠에 해당 유저가 작성한 댓글 불러오기
     public ContentReply findUserContentReply(String userEmail, String uuid) {
         ContentReply contentReply = contentReplyRepository.findUserContentReply(userEmail, uuid);
-
         return contentReply;
     }
-
 
     @Transactional
     public List<ContentReply> findContentsReplyList (String uuid) {

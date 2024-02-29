@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
-
 @Service
 public class IndexMainSliderService {
 
@@ -33,17 +32,13 @@ public class IndexMainSliderService {
     private static final String imageUploadPath = "/temp/images/admin/indexslider/";
 
     public void InsertSlider(IndexMainSliderDTO indexMainSliderDTO) {
-        IndexMainSlider indexMainSlider = modelMapper.map(indexMainSliderDTO, IndexMainSlider.class);
-
         createDirectory();
 
         String indexSliderURL = saveImage(indexMainSliderDTO.getImages());
         indexMainSliderDTO.setImageUrl(indexSliderURL);
 
-        indexMainSlider.setImages(indexSliderURL);
-
+        IndexMainSlider indexMainSlider = modelMapper.map(indexMainSliderDTO, IndexMainSlider.class);
         indexMainSliderRepository.save(indexMainSlider);
-
     }
     public String saveImage(MultipartFile image) {
 

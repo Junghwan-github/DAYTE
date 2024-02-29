@@ -1,14 +1,11 @@
 package com.example.dayte.myReview.service;
 
-import com.example.dayte.admin.contents.persistence.AdminContentsImageRepository;
-import com.example.dayte.admin.contents.persistence.AdminContentsRepository;
 import com.example.dayte.members.domain.User;
 import com.example.dayte.members.persistence.UserRepository;
 import com.example.dayte.post.domin.Post;
 import com.example.dayte.post.repository.PostRepository;
 import com.example.dayte.reply.domain.ContentReply;
 import com.example.dayte.reply.repository.ContentReplyRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -35,7 +32,6 @@ public class MyReviewService {
 
     @Transactional
     public Page<ContentReply> getMyContentsReview(User user, Pageable pageable) {
-        User loginUser = userRepository.findById(user.getUserEmail()).orElse(new User());
         return contentReplyRepository.findAllByUser(user, pageable);
     }
 }

@@ -98,7 +98,6 @@ public class ContentReplyController {
     //    delete 부분
     @DeleteMapping("/contentReply/{num}")
     public @ResponseBody ResponseDTO<?> contentDeleteReply(@PathVariable int num) {
-
         contentReplyService.contentReplydelete(num);
         return new ResponseDTO<>(HttpStatus.OK.value(), num + "번 댓글이 삭제됐습니다.");
         // /contentReply/{num} 경로에 대한 DELETE 요청을 처리

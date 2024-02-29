@@ -76,7 +76,6 @@ public class UserService {
         return userRepository.findByDel(delCheck, pageable);
     }
 
-
     @Transactional
     public Page<User> userListByUserName(String userName, Pageable pageable) {
         return userRepository.findByUserName(userName, pageable);
@@ -102,8 +101,8 @@ public class UserService {
     public Page<User> userListByPhone(String phone, Pageable pageable) {
         return userRepository.findByPhone(phone, pageable);
     }
-    //    회원 수정
 
+    // 회원 수정
     @Transactional
     public boolean updateUser(UserDTO userDTO) {
         User findUser = userRepository.findByUserEmail(userDTO.getUserEmail()).get();
@@ -120,7 +119,6 @@ public class UserService {
             userDTO.setPassword(findUser.getPassword());
         else
             userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-
 
         if (!userDTO.getNickName().equals(findUser.getNickName())) {
             // 새 닉네임 입력시

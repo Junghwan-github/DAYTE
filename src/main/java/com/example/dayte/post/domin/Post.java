@@ -33,7 +33,6 @@ public class Post {
     @Column(columnDefinition = "Timestamp")
     private Timestamp createDate;
 
-    @Setter
     @ManyToOne(fetch = FetchType.EAGER)// N : 1
     @JoinColumn(name = "user")
     private User user;

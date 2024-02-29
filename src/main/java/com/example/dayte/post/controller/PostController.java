@@ -45,7 +45,6 @@ public class PostController {
 
     private final PostReplyService postReplyService;
 
-
     // ----------------------- 포스트 등록 폼 -----------------------
     @GetMapping("/mainPostList/in")
     public String insertPost() {
@@ -57,10 +56,10 @@ public class PostController {
     public @ResponseBody ResponseDTO<?> insertPost(@Valid @RequestBody PostDTO postDTO, // title, content를 PostDTO로 받고 반환함
                                                    @AuthenticationPrincipal UserSecurityDTO principal) {
 
-        Post post = modelMapper.map(postDTO, Post.class); //
-
         User user = userService.getUser(principal.getUserEmail()); // 해당 user의 Email을 담음
-        post.setUser(user);
+
+        postDTO.setUser(user);
+        Post post = modelMapper.map(postDTO, Post.class); //
         postService.insertPost(post);
         postService.extractPostContentImages(post);
         return new ResponseDTO<>(HttpStatus.OK.value(), "새로운 포스트를 등록했습니다.");
@@ -83,10 +82,8 @@ public class PostController {
         });
 
         model.addAttribute("postReplyList", postReplyList);
-
         return "post/getPost";
     }
-
 
     // ----------------------- 포스트 검색 및 페이지네이션 -----------------------
     @GetMapping({"/mainPostList"})
@@ -129,13 +126,13 @@ public class PostController {
         int postEndPage = Math.min(postStartPage + pageSize - 1, postTotalPage - 1);
         // 현재 페이지를 기준으로 페이징된 끝 페이지를 계산
 
-        model.addAttribute("postStartPage", postStartPage);
-        model.addAttribute("postEndPage", postEndPage);
-        model.addAttribute("postNowPage", postNowPage);
-        model.addAttribute("postList", postListPage);
-        model.addAttribute("msg", msg);
-
-        model.addAttribute("postListText",postService.extractPostContentText());
+        model
+                .addAttribute("postStartPage", postStartPage)
+                .addAttribute("postEndPage", postEndPage)
+                .addAttribute("postNowPage", postNowPage)
+                .addAttribute("postList", postListPage)
+                .addAttribute("msg", msg)
+                .addAttribute("postListText",postService.extractPostContentText());
         return "post/mainPostList";
     }
 
@@ -149,7 +146,6 @@ public class PostController {
     // ----------------------- 포스트 수정 로직 수행 -----------------------
     @PutMapping("/post")
     public @ResponseBody ResponseDTO<?> updatePost(@RequestBody Post post) {
-
         postService.updatePost(post);
         postService.deletePostImage(post);
         postService.extractPostContentImages(post);

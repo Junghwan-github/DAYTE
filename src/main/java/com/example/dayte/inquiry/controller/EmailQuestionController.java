@@ -31,5 +31,4 @@ public class EmailQuestionController {
 
         return new ResponseDTO<>(HttpStatus.OK.value(), "문의하신 내용이 메일로 정상 전송 되었습니다.");
     }
-
 }
