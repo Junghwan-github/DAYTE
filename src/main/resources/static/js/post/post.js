@@ -27,7 +27,6 @@ let postObject = {
             title  : $("#title").val(),
             content: $("#summernote").summernote('code')
         }
-        console.log(post);
 
         fetch("/mainPostList/reg", {
             method : "POST", //  요청 방식
@@ -82,7 +81,6 @@ let postObject = {
                 return res.json();
             })
             .then(data => {
-                console.log(data);
                 location = "/mainPostList";
             })
             .catch(err => {
@@ -103,7 +101,6 @@ let postObject = {
             // Promise 객체 안의 응답 결과(json)를 담은 데이터만 뽑아내어 객체로 만든 후 반환
             return res.json();
         }).then(data => {
-            alert(data.data);
             location = "/mainPostList";
         }).catch(err => {
                 alert(`에러 발생 : ${err.message}`);
@@ -171,7 +168,6 @@ function sendFile(files) {
         contentType: false,
         processData: false,
         success    : function (response) {
-            console.log(response);
             $('#summernote').summernote('insertImage', response.url);
         },
         error      : function (error) {

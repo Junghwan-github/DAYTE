@@ -14,32 +14,15 @@ const password2 = document.getElementById("password2");
 const pwdFailMsg = document.querySelector(".pwdFailMsg");
 const pwdFailMsg2 = document.querySelector(".pwdFailMsg2");
 
-
 const uName = document.getElementById("userName");
 const nickName = document.getElementById("nickName");
 const phone = document.getElementById("phone");
 const birthDate = document.getElementById("birthDate");
 
-
 const uNameFailMsg = document.querySelector(".uNameFailMsg");
 const nickNameFailMsg = document.querySelector(".nickNameFailMsg");
 const phoneFailMsg = document.querySelector(".phoneFailMsg");
 const birthFailMsg = document.querySelector(".birthFailMsg");
-
-// // 아이디 6자 이상 18자 이하
-// function idLength(value) {
-//     return value.length >= 6 && value.length <= 18;
-// }
-//
-// // 아이디 영어, 숫자만
-// function onlyNumberAndEnglish(str) {
-//     return /^[A-Za-z0-9.]+$/.test(str);
-// }
-//
-// // 이메일 형식 확인
-// function emailRegex(value) {
-//     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-// }
 
 /* 도메인 선택값 */
 function updateDomain() {
@@ -80,32 +63,6 @@ function validateBirth(value) {
     return /^(19|20)\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])$/.test(value);
 }
 
-
-
-
-
-// 아이디
-//     id.onkeyup = function () {
-//         if (id.value.length !== 0) {
-//             if (onlyNumberAndEnglish(id.value) === false) {
-//                 idFailMsg.classList.remove("hide");
-//             } else if (idLength(id.value) === false) {
-//                 idFailMsg.classList.add("hide");
-//                 idFailMsg2.classList.remove("hide");
-//                 idFailMsg3.classList.add("hide");
-//             } else {
-//                 idFailMsg.classList.add("hide");
-//                 idFailMsg2.classList.add("hide");
-//                 idFailMsg3.classList.add("hide");
-//             }
-//         } else {
-//             idFailMsg.classList.add("hide");
-//             idFailMsg2.classList.add("hide");
-//             idFailMsg3.classList.add("hide");
-//         }
-//     };
-
-
 // 비밀번호 유효성 검사
     password1.onkeyup = function () {
         if (password1.value.length !== 0) {
@@ -141,27 +98,6 @@ function validateBirth(value) {
             pwdFailMsg2.classList.add("hide");
         }
     };
-
-// 이메일 형식 검사
-//     emailDomain.onkeyup = function () {
-//         let uEmail = id.value + "@" + emailDomain.value;
-//         if (emailDomain.value.length !== 0) {
-//             if (emailRegex(uEmail)) {
-//                 console.log(emailRegex(uEmail));
-//                 idFailMsg.classList.add("hide");
-//                 idFailMsg2.classList.add("hide");
-//                 idFailMsg3.classList.add("hide");
-//             } else {
-//                 idFailMsg.classList.add("hide");
-//                 idFailMsg2.classList.add("hide");
-//                 idFailMsg3.classList.remove("hide");
-//             }
-//         } else {
-//             idFailMsg.classList.add("hide");
-//             idFailMsg2.classList.add("hide");
-//             idFailMsg3.classList.add("hide");
-//         }
-//     };
 
 // 이름  유효성 검사
 uName.onkeyup = function () {
@@ -222,5 +158,3 @@ birthDate.onkeyup = function () {
         birthFailMsg.classList.add("hide");
     }
 };
-
-

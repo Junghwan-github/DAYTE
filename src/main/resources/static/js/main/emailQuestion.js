@@ -15,14 +15,11 @@ function init() {
     let firstHtml = `<option value="" selected disabled hidden><span class="selectCategory" style="font-size: 14px">카테고리 선택</span></option>`;
     let secondHtml = `<option value="" selected disabled hidden><span class="selectCategory" style="font-size: 14px">카테고리 선택</span></option>`;
 
-
     for (const key in firstCtg) {
         firstHtml += `<option value="${key}"><span>${key}</span></option>`;
 
-
         firstCtg[key].forEach(second => {
             secondHtml += `<option value="${second}" class="${key}"><span>${second}</span></option>`
-
         });
     }
 
@@ -34,12 +31,9 @@ function init() {
     subOption.forEach(e => {
         e.style.display = 'none';
     })
-
 }
 
 mainCategory.addEventListener("change", function (element){
-
-
 
     subCategory.querySelectorAll('option').forEach(e => {
 
@@ -49,11 +43,7 @@ mainCategory.addEventListener("change", function (element){
             e.style.display = 'none';
         }
     })
-
-
 })
-
-
 
 $("#inquiry-email").on('change', function () {
 
@@ -82,8 +72,6 @@ $("#inquiry-content").on('input', function () {
     }
 })
 
-console.log($('#mainCategory').val());
-
 let mainSelectElement = document.getElementById('mainCategory');
 let mainIcoArrow = document.getElementById('mainIcoArrow');
 
@@ -105,7 +93,3 @@ subSelectElement.addEventListener('click', function (){
 subSelectElement.addEventListener('blur', function () {
     subIcoArrow.classList.remove('openState');
 });
-
-
-
-

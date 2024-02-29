@@ -7,17 +7,12 @@ function updateReply() {
     let newRating = document.querySelector('input[type="radio"]:checked');
 
     if(newRating == null){
-
         alert("별점을 입력해주세요.");
         return;
-
     } else if(!!!newReply){
-
         alert("리뷰를 입력해주세요.")
         return;
-
     } else{
-
         let data = {
             uuid : uuid,
             newReply : newReply,
@@ -38,8 +33,5 @@ function updateReply() {
        }).catch(error => {
            console.error(error);
        });
-
-
     }
-
 }

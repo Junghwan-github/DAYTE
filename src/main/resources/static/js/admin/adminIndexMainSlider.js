@@ -2,18 +2,13 @@ let indexMainSliderObject = {
     init: function () {
         let _this = this;
         $("#indexMainSliderSubmit").on("click", () => {
-
                 _this.insertIndexMainSlider();
-                console.log("눌림");
         });
     },
     insertIndexMainSlider: function () {
-        console.log("1번");
-
         let formData = new FormData();
 
         let imageFile = $("#images")[0].files[0];
-        console.log("Image File:", imageFile);
         formData.append("images", imageFile);
 
         formData.append("category", $("#category").val());
@@ -32,11 +27,9 @@ let indexMainSliderObject = {
             contentType: false
         }).done(function (response) {
                 location.reload();
-
         }).fail(function (error) {
             alert("에러 발생 : " + error);
         });
     },
 }
-
 indexMainSliderObject.init();

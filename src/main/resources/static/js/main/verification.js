@@ -3,10 +3,7 @@ let verificationBtn = {
     init: function () {
         let _this = this;
         $("#sendEmail").on("click", () => {
-            /* $("#verification").removeClass("hide");*/
-
             _this.verificationEmail();
-
         });
         $("#numCheck").on("click", () => {
             _this.checkEmail();
@@ -14,7 +11,7 @@ let verificationBtn = {
     },
     verificationEmail: function () {
         let emailAndDomain = $("#id").val() + "@" + $("#emailDomain").val();
-        console.log(emailAndDomain);
+
         let email = {
             address: emailAndDomain
         }
@@ -24,17 +21,14 @@ let verificationBtn = {
             url: "/members/sendEmail",
             data: JSON.stringify(email),
             contentType: "application/json; charset=utf-8"
-
         })
-            .done(function (res) {
-
-            })
-            .fail(function (err) {
-
-            });
+            .done(function (res) {})
+            .fail(function (err) {});
     },
+
     checkEmail: function () {
         let emailNum = $("#emailNum").val();
+
         $.ajax({
             type: "POST",
             url: "/members/checkEmail",
@@ -61,11 +55,8 @@ let verificationBtn = {
 };
 verificationBtn.init();
 
-
-
 let timer = null;
 let isRunning = false;
-
 
 $("#sendEmail").on("click", function() {
     // 이메일 유효성 체크
@@ -74,7 +65,7 @@ $("#sendEmail").on("click", function() {
     if($("#id").val() == "" || !emailRegex.test(userEmail)){
         $(".idFailMsg3").removeClass("hide");
         return;
-    }else {
+    } else {
         $(".idFailMsg3").addClass("hide");
     }
     $("#numCheck").attr("disabled", false);
@@ -87,7 +78,7 @@ $("#sendEmail").on("click", function() {
         clearInterval(timer);
         display.html("");
         startTimer(leftSec, display);
-    }else{
+    } else{
         startTimer(leftSec, display);
     }
 });
@@ -114,5 +105,3 @@ function startTimer(count, display) {
     }, 1000);
     isRunning = true;
 }
-
-

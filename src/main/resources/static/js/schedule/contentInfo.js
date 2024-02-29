@@ -1,6 +1,5 @@
 $(document).ready(function () {
 
-
     $(".content-banner-slider").bxSlider({
         mode: "horizontal",
         slideWidth: 320,
@@ -14,7 +13,6 @@ $(document).ready(function () {
         controls: false
     });
 });
-
 
 let pointerX = $(".pointer-x").text();
 let pointerY = $(".pointer-y").text();
@@ -31,7 +29,6 @@ let imageSrc = '/images/marker.png',
     imageSize = new kakao.maps.Size(25, 33),
     imageOption = {offset: new kakao.maps.Point(13, 33)};
 
-
 let markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
     markerPosition = new kakao.maps.LatLng(pointerX, pointerY);
 let marker = new kakao.maps.Marker({
@@ -46,7 +43,6 @@ let markerContet = new kakao.maps.Marker({
 marker.setMap(map);
 markerContet.setMap(mapContent);
 
-
 setDraggable();
 
 function setDraggable(draggable) {
@@ -54,16 +50,13 @@ function setDraggable(draggable) {
     map.setDraggable(draggable);
 }
 
-
 function openTab(tabId) {
     $(".tab-content").removeClass("active");
-
     $("#" + tabId).addClass("active");
 }
 
 $(".tab").click(function (e) {
     $(this).addClass("atv");
-
     $(".tab").not(this).removeClass("atv");
 })
 

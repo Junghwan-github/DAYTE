@@ -10,9 +10,11 @@ let scheduleContentsListObject = {
             $('.longitudeText').text("");
             if (!regNumber.test(latitude) || latitude === "") {
                 $('.latitudeText').text("숫자만 입력 가능합니다.");
+                $('#positionX').focus();
                 return;
             } else if (!regNumber.test(longitude) || longitude === "") {
                 $('.longitudeText').text("숫자만 입력 가능합니다.");
+                $('#positionY').focus();
                 return;
             } else {
                 let latitude_frontLength = latitude.substring(0, latitude.indexOf('.')).length;
@@ -21,16 +23,20 @@ let scheduleContentsListObject = {
                 let longitude_backLength = longitude.substring(longitude.indexOf('.') + 1).length;
                 if (latitude_frontLength != 2) {
                     $('.latitudeText').text("소수점 앞자리를 2자리로 입력해주세요.");
+                    $('#positionX').focus();
                     return;
                 } else if (longitude_frontLength != 3) {
                     $('.longitudeText').text("소수점 앞자리를 3자리로 입력해주세요.");
+                    $('#positionY').focus();
                     return;
                 }
                 else if (latitude_backLength != 6) {
                     $('.latitudeText').text("위도의 값은 소수점 앞 2자리와 소수점 뒤 6자리로 입력해주세요.");
+                    $('#positionX').focus();
                     return;
                 } else if (longitude_backLength != 6) {
                     $('.longitudeText').text("경도의 값은 소수점 앞 3자리와 소수점 뒤 6자리로 입력해주세요.");
+                    $('#positionY').focus();
                     return;
                 }
             }
@@ -42,7 +48,6 @@ let scheduleContentsListObject = {
         let formData = new FormData();
 
         for (let i = 0; i < $("#image")[0].files.length; i++) {
-            // imgArr.push($("#image")[0].files[i]);
             formData.append("imageFiles", $("#image")[0].files[i]);
         }
 
@@ -58,6 +63,7 @@ let scheduleContentsListObject = {
         formData.append("opening", $("#opening").val());
         formData.append("closed", $("#closed").val());
         formData.append("facilities", $("#facilities").val());
+
         $.ajax({
             type : "POST",
             url : "/admin/home/registration/contents",

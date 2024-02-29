@@ -7,7 +7,6 @@ function searchContents(search) {
         data   : JSON.stringify({search: search}),
         success: function(data) {
             // 검색 결과를 UI에 표시
-            console.log(data);
             displaySearchResults(data);
         },
         error: function(error) {

@@ -26,11 +26,8 @@ let myChart = new Chart(ctx, {
                         beginAtZero: true
                     }
                 }
-
-
     }
 })
-
 
 $(document).ready(function () {
     updateChart($(".select").val());
@@ -43,6 +40,7 @@ function updateChart(values) {
     let value = {
         num: values
     }
+
     // Ajax를 사용하여 서버에서 데이터를 가져옴
     $.ajax({
         url        : "/admin/visitors", // 서버의 엔드포인트 URL
@@ -53,7 +51,7 @@ function updateChart(values) {
             myChart.data.labels = [];
             myChart.data.datasets[0].data = [];
             // 서버에서 받은 데이터를 차트에 추가
-            console.log(data);
+
             for (let i = 0; i < data.length; i++) {
                 if (["3", "4"].includes(data[0].num)) {
                     let logDate = data[i].year + '-' + data[i].month;
