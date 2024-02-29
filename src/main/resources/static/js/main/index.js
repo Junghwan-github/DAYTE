@@ -38,8 +38,7 @@ $(document).ready(function () {
     })
 
     $(".cityList > ul > li").on("click", function () {
-        console.log($(this).text());
-        $("input[name='indexSearch']").val($(this).text());
+        location.href = "/contents/indexSearch?indexSearch=" + $(this).text();
     })
 })
 
