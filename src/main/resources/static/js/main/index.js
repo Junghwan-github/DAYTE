@@ -38,7 +38,7 @@ $(document).ready(function () {
     })
 
     $(".cityList > ul > li").on("click", function () {
-        location = "/contents/indexSearch?indexSearch=" + $(this).text();
+        location.href = "/contents/indexSearch?indexSearch=" + $(this).text();
     })
 })
 
