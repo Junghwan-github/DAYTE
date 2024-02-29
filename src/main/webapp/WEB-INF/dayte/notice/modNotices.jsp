@@ -233,8 +233,6 @@
 <script src="/js/notice/checkNoticeList.js"></script>
 <script src="/js/notice/delNotice.js"></script>
 <script src="/js/notice/viewCheck.js"></script>
-<%--
-<script src="/js/notice/searchNotices.js"></script>
---%>
+
 
 <%@include file="../layout/footer.jsp" %>

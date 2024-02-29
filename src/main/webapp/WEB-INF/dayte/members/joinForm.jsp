@@ -84,10 +84,6 @@
 
 
           <div class="errorMsg">
-<%--            <div class="idFailMsg hide">--%>
-<%--              아이디는 영어 또는 숫자만 입력 가능합니다.--%>
-<%--            </div>--%>
-<%--            <div class="idFailMsg2 hide">아이디는 6~18글자이어야 합니다.</div>--%>
             <div class="idFailMsg3 hide">이메일을 올바르게 입력해주세요.</div>
           </div>
 

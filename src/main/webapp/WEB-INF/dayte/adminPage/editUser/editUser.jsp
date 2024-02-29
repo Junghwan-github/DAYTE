@@ -42,8 +42,7 @@
                             <option value="ADMIN" <c:if test="${user.role == 'ADMIN'}">selected</c:if>>ADMIN</option>
                         </select>
                     </td>
-                    <!-- <th><label for="userIP" class="ps-3">IP</label></th>
-                    <td><input type="text" name="userIP" id="userIP" value=""></td> -->
+
                 </tr>
                 <tr>
                     <th><label for="latelyDate" class="ps-3 adminUserFS">최근접속일</label></th>

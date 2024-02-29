@@ -2,6 +2,7 @@
 
 <%@include file="../layout/head.jsp" %>
 <c:set var="contentUuid" value="${uuid}"/>
+<title>DAYTE | 리뷰 등록</title>
 <link rel="stylesheet" href="/css/schedule/contentReply.css">
 </head>
 <body>
