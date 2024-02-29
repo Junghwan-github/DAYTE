@@ -111,5 +111,4 @@
 </main>
 
 <script src="/js/myReview/myRating.js"></script>
-<%--<script src="/js/contentReply/contentReply.js"></script>--%>
 <%@include file="../layout/footer.jsp" %>

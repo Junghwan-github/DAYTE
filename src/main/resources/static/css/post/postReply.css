@@ -59,9 +59,7 @@
     margin: 0 auto;
     padding: 50px 0;
     width: 1180px;
-    /*background: #eee;*/
     box-sizing: border-box;
-    /*border-radius: 10px;*/
 
 }
 
@@ -82,7 +80,6 @@
     font-size: 15px;
     text-align: start;
     border-bottom: 1px solid #999999;
-    /*background-color: #ffffff;*/
 }
 
 .postReplyBtnList {

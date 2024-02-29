@@ -72,6 +72,4 @@
 </script>
 
 
-<%--<script src="/js/notice/cancel.js"></script>--%>
-
 <%@include file="../layout/footer.jsp" %>

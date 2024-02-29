@@ -39,7 +39,6 @@ input {
   margin-bottom: 5px;
   border: none;
   background-color: #f4f3f3;
-  /* border-radius: 5px; */
 }
 
 input[type="submit"] {
@@ -77,20 +76,13 @@ ul {
 }
 
 .apiJoin > li {
-  /*position: relative;*/
   margin-top: 5px;
   width: 100%;
-  /*height: 65px;*/
-  /*display: flex;*/
-  /*justify-content: center;*/
-  /*align-items: center;*/
-  /*overflow: hidden;*/
-  /*text-align: center;*/
+
 }
 
 .apiJoin > li > a{
   position: relative;
-  /*margin-top: 5px;*/
   width: 100%;
   height: 65px;
   display: flex;
@@ -102,9 +94,7 @@ ul {
 
 .apiJoin > li:nth-child(1) {
   border: 1px solid #ddd;
-
 }
-
 
 .apiJoin > li:nth-child(2) {
   background: #fee500;
@@ -114,11 +104,7 @@ ul {
 .apiJoin > li:nth-child(3) {
   background: #03c75a;
   border: 1px solid #03c75a;
-
-
 }
-
-
 
 .apiJoin > li > a > span {
   color: #111;
@@ -135,9 +121,7 @@ ul {
   position: absolute;
   left: 35px;
   max-width: 25px;
-
 }
-
 
 .subNavi {
   margin-top: 20px;

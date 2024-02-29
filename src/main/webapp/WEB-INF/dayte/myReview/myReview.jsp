@@ -91,10 +91,8 @@
                         </li>
                     </c:if>
                 </ul>
-
             </div>
         </c:if>
-    </div>
     </div>
 </main>
 <%@include file="../layout/footer.jsp" %>
