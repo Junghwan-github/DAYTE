@@ -3,8 +3,6 @@ package com.example.dayte.notice.controller;
 import com.example.dayte.notice.controller.advice.FileUtil;
 import com.example.dayte.notice.domain.FilesInfo;
 import com.example.dayte.notice.service.FileService;
-import com.nimbusds.jose.shaded.gson.Gson;
-import com.nimbusds.jose.shaded.gson.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -13,21 +11,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.apache.commons.io.FileUtils;
 
-
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
-
 
 @Controller
 public class FileController {
@@ -39,7 +29,6 @@ public class FileController {
     private FileUtil fileUtils;
 
     private static final String noticeImageUploadPath = "/temp/files/images/";
-
 
     @GetMapping("/notice/{noticeNo}/files/{fileId}")
     public ResponseEntity<Resource> downloadFile(@PathVariable int noticeNo, @PathVariable int fileId){
@@ -61,7 +50,6 @@ public class FileController {
     @PostMapping(value="/uploadNoticeImageFile", produces = "application/json")
     @ResponseBody
     public Map<String, String> uploadSummernoteImageFile(@RequestPart("file") MultipartFile multipartFile) {
-
         return fileService.uploadSummernoteImageFile(multipartFile);
     }
 

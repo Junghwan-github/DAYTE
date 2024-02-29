@@ -3,7 +3,6 @@ package com.example.dayte.schedule.dto;
 import com.example.dayte.admin.contents.domain.AdminContents;
 import com.example.dayte.schedule.domain.ScheduleDateId;
 import lombok.*;
-import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -21,7 +20,7 @@ public class ScheduleDateDTO {
 
     private AdminContents contents;
 
-//    // JS 에서 넘어오는 값
+    // JS 에서 넘어오는 값
     private List<String> contentsList;
 
     private String uuid;

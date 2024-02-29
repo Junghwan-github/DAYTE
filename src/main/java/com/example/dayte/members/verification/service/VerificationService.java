@@ -20,7 +20,6 @@ public class VerificationService {
     @Autowired
     JavaMailSender javaMailSender;
 
-
     public void makeVerifyNumber() {
         Random rn = new Random();
         int checkNum = rn.nextInt(888888) + 111111;

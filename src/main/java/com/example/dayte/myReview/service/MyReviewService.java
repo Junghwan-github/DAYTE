@@ -25,34 +25,17 @@ public class MyReviewService {
     private UserRepository userRepository;
 
     @Autowired
-    private AdminContentsRepository adminContentsRepository;
-
-    @Autowired
-    private AdminContentsImageRepository adminContentsImageRepository;
-
-    @Autowired
     private ContentReplyRepository contentReplyRepository;
-
-    @Autowired
-    private ModelMapper modelMapper;
-
-    /*@Transactional(readOnly = true)
-    public List<MyReview> getMyReview(UserSecurityDTO principal) {
-        *//*return myReviewRepository.findAllByUser(userEmail);*//*
-    }*/
 
     @Transactional
     public Page<Post> getMyReview(User user, Pageable pageable) {
         User loginUser = userRepository.findById(user.getUserEmail()).orElse(new User());
-//        System.out.println("loginUser : " + loginUser);
-//        User user = modelMapper.map(loginUser, User.class);
         return postRepository.findAllByUser(loginUser, pageable);
     }
 
     @Transactional
     public Page<ContentReply> getMyContentsReview(User user, Pageable pageable) {
         User loginUser = userRepository.findById(user.getUserEmail()).orElse(new User());
-
         return contentReplyRepository.findAllByUser(user, pageable);
     }
 }

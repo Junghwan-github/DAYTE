@@ -1,6 +1,5 @@
 package com.example.dayte.content.controller;
 
-
 import com.example.dayte.admin.contents.domain.AdminContents;
 import com.example.dayte.admin.contents.service.AdminContentsService;
 import com.example.dayte.content.dto.AvgStarViewDTO;
@@ -49,7 +48,6 @@ public class ContentController {
         result.put("avgStarViewDTOList", avgStarViewDTOList);
         return result;
     }
-
 
     @GetMapping("/contents/detail/{id}")
     public String showContentsDetail (Model model, @PathVariable String id)  {

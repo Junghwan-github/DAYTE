@@ -62,9 +62,4 @@ public class AdminContents {
     @JsonIgnoreProperties("adminContents")
     private List<ContentReply> contentReplyList;
 
-//    @OneToMany(
-//        mappedBy = "contents",
-//        fetch = FetchType.EAGER,
-//        cascade = )
-//    private List<Post> postList;
 }

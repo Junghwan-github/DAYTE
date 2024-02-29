@@ -3,9 +3,7 @@ package com.example.dayte.inquiry.service;
 import com.example.dayte.inquiry.domain.EmailQuestion;
 import com.example.dayte.inquiry.dto.EmailQuestionDTO;
 import com.example.dayte.inquiry.persistence.EmailQuestionRepository;
-import com.example.dayte.security.dto.UserSecurityDTO;
 import jakarta.mail.MessagingException;
-import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -18,11 +16,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 @Service
 @RequiredArgsConstructor
-
 public class EmailQuestionService {
 
     @Autowired
@@ -35,8 +31,6 @@ public class EmailQuestionService {
     private String adminEmail;
 
     private final ModelMapper modelMapper;
-
-
 
     public void sendQuestion(EmailQuestionDTO emailQuestionDTO, String emailAdress) {
 
@@ -54,7 +48,6 @@ public class EmailQuestionService {
         } catch (MessagingException e) {
             ;
             ;
-
         }
 
 
@@ -91,8 +84,6 @@ public class EmailQuestionService {
         } catch (MessagingException | IOException e) {
             e.printStackTrace();
         }
-
-
 
     }
 }

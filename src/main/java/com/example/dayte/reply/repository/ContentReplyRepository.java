@@ -1,9 +1,8 @@
 package com.example.dayte.reply.repository;
 
 
-import com.example.dayte.members.domain.User;
-import com.example.dayte.post.domin.Post;
 import com.example.dayte.content.dto.AvgStarViewDTO;
+import com.example.dayte.members.domain.User;
 import com.example.dayte.reply.domain.ContentReply;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,7 +24,6 @@ public interface ContentReplyRepository extends JpaRepository<ContentReply, Long
     ContentReply findUserContentReply(@Param("userEmail") String userEmail, @Param("uuid") String uuid);
 
     Page<ContentReply> findAllByUser(User user, Pageable pageable);
-
 
     // 별점 리스트
     @Query("SELECT new com.example.dayte.content.dto.AvgStarViewDTO(cr.contents.uuid, AVG(cr.rating)) FROM ContentReply cr GROUP BY cr.contents")

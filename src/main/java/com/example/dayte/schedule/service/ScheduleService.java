@@ -172,9 +172,7 @@ public class ScheduleService {
     public List<Schedule> myPageTestSchedule(String userEmail) {
         User user = userRepository.findById(userEmail).orElse(new User());
         LocalDate now = LocalDate.now();
-        LocalDate test = now.plusDays(3);
         List<Schedule> scheduleList = scheduleRepository.findAllByUserAndEndDateGreaterThanEqualOrderByStartDate(user, now);
-        scheduleList.forEach(a -> System.out.println("schedule : " + a));
 
         return scheduleList;
 

@@ -30,8 +30,6 @@ public class IndexMainSliderService {
     @Autowired
     private ModelMapper modelMapper;
 
-
-
     private static final String imageUploadPath = "/temp/images/admin/indexslider/";
 
     public void InsertSlider(IndexMainSliderDTO indexMainSliderDTO) {
@@ -53,8 +51,6 @@ public class IndexMainSliderService {
             String uuid = UUID.randomUUID().toString();
             String encodedFileName = URLEncoder.encode(Objects.requireNonNull(image.getOriginalFilename()), StandardCharsets.UTF_8);
             String fileName = uuid + "_" +encodedFileName;
-
-
 
             Path targetPath = Path.of("\\\\192.168.10.203" + imageUploadPath + fileName);
 

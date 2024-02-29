@@ -1,21 +1,14 @@
 package com.example.dayte.schedule.controller;
 
-import com.example.dayte.reply.dto.ResponseDTO;
 import com.example.dayte.schedule.domain.Schedule;
 import com.example.dayte.schedule.service.PastScheduleService;
-import com.example.dayte.schedule.service.ScheduleService;
 import com.example.dayte.security.dto.UserSecurityDTO;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 

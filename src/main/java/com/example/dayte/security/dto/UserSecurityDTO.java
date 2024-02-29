@@ -57,6 +57,6 @@ public class UserSecurityDTO extends User implements OAuth2User {
 
     @Override
     public String getName() {
-        return this.userName;
+        return this.userEmail;
     }
 }

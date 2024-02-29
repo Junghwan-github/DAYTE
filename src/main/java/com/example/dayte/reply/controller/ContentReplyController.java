@@ -4,26 +4,19 @@ package com.example.dayte.reply.controller;
 import com.example.dayte.admin.contents.domain.AdminContents;
 import com.example.dayte.admin.contents.service.AdminContentsService;
 import com.example.dayte.members.domain.User;
-import com.example.dayte.members.dto.UserDTO;
-import com.example.dayte.post.domin.Post;
+import com.example.dayte.members.dto.ResponseDTO;
 import com.example.dayte.reply.domain.ContentReply;
 import com.example.dayte.reply.dto.ContentReplyDTO;
-import com.example.dayte.reply.dto.ResponseDTO;
 import com.example.dayte.reply.dto.UpdateContentReplyDTO;
 import com.example.dayte.reply.service.ContentReplyService;
-import com.example.dayte.schedule.domain.Schedule;
-import com.example.dayte.schedule.service.PastScheduleService;
 import com.example.dayte.security.dto.UserSecurityDTO;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -34,15 +27,6 @@ public class ContentReplyController {
     private final AdminContentsService adminContentsService;
 
     private final ModelMapper modelMapper;
-
-//    @GetMapping("/contentReply")
-//    public String index(Model model) {
-//        model.addAttribute("contentReplyList", contentReplyService.contentReplyList());
-//        return "reply/contentReply";
-//        // replyService.replyList()를 사용하여 댓글 목록을 가져와서 모델에 추가한 후 "ContentReply" view 를 띄움
-//    }
-
-
 
     //댓글 등록창 가기전 이 유저가 해당 컨텐츠에 댓글을 썼는지 안 썼는지 체크
     @GetMapping("/checkcontentsReview/{uuid}")
@@ -64,15 +48,14 @@ public class ContentReplyController {
     @GetMapping("/contentsReview/{uuid}")
     public String contentsReview(Model model, @PathVariable String uuid){
 
-            model.addAttribute("msg", "insertReply");
-            model.addAttribute("uuid", uuid);
-            System.out.println("^^^^^^^^^");
-            System.out.println(uuid);
         AdminContents contents = adminContentsService.getShowContentsDetail(uuid);
-        model.addAttribute("showContentsDetail", contents);
+
+        model
+                .addAttribute("msg", "insertReply")
+                .addAttribute("uuid", uuid)
+                .addAttribute("showContentsDetail", contents);
 
         return "reply/contentReply";
-
     }
 
     //댓글 수정창으로 이동
@@ -82,16 +65,16 @@ public class ContentReplyController {
         ContentReply contentReply = contentReplyService.findUserContentReply(principal.getUserEmail(), uuid);
         AdminContents contents = adminContentsService.getShowContentsDetail(uuid);
 
-        model.addAttribute("msg", "updateReply")
-                   .addAttribute("contentReply", contentReply)
-                   .addAttribute("showContentsDetail", contents);
+        model
+                .addAttribute("msg", "updateReply")
+                .addAttribute("contentReply", contentReply)
+                .addAttribute("showContentsDetail", contents);
         return "reply/contentReply";
     }
 
     //댓글 수정창에서 수정 로직
     @PutMapping("/modReview")
     public @ResponseBody ResponseDTO<?> updateReview(@RequestBody UpdateContentReplyDTO updateContentReplyDTO, @AuthenticationPrincipal UserSecurityDTO principal){
-        System.out.println(updateContentReplyDTO);
 
         String userEmail = principal.getUserEmail();
 
@@ -115,6 +98,7 @@ public class ContentReplyController {
     //    delete 부분
     @DeleteMapping("/contentReply/{num}")
     public @ResponseBody ResponseDTO<?> contentDeleteReply(@PathVariable int num) {
+
         contentReplyService.contentReplydelete(num);
         return new ResponseDTO<>(HttpStatus.OK.value(), num + "번 댓글이 삭제됐습니다.");
         // /contentReply/{num} 경로에 대한 DELETE 요청을 처리

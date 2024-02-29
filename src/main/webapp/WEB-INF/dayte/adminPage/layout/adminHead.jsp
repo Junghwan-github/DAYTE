@@ -57,7 +57,11 @@
                 <button class="btn ms-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
                     <img src="/images/icon-hamburger.png" style="width: 32px;height:32px;" alt="">
                 </button>
-                <p class="navbar-brand mb-0 ms-3 fw-bold" style="font-size:2.3rem;">DAYTE</p>
+                <p class="mb-0 ms-3">
+                    <a href="/" class="navbar-brand text-decoration-none fw-bold" style="font-size:2.3rem;">
+                        DAYTE
+                    </a>
+                </p>
             </div>
             <div class="me-2">
                 <ul class="d-flex flex-row mb-0 me-3" >

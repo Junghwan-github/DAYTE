@@ -2,7 +2,10 @@ package com.example.dayte.notice.domain;
 
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
@@ -41,16 +44,5 @@ public class FilesInfo {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "no")
     private Notice notice;
-
-
-
-
-
-
-
-
-
-
-
 
 }

@@ -2,8 +2,6 @@ package com.example.dayte.members.persistence;
 
 import com.example.dayte.members.domain.RoleType;
 import com.example.dayte.members.domain.User;
-import com.example.dayte.myReview.domain.MyReview;
-import com.example.dayte.post.domin.Post;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

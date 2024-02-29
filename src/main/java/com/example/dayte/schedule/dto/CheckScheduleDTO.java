@@ -28,6 +28,4 @@ public class CheckScheduleDTO<T> {
         return this.overlap;
     }
 
-
-
 }

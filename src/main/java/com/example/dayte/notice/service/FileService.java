@@ -29,11 +29,9 @@ public class FileService {
         return filesInfo;
     }
 
-
     public Map<String, String> uploadSummernoteImageFile(MultipartFile multipartFile) {
 
         Map<String, String> fileObject = new HashMap<>();
-
 
         String fileRoot = "\\\\192.168.10.203/temp/files/images/";	//저장될 외부 파일 경로
         // Path targetPath = Path.of("\\\\192.168.10.203" +this.noticeImageUploadPath);
@@ -49,15 +47,11 @@ public class FileService {
             FileUtils.copyInputStreamToFile(fileStream, targetFile);	//파일 저장
             fileObject.put("url", "/temp/files/images/"+savedFileName);
             fileObject.put("responseCode", "success");
-
-
-
         } catch (IOException e) {
             FileUtils.deleteQuietly(targetFile);	//저장된 파일 삭제
             e.printStackTrace();
         }
 
         return fileObject;
-
     }
 }

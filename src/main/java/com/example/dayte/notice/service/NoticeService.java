@@ -43,7 +43,6 @@ public class NoticeService {
 
         if(notices.isEmpty()){
             return Collections.emptyList();
-
         } else{
             return notices;
         }
@@ -54,7 +53,7 @@ public class NoticeService {
         return noticeRepository.findDefaultPriority(pageable);
     }
 
-//사용자에게 보여질 공지사항 데이터 불러오기
+    //사용자에게 보여질 공지사항 데이터 불러오기
     @Transactional(readOnly = true)
     public Page<Notice> getNoticeList(Pageable pageable) {
         return noticeRepository.findAllByPriority(pageable);
@@ -95,7 +94,7 @@ public class NoticeService {
             for (FilesInfo deletedFile : filesNotInSavedFile) {
                 fileRepository.delete(deletedFile);
             }
-}
+        }
         //지워질거 지워진 기존의 파일 리스트 가져옴
         List<FilesInfo> originalFileList = fileRepository.findByPostNo(no);
         filesInfos.forEach(filesInfo -> filesInfo.setNotice(findNotice));
@@ -189,9 +188,7 @@ public class NoticeService {
                 findNotice.setViewCheck(isChecked);
 
                 noticeRepository.save(findNotice);
-
             }
-
         }
 
     }

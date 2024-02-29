@@ -4,7 +4,6 @@ import com.example.dayte.members.domain.User;
 import com.example.dayte.myReview.service.MyReviewService;
 import com.example.dayte.post.domin.Post;
 import com.example.dayte.reply.domain.ContentReply;
-import com.example.dayte.reply.service.ContentReplyService;
 import com.example.dayte.security.dto.UserSecurityDTO;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -16,10 +15,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-
-import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -31,17 +26,16 @@ public class MyReviewController {
 
     // 내가 등록한 일정후기
     @GetMapping("/myReview")
-    public String myReviewPage(
-            Model model,
-            @AuthenticationPrincipal UserSecurityDTO principal,
-            @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable)
-    {
+    public String myReviewPage(Model model,
+                               @AuthenticationPrincipal UserSecurityDTO principal,
+                               @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable
+    ) {
 
-            User user = modelMapper.map(principal, User.class);
+        User user = modelMapper.map(principal, User.class);
 
-            Page<Post> myReviewPage = myReviewService.getMyReview(user, pageable);
+        Page<Post> myReviewPage = myReviewService.getMyReview(user, pageable);
 
-            model.addAttribute("myReviewPage", myReviewPage);
+        model.addAttribute("myReviewPage", myReviewPage);
 
         int totalPages = myReviewPage.getTotalPages();
         int pageSize = 5;
@@ -49,17 +43,16 @@ public class MyReviewController {
         int endPage = Math.min(startPage + pageSize - 1, totalPages - 1);
 
         model.addAttribute("startPage", startPage);
-        if(endPage >=0){
+        if (endPage >= 0) {
             model.addAttribute("endPage", endPage);
         }
 
-            return "myReview/myReview";
+        return "myReview/myReview";
     }
-
 
     //내가 등록한 별점리뷰
     @GetMapping("/myRating")
-    public String myRatingpage(
+    public String myRatingPage(
             Model model,
             @PageableDefault(size = 10, sort = "user", direction = Sort.Direction.DESC) Pageable pageable,
             @AuthenticationPrincipal UserSecurityDTO principal
@@ -78,7 +71,7 @@ public class MyReviewController {
         int endPage = Math.min(startPage + pageSize - 1, totalPages - 1);
 
         model.addAttribute("startPage", startPage);
-        if(endPage >=0){
+        if (endPage >= 0) {
             model.addAttribute("endPage", endPage);
         }
 

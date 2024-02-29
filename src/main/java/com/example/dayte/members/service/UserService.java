@@ -15,7 +15,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriUtils;
 
 import java.io.IOException;
@@ -43,6 +42,8 @@ public class UserService {
     @Autowired
     private DeleteUserRepository deleteUserRepository;
 
+    private static final String contentsImageUploadPath = "/temp/images/user/profileImages/";
+
     @Transactional
     public void insertUser(User user) {
         userRepository.save(user);
@@ -67,8 +68,8 @@ public class UserService {
     public Page<User> userList(Pageable pageable) {
         return userRepository.findAll(pageable);
     }
-
     // 탈퇴 회원 수
+
     @Transactional
     public Page<User> delList(Pageable pageable) {
         boolean delCheck = true;
@@ -101,8 +102,8 @@ public class UserService {
     public Page<User> userListByPhone(String phone, Pageable pageable) {
         return userRepository.findByPhone(phone, pageable);
     }
-
     //    회원 수정
+
     @Transactional
     public boolean updateUser(UserDTO userDTO) {
         User findUser = userRepository.findByUserEmail(userDTO.getUserEmail()).get();
@@ -115,14 +116,11 @@ public class UserService {
             userDTO.setProfileImagePath(findUser.getProfileImagePath());
         }
         // 비밀번호란이 비어있다면 그대로, 입력되어있으면 변경
-        if ("".equals(userDTO.getPassword())) {
+        if ("".equals(userDTO.getPassword()))
             userDTO.setPassword(findUser.getPassword());
-            System.out.println("============= 기존 비번 : " + userDTO.getPassword());
-        } else {
-            System.out.println("============= 새 비번 : " + userDTO.getPassword());
+        else
             userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-            System.out.println("============= 새 비번 : " + userDTO.getPassword());
-        }
+
 
         if (!userDTO.getNickName().equals(findUser.getNickName())) {
             // 새 닉네임 입력시
@@ -140,7 +138,6 @@ public class UserService {
         }
 
     }
-
 
     // 관리자페이지 권한 검색
     public static RoleType convertRole(String role) {
@@ -161,8 +158,6 @@ public class UserService {
             throw new IllegalArgumentException("Invalid RoleType value");
         }
     }
-
-    private static final String contentsImageUploadPath = "/temp/images/user/profileImages/";
 
     public void profileImage(UserDTO userDTO) {
         try {
@@ -191,9 +186,10 @@ public class UserService {
     @Transactional
     public User modifyUser(UserSecurityDTO userSecurityDTO, UserDTO userDTO) {
         User findUser = userRepository.findByUserEmail(userSecurityDTO.getUserEmail()).get();
-        if (userDTO.getNickName() != null && !nickNameChk(userDTO.getNickName())) {
+
+        if (userDTO.getNickName() != null && !nickNameChk(userDTO.getNickName()))
             findUser.setNickName(userDTO.getNickName());
-        }
+
 
         // 전화번호가 존재하지 않는 경우 사용자 정보에서 가져오도록 함
         String phone = userDTO.getPhone() != null ? userDTO.getPhone() : userSecurityDTO.getPhone();
@@ -229,7 +225,7 @@ public class UserService {
         User findUser = userRepository.findByUserEmail(userEmail).orElseThrow(() -> {
             return new IllegalArgumentException("회원 찾기 실패");
         });
-        System.out.println("=============" + findUser);
+
         UserDTO userDTO = new UserDTO();
         userDTO.setUserEmail(findUser.getUserEmail());
         userDTO.setPassword(passwordEncoder.encode("1111"));

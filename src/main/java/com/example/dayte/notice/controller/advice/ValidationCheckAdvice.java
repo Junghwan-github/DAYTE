@@ -1,6 +1,6 @@
 package com.example.dayte.notice.controller.advice;
 
-import com.example.dayte.notice.dto.ResponseDTO;
+import com.example.dayte.members.dto.ResponseDTO;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -45,7 +45,6 @@ public class ValidationCheckAdvice {
                     }
                     return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), errMap);
                 }
-
 
             }
         }

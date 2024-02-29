@@ -20,4 +20,5 @@ public interface FileRepository extends JpaRepository<FilesInfo, Integer> {
     @Modifying
     @Query("delete from FilesInfo f where f.notice.no = :no")
     void deleteByPostID(@Param("no") int no);
+
 }
