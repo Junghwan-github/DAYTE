@@ -13,7 +13,7 @@ function updateReply() {
 
     } else if(!!!newReply){
 
-        alert("댓글을 입력해주세요.")
+        alert("리뷰를 입력해주세요.")
         return;
 
     } else{
@@ -33,7 +33,7 @@ function updateReply() {
        }).then(response => {
            return response.json();
        }).then(data => {
-           alert("댓글 수정이 완료되었습니다.");
+           alert("리뷰 수정이 완료되었습니다.");
            location = "/schedule/pastSchedule";
        }).catch(error => {
            console.error(error);

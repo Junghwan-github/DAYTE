@@ -1,8 +1,5 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%--<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<sec:authorize access="isAuthenticated()">
-    <sec:authentication property="principal" var="principal" />
-</sec:authorize>--%>
+
 <%@include file="../layout/head.jsp" %>
 <c:set var="contentUuid" value="${uuid}"/>
 <link rel="stylesheet" href="/css/schedule/contentReply.css">
@@ -66,47 +63,6 @@
 
     </div>
 </main>
-
-<%--댓글 목록 불러오기 구현--%>
-<%--<c:if test="${!empty contentReplyList}">
-    <div class="container mb-3 ">
-        <table class="table">
-            <tbody>
-            <c:forEach var="reply" items="${contentReplyList}">
-                <tr>
-                <tr></tr><td></td><tr><td></td></tr><tr><td></td></tr><tr><td></td></tr>
-                <td class="ReplyUser">${reply.user.nickName} <span class="ContStar">★ <span style="color: black
-">${reply.rating}점</span></span></td>
-                <tr>
-
-                    <td class="star-rating">
-                        <c:forEach begin="1" end="${reply.rating}">
-                            <span class="ReplyStar">★ </span>
-                        </c:forEach>
-                    </td>
-
-                    &lt;%&ndash;<td class="Times"><span>${reply.createDate()}</span></td>&ndash;%&gt;
-                </tr>
-
-                <tr>
-
-                    <td class="comment">${reply.content}</td>
-
-                    <td class="modifyBtn">
-                        <c:if test="${reply.user != null}">
-                    <td><button onclick="replyObject.deleteReply(${reply.num})">삭제</button></td>
-                    <td><button onclick="replyObject.updateReply(${reply.num}, '${reply.content}')">수정</button></td>
-                        </c:if>
-                    </td>
-
-                </tr>
-
-                </tr>
-            </c:forEach>
-            </tbody>
-        </table>
-    </div>
-</c:if>--%>
 
 
 <script src="/js/contentReply/contentReply.js"></script>
