@@ -22,7 +22,6 @@ let postObject = {
     },
 
     insertPost: function () {
-        console.log("포스트 등록 요청됨");
 
         let post = {
             title  : $("#title").val(),

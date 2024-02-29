@@ -123,7 +123,6 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                     " 부로 휴면 상태로 전환된 계정입니다."); // 계정 비활성화
         else if (user.getRole() == RoleType.BLOCK) {
             if(user.getBlockDate().toLocalDateTime().isAfter(LocalDateTime.now())) {
-                System.out.println("====================== 통과 ======================");
                 throw new LockedException("귀하의 계정은 사용 정지되어 " +
                         user.getBlockDate().toLocalDateTime().getYear() + "년 " +
                         user.getBlockDate().toLocalDateTime().getMonthValue() + "월 " +

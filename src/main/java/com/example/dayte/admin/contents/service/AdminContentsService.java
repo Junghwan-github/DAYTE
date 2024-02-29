@@ -56,8 +56,6 @@ public class AdminContentsService {
 
         createDirectory();
 
-        System.out.println("adminContentsImageDTO.getImageFiles() : " + adminContentsImageDTO.getImages());
-
         adminContentsImageDTO.getImages().forEach(image -> {
             String contentListURL = saveImage(image);
             adminContentsImageDTO.setImageURL(contentListURL);

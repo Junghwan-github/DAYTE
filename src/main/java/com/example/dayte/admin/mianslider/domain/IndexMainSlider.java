@@ -3,12 +3,10 @@ package com.example.dayte.admin.mianslider.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
-
 @Entity
 @Table(name = "ADMIN_INDEX")
 @Builder
 @Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString

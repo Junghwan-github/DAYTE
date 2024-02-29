@@ -1,7 +1,6 @@
 package com.example.dayte.security.config;
 
 import com.example.dayte.security.handler.Custom403Handler;
-import com.example.dayte.security.handler.CustomSocialLoginHandler;
 import com.example.dayte.security.handler.LoginFailHandler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -28,15 +27,15 @@ public class SecurityConfig {
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        log.info("===== WebSecurityCustomizer =====");
-        return (web) -> web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
+        return (web) -> web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations())
+                .requestMatchers("/temp/**");
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/members/**","/contents/**", "/WEB-INF/**", "/txt/**", "/images/**", "/js/**","/css/**","/","/error" ,"/temp/**" ,"/notice", "/notice/searchNotices", "/customerService", "/question", "/viewNotice/**", "/event/**", "/mainPostList/").permitAll()
+                    auth.requestMatchers("/members/**","/contents/**", "/WEB-INF/**","/","/notice", "/notice/searchNotices", "/customerService", "/question", "/viewNotice/**", "/event/**", "/mainPostList/").permitAll()
                             .requestMatchers("/admin/**", "/notice/**", "/update/**").hasRole("ADMIN")
                             .anyRequest().authenticated();
                 })
@@ -64,18 +63,12 @@ public class SecurityConfig {
                 })
                 .oauth2Login(oauth -> { // OAuth2 로그인을 위한 설정
                     oauth.loginPage("/members/login")
-                            .successHandler(authenticationSuccessHandler())
                             .failureHandler(new LoginFailHandler());
                 })
         ;
 
         return http.build();
     }
-
-    private AuthenticationSuccessHandler authenticationSuccessHandler() {
-        return new CustomSocialLoginHandler();
-    }
-
 
     @Bean
     public PasswordEncoder passwordEncoder() { return new BCryptPasswordEncoder(); }
@@ -90,8 +83,5 @@ public class SecurityConfig {
     public LoginFailHandler loginFailHandler() {
         return new LoginFailHandler();
     }
-
-
-
 
 }

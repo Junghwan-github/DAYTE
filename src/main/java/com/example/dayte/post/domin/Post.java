@@ -34,7 +34,6 @@ public class Post {
     @Column(columnDefinition = "Timestamp")
     private Timestamp createDate;
 
-    @Setter
     @ManyToOne(fetch = FetchType.EAGER)// N : 1
     @JoinColumn(name = "user")
     private User user;
@@ -46,8 +45,4 @@ public class Post {
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private List<PostImages> postImages;
 
-//    @ManyToOne
-//    @JoinColumn(name = "contents")
-//    private AdminContents contents;
-    
 }

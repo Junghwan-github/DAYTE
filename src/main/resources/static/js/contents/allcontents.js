@@ -32,10 +32,6 @@ function searchContentsCategory(search) {
         data       : JSON.stringify(categoryAndSearch),
         success    : function (data) {
             // 검색 결과를 UI에 표시
-            if (!!!data) {
-                alert("값 없음");
-            }
-            console.log(data);
             displaySearchResults1(data);
         },
         error      : function (error) {
@@ -88,7 +84,7 @@ function displaySearchResults1(data) {
                             <p>문의 : ${content.contactInfo}</p>
                         </li>
                          <li>  
-                         <span class="rating"></span>   
+                         <span class="star"></span>   
                          </li>
                         </ul>
                     <div class="contentListItemButton">
@@ -101,9 +97,9 @@ function displaySearchResults1(data) {
                 </div>`);
             const matchingStar = data.avgStarViewDTOList.find(star => star.uuid === content.uuid);
             if (matchingStar) {
-                listItem.find('.rating').text('★' + matchingStar.starAVG.toFixed(1));
+                listItem.find('.star').text('★' + matchingStar.starAVG.toFixed(1));
             } else {
-                listItem.find('.rating').text('★0.0');
+                listItem.find('.star').text('★0.0');
             }
             contentListViewer.append(listItem);
         });

@@ -16,7 +16,6 @@ public class Custom403Handler implements AccessDeniedHandler {
 
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
-        log.info("===================  ACCESS DENIED  ===================");
 
         // HTTP 응답 상태를 403 forbidden으로 설정
         response.setStatus(HttpStatus.FORBIDDEN.value());

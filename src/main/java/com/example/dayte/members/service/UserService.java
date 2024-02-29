@@ -117,11 +117,8 @@ public class UserService {
         // 비밀번호란이 비어있다면 그대로, 입력되어있으면 변경
         if ("".equals(userDTO.getPassword())) {
             userDTO.setPassword(findUser.getPassword());
-            System.out.println("============= 기존 비번 : " + userDTO.getPassword());
         } else {
-            System.out.println("============= 새 비번 : " + userDTO.getPassword());
             userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-            System.out.println("============= 새 비번 : " + userDTO.getPassword());
         }
 
         if (!userDTO.getNickName().equals(findUser.getNickName())) {

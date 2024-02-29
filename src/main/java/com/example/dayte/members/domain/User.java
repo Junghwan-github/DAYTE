@@ -22,7 +22,6 @@ public class User {
     @Column(nullable = false, length = 100)
     private String userEmail; // 로그인 이메일 아이디
 
-
     @Column(nullable = false, length = 100)
     private String password; // 비밀번호
 

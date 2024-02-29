@@ -30,7 +30,6 @@ public class ValidationCheckAdvice {
         //만약 PostController의 insertPost()가 대상 메서드라면
         // getArgs -> PostDTO, BindingResult, HttpSession => Object[] args에 저장
 
-
         for(Object arg : args){
             if(arg instanceof BindingResult bindingResult){
                 // arg가 BindingResult 타입으로 변환이 된다면, 매개변수로 BindingResult가 있으면
@@ -45,11 +44,8 @@ public class ValidationCheckAdvice {
                     }
                     return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), errMap);
                 }
-
-
             }
         }
-
         return jp.proceed();  // 해당 advice를 사용하는 대상이 될 메서드를 실행하는 역할
         // 중간에 에러 뜨면 위에 있는 return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), errMap); 에 걸림
     }

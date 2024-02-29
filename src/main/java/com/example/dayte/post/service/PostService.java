@@ -34,22 +34,17 @@ public class PostService {
     @Autowired
     private PostImagesRepository postImagesRepository;
 
+
+
     @Transactional
     public void insertPost(Post post) {
-        System.out.println("service의 post : " + post);
         postRepository.save(post);
-    }
-
-    @Transactional(readOnly = true)
-    public List<Post> getPostList() {
-        return postRepository.findAll();
     }
 
     @Transactional
     public Post getPost(Long id) {
         return postRepository.findById(id).get();
     }
-
 
     @Transactional
     public void updatePost(Post post) {

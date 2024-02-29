@@ -45,7 +45,6 @@ public class PostController {
 
     private final PostReplyService postReplyService;
 
-
     // ----------------------- 포스트 등록 폼 -----------------------
     @GetMapping("/mainPostList/in")
     public String insertPost() {
@@ -54,13 +53,13 @@ public class PostController {
 
     // 포스트 등록 로직
     @PostMapping("/mainPostList/reg") // @Valid
-    public @ResponseBody ResponseDTO<?> insertPost(@Valid @RequestBody PostDTO postDTO, // title, content를 PostDTO로 받고 반환함
-//                                                 BindingResult bindingResult,
-                                                   @AuthenticationPrincipal UserSecurityDTO principal) {
-        Post post = modelMapper.map(postDTO, Post.class); //
-
+    public  @ResponseBody ResponseDTO<?> insertPost(
+                @Valid @RequestBody PostDTO postDTO, // title, content를 PostDTO로 받고 반환함
+                @AuthenticationPrincipal UserSecurityDTO principal) {
         User user = userService.getUser(principal.getUserEmail()); // 해당 user의 Email을 담음
-        post.setUser(user);
+
+        postDTO.setUser(user);
+        Post post = modelMapper.map(postDTO, Post.class); //
         postService.insertPost(post);
         postService.extractPostContentImages(post);
         return new ResponseDTO<>(HttpStatus.OK.value(), "새로운 포스트를 등록했습니다.");
@@ -80,14 +79,11 @@ public class PostController {
             PostReplyDTO postReplyDTO = modelMapper.map(postReply, PostReplyDTO.class);
             postReplyDTO.setFormatDate(formatCreateDateService.getFormattedCreateDate(postReplyDTO.getCreateDate()));
             postReplyList.add(postReplyDTO);
-            System.out.println("postReplyDTO : " + postReplyDTO);
         });
 
         model.addAttribute("postReplyList", postReplyList);
-
         return "post/getPost";
     }
-
 
     // ----------------------- 포스트 검색 및 페이지네이션 -----------------------
     @GetMapping({"/mainPostList"})
@@ -107,10 +103,6 @@ public class PostController {
         // 검색 키워드가 있을시 postSearchList 을 남아 넘겨줌
         String msg = "default";
 
-        if ("".equals(postWord) || postWord == null) { // 검색키워드가 없거나 검색하지 않았을 때
-            postListPage = postService.getPostList(pageable);
-            postTotalPage = postListPage.getTotalPages();
-        } else { // 무언가를 검색했을 때
             switch (postField) {
                 case "postTitle" -> postListPage = postService.getPostSearchToTitleList(pageable, postWord);
                 case "postContent" -> postListPage = postService.getPostSearchToContentList(pageable, postWord);
@@ -119,7 +111,6 @@ public class PostController {
             }
             postTotalPage = postListPage.getTotalPages();
             msg = "searched";
-        }
 
         // postListPage 필드에 담긴 페이지네이션화된 전체 데이터를 postTotalPage 필드에 대입
         int postNowPage = postListPage.getNumber(); // 현재 게시판 페이지
@@ -138,7 +129,6 @@ public class PostController {
         model.addAttribute("postNowPage", postNowPage);
         model.addAttribute("postList", postListPage);
         model.addAttribute("msg", msg);
-
         model.addAttribute("postListText",postService.extractPostContentText());
         return "post/mainPostList";
     }
@@ -146,23 +136,18 @@ public class PostController {
     // ----------------------- 포스트 수정 화면 응답 -----------------------
     @GetMapping("/post/updatePost/{id}")
     public String updateForm(@PathVariable Long id, Model model) {
-        System.out.println("가나다라"+id);
         model.addAttribute("post", postService.getPost(id));
-
         return "post/updatePost";
     }
 
     // ----------------------- 포스트 수정 로직 수행 -----------------------
     @PutMapping("/post")
     public @ResponseBody ResponseDTO<?> updatePost(@RequestBody Post post) {
-
         postService.updatePost(post);
         postService.deletePostImage(post);
         postService.extractPostContentImages(post);
         return new ResponseDTO<>(HttpStatus.OK.value(), post.getId() + "번 포스트가 수정되었습니다.");
     }
-
-
 
     // ----------------------- 포스트 삭제 로직 수행 -----------------------
     @DeleteMapping("/post/{id}")

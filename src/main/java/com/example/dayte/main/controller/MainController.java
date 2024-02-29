@@ -25,7 +25,6 @@ import java.util.List;
 @Controller
 public class MainController {
 
-
     @Autowired
     private IndexMainSliderService indexMainSliderService;
 
@@ -82,10 +81,6 @@ public class MainController {
     public String joinForm() {
         return "members/joinForm";
     }
-
-
-//    @GetMapping("/contents/detail") // 임시로 불러오게만~~
-//    public String content() { return "contents/contentsInfo";}
 
     @GetMapping("/indexSearch")
     public String allSearches(@RequestParam("indexSearch") String searchWord, Model model) {

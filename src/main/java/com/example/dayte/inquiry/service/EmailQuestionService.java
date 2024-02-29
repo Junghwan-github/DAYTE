@@ -8,6 +8,7 @@ import jakarta.mail.MessagingException;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
+import org.eclipse.tags.shaded.org.apache.xpath.operations.Mod;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,22 +22,19 @@ import java.io.IOException;
 import java.util.Arrays;
 
 @Service
-@RequiredArgsConstructor
-
 public class EmailQuestionService {
 
     @Autowired
-    JavaMailSender javaMailSender;
+    private JavaMailSender javaMailSender;
 
     @Autowired
     private EmailQuestionRepository emailQuestionRepository;
 
+    @Autowired
+    private ModelMapper modelMapper;
+
     @Value("${spring.mail.username}")
     private String adminEmail;
-
-    private final ModelMapper modelMapper;
-
-
 
     public void sendQuestion(EmailQuestionDTO emailQuestionDTO, String emailAdress) {
 
@@ -54,7 +52,6 @@ public class EmailQuestionService {
         } catch (MessagingException e) {
             ;
             ;
-
         }
 
 
@@ -87,12 +84,8 @@ public class EmailQuestionService {
 
             emailQuestionRepository.save(modelMapper.map(emailQuestionDTO, EmailQuestion.class));
 
-
         } catch (MessagingException | IOException e) {
             e.printStackTrace();
         }
-
-
-
     }
 }

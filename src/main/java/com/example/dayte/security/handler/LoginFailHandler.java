@@ -20,8 +20,6 @@ public class LoginFailHandler extends SimpleUrlAuthenticationFailureHandler {
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException, ServletException {
 
-        log.info("======== login fail handler ========");
-        System.out.println(e.getMessage());
         String errorMessage;
         if (e instanceof BadCredentialsException || e instanceof InternalAuthenticationServiceException) {
             if (e.getMessage().equals("자격 증명에 실패하였습니다."))

@@ -35,5 +35,4 @@ public class EmailQuestion {
     @Column
     private boolean answerCheck;
 
-
 }

@@ -13,9 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class IndexMainSliderController {
 
     @Autowired
-    IndexMainSliderService indexMainSliderService;
-
-
+    private IndexMainSliderService indexMainSliderService;
 
     @GetMapping("/admin/home/settings/index")
     public String IndexMainSliderView () {
@@ -31,8 +29,7 @@ public class IndexMainSliderController {
                                                                @RequestPart("address") String address,
                                                                @RequestPart("summary") String summary,
                                                                @RequestPart("href") String href) {
-
-
+        
         IndexMainSliderDTO indexMainSliderDTO = new IndexMainSliderDTO();
         indexMainSliderDTO.setImages(images);
         indexMainSliderDTO.setCategory(category);
