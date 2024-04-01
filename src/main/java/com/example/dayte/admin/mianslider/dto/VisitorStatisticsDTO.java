@@ -1,6 +1,9 @@
 package com.example.dayte.admin.mianslider.dto;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDate;
 import java.time.format.TextStyle;

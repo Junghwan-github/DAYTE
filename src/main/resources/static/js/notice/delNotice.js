@@ -10,11 +10,9 @@ function logSelectedCheckboxValues() {
         alert("선택된 항목이 없습니다")
         return;
     }
-
     var confirmed = confirm(selectedCheckboxes.length + "개의 게시글을 삭제하시겠습니까?");
 
     if(confirmed){
-
         var selectedValues = Array.from(selectedCheckboxes).map(checkbox => checkbox.value);
 
         fetch("/notice/delete", {
@@ -32,9 +30,4 @@ function logSelectedCheckboxValues() {
             })
 
     }
-
-
-
-
-
 }

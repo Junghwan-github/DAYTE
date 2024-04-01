@@ -209,7 +209,8 @@
                                         <li class="star-point-find">
                                             <c:set var="hasMatch" value="false"/>
                                             <c:forEach var="star" items="${starList}">
-                                                <c:if test="${star.uuid eq contents.uuid}">
+                                                <c:if test="${star.uuid eq content.uuid}">
+
                                                     <span class="star">★${star.starAVG}</span>
                                                     <c:set var="hasMatch" value="true"/>
                                                 </c:if>

@@ -6,7 +6,6 @@ import com.example.dayte.admin.contents.dto.AdminContentsDTO;
 import com.example.dayte.admin.contents.dto.AdminContentsImageDTO;
 import com.example.dayte.admin.contents.persistence.AdminContentsImageRepository;
 import com.example.dayte.admin.contents.persistence.AdminContentsRepository;
-import com.example.dayte.post.domin.Post;
 import com.example.dayte.schedule.domain.DetailedSchedule;
 import com.example.dayte.schedule.persistence.DetailedScheduleRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -27,7 +26,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -55,8 +53,6 @@ public class AdminContentsService {
     ){
 
         createDirectory();
-
-        System.out.println("adminContentsImageDTO.getImageFiles() : " + adminContentsImageDTO.getImages());
 
         adminContentsImageDTO.getImages().forEach(image -> {
             String contentListURL = saveImage(image);
@@ -99,7 +95,6 @@ public class AdminContentsService {
         }
     }
 
-    // 2024.02.19 ----------------------------------------------------------------------------------------
     @Transactional
     public void removeContent(String uuid) {
         // 1. 삭제하려는 콘텐츠가 만약 사용자가 등록한 일정에 없을 시 바로 삭제
@@ -136,9 +131,6 @@ public class AdminContentsService {
 
     }
 
-    // --------------------------------------------------------------------------------------------------
-
-    // 2024.02.21 ---------------------------------------------------------------------------------------
     @Transactional
     public List<Integer> saveScheduleNumber(List<AdminContents> deletedContents) {
 
@@ -152,8 +144,6 @@ public class AdminContentsService {
 
         return scheduleNumberList;
     }
-
-    // --------------------------------------------------------------------------------------------------
 
     @Transactional
     public AdminContents getShowContentsDetail (String id) {

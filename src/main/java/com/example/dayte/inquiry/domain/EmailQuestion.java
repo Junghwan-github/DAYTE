@@ -3,10 +3,8 @@ package com.example.dayte.inquiry.domain;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -34,6 +32,5 @@ public class EmailQuestion {
 
     @Column
     private boolean answerCheck;
-
 
 }

@@ -2,15 +2,12 @@ package com.example.dayte.reply.domain;
 
 import com.example.dayte.admin.contents.domain.AdminContents;
 import com.example.dayte.members.domain.User;
-import com.example.dayte.schedule.domain.Schedule;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;

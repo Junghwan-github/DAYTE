@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
-
 @Service
 public class IndexMainSliderService {
 
@@ -30,22 +29,16 @@ public class IndexMainSliderService {
     @Autowired
     private ModelMapper modelMapper;
 
-
-
     private static final String imageUploadPath = "/temp/images/admin/indexslider/";
 
     public void InsertSlider(IndexMainSliderDTO indexMainSliderDTO) {
-        IndexMainSlider indexMainSlider = modelMapper.map(indexMainSliderDTO, IndexMainSlider.class);
-
         createDirectory();
 
         String indexSliderURL = saveImage(indexMainSliderDTO.getImages());
         indexMainSliderDTO.setImageUrl(indexSliderURL);
 
-        indexMainSlider.setImages(indexSliderURL);
-
+        IndexMainSlider indexMainSlider = modelMapper.map(indexMainSliderDTO, IndexMainSlider.class);
         indexMainSliderRepository.save(indexMainSlider);
-
     }
     public String saveImage(MultipartFile image) {
 
@@ -53,8 +46,6 @@ public class IndexMainSliderService {
             String uuid = UUID.randomUUID().toString();
             String encodedFileName = URLEncoder.encode(Objects.requireNonNull(image.getOriginalFilename()), StandardCharsets.UTF_8);
             String fileName = uuid + "_" +encodedFileName;
-
-
 
             Path targetPath = Path.of("\\\\192.168.10.203" + imageUploadPath + fileName);
 

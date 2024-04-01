@@ -1,11 +1,9 @@
 package com.example.dayte.security.handler;
 
-import com.example.dayte.members.persistence.UserRepository;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,8 +18,6 @@ public class LoginFailHandler extends SimpleUrlAuthenticationFailureHandler {
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException, ServletException {
 
-        log.info("======== login fail handler ========");
-        System.out.println(e.getMessage());
         String errorMessage;
         if (e instanceof BadCredentialsException || e instanceof InternalAuthenticationServiceException) {
             if (e.getMessage().equals("자격 증명에 실패하였습니다."))

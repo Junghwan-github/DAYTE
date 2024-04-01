@@ -18,11 +18,8 @@ let imageSrc = '/images/marker.png',
     imageOption = {offset: new kakao.maps.Point(13, 33)};
 let markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
 
-
-
 let pageNum = 1;
 let eventFired = false;
-
 
 $(".nextDayBtn").on("click", function (e) {
     $(".tableUuid").text($(e.target).val());
@@ -30,18 +27,14 @@ $(".nextDayBtn").on("click", function (e) {
     $(".daysListAddModal").slideDown(150);
     $(".scheduleTotalModifyBtn").hide();
 
-
-
     $(".centerModalLayout").scroll(function () {
         let contentHeight = $(".contentListViewer").height() -740;
-
 
         if ($(".centerModalLayout").scrollTop() >= contentHeight) {
             fetchDataFromDatabase();
         }
 
     })
-
 
     let containerEl = document.querySelector('.contentModalSlider');
     sortableInstance = new Sortable(containerEl, {
@@ -81,7 +74,6 @@ $(".scheduleTotalListModifyBtn").on("click", function (e) {
     $(slider).off('mousemove');
 });
 
-
 $(".scheduleTotalListCancelBtn").on("click", function () {
     $(".scheduleTotalListCancelBtn").hide();
     $(".scheduleTotalListModifyBtn").show();
@@ -89,7 +81,6 @@ $(".scheduleTotalListCancelBtn").on("click", function () {
     sortableInstance.option("disabled", true);
     mouseDrag(slider);
 });
-
 
 function mouseDrag(select) {
 
@@ -122,19 +113,12 @@ function mouseDrag(select) {
     }
 }
 
-
-function contentDataLoad() {
-    console.log("ddd");
-}
-
-
 let listCartBtn = document.querySelector("#divUpDownButton");
 let contentListCart = document.querySelector(".contentListModalArea");
 
 listCartBtn.addEventListener("click", () => {
     contentListCart.classList.toggle("show");
 });
-
 
 let scheduleItems = document.querySelectorAll(".scheduleContentsItem");
 
@@ -249,7 +233,6 @@ $(".detail-daysPrint-button").on("click", function () {
     sortableInstance.option("disabled", true);
 
     mouseDrag(slider);
-
 });
 
 $('.contentListViewer').on('click', '.contentListItemdetailViewBtn', function (e) {
@@ -265,8 +248,6 @@ $('.contentListViewer').on('click', '.contentListItems', function (e) {
         let latitude = $(e.target).closest('.contentListItems').find('.contentListItemPoint-x').text();
         let longitude = $(e.target).closest('.contentListItems').find('.contentListItemPoint-y').text();
 
-        console.log(latitude);
-        console.log(longitude);
         if (marker != '') {
             marker.setMap(null);
         }
@@ -310,27 +291,21 @@ $('.contentListModalBtnWrap').on("click", '.scheduleTotalListMapBtn', function (
 
 
 function fetchDataFromDatabase() {
-
     $.ajax({
         url        : "/schedule/scheduleList/" + pageNum,
         method     : "POST",
         contentType: "application/json; charset=utf-8",
         success    : function (data) {
-            console.log(data);
-
             scrollContentData(data);
         },
         error      : function (error) {
             console.error('검색 실패:', error);
         }
     });
-
     pageNum++
-
 }
 
-
-
+let count = 10;
 function scrollContentData (data) {
     if(data.scheduleLoadDatalist.length > 0) {
         for (let i = 0; i < data.scheduleLoadDatalist.length; i++) {
@@ -359,7 +334,7 @@ function scrollContentData (data) {
                             <p>문의 : ${data.scheduleLoadDatalist[i].contactInfo}</p>
                         </li>
                          <li class="star-point-find">
-                         <span class="star"></span>   
+                         <span class="star">★0.0</span>   
                          </li>
                         </ul>
                     <div class="contentListItemButton">
@@ -375,25 +350,13 @@ function scrollContentData (data) {
                     </div>
                 </div>  
               </li>`);
-            // const matchingStar = data.scheduleStarPoint.find(star => star.uuid === data.scheduleLoadDatalist[i].uuid);
-            // if (matchingStar) {
-            //    $(".rating").text('★' + matchingStar.starAVG.toFixed(1));
-            // } else {
-            //     $(".rating").text('★0.0');
-            // };
-
-
-
-                for(let j = 0; j<data.scheduleStarPoint.length; j++) {
-                    $(".contentListItemdetailViewBtn").each(function () {
-                        console.log($(this).val());
-                    if($(this).val() === data.scheduleStarPoint[j].uuid) {
-                       $(this).closest(".contentListItems").find(".star").text(data.scheduleStarPoint[j].starAVG);
-                    } else {
-                        $(this).closest(".contentListItems").find(".star").text('★0.0');
-                    }
-                    })
-                }
+            const listItem = $(".star-point-find").eq(i+count);
+            const starElement = listItem.find(".star");
+            const matchingStar = data.scheduleStarPoint.find(star => star.uuid === data.scheduleLoadDatalist[i].uuid);
+            if (matchingStar) {
+                starElement.text('★' + matchingStar.starAVG.toFixed(1));
+            }
         }
+        count += 10;
     }
 }

@@ -3,12 +3,10 @@ package com.example.dayte.members.domain;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.TimeZoneColumn;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "USERS")
@@ -21,7 +19,6 @@ public class User {
     @Id
     @Column(nullable = false, length = 100)
     private String userEmail; // 로그인 이메일 아이디
-
 
     @Column(nullable = false, length = 100)
     private String password; // 비밀번호

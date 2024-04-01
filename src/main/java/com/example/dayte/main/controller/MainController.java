@@ -3,28 +3,23 @@ package com.example.dayte.main.controller;
 import com.example.dayte.admin.contents.domain.AdminContents;
 import com.example.dayte.admin.contents.service.AdminContentsService;
 import com.example.dayte.admin.mianslider.domain.IndexMainSlider;
-import com.example.dayte.admin.mianslider.domain.VisitorStatistics;
 import com.example.dayte.admin.mianslider.listener.MySessionListener;
 import com.example.dayte.admin.mianslider.service.IndexMainSliderService;
 import com.example.dayte.post.service.PostService;
 import com.example.dayte.reply.service.ContentReplyService;
-import com.example.dayte.security.dto.UserSecurityDTO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
 @Controller
 public class MainController {
-
 
     @Autowired
     private IndexMainSliderService indexMainSliderService;
@@ -82,10 +77,6 @@ public class MainController {
     public String joinForm() {
         return "members/joinForm";
     }
-
-
-//    @GetMapping("/contents/detail") // 임시로 불러오게만~~
-//    public String content() { return "contents/contentsInfo";}
 
     @GetMapping("/indexSearch")
     public String allSearches(@RequestParam("indexSearch") String searchWord, Model model) {

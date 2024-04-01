@@ -4,7 +4,7 @@ ___
 # 💚 DAYTE
 > Spring Boot와 Spring MVC 패턴을 기반으로 Spring Security를 활용해 제작한 
 > 대구 여행 일정 관리 프로젝트 **DAYTE** 입니다.<br>
-> [👉🏻 Link here](http://docs.yi.or.kr:20080)
+> [👉🏻 Link here](http://docs.yi.or.kr:8089)
 #### ✔ 개발 동기 및 개요
 * 한눈에 대구 도심 곳곳 즐길 거리와 맛집의 **정보와 위치를 확인**할 수 있고
 * 이용자들이 촬영한 **사진, 경험, 리뷰 등을 기록**하고

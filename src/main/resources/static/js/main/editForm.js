@@ -47,7 +47,7 @@ $("#editBttn").on("click", function () {
     if (nickName == oldNickName) {
         isNicknameChecked = true;
     }
-    
+
     if (!isNicknameChecked || nickName != changeNickName) {
         alert("닉네임 중복을 먼저 확인하세요.");
         return;
@@ -59,9 +59,9 @@ $("#editBttn").on("click", function () {
     }
 
     let formData = new FormData();
-    // formData.append("user", JSON.stringify(user));
     formData.append("nickName", user.nickName); // 변경된 부분
     formData.append("phone", user.phone); // 변경된 부분
+
     // 이미지 파일이 선택되었을 때만 추가
     let my_photo = $("#upload")[0];
     if (my_photo.files.length > 0) {
@@ -80,6 +80,7 @@ $("#editBttn").on("click", function () {
         alert("에러 발생 : " + error);
     })
 });
+
 $(function () {
     // 처음 이미지 가져오기
     let photo_path = $('.profile-photo').attr('src');
@@ -112,4 +113,3 @@ $(function () {
         };
     });
 });
-

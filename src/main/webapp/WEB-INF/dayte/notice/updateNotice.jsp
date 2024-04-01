@@ -55,13 +55,10 @@
             </div>
         </div>
     </form>
-
     <div class="noticebtns">
         <a id="btn-update" class="btn"> 수정</a>
         <a id="cancelBtn" class="btn"> 취소</a>
     </div>
-
-
 </div>
 
 
@@ -136,6 +133,4 @@
 
 
 </script>
-<%--</body>--%>
-
 <%@include file="../layout/footer.jsp" %>

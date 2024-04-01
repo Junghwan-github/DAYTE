@@ -6,7 +6,6 @@ import com.example.dayte.admin.contents.service.AdminContentsService;
 import com.example.dayte.content.dto.AvgStarViewDTO;
 import com.example.dayte.members.dto.ResponseDTO;
 import com.example.dayte.reply.service.ContentReplyService;
-import com.example.dayte.schedule.domain.Schedule;
 import com.example.dayte.schedule.dto.CheckScheduleDTO;
 import com.example.dayte.schedule.dto.ScheduleDTO;
 import com.example.dayte.schedule.dto.ScheduleDateDTO;
@@ -22,7 +21,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,7 +29,6 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class ScheduleController {
 
-
     private final ScheduleService scheduleService;
 
     private final ScheduleDateService scheduleDateService;
@@ -39,7 +36,6 @@ public class ScheduleController {
     private final AdminContentsService adminContentsService;
 
     private final ContentReplyService contentReplyService;
-
 
     @PostMapping("/schedule/scheduleList/{pageNum}")
     public @ResponseBody Map<String, Object> moveScheduleList(@PathVariable int pageNum) {
@@ -55,7 +51,8 @@ public class ScheduleController {
     @GetMapping("/schedule/scheduleList")
     public String moveScheduleList(Model model,
                                    @AuthenticationPrincipal UserSecurityDTO userSecurityDTO) {
-        model.addAttribute("userScheduleList",
+        model
+                .addAttribute("userScheduleList",
                         scheduleService.selectScheduleByUser(userSecurityDTO))
                 .addAttribute("contentsList", adminContentsService.getContentsList(0))
                 .addAttribute("dDay", LocalDate.now().toEpochDay())

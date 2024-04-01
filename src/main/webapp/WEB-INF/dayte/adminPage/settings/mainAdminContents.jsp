@@ -86,7 +86,14 @@
                         <c:forEach var="content" items="${contentsList.content}" varStatus="loop">
                             <tr style="height: 50px;">
                                 <td class="text-center align-middle h4 fw-normal">${(loop.index+1)+(contentsList.number*10)}</td>
-                                <td class="text-center align-middle h4 fw-normal">${content.uuid}</td>
+                                <td class="text-center align-middle">
+                                        <a href="/contents/detail/${content.uuid}"
+                                           class="text-decoration-none h4 fw-normal"
+                                           target="_blank"
+                                        >
+                                                ${content.uuid}
+                                        </a>
+                                </td>
                                 <td class="text-center align-middle h4 fw-normal">${content.businessName}</td>
                                 <td class="text-center align-middle h4 fw-normal">${content.category}</td>
                                 <c:choose>

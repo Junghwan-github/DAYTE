@@ -38,7 +38,6 @@ let userObject = {
             });
     },
     insertUser: function () {
-        console.log("inserUser 메서드 수행");
         let user = {
             userEmail: $("#id").val() + "@" + $("#emailDomain").val(),
             password: $("#password1").val(),
@@ -48,6 +47,7 @@ let userObject = {
             birthDate: $("#birthDate").val(),
             gender: $("#gender").val()
         }
+
         $.ajax({
             type: "POST",
             url: "/members/joinForm",
@@ -62,9 +62,7 @@ let userObject = {
             } else {
                 let warn = "";
                 let errors = response["data"];
-                console.log(errors + 1);
                 if (typeof errors == "object") {
-                    console.log("SECOND IF");
                     if (errors.userEmail != null) warn = warn + errors.userEmail + "\n"
                     if (errors.userName != null) warn = warn + errors.userName + "\n"
                     if (errors.password != null) warn = warn + errors.password + "\n"
@@ -73,7 +71,6 @@ let userObject = {
                     if (errors.birthDate != null) warn = warn + errors.birthDate + "\n"
                     if (errors.gender != null) warn = warn + errors.gender;
                 } else {
-                    console.log("SECOND ELSE");
                     warn = response["data"];
                 }
                 alert(warn);
@@ -86,6 +83,7 @@ let userObject = {
         let user = {
             nickName: $("#nickName").val(),
         }
+
         $.ajax({
             type: "POST",
             url: "/members/nickNameCheck/" + user.nickName,
@@ -105,7 +103,6 @@ let userObject = {
         }).fail(function (error) {
             alert("에러 발생" + error);
         })
-
     },
 }
 

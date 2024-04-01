@@ -8,53 +8,36 @@ let replyObject = {
             $("#btn-save-reply").on("click", () => {
                 if($("#reply-content").val() == null || $("#reply-content").val() == "") {
                     alert('댓글을 입력해 주세요.');
-
                 } else if ($('input[name=rating]:checked').val() == null
-                    || $('input[name=rating]:checked').val() == "") {
-
+                        || $('input[name=rating]:checked').val() == "") {
                     alert('별점을 선택해 주세요.');
-
                 } else
                     this.insertReply();
-                this.toggleButtons();
 
+                this.toggleButtons();
             });
 
             $("#btn-mod-reply").on("click", () => {
-
                 this.toggleButtons();
             })
 
             $(".btn-mod-reply2").on("click", () =>{
                 if($("#reply-content").val() == null || $("#reply-content").val() == "") {
                     alert('댓글을 입력해 주세요.');
-
                 } else if ($('input[name=rating]:checked').val() == null
-                    || $('input[name=rating]:checked').val() == "") {
-
+                        || $('input[name=rating]:checked').val() == "") {
                     alert('별점을 선택해 주세요.');
-
                 } else
-
                     this.completeUpdateReply();
-                this.toggleButtons();
 
+                this.toggleButtons();
             });
             $(".btn-mod-reply2").hide();
-
         });
-
-
-
     },
 
     // 댓글 등록(insert) 부분
     insertReply: function () {
-        let a = $("#reply-content").val();
-        console.log(a);
-        console.log("댓글 등록 요청됨");
-
-
         // 사용자가 입력한 내용과 임의 작성자 정보를 가져와서 객체 생성
         let contentReply = {
             uuid: $("#contentUuid").val(),
@@ -73,9 +56,9 @@ let replyObject = {
             .then(res => res.json())
             .then(data => {
                 alert("댓글 등록이 완료되었습니다.")
-                location = "/schedule/pastSchedule";
+                location.href = "/schedule/pastSchedule";
             })
-            .catch(err => console.log(`에러 발생 : ${err.message}`));
+            .catch(err => alert(`에러 발생 : ${err.message}`));
     },
 
     // 댓글 삭제(delete) 부분
@@ -89,7 +72,6 @@ let replyObject = {
             })
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data);
                     location.reload(); // 현재 페이지 새로고침
                 })
                 .catch(err => alert(`에러 발생 : ${err.message}`));
@@ -122,7 +104,6 @@ let replyObject = {
             rating : $('input[name=rating]:checked').val(),
             num : $("#reply-num").val()
         }
-        console.log(data);
 
         // 서버에 댓글 수정 요청을 보냄
         fetch("/contentReply/update", {
@@ -130,13 +111,10 @@ let replyObject = {
             headers: {
                 "Content-Type": "application/json; charset=utf-8",
             },
-            body: JSON.stringify(
-                data
-            )
+            body: JSON.stringify(data)
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 location.reload(); // 페이지 새로고침
             })
             .catch(err => alert(`에러 발생 : ${err.message}`));
@@ -146,6 +124,5 @@ let replyObject = {
         $(".btn-mod-reply2").toggle();
     }
 }
-
 // 댓글 객체 초기화
 replyObject.init();

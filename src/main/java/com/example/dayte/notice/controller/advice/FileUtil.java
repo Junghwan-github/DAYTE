@@ -1,19 +1,15 @@
 package com.example.dayte.notice.controller.advice;
 
-
 import com.example.dayte.notice.domain.FilesInfo;
-import net.minidev.json.JSONUtil;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.util.UriUtils;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -22,7 +18,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 @Component
@@ -85,14 +80,12 @@ public class FileUtil {
                 .fileSize(multipartFile.getSize())
                 .build();
 
-
     }
 
     //서버단에 저장할 이름 with UUID
     public String nameSaveInFile(String filename){
         String uuid = UUID.randomUUID().toString().replaceAll("-", "");
         String extension = StringUtils.getFilenameExtension(filename);
-
 
         return uuid + "." + extension;
     }
@@ -109,7 +102,6 @@ public class FileUtil {
         }
         return dir.getPath();
     }
-
 
     public Resource readFileAsResource(FilesInfo file) {
         String uploadedDate = file.getCreateDate().toLocalDateTime().format(DateTimeFormatter.ofPattern("yyMMdd"));

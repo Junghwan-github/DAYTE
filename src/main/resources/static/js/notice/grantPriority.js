@@ -2,34 +2,25 @@
 function upToSelected(no, event)  {
     event.preventDefault();
 
-    console.log(no);
     var confirmed = confirm(no + "번 공지를 필수 공지로 변경하시겠습니까?");
 
-    if(confirmed){
+    if(confirmed) {
 
-    let data = {
-        no : no
-    }
-    console.log(no);
-
-    fetch("/notice/grantPriority"+no, {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json; charset=utf-8",
+        let data = {
+            no : no
         }
 
-    })
-        .then(response => {
-
+        fetch("/notice/grantPriority"+no, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json; charset=utf-8",
+            }
+        }).then(response => {
             return response.json();
-
         }).then(data =>{
-        console.log(data);
-        location = "/notice/modAll";
-    })
-        .catch(error => {
+            location = "/notice/modAll";
+        }).catch(error => {
             alert(`에러발생 : ${error.message}`);
         })
     }
-
 }

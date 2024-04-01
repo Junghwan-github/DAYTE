@@ -1,7 +1,5 @@
 package com.example.dayte.members.controller;
 
-import com.example.dayte.admin.mianslider.dto.VisitorStatisticsDTO;
-import com.example.dayte.admin.mianslider.service.VisitorStatisticsService;
 import com.example.dayte.members.domain.RoleType;
 import com.example.dayte.members.domain.User;
 import com.example.dayte.members.dto.ResponseDTO;
@@ -11,16 +9,9 @@ import com.example.dayte.members.persistence.DeleteUserRepository;
 import com.example.dayte.members.service.UserService;
 import com.example.dayte.schedule.service.ScheduleService;
 import com.example.dayte.security.dto.UserSecurityDTO;
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
-import lombok.Getter;
-import org.eclipse.tags.shaded.org.apache.xpath.operations.Mod;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -33,10 +24,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
-import java.time.LocalDate;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -73,17 +61,14 @@ public class UserController {
         userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
 
         userDTO.setRole(RoleType.USER);
-        System.out.println("userDTO : " + userDTO);
         User user = modelMapper.map(userDTO, User.class);
-        System.out.println("user : " + user);
 
         User findUser = userService.newUser(user.getUserEmail());
-        System.out.println("user.getUserEmail() : " + user.getUserEmail());
+
         if (findUser.getUserEmail() == null && findUser.getNickName() == null) {
             if (user.getNickName().equals(findUser.getNickName())) {
                 return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), "중복된 닉네임 입니다.");
             } else {
-                System.out.println("user : " + user);
                 userService.insertUser(user);
                 return new ResponseDTO<>(HttpStatus.OK.value(), user.getUserName() + "님 회원가입을 축하드립니다. 로그인을 해주세요.");
             }
@@ -99,7 +84,6 @@ public class UserController {
         }
     }
 
-    // 2024.02.20 --------------------------------------------------------------------
     // 비밀번호 찾기
     @GetMapping("/members/findPwd")
     public String findPassword() {
@@ -110,9 +94,8 @@ public class UserController {
     @PostMapping("/members/findPwd/{userEmail}")
     public @ResponseBody ResponseDTO<?> findPassword(@PathVariable String userEmail, Model model) {
         User user;
-        System.out.println("userEmail 1 : " + userEmail);
         model.addAttribute("userEmail", userEmail);
-        System.out.println("model.getAttr() 1 : " + model.getAttribute("userEmail"));
+
         try {
             user = userService.getUser(userEmail);
         } catch (IllegalArgumentException e) {
@@ -124,16 +107,13 @@ public class UserController {
     // 비밀번호 변경 로직
     @PostMapping("/members/changePwd")
     public String changePassword(@ModelAttribute("userEmail") UserDTO userDTO, Model model) {
-        System.out.println("userDTO.getUserEmail() 2 : " + userDTO.getUserEmail());
         model.addAttribute("userEmail", userDTO.getUserEmail());
-        System.out.println("model.getAttr() 2 : " + model.getAttribute("userEmail"));
         return "members/changePassword";
     }
 
     @PutMapping("/members/changePwd")
     public @ResponseBody ResponseDTO<?> changePassword(@RequestBody UserDTO userDTO) {
         User user;
-        System.out.println(userDTO.getPassword());
         try {
             user = userService.getUser(userDTO.getUserEmail());
         } catch (IllegalArgumentException e) {
@@ -208,11 +188,6 @@ public class UserController {
     public @ResponseBody SocialResponseDTO<?> deleteSocialUser(
             @AuthenticationPrincipal UserSecurityDTO principal) {
 
-        userService.testDelUser(principal.getUserEmail());
-
-        System.out.println("principal.getSocialName() : " + principal.getSocialName());
-        System.out.println("principal.getUserEmail() : " + principal.getUserEmail());
-
         OAuth2AuthorizedClient client = null;
         switch (principal.getSocialName()) {
             case "Naver" -> client = authorizedClientService.loadAuthorizedClient(
@@ -222,13 +197,6 @@ public class UserController {
             case "kakao" -> client = authorizedClientService.loadAuthorizedClient(
                     "kakao", principal.getUserEmail());
         }
-        System.out.println(
-                "-------------------- client --------------------\n"
-                        + "client.getClientRegistration() : " + client.getClientRegistration() + "\n"
-                        + "client.getPrincipalName() : " + client.getPrincipalName() + "\n"
-                        + "client.getAccessToken() : " + client.getAccessToken() + "\n"
-                        + "client.getRefreshToken() : " + client.getRefreshToken() + "\n"
-        );
 
         return new SocialResponseDTO<>(
                 HttpStatus.OK.value(), "회원 탈퇴가 완료되었습니다.",
@@ -239,11 +207,11 @@ public class UserController {
     public @ResponseBody ResponseDTO<?> nickNameChk(
             @PathVariable String nickName) {
 
-        if (!userService.nickNameChk(nickName)) {
+        if (!userService.nickNameChk(nickName))
             return new ResponseDTO<>(HttpStatus.OK.value(), "사용 할 수 있는 닉네임 입니다.");
-        } else {
+        else
             return new ResponseDTO<>(HttpStatus.CONFLICT.value(), "중복된 닉네임 입니다.");
-        }
+
     }
 
     // 사용자 - 비밀번호 변경

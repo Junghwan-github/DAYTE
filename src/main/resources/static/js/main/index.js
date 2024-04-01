@@ -38,12 +38,9 @@ $(document).ready(function () {
     })
 
     $(".cityList > ul > li").on("click", function () {
-        console.log($(this).text());
-        $("input[name='indexSearch']").val($(this).text());
+        location.href = "/contents/indexSearch?indexSearch=" + $(this).text();
     })
 })
-
-
 
 // 날씨 api
 
@@ -54,7 +51,6 @@ function getUpdatedDate(t) {
 
     const nextUpdateDate = new Date(currentDate);
     nextUpdateDate.setHours(t, 0, 0, 0);
-    console.log(nextUpdateDate);
 
     if (currentDate < nextUpdateDate) {
         const year = currentDate.getFullYear();
@@ -62,10 +58,6 @@ function getUpdatedDate(t) {
         const day = (currentDate.getDate()-1).toString().padStart(2, "0");
         return year + month + day;
     }
-
-
-
-
 
     const year = currentDate.getFullYear();
     const month = (currentDate.getMonth() + 1).toString().padStart(2, "0");
@@ -84,17 +76,17 @@ function getUpdatedDate(t) {
 
 function getUpdatedDatePlus(t) {
     const currentDate = new Date();
-
     const year = currentDate.getFullYear();
-    const month = (currentDate.getMonth() + 1).toString().padStart(2, "0");
-    const day = (currentDate.getDate()+t).toString().padStart(2, "0");
+    let month = (currentDate.getMonth() + 1).toString().padStart(2, "0");
+    let day = currentDate.getDate();
+    currentDate.setDate(day + t);
+    if (currentDate.getMonth() < (currentDate.getMonth() + 1) % 12) {
+        month = ((currentDate.getMonth() + 1) % 12).toString().padStart(2, "0");
+    }
+    day = currentDate.getDate().toString().padStart(2, "0");
     const formattedDate = year + month + day;
-
     return formattedDate;
 }
-
-console.log(getUpdatedDatePlus(0));
-
 
 function thisDate(t) {
     const currentDate = new Date();
@@ -172,7 +164,6 @@ fetch(apiShort)
             }
         }
 
-
         let temperature = document.querySelector(".temperature");
         let ptyValue = "";
         let ptyv = "";
@@ -201,7 +192,6 @@ fetch(apiShort)
             if (apiData.tmn[i].date == thisDate()) {
                 tmn = apiData.tmn[i].value;
             }
-
             if (apiData.tmx[i].date == thisDate()) {
                 tmx = apiData.tmx[i].value;
             }
@@ -298,7 +288,6 @@ fetch(apiShort)
                     apiData.pty[m].date == thisDate(apiData.pty[m].Time) &&
                     apiData.pty[m].Time == nowHours(k) + "00"
                 ) {
-                    console.log(apiData.pty[m]);
                     switch (apiData.pty[m].value) {
                         case "1":
                             $(`.${hoursListId} .hoursListIcon`).css(
@@ -370,7 +359,6 @@ fetch(apiShort)
             }
         }
 
-
         function roundToNearestTen(num) {
             return Math.round(num / 10) * 10;
         }
@@ -383,13 +371,11 @@ fetch(apiShort)
         weatherInfo.weather = [];
         weatherInfo.pop = [];
 
-
-//기온
+        // 기온
         fetch(apiLong1)
             .then((response) => response.json())
             .then((json) => {
                 let data2 = json.response.body.items.item;
-
 
                 //날씨
                 fetch(apiLong2)
@@ -397,8 +383,6 @@ fetch(apiShort)
                     .then((json) => {
 
                         //내일부터 6일 뒤의 기온, 날씨, 강수량 화면단에 불러오기
-
-
                         for (let i = 0; i < 2; i++) {
 
                             let stringToDate = new Date(formattedDate);
@@ -433,11 +417,9 @@ fetch(apiShort)
 
                             /* ============= 1일, 2일 최고 기온, 최저 기온 추출 여기까지 int형 ================ */
 
-
                             /*============== 1일, 2일 pty 추출 ==========================*/
                             let morningPtyList = [];
                             let afternoonPtyList = [];
-
 
                             apiData.pty.forEach(k => {
 
@@ -463,30 +445,17 @@ fetch(apiShort)
                                 }
                             })
 
-
-                            // console.log(morningSkyList);
-                            // console.log(afternoonSkyList);
-
-                            //exampleArray1,2 는 나중에 morningPtyList, afternoonPtyListfh 바꾸기
-
-                            //let exampleArray1 = [2, 1, 1, 1, 0, 3, 2, 3, 1, 3, 3, 4];
-                            // let exampleArray2 = [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3];
-                            // let ampmPty = [exampleArray1, exampleArray2];
                             let morning = [morningPtyList, morningSkyList];
                             let afternoon = [afternoonPtyList, afternoonSkyList];
                             let ampmPty = [morning, afternoon];
 
-
                             weatherInfo.weather[i] = {};
-
                             ampmPty.forEach(array => {
-
 
                                 let valuesToCheck = [1, 2, 3, 4];
                                 let includesAny = valuesToCheck.some(value => array[0].includes(value));
 
                                 if (includesAny) {
-                                    // console.log("배열 안에 1, 2, 3, 4 중 어떤 값이라도 포함되어 있음");
                                     let frequency = valuesToCheck.reduce((result, valueToCheck) => {
                                         result[valueToCheck] = array[1].filter(value => value === valueToCheck).length;
                                         return result;
@@ -514,7 +483,6 @@ fetch(apiShort)
 
                                     }
 
-
                                     if (weatherInfo.weather[i].wea1 == null) {
                                         weatherInfo.weather[i].wea1 = maxFrequency[0];
                                     } else {
@@ -522,7 +490,6 @@ fetch(apiShort)
                                     }
                                     // 필요한 값은 최대 빈도수를 가지는 번호: maxFrequency
                                 } else {
-                                    // console.log("배열 안에 1, 2, 3, 4 값이 포함되어 있지 않음");
 
                                     let skyList = array[1];
 
@@ -557,9 +524,7 @@ fetch(apiShort)
                                         } else {
                                             weatherInfo.weather[i].wea2 = maxFrequency[0];
                                         }
-
                                 }
-
 
                             });
 
@@ -568,10 +533,8 @@ fetch(apiShort)
 
                             /*========= 1일, 2일 pop 추출 ==================*/
 
-
                             let morningPopList = [];
                             let afternoonPopList = [];
-
 
                             apiData.pop.forEach(k => {
 
@@ -604,17 +567,11 @@ fetch(apiShort)
                             weatherInfo.pop[i].pop1 = morningPop;
                             weatherInfo.pop[i].pop2 = afternoonPop;
 
-
                             /*========= 1일, 2일 pop 추출 여기까지 ==================*/
-
-
                         }
 
 
                         let data3 = json.response.body.items.item;
-
-                        console.log(data2[0]);
-                        console.log(data3[0]);
 
                         /* == 중기 기온 조회 + 단기와 중기 기온 한 배열에 담음 ==*/
 
@@ -626,16 +583,12 @@ fetch(apiShort)
                         const taMaxfilteredKeys = Object.keys(data2[0]).filter(key => taMaxpattern.test(key));
                         const taMaxValues = taMaxfilteredKeys.map(key => data2[0][key]);
 
-
                         for (let i = 0; i < 4; i++) {
                             weatherInfo.maxTem.push(taMaxValues[i]);
                             weatherInfo.minTem.push(taMinValues[i]);
                         }
-                        console.log(weatherInfo);
 
                         /* == 중기 기온 조회 + 단기와 중기 기온 한 배열에 담음  여기까지 ==*/
-
-
                         /* == 중기 날씨 정보 3,4,5,6일 후 날씨 배열에 담음 == */
 
                         for (let i = 2; i < 6; i++) {
@@ -647,18 +600,15 @@ fetch(apiShort)
                                 .filter(key => key.match(new RegExp(`^wf${i + 1}(Pm)$`)))
                                 .map(key => data3[0][key]);
 
-
                             weatherInfo.weather[i] = {};
 
                             weatherInfo.weather[i].wea1 = morningArray[0];
                             weatherInfo.weather[i].wea2 = afternoonArray[0];
-
                         }
 
                         /* == 중기 날씨 정보 3,4,5,6일 후 날씨 배열에 담음  여기까지 == */
 
                         /* == 중기 강수량 정보 배열에 담음 */
-
 
                         for (let i = 2; i < 6; i++) {
                             let rnStMorningArray = Object.keys(data3[0])
@@ -669,14 +619,12 @@ fetch(apiShort)
                                 .filter(key => key.match(new RegExp(`^rnSt${i + 1}(Pm)$`)))
                                 .map(key => data3[0][key]);
 
-
                             weatherInfo.pop[i] = {};
 
                             weatherInfo.pop[i].pop1 = rnStMorningArray[0];
                             weatherInfo.pop[i].pop2 = rnStAfternoonArray[0];
 
                         }
-
 
                         for (let i = 0; i < 6; i++) {
 
@@ -695,25 +643,21 @@ fetch(apiShort)
                             $(`.${daysListId} > div`).append(`<div class="rainPercentDiv"></div>`);
                             $(`.${daysListId}`).append(`<ul class="temperatureOfDay"></ul>`);
 
-
                             //오전 날씨
                             switch (weatherInfo.weather[i].wea1) {
                                 case "맑음":
-                                    console.log(i + 2 + "번 째날 오전 맑음");
                                     $(`.${daysListId} .am .daysListIcon`).css(
                                         "background-image",
                                         "url('../images/sunny.png')"
                                     );
                                     break;
                                 case "흐림":
-                                    console.log(i + 2 + "번 째날 오전 흐림");
                                     $(`.${daysListId} .am .daysListIcon`).css(
                                         "background-image",
                                         "url('../images/cloud.png')"
                                     );
                                     break;
                                 case "구름많음":
-                                    console.log(i + 2 + "번 째날 오전 구름많음");
                                     $(`.${daysListId} .am .daysListIcon`).css(
                                         "background-image",
                                         "url('../images/clouds.png')"
@@ -722,7 +666,6 @@ fetch(apiShort)
                                 case "비":
                                 case "구름많고 비":
                                 case "흐리고 비":
-                                    console.log(i + 2 + "번 째날 오전 비");
                                     $(`.${daysListId} .am .daysListIcon`).css(
                                         "background-image",
                                         "url('../images/rain.png')"
@@ -730,7 +673,6 @@ fetch(apiShort)
                                     break;
                                 case "비눈":
                                 case "흐리고 비/눈":
-                                    console.log(i + 2 + "번 째날 오전 비눈");
                                     $(`.${daysListId} .am .daysListIcon`).css(
                                         "background-image",
                                         "url('../images/rainsnow.png')"
@@ -739,7 +681,6 @@ fetch(apiShort)
                                 case "눈":
                                 case "구름많고 눈":
                                 case "흐리고 눈":
-                                    console.log(i + 2 + "번 째날 오전 눈");
                                     $(`.${daysListId} .am .daysListIcon`).css(
                                         "background-image",
                                         "url('../images/snow.png')"
@@ -750,21 +691,18 @@ fetch(apiShort)
                             //오후 날씨
                             switch (weatherInfo.weather[i].wea2) {
                                 case "맑음":
-                                    console.log(i + 2 + "번 째날 오후 맑음");
                                     $(`.${daysListId} .pm .daysListIcon`).css(
                                         "background-image",
                                         "url('../images/sunny.png')"
                                     );
                                     break;
                                 case "흐림":
-                                    console.log(i + 2 + "번 째날 오후 흐림");
                                     $(`.${daysListId} .pm .daysListIcon`).css(
                                         "background-image",
                                         "url('../images/cloud.png')"
                                     );
                                     break;
                                 case "구름많음":
-                                    console.log(i + 2 + "번 째날 오후 구름많음");
                                     $(`.${daysListId} .pm .daysListIcon`).css(
                                         "background-image",
                                         "url('../images/clouds.png')"
@@ -773,7 +711,6 @@ fetch(apiShort)
                                 case "비":
                                 case "구름많고 비":
                                 case "흐리고 비":
-                                    console.log(i + 2 + "번 째날 오후 비");
                                     $(`.${daysListId} .pm .daysListIcon`).css(
                                         "background-image",
                                         "url('../images/rain.png')"
@@ -781,7 +718,6 @@ fetch(apiShort)
                                     break;
                                 case "비눈":
                                 case "흐리고 비/눈":
-                                    console.log(i + 2 + "번 째날 오후 비눈");
                                     $(`.${daysListId} .pm .daysListIcon`).css(
                                         "background-image",
                                         "url('../images/rainsnow.png')"
@@ -790,7 +726,6 @@ fetch(apiShort)
                                 case "눈":
                                 case "구름많고 눈":
                                 case "흐리고 눈":
-                                    console.log(i + 2 + "번 째날 오후 눈");
                                     $(`.${daysListId} .pm .daysListIcon`).css(
                                         "background-image",
                                         "url('../images/snow.png')"
@@ -806,7 +741,6 @@ fetch(apiShort)
 
                         }
 
-
                     })
                     .catch((error3) => console.log(error3))
             })
@@ -815,9 +749,6 @@ fetch(apiShort)
     })
     .catch((error) => console.log(error));
 
-
 function indexContentsListLink (categoryName) {
-
     location.href = "/contents/category/" + categoryName ;
-
 }

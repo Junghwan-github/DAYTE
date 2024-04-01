@@ -1,8 +1,6 @@
 package com.example.dayte.notice.persistence;
 
 
-
-import com.example.dayte.notice.domain.Notice;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -43,11 +41,6 @@ public interface NoticeRepository extends JpaRepository<com.example.dayte.notice
 
     @Query("select n FROM Notice n where n.priority = 0 and n.content LIKE %:searchWord%")
     Page<com.example.dayte.notice.domain.Notice> findContentBySearchWord(String searchWord,Pageable pageable);
-
-
-
-
-
 
 }
 

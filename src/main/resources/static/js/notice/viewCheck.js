@@ -1,9 +1,7 @@
 // 체크박스 체크 상태로 뷰단에서 보일건지 말건지 체크
 window.addEventListener("beforeunload", function (e){
-//e.preventDefault()
     saveCheckboxStates();
 });
-
 function saveCheckboxStates(){
     let checkboxId;
     let isChecked;
@@ -13,10 +11,8 @@ function saveCheckboxStates(){
         .forEach(function (t){
             checkboxId = t.id
             isChecked = t.checked;
-
             checkboxIdstate[checkboxId] = isChecked;
     })
-   // console.log(checkboxIdstate);
 
     fetch("/notice/ViewCheck", {
         method: "POST",

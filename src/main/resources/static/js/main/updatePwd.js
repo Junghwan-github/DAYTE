@@ -9,7 +9,6 @@ $("#newPwd").on("blur", function () {
         if (!passwordRegex.test($("#newPwd").val())) {
             $("#err1").css("color", "red").text("비밀번호는 8자 이상 20글자 이하이며, 한글,숫자,영문,특수기호를 포함해야 합니다.");
             $("#newPwd").css("border-color", "red");
-            // $("#password2").focus();
             return;
         }
             $("#newPwd").css("border-color", "#333");

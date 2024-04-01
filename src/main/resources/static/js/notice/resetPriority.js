@@ -1,38 +1,26 @@
-function resetPriority(no, event)  {
+function resetPriority(no, event) {
     event.preventDefault();
 
-console.log(no);
-       let confirmed = confirm(no + "번 공지를 일반 공지로 변경하시겠습니까?");
+    let confirmed = confirm(no + "번 공지를 일반 공지로 변경하시겠습니까?");
 
-       if(confirmed){
+    if (confirmed) {
+        let data = {
+            no: no
+        }
 
-
-            let data = {
-                no : no
+        fetch("/notice/resetPriority" + no, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json; charset=utf-8",
             }
-            console.log(no)
-
-                        fetch("/notice/resetPriority"+no, {
-                            method: "PUT",
-                            headers: {
-                                "Content-Type": "application/json; charset=utf-8",
-                            }
-
-                        })
-                            .then(response => {
-
-                                return response.json();
-
-                            }).then(data =>{
-                            console.log(data);
-                            location = "/notice/modAll";
-                        })
-                            .catch(error => {
-                                alert(`에러발생 : ${error.message}`);
-                            })
-
-       }
+        })
+            .then(response => {
+                return response.json();
+            }).then(data => {
+            location = "/notice/modAll";
+        })
+            .catch(error => {
+                alert(`에러발생 : ${error.message}`);
+            })
     }
-
-
-
+}

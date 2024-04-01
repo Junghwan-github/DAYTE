@@ -87,7 +87,6 @@ public class ScheduleDateService {
         toAddContents.forEach(content -> {
         });
 
-
         List<DetailedSchedule> toRemoveContents = new ArrayList<>(dbScheduleList);
         toRemoveContents.removeAll(addSchedulesList);
         toRemoveContents.forEach(content -> {

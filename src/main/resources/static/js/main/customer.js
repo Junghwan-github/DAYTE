@@ -1,19 +1,12 @@
 let sendQuestionToEmail = {
     init: function () {
         $("#sendEmail").on("click", () => {
-
             this.sendQuestion();
-
         });
-
     },
     sendQuestion: function () {
 
-        console.log($(".invalid").length);
-
         if(!$(".invalid").length){
-
-            console.log("오류 없음");
 
             let validCheck = {
                 emailAdress: $("#inquiry-email"),
@@ -24,7 +17,6 @@ let sendQuestionToEmail = {
             }
 
             let formData = new FormData();
-
 
             for (let arg in validCheck) {
                 if(validCheck[arg].val() == null || validCheck[arg].val() == ""){
@@ -63,17 +55,12 @@ let sendQuestionToEmail = {
                 }
             }
 
-            for (var pair of formData.entries()) {
-                console.log(pair[0] + ', ' + pair[1]);
-            }
-
             $("#sendEmail").prop("disabled", true);
             $("#mainCategory").prop("disabled", true);
             $("#subCategory").prop("disabled", true);
             $("#inquiry-email").prop("disabled", true);
             $("#inquiry-title").prop("disabled", true);
             $("#inquiry-content").prop("disabled", true);
-
 
             $.ajax({
                  type: "POST",
@@ -86,28 +73,14 @@ let sendQuestionToEmail = {
                  alert("문의접수가 완료되었습니다.");
                  location = "/customerService";
              })
-
              .fail(function (err) {
                  alert("이메일 접수를 실패하셨습니다.");
                  location.reload();
              });
-
-
         } else{
-
             $(".invalid").focus();
-
         }
-
-
-
-
-
-
-
-
-        }
-
+    }
 };
 
 sendQuestionToEmail.init();

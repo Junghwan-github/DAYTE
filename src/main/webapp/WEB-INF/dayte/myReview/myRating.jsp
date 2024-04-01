@@ -67,7 +67,7 @@
         </c:forEach>
         <div class="pagination">
             <ul>
-                <c:if test="${!myReviewPage.first}">
+                <c:if test="${!myReview.first}">
                     <li>
                         <a class="pageDoubleMoveBtn" href="?page=0">
                             <img src="/images/doublePrevious.png"/>
@@ -75,7 +75,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="pageMoveBtn" href="?page=${myReviewPage.number - 1}">
+                        <a class="pageMoveBtn" href="?page=${myReview.number - 1}">
                             <img src="/images/previous.png"/>
                             이전
                         </a>
@@ -91,15 +91,15 @@
                     </c:forEach>
                 </c:if>
 
-                <c:if test="${!myReviewPage.last}">
+                <c:if test="${!myReview.last}">
                     <li>
-                        <a class="pageMoveBtn" href="?page=${myReviewPage.number + 1}">
+                        <a class="pageMoveBtn" href="?page=${myReview.number + 1}">
                             <img src="/images/next.png"/>
                             다음
                         </a>
                     </li>
                     <li>
-                        <a class="pageDoubleMoveBtn" href="?page=${myReviewPage.totalPages-1}">
+                        <a class="pageDoubleMoveBtn" href="?page=${myReview.totalPages-1}">
                             <img src="/images/doubleNext.png"/>
                             마지막으로
                         </a>
@@ -111,5 +111,4 @@
 </main>
 
 <script src="/js/myReview/myRating.js"></script>
-<%--<script src="/js/contentReply/contentReply.js"></script>--%>
 <%@include file="../layout/footer.jsp" %>

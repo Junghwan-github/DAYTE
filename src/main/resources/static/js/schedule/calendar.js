@@ -12,7 +12,6 @@ const init = {
         let isToday;
 
         if (index === -1) {
-            console.log(index);
             this.selectedDates.push(date);
         }
 
@@ -162,7 +161,6 @@ function loadYYMM(fullDate) {
     }
 }
 
-
 loadYYMM(init.today);
 
 /**
@@ -215,7 +213,6 @@ function choiceDate(t) {
 
             // 선택한 날짜의 범위에 스타일 적용
             init.applySelectedStyles();
-            console.log(init.selectedDates);
         }
     }
 }

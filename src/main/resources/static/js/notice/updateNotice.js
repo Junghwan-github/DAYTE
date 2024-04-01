@@ -5,12 +5,9 @@ let updateNoticeObject = {
         $("#btn-update").on("click", () => {
             this.update();
         });
-
-
     },
 
     update: function () {
-
         let fileInput = document.getElementById("file-input");
         let checkFileSize = false;
         let newFiles = [];
@@ -22,7 +19,6 @@ let updateNoticeObject = {
             } else {
                 // 용량이 초과하지 않는 파일만 새로운 배열에 담음
                 newFiles.push(fileInput.files[i]);
-                console.log(newFiles);
             }
         }
 
@@ -50,15 +46,12 @@ let updateNoticeObject = {
                  </p>
                 `
             });
-
             return;
         }
-
 
         let confirmed = confirm("수정 하시겠습니까?")
 
         if (confirmed) {
-
 
             const form = document.getElementById("saveForm");
             const formData = new FormData(form);
@@ -67,28 +60,14 @@ let updateNoticeObject = {
             const title = document.getElementById("title").value;
             let content = $(".summernote").summernote('code');
 
-
-            /*const hiddenFileVHTMLCollection = document.getElementsByClassName("hiddenFileValue");
-            const hiddenFileValue = Array.from(hiddenFileVHTMLCollection);*/
-
             const savedFileHTMLCollection = document.getElementsByName("savedFile");
             const savedFile = Array.from(savedFileHTMLCollection).map(fileInput => fileInput.value);
-
-            console.log(title);
-            console.log(content);
-
 
             formData.append("no", no);
             formData.append("title", title);
             formData.append("content", content);
             savedFile.forEach(saveFile => {
-                console.log(saveFile);
                 formData.append("savedFile", saveFile);
-            });
-            /*formData.append("newFiles", hiddenFileValue);*/
-
-            formData.forEach((value, key) => {
-                console.log(key, value);
             });
 
             fetch("/update/all", {
@@ -96,53 +75,17 @@ let updateNoticeObject = {
                 body: formData
             })
                 .then(response => {
-
                     return response.json();
-
                 }).then(data => {
-                console.log(data);
                 alert("수정이 완료되었습니다.")
                 location = "/viewNotice/" + no;
             })
                 .catch(error => {
                     alert(`에러발생 : ${error.message}`);
                 })
-
         }
     }
 
-
-
-
-
-
-    /*update: function() {
-        let data = {
-
-            no : $("#id").val(),
-            title : $("#title").val(),
-            content : $("#content").val()
-        }
-        fetch("/update", {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json; charset=utf-8",
-            },
-            body: JSON.stringify(data),
-        })
-            .then(response => {
-                return response.json();
-
-
-            }).then(data =>{
-            console.log(data);
-            console.log("수정 완료");
-            location = "/";
-        })
-            .catch(error => {
-                alert(`에러발생 : ${error.message}`);
-            })
-    }*/
 }
 
 updateNoticeObject.init();

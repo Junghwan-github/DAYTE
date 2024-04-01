@@ -13,20 +13,18 @@ import java.util.Random;
 @Service
 public class VerificationService {
 
+    @Autowired
+    private JavaMailSender javaMailSender;
+
     private int randomNumber;
 
     private int verifyNumber;
-
-    @Autowired
-    JavaMailSender javaMailSender;
-
 
     public void makeVerifyNumber() {
         Random rn = new Random();
         int checkNum = rn.nextInt(888888) + 111111;
         randomNumber = checkNum;
     }
-
 
     public int sendEmail(String email) {
         makeVerifyNumber();

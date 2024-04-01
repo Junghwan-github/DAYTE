@@ -1,6 +1,5 @@
 package com.example.dayte.reply.dto;
 
-import com.example.dayte.admin.contents.domain.AdminContents;
 import com.example.dayte.members.domain.User;
 import lombok.Data;
 import lombok.Getter;
@@ -24,8 +23,5 @@ public class ContentReplyDTO {
     private String FormatDate;
 
     private String uuid;
-
-
-
 
 }

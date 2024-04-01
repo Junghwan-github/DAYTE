@@ -18,12 +18,8 @@ function selectFile(element) {
 
             fileInput.files = dataTransfer.files;
 
-
-
         })
     } else if(fileInput.files.length == 0){
-        console.log(selectedFile);
-
         let dataTransfer = new DataTransfer();
 
         selectedFile.forEach(file => {
@@ -31,16 +27,11 @@ function selectFile(element) {
         });
 
         fileInput.files = dataTransfer.files;
-
-
     }
-
-
 
     const preview = document.getElementById("newPreview");
 
     preview.innerHTML = "";
-
 
     let filePreview = Array.from(fileInput.files)
     filePreview.forEach(file => {
@@ -49,7 +40,7 @@ function selectFile(element) {
         ${file.name}
         <button data-index='${file.lastModified}' class='file-remove' onclick="removeFile(this)">X</button>
         </p>
-        `
+        `;
     })
 }
 
@@ -63,12 +54,7 @@ function removeFile(element) {
         .filter(file => file.lastModified != removeTargetId)
         .forEach(file => {
             dataTransfer.items.add(file);
-            console.log(file.name);
-            console.log(file);
-
-
         })
-
 
     fileInput.files = dataTransfer.files;
 
@@ -83,39 +69,11 @@ function removeFile(element) {
 
 }
 
-/*function addFile() {
-    const addFile = document.getElementById("file-add");
-    let originalFile = document.getElementById("file-input");
-    let dataTransfer = new DataTransfer();
-
-    Array.from(originalFile.files)
-        .forEach(file => {
-            dataTransfer.items.add(file);
-        });
-
-    Array.from(addFile.files)
-        .forEach(file => {
-            dataTransfer.items.add(file);
-        });
-
-    console.log("새로 담길 파일 : " + dataTransfer.files);
-
-    originalFile.files = dataTransfer.files;
-
-    addFile.value = "";
-    console.log("파일이 추가된 원본 파일리스트 : " + originalFile.files);
-    console.log("추가파일리스트, 0이어야함 : " + addFile.files);
-
-    updatePreview();
-
-}*/
-
 function updatePreview(){
     const fileInput = document.getElementById("file-input");
     const preview = document.getElementById("newPreview");
 
     preview.innerHTML = "";
-
 
     let updatePreview = Array.from(fileInput.files)
     console.log(updatePreview);
@@ -125,10 +83,9 @@ function updatePreview(){
         ${file.name}
         <button data-index='${file.lastModified}' class='file-remove' onclick="removeFile(this)">X</button>
         </p>
-        `
+        `;
     })
 }
-
 
 function removeFileOnView(element){
     element.parentNode.remove();

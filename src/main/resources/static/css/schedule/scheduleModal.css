@@ -51,9 +51,7 @@
     height: 30px;
     overflow: hidden;
     box-shadow: #11111127 0 1px 1px 0;
-    /* z-index: 2; */
     transition: all 0.3s;
-    /* border: 1px solid #bbb; */
     border-top: 0;
     box-sizing: border-box;
 }
@@ -73,9 +71,7 @@
     color: #111;
     transform: translate(-50%, 0);
     padding: 10px 20px;
-    /* border: 1px solid #bbb; */
     border: none;
-    /* border-top: 0; */
     border-radius: 0 0 10px 10px;
     z-index: 3;
     box-shadow: #11111127 0 1px 1px 0;
@@ -217,7 +213,6 @@
     width: 100%;
     display: flex;
     flex-flow: row nowrap;
-    /* border: 1px solid red; */
 }
 
 .leftModalLayout {
@@ -276,10 +271,7 @@
     font-family: 'NotoSans KR',sans-serif;
     font-weight: 500;
     border-radius: 5px;
-
-
 }
-
 
 .leftModalLayout > div:nth-child(2) > h2,
 .leftModalLayout > div:nth-child(3) > h2{
@@ -612,12 +604,8 @@ overflow: hidden;
     margin: 20px 0 0 0;
     padding: 20px 20px;
     border-radius: 10px;
-    /*background: linear-gradient(45deg, rgba(190, 224, 206, 0.493) 0%, #fdebe07e 90%);*/
     background: #f5f7fa;
 }
-
-
-
 
 .detail-daysPrint-button {
     position: absolute;
@@ -646,8 +634,6 @@ overflow: hidden;
     overflow-y: hidden;
     padding: 0 0 15px 0;
     box-sizing: border-box;
-
-
 }
 
 .detailedScheduleListUl::-webkit-scrollbar {

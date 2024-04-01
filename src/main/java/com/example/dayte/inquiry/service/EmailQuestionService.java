@@ -3,11 +3,8 @@ package com.example.dayte.inquiry.service;
 import com.example.dayte.inquiry.domain.EmailQuestion;
 import com.example.dayte.inquiry.dto.EmailQuestionDTO;
 import com.example.dayte.inquiry.persistence.EmailQuestionRepository;
-import com.example.dayte.security.dto.UserSecurityDTO;
 import jakarta.mail.MessagingException;
-import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
-import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,25 +15,21 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 @Service
-@RequiredArgsConstructor
-
 public class EmailQuestionService {
 
     @Autowired
-    JavaMailSender javaMailSender;
+    private JavaMailSender javaMailSender;
 
     @Autowired
     private EmailQuestionRepository emailQuestionRepository;
 
+    @Autowired
+    private ModelMapper modelMapper;
+
     @Value("${spring.mail.username}")
     private String adminEmail;
-
-    private final ModelMapper modelMapper;
-
-
 
     public void sendQuestion(EmailQuestionDTO emailQuestionDTO, String emailAdress) {
 
@@ -54,7 +47,6 @@ public class EmailQuestionService {
         } catch (MessagingException e) {
             ;
             ;
-
         }
 
 
@@ -87,12 +79,9 @@ public class EmailQuestionService {
 
             emailQuestionRepository.save(modelMapper.map(emailQuestionDTO, EmailQuestion.class));
 
-
         } catch (MessagingException | IOException e) {
             e.printStackTrace();
         }
-
-
 
     }
 }

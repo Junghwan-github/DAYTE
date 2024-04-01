@@ -11,13 +11,10 @@ let replyObject = {
 
         $(".btn-delete-reply").on("click", (e) => {
            this.deleteReply($(e.target).val());
-           console.log($(e.target).val());
-
         });
 
         $(".checkButton").on("click", (e) => {
             this.checkButtonClick($(e.target).val());
-            // console.log($(e.target).val());
         });
     },
 
@@ -29,7 +26,6 @@ let replyObject = {
             content: $("#reply-content").val(), // 등록한 댓글 내용
             id: $("#postId").val() // 댓글이 등록될 포스트의 번호(id값)
         }
-        console.log(reply);
 
         fetch("/postReply", {
             method: "POST",
@@ -42,7 +38,6 @@ let replyObject = {
                 return res.json();
             })
             .then(data => {
-                console.log(data);
                 location.reload();
             })
             .catch(err => {
@@ -78,7 +73,6 @@ let replyObject = {
             content: $(".changedTextarea").val(), // 등록한 댓글 내용
             id: $("#postId").val() // 댓글이 등록될 포스트의 번호(id값)
         }
-        console.log(updateReply);
 
         fetch("/postReply/" + replyId, {
             method: "PUT",

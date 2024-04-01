@@ -16,6 +16,7 @@ let userObject = {
             userEmail: $("#email").val(),
             password: $("#password").val(),
         }
+
         $.ajax({
             type: "PUT",
             url: "/members/delForm/" + user.userEmail,
@@ -60,8 +61,6 @@ let userObject = {
 }
 
 function kakaoDelete(accessToken) {
-    console.log(accessToken);
-
     $.ajax({
         type: "POST",
         url: "https://kapi.kakao.com/v1/user/unlink",
@@ -74,10 +73,6 @@ function kakaoDelete(accessToken) {
     ).fail(error => {});
 }
 function naverDelete(client, accessToken) {
-    console.log(accessToken["tokenValue"]);
-    console.log(client["clientId"]);
-    console.log(client["clientSecret"]);
-
     const naverUrl =
         `client_id=${client["clientId"]}&
         client_secret=${client["clientSecret"]}&
@@ -94,13 +89,11 @@ function naverDelete(client, accessToken) {
 }
 
 function googleDelete(accessToken) {
-    console.log(accessToken["tokenValue"]);
-
     $.ajax({
         type: "POST",
         url: "https://oauth2.googleapis.com/revoke?token=" + accessToken["tokenValue"]
     }).done(response => {}
     ).fail(error => {});
-
 }
+
 userObject.init();

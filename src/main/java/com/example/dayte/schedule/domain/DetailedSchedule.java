@@ -4,8 +4,6 @@ import com.example.dayte.admin.contents.domain.AdminContents;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

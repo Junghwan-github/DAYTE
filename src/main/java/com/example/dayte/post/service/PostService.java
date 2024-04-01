@@ -34,22 +34,17 @@ public class PostService {
     @Autowired
     private PostImagesRepository postImagesRepository;
 
+
+
     @Transactional
     public void insertPost(Post post) {
-        System.out.println("service의 post : " + post);
         postRepository.save(post);
-    }
-
-    @Transactional(readOnly = true)
-    public List<Post> getPostList() {
-        return postRepository.findAll();
     }
 
     @Transactional
     public Post getPost(Long id) {
         return postRepository.findById(id).get();
     }
-
 
     @Transactional
     public void updatePost(Post post) {
@@ -74,7 +69,6 @@ public class PostService {
     // 페이지네이션
     @Transactional(readOnly = true)
     public Page<Post> getPostList(Pageable pageable) {
-
         return postRepository.findAll(pageable);
         // 모든 게시물을 페이지네이션화하여 pageable 객체를 매개변수로 받아와서 페이지네이션 정보를 적용하여 컨트롤러단에 반환
     }
@@ -84,28 +78,24 @@ public class PostService {
     // 제목으로 검색했을 경우
     @Transactional
     public Page<Post> getPostSearchToTitleList(Pageable pageable, String postWord) {
-
         return postRepository.postSearchToPostTitle(pageable, postWord);
     }
 
     // 내용으로 검색했을 경우
     @Transactional
     public Page<Post> getPostSearchToContentList(Pageable pageable, String postWord) {
-
         return postRepository.postSearchToPostContent(pageable, postWord);
     }
 
     // 전체로 검색했을 경우
     @Transactional
     public Page<Post> getPostSearchToAllList(Pageable pageable, String postWord) {
-
         return postRepository.postSearchToPostAll(pageable, postWord);
     }
 
     // 메인에서 검색 했을 경우
     @Transactional
     public List<Post> postSearchToAll(String postWord) {
-
         return postRepository.postSearchToAll(postWord);
     }
 
@@ -141,7 +131,6 @@ public class PostService {
 
     private void extractPostContentHTML(Post post) {
 
-
         Document doc = Jsoup.parse(post.getContent());
 
         Elements imgElements = doc.select("img");
@@ -153,7 +142,6 @@ public class PostService {
                     .post(post)
                     .build();
             postImagesRepository.save(postImages);
-
         }
 
     }
@@ -178,5 +166,6 @@ public class PostService {
     public List<Post> getRecentPosts(int count) {
         return postRepository.findTopByOrderByCreateDateDesc(count);
     }
+
 }
 

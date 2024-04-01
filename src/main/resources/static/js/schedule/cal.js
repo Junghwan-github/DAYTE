@@ -12,7 +12,7 @@ $(".nextBtn").on("click", function () {
     // 요청을 보내기 전에 scheduleDTO를 유효성 검사
     if (!validateScheduleDTO(title, startDate, endDate)) {
         // 유효성 검사 실패, 오류를 처리하거나 메시지를 표시
-        console.error("유효하지 않은 scheduleDTO");
+        console.error("유효하지 않은 데이터");
         return;
     }
 
@@ -121,7 +121,6 @@ function scheduleTotalSaveBtn() {
             contentType: "application/json; charset=utf-8",
             data       : JSON.stringify(userSchedule),
             success    : function (response) {
-                console.log(response);
                 location.reload();
             },
             error      : function (error) {
@@ -144,10 +143,7 @@ function scheduleTotalModifyBtn() {
             nowDate = $(this).data("now-days");
             uuid = $(this).val();
             $(".contentsListItemSelected").each(function (index) {
-                console.log(index)
                 if (saveSchedule[index] != $(this).find("button").val()) {
-                    console.log("true")
-                    console.log(saveSchedule[index])
                     let button = $(this).find("button");
                     saveSchedule.push(button.val());
                 }

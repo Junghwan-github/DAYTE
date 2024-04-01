@@ -33,7 +33,7 @@ public class PostReplyService {
 
     // 댓글 삭제
     @Transactional
-    public void postReplydelete(int num) {
+    public void postReplyDelete(int num) {
         postReplyRepository.deleteById(num);
     }
 

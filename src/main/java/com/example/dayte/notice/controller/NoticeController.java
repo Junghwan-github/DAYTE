@@ -1,15 +1,13 @@
 package com.example.dayte.notice.controller;
 
-
 import com.example.dayte.members.domain.RoleType;
 import com.example.dayte.members.domain.User;
+import com.example.dayte.members.dto.ResponseDTO;
 import com.example.dayte.notice.controller.advice.FileUtil;
 import com.example.dayte.notice.domain.FilesInfo;
 import com.example.dayte.notice.domain.Notice;
 import com.example.dayte.notice.dto.NoticeDTO;
-import com.example.dayte.notice.dto.ResponseDTO;
 import com.example.dayte.notice.service.NoticeService;
-import com.example.dayte.security.service.CustomUserDetailsService;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
@@ -43,26 +41,22 @@ public class NoticeController {
     @Autowired
     private NoticeService noticeService;
 
-    @Autowired
-    private CustomUserDetailsService userDetailsService;
-
-
     @GetMapping("/notice")
     public String getNoticeList(Model model, @PageableDefault(size = 10, sort = "no", direction = Sort.Direction.DESC) Pageable pageable,
-                                @RequestParam(value="page", required=false) Integer page,
+                                @RequestParam(value = "page", required = false) Integer page,
                                 @RequestParam(required = false, defaultValue = "") String searchOption,
                                 @RequestParam(required = false, defaultValue = "") String searchWord) {
 
         Page<Notice> noticeList = noticeService.getNoticeList(pageable);
         String msg = "default";
 
-        if(searchOption.equals("all")){
+        if (searchOption.equals("all")) {
             noticeList = noticeService.AllBySearchWord(searchWord, pageable);
             msg = "searched";
-        } else if(searchOption.equals("title")){
+        } else if (searchOption.equals("title")) {
             noticeList = noticeService.TitleBySearchWord(searchWord, pageable);
             msg = "searched";
-        } else if(searchOption.equals("content")){
+        } else if (searchOption.equals("content")) {
             noticeList = noticeService.ContentBySearchWord(searchWord, pageable);
             msg = "searched";
         }
@@ -77,14 +71,13 @@ public class NoticeController {
         int endPage = Math.min(startPage + pageSize - 1, totalPages - 1);
 
         model.addAttribute("startPage", startPage);
-        if(endPage >=0){
+        if (endPage >= 0) {
             model.addAttribute("endPage", endPage);
         }
 
         return "notice/notice";
     }
 
-    
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/notice/modAll")
     public String modAllNotice(Model model,
@@ -100,20 +93,19 @@ public class NoticeController {
         String msg = "default";
 
         // 일반 공지사항 검색
-        if(searchOption.equals("all")){
+        if (searchOption.equals("all")) {
             defaultNotices = noticeService.AllBySearchWord(searchWord, pageable);
             msg = "searched";
-        } else if(searchOption.equals("title")){
+        } else if (searchOption.equals("title")) {
             defaultNotices = noticeService.TitleBySearchWord(searchWord, pageable);
             msg = "searched";
-        } else if(searchOption.equals("content")){
+        } else if (searchOption.equals("content")) {
             defaultNotices = noticeService.ContentBySearchWord(searchWord, pageable);
             msg = "searched";
         }
 
         model.addAttribute("defaultNotices", defaultNotices);
         model.addAttribute("msg", msg);
-
 
         // 페이지네이션
         int currentPage = defaultNotices.getPageable().getPageNumber();
@@ -127,7 +119,6 @@ public class NoticeController {
 
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
-
 
         return "notice/modNotices";
     }
@@ -149,21 +140,7 @@ public class NoticeController {
     public @ResponseBody ResponseDTO<?> createNotice(
             @RequestPart("title") String title,
             @RequestPart("content") String content,
-            @RequestPart("inputFiles")List<MultipartFile> files) {
-
-       /*System.out.println("Title: " + title);
-        System.out.println("Content: " + content);*/
-
-
-        for (MultipartFile file : files) {
-            System.out.println("Received file: " + file.getOriginalFilename());
-
-            // 각 파일에 대한 처리 로직 수행
-          /*  if(!file.isEmpty()) {
-
-                System.out.println("파일 크기 : " + (double)file.getSize()/(1024*1024));
-            }*/
-        }
+            @RequestPart("inputFiles") List<MultipartFile> files) {
 
         List<FilesInfo> filesInfos = fileUtils.uploadFiles(files);
         NoticeDTO noticeDTO = new NoticeDTO(title, content);
@@ -171,27 +148,6 @@ public class NoticeController {
         Notice notice = modelMapper.map(noticeDTO, Notice.class);
 
         noticeService.createNotice(notice, filesInfos);
-
-
-
-
-
-        /*List<FilesInfo> fileCollection = fileUtils.uploadFiles(files);*/
-
-
-
-        /*if (bindingResult.hasErrors()) {
-            Map<String, String> errMap = new HashMap<>();
-
-            for (FieldError err : bindingResult.getFieldErrors())
-                errMap.put(err.getField(), err.getDefaultMessage());
-
-            return new ResponseDTO<>(HttpStatus.BAD_REQUEST.value(), errMap);
-        }
-
-        Notice notice = modelMapper.map(noticeDTO, Notice.class);
-
-        noticeService.createNotice(notice);*/
 
         return new ResponseDTO<>(HttpStatus.OK.value(), "새로운 공지사항을 등록했습니다.");
 
@@ -201,13 +157,11 @@ public class NoticeController {
     @Transactional(readOnly = true)
     @GetMapping("/viewNotice/{id}")
     public String getNotice(@PathVariable int id, Model model, Pageable pageable,
-                            @RequestParam(value="page", required=false) String currentPage,
+                            @RequestParam(value = "page", required = false) String currentPage,
                             HttpSession session) {
         model.addAttribute("notice", noticeService.getNotice(id));
 
-
-        model.addAttribute("page",currentPage);
-
+        model.addAttribute("page", currentPage);
 
         model.addAttribute("nowId", id);
 
@@ -215,29 +169,22 @@ public class NoticeController {
         model.addAttribute("nextId", nextNotice.map(Notice::getNo).orElse(null));
         model.addAttribute("nextTitle", nextNotice.map(Notice::getTitle).orElse(null));
 
-
         Optional<Notice> prevNotice = noticeService.getPrevNotice(id);
         model.addAttribute("prevId", prevNotice.map(Notice::getNo).orElse(null));
         model.addAttribute("prevTitle", prevNotice.map(Notice::getTitle).orElse(null));
-
-        // log.info(prevNotice.map(Notice::getNo));
-
 
         User principal = (User) session.getAttribute("principal");
         if (principal != null) {
             if (principal.getRole().equals(RoleType.ADMIN)) {
                 model.addAttribute("isAdmin", true);
-                log.info("isAdmin: true");
 
             } else {
                 model.addAttribute("isAdmin", false);
-                log.info("isAdmin: false");
             }
         }
 
         return "notice/detailNotice";
     }
-
 
 
     //공지사항 수정페이지 이동
@@ -255,35 +202,17 @@ public class NoticeController {
                                                      @RequestPart("title") String title,
                                                      @RequestPart("content") String content,
                                                      @RequestParam("savedFile") Optional<List<String>> savedFile,
-                                                     @RequestPart("inputFiles")List<MultipartFile> files) {
+                                                     @RequestPart("inputFiles") List<MultipartFile> files) {
 
-/*log.info("^^^^^^^^^^^^매개변수 값^^^^^^^^^^^");
+        List<FilesInfo> filesInfos = fileUtils.uploadFiles(files);
+        NoticeDTO noticeDTO = new NoticeDTO(title, content);
+        Notice notice = modelMapper.map(noticeDTO, Notice.class);
 
-log.info(no);
-log.info(title);
-log.info(content);
-log.info(savedFile);
-for(MultipartFile file: files) {
-    log.info(file.getOriginalFilename());
-    log.info(file.getSize());
-    log.info(file.getContentType());
-}*/
-   List<FilesInfo> filesInfos = fileUtils.uploadFiles(files);
-    NoticeDTO noticeDTO = new NoticeDTO(title, content);
-    Notice notice = modelMapper.map(noticeDTO, Notice.class);
-
-
-    if(savedFile.isPresent()){
-        noticeService.updateNotice(no, notice, savedFile.get(), filesInfos);
-    } else{
-        noticeService.updateNotice(no, notice, filesInfos);
-    }
-
-
-
-
-
-
+        if (savedFile.isPresent()) {
+            noticeService.updateNotice(no, notice, savedFile.get(), filesInfos);
+        } else {
+            noticeService.updateNotice(no, notice, filesInfos);
+        }
 
         return new ResponseDTO<>(HttpStatus.OK.value(), /*notice.getNo() + */"번 게시글이 수정되었습니다.");
     }
@@ -293,6 +222,7 @@ for(MultipartFile file: files) {
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/notice/delete")
     public @ResponseBody ResponseDTO<?> deleteNotice(@RequestBody List<Integer> noticeIds) {
+
         for (int noticeId : noticeIds) {
             noticeService.deleteNotice(noticeId);
         }
@@ -303,8 +233,7 @@ for(MultipartFile file: files) {
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/notice/fixPriority")
     public @ResponseBody ResponseDTO<?> fixPriority(@RequestBody List<Integer> noticeIds) {
-        log.info("^^^^^^^^^^^^^^^^^^^^^^");
-        log.info(noticeIds);
+
         noticeService.fixPriority(noticeIds);
 
         return new ResponseDTO<>(HttpStatus.OK.value(), "필독 우선순위가 저장되었습니다.");
@@ -317,7 +246,6 @@ for(MultipartFile file: files) {
         noticeService.resetPriority(no);
 
         return new ResponseDTO<>(HttpStatus.OK.value(), "필독공지사항이 일반 공지사항으로 변경되었습니다.");
-
     }
 
     //일반 공지사항을 필독 공지사항으로 변경(priority 값을 부여된 값 중 가장 높은 값으로)
@@ -327,7 +255,6 @@ for(MultipartFile file: files) {
         noticeService.grantPriority(no);
 
         return new ResponseDTO<>(HttpStatus.OK.value(), "일반 공지사항을 필독 공지사항으로 변경했습니다.");
-
     }
 
     // 페이지 벗어날 때 마다 체크박스 상태 저장
@@ -335,15 +262,10 @@ for(MultipartFile file: files) {
     @PostMapping("/notice/ViewCheck")
     public @ResponseBody ResponseDTO<?> ViewCheck(@RequestBody Map<String, Boolean> checkboxIdState) {
 
-        // log.info("^^^^^^^^^^^^^^^^^^^^^^^^^");
-        // log.info(checkboxIdState);
-
         noticeService.saveCheckboxStates(checkboxIdState);
 
         return new ResponseDTO<>(HttpStatus.OK.value(), "checkbox상태를 확인하고 변경값이 생겼을 경우 DB에 반영했습니다.");
-
     }
-    
 
 }
 

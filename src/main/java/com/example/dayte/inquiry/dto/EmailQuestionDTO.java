@@ -24,8 +24,4 @@ public class EmailQuestionDTO {
 
     private List<MultipartFile> files;
 
-
-
-
-
 }

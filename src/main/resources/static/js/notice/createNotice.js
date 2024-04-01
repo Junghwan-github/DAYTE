@@ -2,21 +2,16 @@
 
 let noticeObject = {
     init: function () {
-
         $("#btn-create").on("click", () => {
             this.createNotice();
         });
-
-
-
-
     },
 
     createNotice: function () {
 
         let fileInput = document.getElementById("file-input");
         let checkFileSize = false;
-         let newFiles = [];
+        let newFiles = [];
 
         for (let i = 0; i < fileInput.files.length; i++) {
             if (fileInput.files[i].size > 1 * 1024 * 1024) {
@@ -25,7 +20,6 @@ let noticeObject = {
             } else {
                 // 용량이 초과하지 않는 파일만 새로운 배열에 담음
                 newFiles.push(fileInput.files[i]);
-                console.log(newFiles);
             }
         }
 
@@ -54,44 +48,30 @@ let noticeObject = {
                  </p>
                 `
             });
-
             return;
         }
-
-
 
         const form = document.getElementById("saveForm");
         const formData = new FormData(form);
         let content = $(".summernote").summernote('code');
         formData.append("content", content);
-        console.log(form);
-        console.log(form.title);
-        console.log(form.files);
-
 
         let confirmed = confirm("새 공지사항을 등록 하시겠습니까?")
 
         if (confirmed) {
-
-        fetch("/notice/createNotice", {
-            method: "POST",
-            body: formData,
-        })
-            .then(response => {
-                    return response.json();
-
+            fetch("/notice/createNotice", {
+                method: "POST",
+                body: formData,
+            })
+                .then(response => {
+                        return response.json();
             }).then(data => {
-            console.log(data);
             location = "/notice/modAll";
-        })
-            .catch(error => {
+            }).catch(error => {
                 alert(`에러발생 : ${error.message}`);
             })
-
+        }
     }
-    }
-
-
 }
 
 noticeObject.init();

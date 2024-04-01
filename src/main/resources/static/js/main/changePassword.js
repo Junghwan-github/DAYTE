@@ -6,7 +6,6 @@ let userEmail
 $("#updatePwdBtn").on('click', function () {
 
     userEmail = $("#userEmail").val()
-    console.log("userEmail no.1 : " +userEmail)
     fetch("/members/findPwd/" + userEmail, {
         method : "POST",
         headers: {
@@ -28,7 +27,6 @@ $("#updatePwdBtn").on('click', function () {
 
 // 사용자의 이메일 주소로 이메일 전송
 function sendEmail(userEmail) {
-    console.log("userEmail no.2 : " +userEmail)
     let verificationDTO = {
         address: userEmail
     }
@@ -48,7 +46,6 @@ function sendEmail(userEmail) {
 
 // 뷰 단에서 사용자가 입력한 값과 비교
 $("#checkNumberBtn").on('click', function () {
-    console.log("userEmail no.3 : " +userEmail)
     fetch("/members/checkEmail", {
         method : "POST",
         headers: {
@@ -59,7 +56,6 @@ $("#checkNumberBtn").on('click', function () {
         return res.json();
     }).then(data => {
         if (data == 200){
-            console.log("userEmail no.4 : " +userEmail)
             alert("인증되었습니다.");
                 let form = document.querySelector('#checkPwdForm');
                 form.action = "/members/changePwd";
@@ -73,7 +69,6 @@ $("#checkNumberBtn").on('click', function () {
 
 // 비밀번호 변경
 $("#changePwdBtn").on('click', function () {
-    console.log("userEmail no.5 : " +userEmail)
     let userDTO = {
         userEmail: $(this).val(),
         password: $("#confirmPwd").val()
@@ -92,7 +87,6 @@ $("#changePwdBtn").on('click', function () {
         $("#err1").text("입력한 비밀번호가 틀립니다.")
         return;
     }
-    console.log("userEmail no.6 : " +userEmail)
 
     fetch("/members/changePwd", {
         method : "PUT",
@@ -112,9 +106,3 @@ $("#changePwdBtn").on('click', function () {
         alert(err)
     })
 });
-
-// function submitLoginForm() {
-//     let form = document.querySelector("#changePwdForm")
-//     form.action = "/members/login";
-//     form.submit();
-// }

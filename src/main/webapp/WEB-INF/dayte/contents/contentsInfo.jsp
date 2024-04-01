@@ -10,9 +10,7 @@
 
 </head>
 <body>
-<!-- 해야할 일 : 자바스크립트로 이미지 테이블의 이미지 갯수 끌고와서 div만들어 넣기
-      (contentInfo.css)에 마지막 줄에 bxslider bgimage 넣는 형식으로 만들어야 함
-    -->
+
 <%@include file="../layout/header.jsp" %>
 <!-- 메인 -->
 <section id="content-sub-nav">
